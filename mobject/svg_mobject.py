@@ -179,6 +179,12 @@ class SVGMobject(VMobject):
 class VMobjectFromSVGPathstring(VMobject):
     def __init__(self, path_string, **kwargs):
         digest_locals(self)
+
+        # moconnor: I have no idea why I need to set these two
+        # attributes here, but it makes it work
+        self.stroke_rgb=color_to_rgb(RED) # what am I doing lol
+        self.fill_rgb=color_to_rgb(BLACK) # lol
+
         VMobject.__init__(self, **kwargs)
 
     def get_path_commands(self):
