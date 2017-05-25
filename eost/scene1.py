@@ -58,8 +58,8 @@ class Scene1(Scene):
         apple_group = Group(*apples).center().to_edge(UP)
         pear_group = Group(*pears).center().to_edge(DOWN)
         # Display the two lines of apples and pears
-        self.play(Succession(*map(GrowFromCenterGeneral, apple_group.submobjects), rate_func=None, run_time = 2*DEFAULT_ANIMATION_RUN_TIME))
-        self.play(Succession(*map(GrowFromCenterGeneral, pear_group.submobjects), rate_func=None, run_time = 2*DEFAULT_ANIMATION_RUN_TIME))
+        self.play(Succession(*map(GrowFromCenterGeneral, apple_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
+        self.play(Succession(*map(GrowFromCenterGeneral, pear_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         #self.play(ShowCreation(apple_group))
         #self.play(ShowCreation(pear_group))
         self.dither()
