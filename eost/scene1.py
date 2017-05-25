@@ -42,6 +42,12 @@ def permute_animations(mobjs,move):
         for (i,j) in enumerate(permuted_indices)
     ]
 
+class GrowFromCenterGeneral(Transform):
+    def __init__(self, mobject, **kwargs):
+        target = mobject.copy()
+        mobject.scale_in_place(0)
+        Transform.__init__(self, mobject, target, **kwargs)
+
 class Scene1(Scene):
     def construct(self):
         num_apples = 5
@@ -52,8 +58,10 @@ class Scene1(Scene):
         apple_group = Group(*apples).center().to_edge(UP)
         pear_group = Group(*pears).center().to_edge(DOWN)
         # Display the two lines of apples and pears
-        self.play(ShowCreation(apple_group))
-        self.play(ShowCreation(pear_group))
+        self.play(Succession(*map(GrowFromCenterGeneral, apple_group.submobjects), rate_func=None, run_time = 2*DEFAULT_ANIMATION_RUN_TIME))
+        self.play(Succession(*map(GrowFromCenterGeneral, pear_group.submobjects), rate_func=None, run_time = 2*DEFAULT_ANIMATION_RUN_TIME))
+        #self.play(ShowCreation(apple_group))
+        #self.play(ShowCreation(pear_group))
         self.dither()
         # Show a matching
         matching = Group(*map(line,apples[:min_fruit],pears[:min_fruit]))
