@@ -1,4 +1,5 @@
 from scene import Scene
+from animation.simple_animations import *
 from .. import *
 
 class Scene1(Scene):
