@@ -27,15 +27,12 @@ class Fruit(Mobject):
                 should_center = False
             )
             svg.set_stroke(width=0)
-            if 'outline' in basename:
-                svg.set_fill(color=c(constants.DARK_BROWN))
-            else:
-                try:
-                    (_fruit,color,ext) = basename.split('-')
-                    if ext == "fill.svg":
-                        svg.set_fill(color=c(getattr(constants,color.upper())))
-                except:
-                    pass
+            try:
+                (_fruit,color,ext) = basename.split('-')
+                if ext == "fill.svg":
+                    svg.set_fill(color=c(getattr(constants,color.upper())))
+            except:
+                pass
             return svg
         svgs = [
             load_svg(basename)
