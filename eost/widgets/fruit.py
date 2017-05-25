@@ -9,11 +9,17 @@ class Fruit(Mobject):
     def fruit_type(self):
         raise Exception("Define in subclass")
 
-    def __init__(self):
+    def __init__(self,color=None):
         fruit_type = self.fruit_type()
         images_dir = os.path.join(
             os.path.dirname(__file__), "images", fruit_type
         )
+        # Allow colors to be overridden by the passed in value
+        def c(clr):
+            if color is None:
+                return clr
+            else:
+                return color
         def load_svg(basename):
             file_name = os.path.join(images_dir,basename)
             svg = SVGMobject(
@@ -22,12 +28,12 @@ class Fruit(Mobject):
             )
             svg.set_stroke(width=0)
             if 'outline' in basename:
-                svg.set_fill(color=constants.DARK_BROWN)
+                svg.set_fill(color=c(constants.DARK_BROWN))
             else:
                 try:
                     (_fruit,color,ext) = basename.split('-')
                     if ext == "fill.svg":
-                        svg.set_fill(color=getattr(constants,color.upper()))
+                        svg.set_fill(color=c(getattr(constants,color.upper())))
                 except:
                     pass
             return svg

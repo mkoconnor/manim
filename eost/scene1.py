@@ -81,9 +81,11 @@ class Scene1(Scene):
         self.play(Uncreate(matching))
         self.dither()
 
-    # Emphasize a mobj by making it slightly bigger
-    def emphasize(self,mobj):
-        orig = mobj.copy()
-        self.play(Transform(mobj,mobj.copy().scale_in_place(1.1)))
-        self.dither()
-        self.play(Transform(mobj,orig))
+    # Emphasize an apple mobj by making it slightly bigger and white
+    def emphasize(self,apple):
+        orig = apple.copy()
+        emphasized = Apple(color=WHITE)
+        emphasized.shift(orig.get_center() - emphasized.get_center())
+        emphasized.scale_in_place(1.1)
+        self.play(Transform(apple,emphasized))
+        self.play(Transform(apple,orig))
