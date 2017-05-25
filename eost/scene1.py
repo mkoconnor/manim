@@ -8,17 +8,6 @@ from helpers import *
 from animation.transform import *
 from topics.geometry import *
 
-def in_a_row(mobj,n):
-    mobjs = []
-    last_mobj = None
-    for _ in xrange(n):
-        this_mobj = mobj.copy()
-        if last_mobj is not None:
-            this_mobj.next_to(last_mobj)
-        last_mobj = this_mobj
-        mobjs.append(this_mobj)
-    return mobjs
-
 def line(from_,to):
     return Line(from_.get_center(),to.get_center())
 
@@ -53,10 +42,10 @@ class Scene1(Scene):
         num_apples = 5
         num_pears = 4
         min_fruit = min(num_apples,num_pears)
-        apples = in_a_row(Apple(),num_apples)
-        pears = in_a_row(Pear(),num_pears)
-        apple_group = Group(*apples).center().to_edge(UP)
-        pear_group = Group(*pears).center().to_edge(DOWN)
+        apples = [Apple() for _ in xrange(num_apples)]
+        pears = [Pear() for _ in xrange(num_pears)]
+        apple_group = Group(*apples).arrange_submobjects().to_edge(UP)
+        pear_group = Group(*pears).arrange_submobjects().to_edge(DOWN)
         # Display the two lines of apples and pears
         self.play(Succession(*map(GrowFromCenterGeneral, apple_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.play(Succession(*map(GrowFromCenterGeneral, pear_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
