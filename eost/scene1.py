@@ -9,7 +9,11 @@ from animation.transform import *
 from topics.geometry import *
 
 def line(from_,to):
-    return Line(from_.get_center(),to.get_center())
+    buff = (0,0.1,0)
+    return Line(
+        from_.get_critical_point(DOWN)-buff,
+        to.get_critical_point(UP)+buff
+    )
 
 def permute(l):
     import random
@@ -49,8 +53,6 @@ class Scene1(Scene):
         # Display the two lines of apples and pears
         self.play(Succession(*map(GrowFromCenterGeneral, apple_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.play(Succession(*map(GrowFromCenterGeneral, pear_group.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
-        #self.play(ShowCreation(apple_group))
-        #self.play(ShowCreation(pear_group))
         self.dither()
         # Show a matching
         matching = Group(*map(line,apples[:min_fruit],pears[:min_fruit]))
