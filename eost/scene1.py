@@ -58,19 +58,32 @@ class Scene1(Scene):
         # Show a matching
         matching = Group(*map(line,apples[:min_fruit],pears[:min_fruit]))
         self.play(ShowCreation(matching))
-        self.dither()
+        self.emphasize(apples[-1]) # Above, I pretended like this function
+                                   # was generic over the number of apples
+                                   # pears.  But here, and in the emphasis
+                                   # below, it isn't.
         self.play(Uncreate(matching))
         # Permute them
         apple_permutations=permute_animations(apple_group,move="down")
         pear_permutations=permute_animations(pear_group,move="up")
         self.play(*(apple_permutations + pear_permutations))
         # Show a different matching
+        permuted_apples = permute(apples)
+        permuted_pears = permute(pears)
         matching = Group(*map(
             line,
-            permute(apples)[:min_fruit],
-            permute(pears)[:min_fruit]
+            permuted_apples[:min_fruit],
+            permuted_pears[:min_fruit]
         ))
         self.play(ShowCreation(matching))
-        self.dither()
+        self.emphasize(permuted_apples[-1]) # See comment above. This [-1] is
+                                            # kind of a cheat
         self.play(Uncreate(matching))
         self.dither()
+
+    # Emphasize a mobj by making it slightly bigger
+    def emphasize(self,mobj):
+        orig = mobj.copy()
+        self.play(Transform(mobj,mobj.copy().scale_in_place(1.1)))
+        self.dither()
+        self.play(Transform(mobj,orig))
