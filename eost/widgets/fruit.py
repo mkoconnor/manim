@@ -41,7 +41,7 @@ class Fruit(Mobject):
         ]
         Mobject.__init__(self,*svgs)
         self.center()
-        self.scale(0.005)
+        self.scale(0.002)
 
 class Pear(Fruit):
     def fruit_type(self):
