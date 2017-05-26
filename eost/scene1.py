@@ -38,18 +38,18 @@ class GrowFromCenterGeneral(Transform):
         Transform.__init__(self, mobject, target, **kwargs)
 
 def apple_pile():
-    bottom_row = [Apple() for _ in xrange(3)]
-    top_row = [Apple() for _ in xrange(2)]
+    bottom_row = [Apple(i) for i in xrange(3)]
+    top_row = [Apple(i) for i in xrange(3,5)]
     Group(*bottom_row).arrange_submobjects(buff=0.1)
     Group(*top_row).arrange_submobjects(buff=0.1)
     Group(*top_row).next_to(Group(*bottom_row),direction=UP,buff=0)
     return Group(*(bottom_row + top_row))
 
 def pear_pile():
-    bottom_two = [Pear() for _ in xrange(2)]
+    bottom_two = [Pear(i) for i in xrange(2)]
     Group(*bottom_two).arrange_submobjects(buff=0.1)
-    third_on_bottom = Pear().next_to(Group(*bottom_two),buff=0.1)
-    top = (Pear()).next_to(Group(*bottom_two),direction=UP,buff=0)
+    third_on_bottom = Pear(2).next_to(Group(*bottom_two),buff=0.1)
+    top = (Pear(3)).next_to(Group(*bottom_two),direction=UP,buff=0)
     return Group(*(bottom_two + [third_on_bottom, top]))
 
 class CountTransform(Succession):
@@ -90,8 +90,8 @@ class Scene1(Scene):
         self.play(Succession(*map(GrowFromCenterGeneral, apples.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.play(Succession(*map(GrowFromCenterGeneral, pears.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.dither()
-        counted_apples = [Apple() for _ in xrange(5)]
-        counted_pears = [Pear() for _ in xrange(4)]
+        counted_apples = [Apple(i) for i in xrange(5)]
+        counted_pears = [Pear(i) for i in xrange(4)]
         counted_apple_group = Group(*counted_apples).arrange_submobjects().to_edge(UP)
         counted_pear_group = Group(*counted_pears).arrange_submobjects().to_edge(DOWN)
         apple_count = CountTransform(apples,counted_apple_group,direction=DOWN)

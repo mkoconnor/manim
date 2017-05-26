@@ -24,14 +24,31 @@ class Fruit(SVGMobject):
         self[0].set_stroke(color = color)
         self[0].set_fill(color = color_gradient((BLACK, color), 4)[1], opacity = 1)
 
+color_indices='ABCDE'
+
+def get_color(base_color,color_index):
+    return getattr(
+        constants,
+        base_color + "_" + color_indices[color_index % len(color_indices)]
+    )
+
 class Pear(Fruit):
     CONFIG = {
         "fruit_type" : "pear",
-        "color"      : YELLOW,
     }
+
+    def __init__(self,color_index,**kwargs):
+        self.color=get_color(base_color="YELLOW",color_index=color_index)
+        Fruit.__init__(self,**kwargs)
 
 class Apple(Fruit):
     CONFIG = {
         "fruit_type" : "apple",
-        "color"      : RED,
     }
+
+    def __init__(self,color_index=None,color=None,**kwargs):
+        if color is not None:
+            self.color = color
+        else:
+            self.color=get_color(base_color="RED",color_index=color_index)
+        Fruit.__init__(self,**kwargs)

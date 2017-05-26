@@ -9,7 +9,7 @@ from animation.transform import *
 from .matching import get_matching
 
 class NumberLine(Mobject):
-    def __init__(self,mobj,direction,n=10):
+    def __init__(self,mobj_creator,direction,n=10):
         unnumbered_mobjs = []
         numbered_mobjs = []
 
@@ -19,7 +19,7 @@ class NumberLine(Mobject):
             return Group(buff,text)
 
         for i in xrange(n):
-            copy = mobj.copy()
+            copy = mobj_creator(i)
             unnumbered_mobjs.append(copy)
             number_mobj = make_number_mobj(i)
             number_mobj.next_to(copy,direction=direction)
@@ -30,8 +30,8 @@ class NumberLine(Mobject):
 
 class Scene2(Scene):
     def construct(self):
-        apples = NumberLine(Apple(),direction=UP).to_edge(UP).to_edge(LEFT)
-        pears = NumberLine(Pear(),direction=DOWN).to_edge(DOWN).to_edge(LEFT)
+        apples = NumberLine(Apple,direction=UP).to_edge(UP).to_edge(LEFT)
+        pears = NumberLine(Pear,direction=DOWN).to_edge(DOWN).to_edge(LEFT)
         self.play(ShowCreation(apples))
         self.play(ShowCreation(pears))
         self.dither()
