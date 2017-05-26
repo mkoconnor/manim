@@ -8,13 +8,7 @@ import helpers
 from helpers import *
 from animation.transform import *
 from topics.geometry import *
-
-def line(from_,to):
-    buff = (0,0.1,0)
-    return Line(
-        from_.get_critical_point(DOWN)-buff,
-        to.get_critical_point(UP)+buff
-    )
+from .matching import get_matching
 
 def permute(l):
     import random
@@ -89,9 +83,6 @@ class CountTransform(Succession):
 
 class Scene1(Scene):
     def construct(self):
-        num_apples = 5
-        num_pears = 4
-        min_fruit = min(num_apples,num_pears)
         apples = apple_pile().center()
         pears = pear_pile().center().next_to(apples,direction=DOWN)
         Group(apples,pears).center()
@@ -99,8 +90,8 @@ class Scene1(Scene):
         self.play(Succession(*map(GrowFromCenterGeneral, apples.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.play(Succession(*map(GrowFromCenterGeneral, pears.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.dither()
-        counted_apples = [Apple() for _ in xrange(num_apples)]
-        counted_pears = [Pear() for _ in xrange(num_pears)]
+        counted_apples = [Apple() for _ in xrange(5)]
+        counted_pears = [Pear() for _ in xrange(4)]
         counted_apple_group = Group(*counted_apples).arrange_submobjects().to_edge(UP)
         counted_pear_group = Group(*counted_pears).arrange_submobjects().to_edge(DOWN)
         apple_count = CountTransform(apples,counted_apple_group,direction=DOWN)
@@ -131,7 +122,7 @@ class Scene1(Scene):
             pear_count.numbers[-1]
         ]))
         # Show a matching
-        matching = Group(*map(line,apples[:min_fruit],pears[:min_fruit]))
+        matching = get_matching(Group(*apples),Group(*pears))
         self.play(ShowCreation(matching))
         self.emphasize(apples[-1]) # Above, I pretended like this function
                                    # was generic over the number of apples
@@ -145,11 +136,7 @@ class Scene1(Scene):
         # Show a different matching
         permuted_apples = permute(apples)
         permuted_pears = permute(pears)
-        matching = Group(*map(
-            line,
-            permuted_apples[:min_fruit],
-            permuted_pears[:min_fruit]
-        ))
+        matching = get_matching(Group(*permuted_apples),Group(*permuted_pears))
         self.play(ShowCreation(matching))
         self.emphasize(permuted_apples[-1]) # See comment above. This [-1] is
                                             # kind of a cheat
