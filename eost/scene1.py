@@ -27,7 +27,9 @@ def permute_animations(mobj,move):
         else:
             return clockwise_path()
     return [
-        Transform(mobjs[i],mobjs[j].copy(),path_func=path_along_arc(i,j))
+        Transform(mobjs[i],mobjs[i].copy().replace(mobjs[j]),
+                  path_func=path_along_arc(i,j)
+        )
         for (i,j) in enumerate(permuted_indices)
     ]
 
