@@ -54,7 +54,7 @@ def pear_pile():
     top = (Pear(3)).next_to(Group(*bottom_two),direction=UP,buff=0)
     return Group(*(bottom_two + [third_on_bottom, top]))
 
-class CountTransform(Succession):
+class CountTransform():
     CONFIG = {
         'rate_func' : None
     }
@@ -74,7 +74,11 @@ class CountTransform(Succession):
             in enumerate(zip(mobject.submobjects,target.submobjects))
         ]
         self.numbers = numbers
-        Succession.__init__(self,*transforms)
+        self.transforms = transforms
+
+    def play(self,scene):
+        for transform in self.transforms:
+            scene.play(transform)
 
     def summarize(self):
         central_number = self.numbers[-1].copy()
@@ -101,9 +105,9 @@ class Scene1(Scene):
         counted_apple_group = Group(*counted_apples).arrange_submobjects().to_edge(UP)
         counted_pear_group = Group(*counted_pears).arrange_submobjects().to_edge(DOWN)
         apple_count = CountTransform(apples,counted_apple_group,direction=DOWN)
-        self.play(apple_count)
+        apple_count.play(self)
         pear_count = CountTransform(pears,counted_pear_group,direction=UP)
-        self.play(pear_count)
+        pear_count.play(self)
         self.play(apple_count.summarize(),pear_count.summarize())
         inequality = TexMobject(
             apple_count.numbers[-1].args[0],
