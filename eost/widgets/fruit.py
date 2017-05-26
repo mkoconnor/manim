@@ -15,7 +15,7 @@ class Fruit(SVGMobject):
             os.path.dirname(__file__), "images", self.fruit_type+".svg"
         )
         SVGMobject.__init__(self, file_name = file_name, **kwargs)
-        self.scale(0.0012)
+        self.scale(0.0016)
         self[1].set_color(WHITE)
         self.set_color(self.color)
 
