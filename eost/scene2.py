@@ -6,9 +6,10 @@ from mobject import Mobject, Group
 from .widgets import *
 from animation.simple_animations import *
 from animation.transform import *
+from .matching import get_matching
 
 class NumberLine(Mobject):
-    def __init__(self,mobj,direction,n=7):
+    def __init__(self,mobj,direction,n=10):
         unnumbered_mobjs = []
         numbered_mobjs = []
 
@@ -33,4 +34,22 @@ class Scene2(Scene):
         pears = NumberLine(Pear(),direction=DOWN).to_edge(DOWN).to_edge(LEFT)
         self.play(ShowCreation(apples))
         self.play(ShowCreation(pears))
+        self.dither()
+        matching = get_matching(
+            Group(*apples.submobjects[:-1]),
+            Group(*pears.submobjects[:-1])
+        )
+        self.play(ShowCreation(matching))
+        self.dither()
+        one_extra_apple = get_matching(
+            Group(*apples.submobjects[1:]),
+            Group(*pears.submobjects[:-1])
+        )
+        self.play(Transform(matching,one_extra_apple))
+        self.dither()
+        one_extra_pear = get_matching(
+            Group(*apples.submobjects[:-1]),
+            Group(*pears.submobjects[1:])
+        )
+        self.play(Transform(matching,one_extra_pear))
         self.dither()
