@@ -53,6 +53,10 @@ def pear_pile():
     return Group(*(bottom_two + [third_on_bottom, top]))
 
 class CountTransform(Succession):
+    CONFIG = {
+        'rate_func' : None
+    }
+
     def __init__(self, mobject, target, direction):
         numbers=[]
         def transform(mobj,tgt,i):
