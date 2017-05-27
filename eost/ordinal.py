@@ -140,3 +140,16 @@ def make_ordinal_power(power, **kwargs):
     if power == 0: return OrdinalOne(**kwargs)    
     return LimitOrdinal(lambda **kwargs: make_ordinal_power(power-1, **kwargs),
                         **kwargs)
+
+def extract_ordinal_subpowers(o):
+    if type(o[0]) == OrdinalOne: return ([o[0]],)
+
+    result = None
+    for subord in o:
+        partial = extract_ordinal_subpowers(subord)
+        if result is None: result = partial
+        else:
+            for i, layer in enumerate(result):
+                layer += partial[i]
+
+    return ([result[0][0]],)+result
