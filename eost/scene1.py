@@ -39,19 +39,22 @@ class GrowFromCenterGeneral(Transform):
         mobject.scale_in_place(0)
         Transform.__init__(self, mobject, target, **kwargs)
 
+def random_small_angle():
+    return random.uniform(-np.pi/40,np.pi/40)
+
 def apple_pile():
-    bottom_row = [Apple(i) for i in xrange(3)]
-    top_row = [Apple(i) for i in xrange(3,5)]
+    bottom_row = [Apple(i).rotate(random_small_angle()) for i in xrange(3)]
+    top_row = [Apple(3).rotate(-np.pi/20),Apple(4).rotate(np.pi/20)]
     Group(*bottom_row).arrange_submobjects(buff=0.1)
     Group(*top_row).arrange_submobjects(buff=0.1)
     Group(*top_row).next_to(Group(*bottom_row),direction=UP,buff=0)
     return Group(*(bottom_row + top_row))
 
 def pear_pile():
-    bottom_two = [Pear(i) for i in xrange(2)]
+    bottom_two = [Pear(i).rotate(random_small_angle()) for i in xrange(2)]
     Group(*bottom_two).arrange_submobjects(buff=0.1)
     third_on_bottom = Pear(2).next_to(Group(*bottom_two),buff=0.1)
-    top = (Pear(3)).next_to(Group(*bottom_two),direction=UP,buff=0)
+    top = (Pear(3)).rotate(-np.pi/15).next_to(Group(*bottom_two),direction=UP,buff=0)
     return Group(*(bottom_two + [third_on_bottom, top]))
 
 class CountTransform():
