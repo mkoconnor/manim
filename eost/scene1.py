@@ -8,7 +8,7 @@ import helpers
 from helpers import *
 from animation.transform import *
 from topics.geometry import *
-from .matching import get_matching
+from .matching import get_matching, MatchingAnimations
 
 def permute(l):
     import random
@@ -23,9 +23,9 @@ def permute_animations(mobj,move):
         if ( (old_index < new_index and move == "down")
              or (new_index < old_index and move == "up")
              ):
-            return counterclockwise_path()
+            return helpers.path_along_arc(np.pi/4)
         else:
-            return clockwise_path()
+            return helpers.path_along_arc(-np.pi/4)
     return [
         Transform(mobjs[i],mobjs[i].copy().replace(mobjs[j]),
                   path_func=path_along_arc(i,j)
@@ -135,22 +135,33 @@ class Scene1(Scene):
             pear_count.numbers[-1]
         ]))
         # Show a matching
-        matching = get_matching(Group(*apples),Group(*pears))
-        self.play(ShowCreation(matching))
+        matching = MatchingAnimations(Group(*apples),Group(*pears))
+        for anims in matching.match_animations:
+            self.play(anims)
+        self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
         self.emphasize(apples[-1]) # Above, I pretended like this function
                                    # was generic over the number of apples
                                    # pears.  But here, and in the emphasis
                                    # below, it isn't.
-        self.play(Uncreate(matching))
+        self.play(Transform(apples[-1],apples[-1].copy().next_to(
+            apples[-2], buff = matching.buff
+        )))
+        self.play(matching.remove_match_animation)
+        self.dither()
         # Permute them
-        apple_permutations=permute_animations(apples,move="down")
-        pear_permutations=permute_animations(pears,move="up")
+        apple_permutations=permute_animations(apples,move="up")
+        pear_permutations=permute_animations(pears,move="down")
         self.play(*(apple_permutations + pear_permutations))
         # Show a different matching
         permuted_apples = permute(apples)
         permuted_pears = permute(pears)
+        # matching = MatchingAnimations(Group(*apples),Group(*pears))
+        # for anims in matching.match_animations:
+        #     self.play(anims)
         matching = get_matching(Group(*permuted_apples),Group(*permuted_pears))
         self.play(ShowCreation(matching))
+        self.dither()
+        self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
         self.emphasize(permuted_apples[-1]) # See comment above. This [-1] is
                                             # kind of a cheat
         self.play(Uncreate(matching))
