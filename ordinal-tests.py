@@ -9,15 +9,47 @@ class OrdinalPowerScene(Scene):
 
     def construct(self):
 
-        o = LimitOrdinal(lambda **kwargs: LimitOrdinal(OrdinalOmega, **kwargs),
-                         seq = geom_seq(np.array((0.8, 0.9, 0.9))))
+        #o = LimitOrdinal(
+        #    lambda **kwargs: LimitOrdinal(
+        #        lambda **kwargs: LimitOrdinal(
+        #            OrdinalOmega,
+        #            **kwargs
+        #        ),
+        #        **kwargs
+        #    ),
+        #    q = (0.6, 0.8, 0.8))
+
+        o = make_ordinal_power(5, q = (0.7, 0.84, 0.84))
 
         o.set_color(GRAY)
+        omega_group = []
+        omega2_group = []
+        omega3_group = []
+        omega4_group = []
+
         for o1 in o:
             for o2 in o1:
-                o2[0].set_color(GREEN)
-            o1[0][0].set_color(YELLOW)
+                for o3 in o2:
+                    for o4 in o3:
+                        omega_group.append(o4[0])
+                    omega2_group.append(o3[0][0])
+                omega3_group.append(o2[0][0][0])
+            omega4_group.append(o1[0][0][0][0])
+
+        omega_group = VGroup(*omega_group)
+        omega2_group = VGroup(*omega2_group)
+        omega3_group = VGroup(*omega3_group)
+        omega4_group = VGroup(*omega4_group)
+        omega_group.set_color(GREEN)
+        omega2_group.set_color(YELLOW)
+        omega3_group.set_color(ORANGE)
+        omega4_group.set_color(RED)
+
         self.add(o)
+        self.add(omega_group)
+        self.add(omega2_group)
+        self.add(omega3_group)
+
         print(len(self.get_mobjects()))
 
         self.dither()

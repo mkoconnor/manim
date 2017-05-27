@@ -33,6 +33,8 @@ def norm(u):
 def point_dist(x, y):
     return norm(x-y)
 
+pixel_size = SPACE_WIDTH*2 / DEFAULT_WIDTH
+
 class Ordinal(VMobject):
     CONFIG = {
         "thickness" : DEFAULT_POINT_THICKNESS,
@@ -50,12 +52,14 @@ class Ordinal(VMobject):
 class OrdinalOne(Ordinal):
     def __init__(self, **kwargs):
         Ordinal.__init__(self, **kwargs)
+        #print(self.x0 / pixel_size)
 
         self.add(Line(self.x0*RIGHT + self.height*UP,
                       self.x0*RIGHT + self.height*DOWN,
                       stroke_width = self.thickness))
 
     def to_steps(self):
+
         size = self.x1 - self.x0
         x_dist = size*0.2
         y_dist = size*0.4
@@ -74,47 +78,59 @@ class OrdinalOne(Ordinal):
         return VGroup(arc)
 
 class LimitOrdinal(Ordinal):
-    CONFIG = { # (x, height, thickness)
-        "min_size"              : np.array((0.0001, 0.0001, 0.0001)),
-        "seq"                   : geom_seq(np.array((0.9, 0.95, 0.95))),
-        "subord_dec"            : 4
+    CONFIG = {
+        "zero_at_fg" : False,
     }
-    def __init__(self, SubOrd, **kwargs):
+    def __init__(self, SubOrd, q = (0.9, 0.95, 0.95), min_size = (1, 1, 0.1), **kwargs): # (x, height, thickness)
         Ordinal.__init__(self, **kwargs)
         self.SubOrd = SubOrd
 
-        self.n = 0
-        while self.add_subordinal(): pass
+        q = np.array(q)
+        pixel_size = SPACE_WIDTH*2 / DEFAULT_WIDTH
+        min_size = np.array(min_size) * np.array((pixel_size, pixel_size, 1))
 
-    def add_subordinal(self, allow_micro = False):
-        size = self.ini_size * self.seq(self.n)
-        if not allow_micro and self.n > 0 and (size < self.min_size).any(): return False
+        ini_size = np.array((self.x1-self.x0, self.height, self.thickness), dtype = float)
+        cur_size = np.array(ini_size, dtype = float)
 
-        (x0, h, t) = size
-        x0 = self.x1 - x0
-        x1 = (self.ini_size * self.seq(self.n+1))[0]
-        x1 = self.x1 - x1
+        n = 0
+        while True:
+            (x, h, t) = cur_size
+            if n > 0:
+                if (cur_size < min_size).any(): break
+                if (last_x - x) < pixel_size*max(t, 1)/2:
+                    cur_size *= q
+                    continue
 
-        def subseq(n):
-            return ((x0-self.x0)*self.seq(self.subord_dec*n) + (self.x1-x0)*self.seq(n)) / (self.x1-self.x0)
+            x1 = x * q[0]
+            x0 = self.x1 - x
+            x1 = self.x1 - x1
 
-        #subpow = np.array((0.9, 0.95, 0.95))
-        #subpow2 = np.array((0.9, 0.95, 0.95))**4
-        #subpow = ((x0-self.x0)*subpow2 + (self.x1-x0)*subpow) / (self.x1-self.x0)
+            sub_min_x = (t*q[2])*0.7
+            sub_min_size = np.array(min_size)
+            if sub_min_size[0] < sub_min_x: sub_min_size[0] = sub_min_x
 
-        self.submobjects.append(self.SubOrd(
-            thickness = t, height = h,
-            x0 = x0, x1 = x1,
-            order = self.n,
-            min_size = np.array((0.01, 0.01, 0.01)),
-            seq = subseq,
-        ))
-        self.n += 1
-        return True
+            self.submobjects.append(
+                self.SubOrd(
+                    thickness = t,
+                    height = h,
+                    x0 = x0, x1 = x1,
+                    min_size = sub_min_size,
+                    q = q,
+                    order = n,
+                ))
+
+            n += 1
+            last_x = x
+            cur_size *= q
 
     def add_n_more_submobjects(self, n_more):
-        for i in range(n_more): self.add_subordinal(True)
+        self.submobjects += [self[-1].copy() for _ in range(n_more)]
 
 class OrdinalOmega(LimitOrdinal):
     def __init__(self, **kwargs):
         LimitOrdinal.__init__(self, OrdinalOne, **kwargs)
+
+def make_ordinal_power(power, **kwargs):
+    if power == 0: return OrdinalOne(**kwargs)    
+    return LimitOrdinal(lambda **kwargs: make_ordinal_power(power-1, **kwargs),
+                        **kwargs)
