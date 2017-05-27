@@ -16,7 +16,7 @@ class Fruit(SVGMobject):
         )
         SVGMobject.__init__(self, file_name = file_name, **kwargs)
         self.scale(0.0016)
-        self[1].set_color(WHITE)
+        self[1].set_color(LIGHT_BROWN)
         self.set_color(self.color)
 
     def set_color(self, color):
