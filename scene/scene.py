@@ -315,6 +315,10 @@ class Scene(object):
         sync_animation_run_times_and_rate_funcs(*animations, **kwargs)
         moving_mobjects, static_mobjects = \
             self.separate_moving_and_static_mobjects(*animations)
+
+        if 'order_f' in kwargs:
+            moving_mobjects.sort(key = kwargs['order_f'])
+
         self.update_frame(static_mobjects)
         static_image = self.get_frame()
         for t in self.get_time_progression(animations):

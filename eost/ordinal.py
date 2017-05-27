@@ -49,6 +49,9 @@ class Ordinal(VMobject):
     def to_steps(self):
         return VMobject(*[subord.to_steps() for subord in self.submobjects])
 
+    def make_deeper(self):
+        for subord in self.submobjects: subord.make_deeper()
+
 class OrdinalOne(Ordinal):
     def __init__(self, **kwargs):
         Ordinal.__init__(self, **kwargs)
@@ -57,6 +60,9 @@ class OrdinalOne(Ordinal):
         self.add(Line(self.x0*RIGHT + self.height*UP,
                       self.x0*RIGHT + self.height*DOWN,
                       stroke_width = self.thickness))
+
+    def make_deeper(self):
+        self.submobjects = [self.copy()]
 
     def to_steps(self):
 
@@ -142,7 +148,7 @@ def make_ordinal_power(power, **kwargs):
                         **kwargs)
 
 def extract_ordinal_subpowers(o):
-    if type(o[0]) == OrdinalOne: return ([o[0]],)
+    if type(o) == OrdinalOne: return ([o[0]],)
 
     result = None
     for subord in o:

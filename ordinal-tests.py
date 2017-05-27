@@ -25,10 +25,11 @@ class OrdinalPowerScene(Scene):
     def init_scene(self, power):
         self.power = power
         self.construct_ord()
-        #print(self.ordinal[0][0], self.ordinal[1][0])
-        #print(self.ordinal2[0][0], self.ordinal2[1][0])
-        self.add(self.ordinal, self.ordinal2)
-        self.brace, self.description = self.make_description(1, self.ordinal)
+        self.add(self.ordinal)
+        self.add(self.ordinal2)
+        for l in self.layers: self.add(*l)
+        for l in self.layers2: self.add(*l)
+        self.brace, self.description = self.make_description(self.power, self.ordinal)
         self.play(GrowFromCenter(self.brace), Write(self.description))
 
     def power_inc(self):
@@ -36,21 +37,33 @@ class OrdinalPowerScene(Scene):
         ori_ord = self.ordinal
         ori_ord2 = self.ordinal2
         self.construct_ord()
-        target_brace, target_desc = self.make_description(self.power-1, self.ordinal[0][0])
-        src_power = self.ordinal2.deepcopy()
-        src_power2 = self.ordinal2.deepcopy()
+        target_brace, target_desc = self.make_description(self.power-1, self.ordinal[0])
+
+        src_power = self.ordinal2.copy()
+        src_power2 = self.ordinal2.copy()
         src_power.next_to(ori_ord2)
         src_power2.next_to(src_power)
-        src_power[0].add_to_back(ori_ord[0], ori_ord2[0])
-        fg = VGroup(*ori_ord[1:]+ori_ord2[1:]+src_power[1:])
+        src_power.add_to_back(ori_ord, ori_ord2)
+
+        dest_power = self.ordinal.copy()
+        dest_power[0].make_deeper()
+        dest_power[1].make_deeper()
+        #dest_power.debug()
+
+        def order_f(o):
+            if not hasattr(o, 'pow_layer'): return 0
+            return o.pow_layer
         self.play(
-            Transform(src_power[0], self.ordinal[0], prepare_families = True), Animation(fg, prepare_families = True),
+            Transform(src_power, dest_power, prepare_families = True),
             ReplacementTransform(src_power2, self.ordinal2, prepare_families = True),
             Transform(self.brace, target_brace),
             Transform(self.description, target_desc),
+            order_f = order_f,
         )
         self.remove(src_power, ori_ord, ori_ord2)
         self.add(self.ordinal)
+        for l in self.layers: self.add(*l)
+        self.dither()
         target_brace, target_desc = self.make_description(self.power, self.ordinal)
         self.play(
             Transform(self.brace, target_brace),
@@ -69,17 +82,20 @@ class OrdinalPowerScene(Scene):
         if self.power == 1: q = (0.9, 0.95, 0.95)
         elif self.power == 2: q = (0.8, 0.9, 0.9)
         else: q = (0.7, 0.84, 0.84)
-          
-        o = make_ordinal_power(min(self.power, self.max_pow), q=q)
-        subpowers = [VGroup(*subpow) for subpow in extract_ordinal_subpowers(o)]
-        o.set_color(self.power_color(self.power-len(subpowers)))
-        for i, subpow in reversed(list(enumerate(subpowers))):
-            subpow.set_color(self.power_color(self.power-i))
 
-        self.ordinal = VGroup(o, *reversed(subpowers))
-        self.ordinal2 = self.ordinal.deepcopy()
+        self.ordinal = make_ordinal_power(min(self.power, self.max_pow), q=q)
+
+        self.layers = extract_ordinal_subpowers(self.ordinal)
+        for i, layer in reversed(list(enumerate(self.layers))):
+            for mob in layer:
+                mob.pow_layer = self.power-i
+                mob.set_color(self.power_color(mob.pow_layer))
+        self.layers = self.layers[:-1]
+
+        self.layers2, self.ordinal2 = copy.deepcopy((self.layers, self.ordinal))
         self.ordinal2.next_to(self.ordinal)
-        self.ordinal[-1].set_color(WHITE)
+
+        self.layers[-1][0].set_color(WHITE)
 
     def power_color(self, power):
         if power == 0: return GRAY
@@ -87,6 +103,20 @@ class OrdinalPowerScene(Scene):
 
 class OrdinalPowerScene2(OrdinalPowerScene):
     pass
+
+class OrdinalPowerTest(OrdinalPowerScene):
+    def construct(self):
+
+        eost.ordinal.pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
+        self.max_pow = 3
+
+        self.init_scene(3)
+        self.dither()
+        self.power_inc()
+        self.dither()
+        self.power_inc()
+        self.dither()
+
 
 class OrdinalAsIndex(Scene):
 
