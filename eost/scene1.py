@@ -54,7 +54,7 @@ def pear_pile():
     bottom_two = [Pear(i).rotate(random_small_angle()) for i in xrange(2)]
     Group(*bottom_two).arrange_submobjects(buff=0.1)
     third_on_bottom = Pear(2).next_to(Group(*bottom_two),buff=0.1)
-    top = (Pear(3)).rotate(-np.pi/15).next_to(Group(*bottom_two),direction=UP,buff=0)
+    top = (Pear(3)).rotate(-np.pi/20).next_to(Group(*bottom_two),direction=UP,buff=0)
     return Group(*(bottom_two + [third_on_bottom, top]))
 
 class CountTransform():
