@@ -13,7 +13,7 @@ class OrdinalPowerScene(Scene):
         eost.ordinal.pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
         self.max_pow = 5
 
-        self.init_scene()
+        self.init_scene(1)
         self.dither()
 
         while(self.power < 10):
@@ -22,8 +22,8 @@ class OrdinalPowerScene(Scene):
 
         self.dither(10)
 
-    def init_scene(self):
-        self.power = 1
+    def init_scene(self, power):
+        self.power = power
         self.construct_ord()
         #print(self.ordinal[0][0], self.ordinal[1][0])
         #print(self.ordinal2[0][0], self.ordinal2[1][0])
@@ -37,15 +37,15 @@ class OrdinalPowerScene(Scene):
         ori_ord2 = self.ordinal2
         self.construct_ord()
         target_brace, target_desc = self.make_description(self.power-1, self.ordinal[0][0])
-        src_power = self.ordinal2.copy()
-        src_power2 = self.ordinal2.copy()
+        src_power = self.ordinal2.deepcopy()
+        src_power2 = self.ordinal2.deepcopy()
         src_power.next_to(ori_ord2)
         src_power2.next_to(src_power)
         src_power[0].add_to_back(ori_ord[0], ori_ord2[0])
         fg = VGroup(*ori_ord[1:]+ori_ord2[1:]+src_power[1:])
         self.play(
-            Transform(src_power[0], self.ordinal[0]),# Animation(fg),
-            ReplacementTransform(src_power2, self.ordinal2),
+            Transform(src_power[0], self.ordinal[0], prepare_families = True), Animation(fg, prepare_families = True),
+            ReplacementTransform(src_power2, self.ordinal2, prepare_families = True),
             Transform(self.brace, target_brace),
             Transform(self.description, target_desc),
         )
@@ -77,13 +77,16 @@ class OrdinalPowerScene(Scene):
             subpow.set_color(self.power_color(self.power-i))
 
         self.ordinal = VGroup(o, *reversed(subpowers))
-        self.ordinal2 = copy.deepcopy(self.ordinal)
+        self.ordinal2 = self.ordinal.deepcopy()
         self.ordinal2.next_to(self.ordinal)
         self.ordinal[-1].set_color(WHITE)
 
     def power_color(self, power):
         if power == 0: return GRAY
         else: return [GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE][(power-1) % 6]
+
+class OrdinalPowerScene2(OrdinalPowerScene):
+    pass
 
 class OrdinalAsIndex(Scene):
 

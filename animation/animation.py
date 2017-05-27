@@ -22,8 +22,10 @@ class Animation(object):
         #one_at_a_time, all_at_once
         "submobject_mode" : "all_at_once",
         "lag_factor" : 2,
+        "prepare_families" : False,
     }
     def __init__(self, mobject, **kwargs):
+
         mobject = instantiate(mobject)
         assert(isinstance(mobject, Mobject))
         digest_config(self, kwargs, locals())
@@ -32,6 +34,10 @@ class Animation(object):
             self.rate_func = (lambda x : x)
         if self.name is None:
             self.name = self.__class__.__name__ + str(self.mobject)
+
+        self.all_families_zipped = None
+        if self.prepare_families: self.all_families_zipped = self.get_all_families_zipped()
+
         self.update(0)
 
     def update_config(self, **kwargs):
@@ -71,6 +77,8 @@ class Animation(object):
         return self.mobject, self.starting_mobject
 
     def get_all_families_zipped(self):
+        if self.all_families_zipped is not None: return self.all_families_zipped
+
         return zip(*map(
             Mobject.family_members_with_points,
             self.get_all_mobjects()
