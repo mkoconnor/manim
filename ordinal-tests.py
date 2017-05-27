@@ -3,11 +3,14 @@
 from helpers import *
 from scene import Scene
 
+import eost.ordinal
 from eost.ordinal import *
 
 class OrdinalPowerScene(Scene):
 
     def construct(self):
+
+        eost.ordinal.pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
 
         #o = LimitOrdinal(
         #    lambda **kwargs: LimitOrdinal(
@@ -27,10 +30,19 @@ class OrdinalPowerScene(Scene):
         omega3_group = []
         omega4_group = []
 
+        pixel_size = SPACE_WIDTH*2 / DEFAULT_WIDTH
+
+        #print("{}->{}".format(o.x0/pixel_size, o.x1/pixel_size))
         for o1 in o:
+            #print("  {}->{}".format(o1.x0/pixel_size, o1.x1/pixel_size))
             for o2 in o1:
+                #print("    {}->{}".format(o2.x0/pixel_size, o2.x1/pixel_size))
                 for o3 in o2:
+                    #print("      {}->{}".format(o3.x0/pixel_size, o3.x1/pixel_size))
                     for o4 in o3:
+                        #print("        {}->{}".format(o4.x0/pixel_size, o4.x1/pixel_size))
+                        #for o5 in o4:
+                            #print("          {}".format(o5.x0/pixel_size))
                         omega_group.append(o4[0])
                     omega2_group.append(o3[0][0])
                 omega3_group.append(o2[0][0][0])
@@ -83,23 +95,17 @@ class OmegaShowcase(Scene):
 
     def construct(self):
 
-        o1 = OrdinalOmega()
-        o2 = OrdinalOmega(seq = lambda n: o1.seq(2*n))
-        o = o1.copy()
-        o_odd = VGroup(*[
-            tick
-            for (i,tick)
-            in enumerate(o.submobjects)
-            if i % 2 == 1
-        ])
+        o = OrdinalOmega()
+        o_even = LimitSubOrdinal(o.submobjects[::2])
+        o_odd = LimitSubOrdinal(o.submobjects[1::2])
+
         o_odd_target = o_odd.copy()
         o_odd_target.highlight(BLACK)
         o_odd_target.shift(UP)
+
         self.add(o)
         self.dither()
         self.play(Transform(o_odd, o_odd_target))
         self.dither()
-        self.remove(o)
-        o = o2.copy()
-        self.play(Transform(o, o1))
+        self.play(Transform(o_even, OrdinalOmega()))
         self.dither()

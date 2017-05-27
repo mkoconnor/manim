@@ -86,7 +86,6 @@ class LimitOrdinal(Ordinal):
         self.SubOrd = SubOrd
 
         q = np.array(q)
-        pixel_size = SPACE_WIDTH*2 / DEFAULT_WIDTH
         min_size = np.array(min_size) * np.array((pixel_size, pixel_size, 1))
 
         ini_size = np.array((self.x1-self.x0, self.height, self.thickness), dtype = float)
@@ -97,7 +96,7 @@ class LimitOrdinal(Ordinal):
             (x, h, t) = cur_size
             if n > 0:
                 if (cur_size < min_size).any(): break
-                if (last_x - x) < pixel_size*max(t, 1)/2:
+                if (last_x - x) < pixel_size*max(t/2, 0.8):
                     cur_size *= q
                     continue
 
@@ -124,7 +123,14 @@ class LimitOrdinal(Ordinal):
             cur_size *= q
 
     def add_n_more_submobjects(self, n_more):
-        self.submobjects += [self[-1].copy() for _ in range(n_more)]
+        added = self[-1].copy()
+        added.set_stroke(width = 0)
+        self.submobjects += [added.copy() for _ in range(n_more)]
+
+class LimitSubOrdinal(LimitOrdinal):
+    def __init__(self, sub_list, **kwargs):
+        Ordinal.__init__(self, **kwargs)
+        self.submobjects = sub_list
 
 class OrdinalOmega(LimitOrdinal):
     def __init__(self, **kwargs):
