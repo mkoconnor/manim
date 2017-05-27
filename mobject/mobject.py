@@ -698,7 +698,16 @@ class Mobject(object):
     def pointwise_become_partial(self, mobject, a, b):
         pass #To implement in subclass
 
+    def debug(self, indent = 0, attrs = ()):
+        indent_str = "  "*indent
+        attr_str = ""
+        for attr in attrs:
+            if hasattr(self, attr):
+                attr_str += ", {}={}".format(attr, getattr(self, attr))
+        print(indent_str + self.__class__.__name__ + attr_str)
 
+        for submob in self.submobjects:
+            submob.debug(indent = indent+1, attrs = attrs)
 
 class Group(Mobject):
     #Alternate name to improve readibility in cases where
