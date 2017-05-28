@@ -140,10 +140,12 @@ class Scene1(Scene):
             self.play(anims)
         self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
         self.emphasize(apples[-1])
-        self.play(Transform(apples[-1],apples[-1].copy().next_to(
-            apples[-2], buff = matching.buff
-        )))
-        self.play(matching.remove_match_animation)
+        self.play(
+            Transform(apples[-1],apples[-1].copy().replace(apples[2])),
+            Transform(apples[2],apples[2].copy().replace(apples[3])),
+            Transform(apples[3],apples[3].copy().next_to(apples[3],buff=matching.buff)),
+            matching.remove_match_animation
+        )
         self.dither()
         # Permute them
         apple_permutations=permute_animations(apples,move="up")
