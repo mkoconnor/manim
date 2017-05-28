@@ -8,7 +8,7 @@ Formal recursion
 * recall the intuitive proof
 * but: "You cannot use infinitely many steps in a proof."
   * "What? I am doing it all the time."
-  * "It can be avoided by a clever one-at-a-time operations"
+  * "It can be avoided by clever operations with infinite structures."
   * example with the Cantor's theorem
 * recursion as an induction
   * why did it help?
@@ -23,4 +23,132 @@ Formal recursion
 
 
 This chapter will be pretty technical. 
-And it not necessary to know the details 
+And to be honest, it is not necessary to know the entrails of recursion for using it.
+:{examples animations}
+That is why we introduced transfinite recursion rather by some examples instead of analyzing it on the formal level.
+Despite this, the formal understanding of recursion is quite an essential part of the set theory.
+:{Connection between "Theory of Infinity" and Foundation of mathematics}
+It forms the bridge between the two roles of the set theory.
+:{chapter list}
+And we will need some non-trivial general usage of transfinite recursion in the following chapters.
+So, even though you could understand them without knowing the inside of the recursion,
+this chapter can help you reduce the feeling that the proofs there
+are just based on hand-waving.
+
+At this chapter, we are going to look very closely into the proof of
+the following observation we met in chapter~{well-ordering}. Whenever
+an ordered set contains a non-empty ending without first element,
+:{brace: "No first element"}
+then there is an infinite decreasing sequence in it.
+
+And the proof is actually pretty straightforward. Start with any
+element of the ending. It is not the first one, so we can go below.
+And again, and again, and so on.
+So we constructed an infinite decreasing sequence in the ending.
+
+But infinite proofs are not allowed. Even though we are investigating
+an infinite world, we need to use finite number of steps for proving it.
+:{"You cannot use infinite number in steps in a proof?"}
+:{"What? I am doing it all the time!"}
+:{"It can be avoided by clever operations with infinite structures."}
+You may be surprised by this, but take the proof of Cantor's theorem
+as an example. It is the theorem from chapter \ref{size-comparison}
+saying that whenever you assign natural numbers to infinite sequences
+of zero's and one's, there have to be a sequence you have missed.
+
+The proof can go as follows. Look at all elements at the diagonal,
+that is one operation. Make a new sequence from them, that is the
+second operation. And finally, invert it. In three operations, we
+constructed a sequence which is not assigned to any natural number.
+
+All right, that was not so difficult. But what can we do with the
+gradual construction of a decreasing sequence? How can we cover the
+fact that it is an infinite process? We need to be more cunning.
+
+:{"Hint: Replace recursion by induction."}
+Instead of recursion, we use induction. That is, we prove that if
+there is a sequence with zero steps, there is also a sequence with one
+step. If there is a sequence with one step, there is a sequence
+consisted of two steps. And so on. In general, every sequence of
+length $n$ can be extended to a sequence of length $n+1$. So at the
+end, we know that there is a sequence of any natural length.
+:{"Does not sound it helped very much."}
+It still looks like an infinite proof. First step is proving from zero
+to one, the second step is proving it from one to two and so on.
+:{Induction is just a proof by contradiction.}
+But we can rephrase any such inductive proof as a proof by
+contradiction. Lets ask every natural number whether there is
+decreasing sequence of its length.
+:{"Dear numbers, is there a decreasing sequence of your length?"}
+This is a single operation, namely
+the axiom of selection. Some numbers give positive answers.
+:{Green ticks}
+Zero give
+the positive answer, one give the positive answer, 7 gives a positive
+answer. But is it possible that any number answered negatively? Let's
+disprove such an absurd case. If any number answered negatively, we
+can find the minimal one.
+:{minimal}
+That is because natural numbers are well ordered. In fact, this is the
+reason why the usual definition of transfinite recursion is defined in the
+way that any non-empty subset have to contain a minimal element. So
+we can convenietly use it now on the set of all numbers which gave
+a negative answer, and get the minimal one.
+
+So, say that eleven is the least number which answered negatively. In
+particular, ten gave a positive answer, so there is an infinite
+decreasing sequence of length 10. But when we have such a decreasing
+sequence, we can simply extend it to a sequence of length 11. So 11
+lied. But numbers are perfect objects in the mathematical world, they
+are not allowed to lie. So the only possible outcome is that our
+initial assumption that some numbers answered negatively was wrong.
+
+So all of them have to answer positively, that is, there a decreasing
+sequence of any finite length.
+
+:{Are we done?}
+:{No, we are at the half of the proof.}
+Now it is tempting to say that we are done. But we are not, the use of
+induction took its price. We are missing a kind of a limit step.
+
+From the induction, we have some decreasing sequences of every finite
+length. We could pick one sequence of every length by the axiom of
+choice but they don't have to be compatible. So we cannot simply
+merge them together.
+
+There is a fundamental problem: just a decreasing
+of every length does not ensure an infinite decreasing sequence.
+As an example, take the ordinal omega plus one. There is a decreasing
+sequence of length one, as well as a decreasing sequence of length 5
+or any other finite length. So our incautious use of induction
+discarded so much information that we are not able to finish the proof.
+
+But the induction is not the only thing to blame here. The trouble we
+get to was caused by the incautious induction and the indeterminacy
+here. The sequences can be incompatible just because we have various
+possibilities where to go at every step. If there were strict rules,
+say we begin at the number four and at every step we have to jump to
+the half of the current number, the sequences are forced to be
+compatible. Every sequence starts at the number 4, then continue to
+the number 2, then to 1, to one half, and so on. In that case, we can
+merge all the finite sequences and get the infinite one.
+
+And this idea leads to the solution, we just have to figure out how to
+make the proces determinable even if we work with a general setup.The
+trick is to use the axiom of choice, not after the induction, not
+during it but before. For every point, there are many places where to
+continue. There are a lot of possibilities how to continue from this
+point, as well as there are lot of possibilities where to continue
+from this point, and so on. But we can consider all the points
+and all the possible steps for each of them. By the axiom of choice,
+we pick just one step for every possible point and collect them into
+the rule list.
+
+Now we launch the recursion with these rules: At every point
+the only step we are allowed to take is the one in the rule list.
+These rules are given by the axiom of choice, not by a written formula
+but it does not matter. The sequence is determined now, so all the
+finite sequences have to be compatible, so we can merge them to one
+infinite sequence.
+
+TODO: recap, note about the transfinice recursion
