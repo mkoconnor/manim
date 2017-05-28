@@ -51,20 +51,20 @@ class Scene2(Scene):
         self.play(ShowCreation(pears), Write(pear_numbers))
         self.dither()
         matching = get_matching(
+            Group(*pears.submobjects[:-1]),
             Group(*apples.submobjects[:-1]),
-            Group(*pears.submobjects[:-1])
         )
         self.play(ShowCreation(matching))
         self.dither()
         one_extra_apple = get_matching(
+            Group(*pears.submobjects[:-1]),
             Group(*apples.submobjects[1:]),
-            Group(*pears.submobjects[:-1])
         )
         self.play(Transform(matching,one_extra_apple))
         self.dither()
         one_extra_pear = get_matching(
+            Group(*pears.submobjects[1:]),
             Group(*apples.submobjects[:-1]),
-            Group(*pears.submobjects[1:])
         )
         self.play(Transform(matching,one_extra_pear))
         self.dither()
@@ -87,8 +87,8 @@ class Scene2(Scene):
         )
         self.dither()
         bijection = get_matching(
+            Group(*pears.submobjects[:-1]),
             Group(*apples.submobjects[:-1]),
-            Group(*pears.submobjects[:-1])
         )
         self.play(Transform(matching,bijection))
         self.dither()
