@@ -1,0 +1,18 @@
+Formal numbers
+==============
+
+* first idea of naturals: $0 = \{\}, 1 = \{\{\}\}, 2 = \{\{\{\}\}\}$
+* problems:
+  * they are one-element sets, it is difficult to count with it
+  * we cannot generalize it to ordinals, what $\omega$ or $\omega+1$ should be?
+* standard construction
+  * "Argh! I cannot imagine it!"
+  * "You don't have to do it in this way"
+  * $5 = \{0,1,2,3,4\}$ is sufficient expansion, programming
+  * 5 as a graph
+  * extra feature: it is implementing the natural correspondence
+    between ordinals as types of well ordered sets and ordinals as indices to them
+    explained in chapter~\ref{ordinals}
+  * supremum is real union
+* existence of omega1
+* what about cardinals? wait for chapter~\ref{cardinals}

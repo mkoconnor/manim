@@ -1,0 +1,13 @@
+A world full of paradoxes
+=========================
+
+* ordinal of all ordinals
+* powerset of the set of all sets
+* run diagonal argument -> Russel's paradox
+* the problem: a kind of circular definition
+* We cannot solve it by giving a list of what is forbidden, we need stable rules of what is allowed
+  * but we want everything seen in previous chapters to work
+* idea of the system:
+  * everything is a set
+  * we can imagine sets as a graph, axiom will give rules to the graph
+  * set vs. class, classes are outside the imaginary world, sets are safe, classes not so much

@@ -1,0 +1,26 @@
+Formal recursion
+================
+
+* this will be pretty technical but
+  * it is good to see how the theory of infinity and the foundation of mathematics are connected
+  * it can help to avoid a feeling that the next chapter is just a hand-waving
+* example: a set is not well ordered, why does it contain an infinite decreasing sequence?
+* recall the intuitive proof
+* but: "You cannot use infinitely many steps in a proof."
+  * "What? I am doing it all the time."
+  * "It can be avoided by a clever one-at-a-time operations"
+  * example with the Cantor's theorem
+* recursion as an induction
+  * why did it help?
+  * induction as a proof by contradiction
+* one more problem: limit step require determinacy
+  * how to use the axiom of choice here
+* recapitulation:
+  * recursion is a kind of induction but we need determinacy for limit steps
+  * we can assure the determinacy by running the axiom of choice before launching the recursion
+  * induction is a proof by contradiction, that is why we formally need well-order
+* exercise: every infinite set is at least countable
+
+
+This chapter will be pretty technical. 
+And it not necessary to know the details 

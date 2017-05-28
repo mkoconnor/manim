@@ -1,0 +1,32 @@
+The infinite world
+==================
+
+Quote: No one shall expel us from the Paradise that Cantor has created. (David Hilbert)
+
+Outline
+=======
+
+* Who is it good for?
+  * People who would like to have a better understanding of popular paradoxical examples with infinity, or to see the solution of the Russel's paradox
+  * Mathematicians who are using set theoretical tools such as cardinalities / Zorn's lemma and would like to understand it.
+  * Students of a set-theoretical course drowning in formalisms.
+* Scheme
+  * A visual, intuitive approach, originally motivated by a construction of as large set as possible, chapters~\ref{set-size-comparison}--\ref{omega1}
+  * Link to appropriate amount of formalism and motivation behind it, chapters~\ref{paradoxes}--\ref{formal-recursion}
+  * Standard but non-trivial tools of set theory, chapters~\ref{zorn-lemma}--\ref{cardinals}
+* distant from applied math
+* creating a new world for mathematicians
+* fun fact: Czech slang abbreviation of set theory is ``darkness''
+* so why to study it?
+  * it is wonderful, people like the idea of an ideal infinite world
+  * it is solid, it gives you boundaries what can be proven and what cannot
+* corresponding two roles of set theory
+  * the theory of infinity
+  * foundation of mathematics
+* basic principles
+  * infinity is actual
+  * infinity is not just a large number
+* example: infinite grid can be colored blue-yellow in such a way that
+  * every row contains just finite number of blue cells
+  * every column contains just finite number of yellow cells
+  * that would not be possible if infinity were just a large finite number

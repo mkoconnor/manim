@@ -1,0 +1,14 @@
+Set size comparison and continuum
+=================================
+
+Where to put the ordinary diagonal argument? To the "countable" chapter? At the beginning of this chapter? Omit it?
+
+Outline
+=======
+* $\P(X) = {}$labeling X by 0,1
+* $|\R| = \P(\omega)$?, injections to both sides
+* Cantor-Bernstein (graph proof),
+* excercise: $\R^2 = \R$
+* unanswered questions: Are every two sets comparable? Are reals the least uncountable set?
+* Cantor's theorem in general,  $|\P(X)| > |X|$.
+* $\P(\P(\P(\omega))) > \P(\P(\omega)) > \P(\omega) > \omega$

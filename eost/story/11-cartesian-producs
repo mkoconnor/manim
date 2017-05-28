@@ -1,0 +1,16 @@
+Cartesian product
+=================
+
+* motivation, definition
+* examples: $\omega^2, \R^2, \R^3$, graph theory
+* What is formally an ordered pair?
+  * not everything is working, $\{\{a\}, b\}$: $b$ of form $\{x\}$
+  * usual definition $\{\{a\}, \{a,b\}\}$ (Kuratowski)
+  * what hapens when $a=b$
+* obtaining the cartesian product by axioms
+  * by double application of replacement and union
+  * by two powersets and selection
+* formal view of a function
+  * function graph
+  * graph-theoretical graph
+  * function vs. class function

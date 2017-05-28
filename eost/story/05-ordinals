@@ -1,0 +1,12 @@
+There is just one true well-ordering
+====================================
+
+Outline
+=======
+
+* ordinals as abstraction of well-ordered sets, analogy to numbers as abstractions of counted sets
+* ordinals cannot fork
+* supremum
+* ordinals as indices of elements of a larger ordinal, Warning: 0 = first element
+* interpretation of supremum in the view of indices
+* Is there an ordinal containing all ordinals? Rather no, wait for chapter~\ref{paradoxes}
