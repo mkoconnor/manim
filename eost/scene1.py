@@ -140,25 +140,30 @@ class Scene1(Scene):
             self.play(anims)
         self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
         self.emphasize(apples[-1])
-        self.play(
-            Transform(apples[-1],apples[-1].copy().replace(apples[2])),
-            Transform(apples[2],apples[2].copy().replace(apples[3])),
-            Transform(apples[3],apples[3].copy().next_to(apples[3],buff=matching.buff)),
-            matching.remove_match_animation
-        )
-        self.dither()
-        # Permute them
-        apple_permutations=permute_animations(apples,move="up")
-        pear_permutations=permute_animations(pears,move="down")
-        self.play(*(apple_permutations + pear_permutations))
-        # Show a different matching
-        permuted_apples = permute(apples)
-        permuted_pears = permute(pears)
-        matching = get_matching(Group(*permuted_apples),Group(*permuted_pears))
-        self.play(ShowCreation(matching))
-        self.dither()
-        self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
-        self.emphasize(permuted_apples[-1])
+
+        buff = matching.buff
+        matching = matching.matching
+        for _ in range(2):
+            apples.submobjects.sort(key = lambda apple: apple.get_center()[0])
+            apples_target = apples.copy()
+            apples_target.arrange_submobjects(center = False, buff = buff)
+            apples_target.shift(LEFT*apples_target.get_center()[0])
+            self.play(Uncreate(matching))
+            self.play(Transform(apples, apples_target))
+            self.dither()
+            # Permute them
+            apple_permutations=permute_animations(apples,move="up")
+            pear_permutations=permute_animations(pears,move="down")
+            self.play(*(apple_permutations + pear_permutations))
+            # Show a different matching
+            permuted_apples = permute(apples)
+            permuted_pears = permute(pears)
+            matching = get_matching(Group(*permuted_pears), Group(*permuted_apples))
+            self.play(ShowCreation(matching))
+            self.dither()
+            self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
+            self.emphasize(permuted_apples[-1])
+
         self.play(Uncreate(matching))
         self.dither()
 

@@ -3,12 +3,13 @@ from topics.geometry import Line
 from constants import *
 from animation.simple_animations import *
 from animation.transform import *
+from mobject.vectorized_mobject import VMobject, VGroup
 
 def line(from_,to):
-    buff = (0,0.1,0)
+    buff = 0.1
     return Line(
-        from_.get_critical_point(DOWN)-buff,
-        to.get_critical_point(UP)+buff
+        from_.get_critical_point(UP)+UP*buff,
+        to.get_critical_point(DOWN)+DOWN*buff
     )
 
 def get_matching(source,target):
@@ -19,7 +20,7 @@ def get_matching(source,target):
 
 class MatchingAnimations:
     def __init__(self,source,target):
-        matching_line = Line((0,-0.5,0),(0,0.5,0))
+        matching_line = Line(0.5*DOWN, 0.5*UP)
         def matched_objects(source,target):
             matched = Group(source.copy(),matching_line.copy(),target.copy())
             matched.arrange_submobjects(direction=DOWN)
@@ -45,6 +46,7 @@ class MatchingAnimations:
                     final_mobj.submobjects
             )
         ]
-        self.remove_match_animation = AnimationGroup(*(
-            Uncreate(mobj.submobjects[1]) for mobj in final_mobj.submobjects
-        ))
+        self.matching = VGroup(*[mob[1] for mob in final_mobj])
+        #self.remove_match_animation = AnimationGroup(*(
+        #    Uncreate(mobj.submobjects[1]) for mobj in final_mobj.submobjects
+        #))
