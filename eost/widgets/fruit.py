@@ -1,6 +1,7 @@
 from mobject import Mobject
 from mobject.svg_mobject import SVGMobject
 from helpers import *
+from .. import deterministic
 
 import constants
 import os
@@ -26,7 +27,12 @@ class Fruit(SVGMobject):
 
 color_indices='ABCDE'
 
-def get_color(base_color,color_index):
+def get_color(base_color,color,color_index):
+    if color is not None:
+        return color
+    if color_index is None:
+        import random
+        color_index = random.randint(0,len(color_indices))
     return getattr(
         constants,
         base_color + "_" + color_indices[color_index % len(color_indices)]
@@ -37,8 +43,8 @@ class Pear(Fruit):
         "fruit_type" : "pear",
     }
 
-    def __init__(self,color_index,**kwargs):
-        self.color=get_color(base_color="YELLOW",color_index=color_index)
+    def __init__(self,color_index=None,color=None,**kwargs):
+        self.color=get_color(base_color="YELLOW",color=color,color_index=color_index)
         Fruit.__init__(self,**kwargs)
 
 class Apple(Fruit):
@@ -47,8 +53,5 @@ class Apple(Fruit):
     }
 
     def __init__(self,color_index=None,color=None,**kwargs):
-        if color is not None:
-            self.color = color
-        else:
-            self.color=get_color(base_color="RED",color_index=color_index)
+        self.color=get_color(base_color="RED",color=color,color_index=color_index)
         Fruit.__init__(self,**kwargs)
