@@ -139,10 +139,7 @@ class Scene1(Scene):
         for anims in matching.match_animations:
             self.play(anims)
         self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
-        self.emphasize(apples[-1]) # Above, I pretended like this function
-                                   # was generic over the number of apples
-                                   # pears.  But here, and in the emphasis
-                                   # below, it isn't.
+        self.emphasize(apples[-1])
         self.play(Transform(apples[-1],apples[-1].copy().next_to(
             apples[-2], buff = matching.buff
         )))
@@ -155,15 +152,11 @@ class Scene1(Scene):
         # Show a different matching
         permuted_apples = permute(apples)
         permuted_pears = permute(pears)
-        # matching = MatchingAnimations(Group(*apples),Group(*pears))
-        # for anims in matching.match_animations:
-        #     self.play(anims)
         matching = get_matching(Group(*permuted_apples),Group(*permuted_pears))
         self.play(ShowCreation(matching))
         self.dither()
         self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
-        self.emphasize(permuted_apples[-1]) # See comment above. This [-1] is
-                                            # kind of a cheat
+        self.emphasize(permuted_apples[-1])
         self.play(Uncreate(matching))
         self.dither()
 
