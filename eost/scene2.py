@@ -43,13 +43,11 @@ def number_submobjects(mobj,direction):
 
 class Scene2(Scene):
     def construct(self):
-        apples = fruit_omega(Apple).center()
+        apples = fruit_omega(Apple).center().shift((0,1.5,0))
         apple_numbers = number_submobjects(apples,direction=UP)
-        Group(apples,apple_numbers).to_edge(UP)
         self.play(ShowCreation(apples),Write(apple_numbers))
-        pears = fruit_omega(Pear).center()
+        pears = fruit_omega(Pear).center().shift((0,-1.5,0))
         pear_numbers = number_submobjects(pears,direction=DOWN)
-        Group(pears,pear_numbers).to_edge(DOWN)
         self.play(ShowCreation(pears), Write(pear_numbers))
         self.dither()
         matching = get_matching(
@@ -70,3 +68,34 @@ class Scene2(Scene):
         )
         self.play(Transform(matching,one_extra_pear))
         self.dither()
+
+        apple_def_box = SurroundingRectangle(
+            Group(apples,apple_numbers),
+            buff=MED_LARGE_BUFF
+        )
+        apple_label = TexMobject("A").next_to(apple_def_box,direction=LEFT)
+        pear_def_box = SurroundingRectangle(
+            Group(pears,pear_numbers),
+            buff=MED_LARGE_BUFF
+        )
+        pear_label = TexMobject("B").next_to(pear_def_box,direction=LEFT)
+        self.play(
+            ShowCreation(apple_def_box),
+            Write(apple_label),
+            ShowCreation(pear_def_box),
+            Write(pear_label)
+        )
+        self.dither()
+        bijection = get_matching(
+            Group(*apples.submobjects[:-1]),
+            Group(*pears.submobjects[:-1])
+        )
+        self.play(Transform(matching,bijection))
+        self.dither()
+        self.play(Uncreate(matching))
+        equality = TexMobject("\\lvert{}","A","{}\\rvert=\\lvert{}","B","{}\\rvert")
+        self.play(
+            Transform(apple_label,equality.get_part_by_tex("A")),
+            Transform(pear_label,equality.get_part_by_tex("B")),
+            Write(equality.get_parts_by_tex("vert"))
+        )
