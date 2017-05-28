@@ -9,10 +9,7 @@ from helpers import *
 from animation.transform import *
 from topics.geometry import *
 from .matching import get_matching, MatchingAnimations
-
-import random
-random.seed(489903318756316287)
-np.random.seed(2442432778)
+import deterministic
 
 def permute(l):
     ret = l[:]
