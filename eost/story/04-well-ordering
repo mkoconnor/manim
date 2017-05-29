@@ -123,12 +123,12 @@ infinitely many previous elements.
 #     like to postpone such technical details.
 #   * To make the definition as simple as possible in the elementary
 #     language of set theory.
-
-# moconnor: Also what does the phrase "filled elements" mean in the paragraph
-# below?
-
-# Mirek: I mean filled by the recursion, or used, simply the elements
-#   which have an assigned value
+#
+# moconnor: Yeah, I have no problem with not using arbitrary subsets,
+# I was just trying to work around the terminological issue.
+# What do you think about using "initial segment" and "terminal segment"
+# and we just mention that (for some reason) "initial segment" is standard
+# but "terminal segment" is just for these videos?
 
 So it does not suffice that every element has a successor. We need
 to have a successor of any beginning. Whenever we take a set of filled
