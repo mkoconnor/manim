@@ -44,6 +44,7 @@ def number_submobjects(mobj,direction):
 
 class Scene2(Scene):
     def construct(self):
+        self.force_skipping()
         apples = Group(*(Apple() for _ in xrange(60))).arrange_submobjects().shift((0,1.5,0))
         apples.shift((-SPACE_WIDTH*3/4 - apples.get_critical_point(LEFT)[0],0,0))
         apple_numbers = number_submobjects(apples,direction=UP)
@@ -120,11 +121,14 @@ class Scene2(Scene):
         equality = TexMobject("\\lvert{}","A","{}\\rvert=\\lvert{}","B","{}\\rvert").next_to(apples,direction=UP)
         apple_label_copy = apple_label.copy()
         pear_label_copy = pear_label.copy()
-        self.play(
-            Transform(apple_label,apple_label.copy().replace(equality.get_part_by_tex("A"))),
-            Transform(pear_label,pear_label.copy().replace(equality.get_part_by_tex("B"))),
-            Write(equality.get_parts_by_tex("vert"))
-        )
+        def transform_to_equality(equality):
+            self.play(
+                Transform(apple_label,apple_label.copy().replace(equality.get_part_by_tex("A"))),
+                Transform(pear_label,pear_label.copy().replace(equality.get_part_by_tex("B"))),
+                Write(equality.get_parts_by_tex("vert"))
+            )
+        self.revert_to_original_skipping_status()
+        transform_to_equality(equality)
         self.dither()
         self.play(
             Transform(apple_label,apple_label_copy),
@@ -135,15 +139,25 @@ class Scene2(Scene):
             Uncreate(matching)
         )
         self.play(
-            FadeOut(Group(*apples.submobjects[5:])),
             FadeOut(Group(*pears.submobjects[4:])),
         )
-        apples.remove(*apples.submobjects[5:])
         pears.remove(*pears.submobjects[4:])
         def center_x(mobj):
             return mobj.copy().shift((-mobj.get_center()[0],0,0))
         self.play(
-            Transform(apples,center_x(apples)),
             Transform(pears,center_x(pears))
         )
+        def attempt(*apple_indices):
+            matching = get_matching(
+                pears,
+                Group(*(apples.submobjects[i] for i in apple_indices))
+            )
+            self.play(ShowCreation(matching))
+            self.play(Uncreate(matching))
+
+        attempt(0,1,2,3)
+        attempt(0,2,4,6)
+        attempt(1,3,0,6)
+        inequality = TexMobject("\\lvert{}","A","{}\\rvert>\\lvert{}","B","{}\\rvert").center().to_edge(UP)
+        transform_to_equality(inequality)
         self.dither()
