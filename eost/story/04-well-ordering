@@ -7,8 +7,8 @@ Outline
   * isolated and limit steps
 * well-ordered sets: what is the sufficient and necessary condition for transfinite recursion?
   * infinite decreasing sequence makes trouble (example of positive reals)
-  * we need to be able to continue from any beginning
-  * i.e. every non-empty ending has to have the first element
+  * we need to be able to continue from any initial segment
+  * i.e. every non-empty terminal segment has to have the first element
   * it is actually equivalent
   * usual definition of well ordering
 
@@ -28,7 +28,9 @@ construct a set created by $n$ gradual applications of P.
 
 "So let's find a big integer"
 Does it mean that for finding a large infinite number, we need to find
-a large finite number? No, because we live in the infinite world. We
+a large finite number?
+"Integers are too small."
+No, because we live in the infinite world. We
 are not limited by natural numbers. We can just take all of them at
 once and merge all of the appropriate sets. This merging is called the
 union and using that we get a set which is even bigger than all the
@@ -82,77 +84,33 @@ limit step, but there is no next bar which can be assigned to
 it. Again, whenever we assign the union to a bar here, we skip
 infinitely many previous elements.
 
-# moconnor: I think the use of the words "beginning" and "ending" here
-# is not standard, it took me a minute to figure out what it meant.
-# 
-# I think the standard term for "beginning" (at least in set theory)
-# is "initial segment".  I don't think there's a corresponding standard
-# term for ending.  However, Wikipedia lists some choices, although
-# not in the context set theory: https://en.wikipedia.org/wiki/Upper_set
-#
-# I would favor either calling "beginning"s initial segments and not
-# referring to endings (instead just saying that every non-empty subset
-# has a lower bound from the outset) or calling them "downward closed"
-# and "upward closed" sets
-
-# Mirek: I agree that it is not standard, if there is a more
-#   standard notation, it would be nice. "Initial segment" sounds
-#   really good, so the problem is how to call the opposite in a natural
-#   way. I hope that the visualization, two complementary terms and
-#   examples will help the listeners to understand it.
-#
-#   How would an ordinary person call the opposite of "initial segment"?
-#   What about "terminal segment"?
-#
-#   It is not necessary to have entirely standard terminology,
-#   we need a terminology that will be understood.
-#
-#   "Downward closed" and "upward closed" are acceptable but I
-#   prefered not so technical terms.
-#
-#   Arbitrary non-empty subsets are in my opinion less imaginable,
-#   less motivated and not so necessary. I prefer my
-#   definitions throughout the text (first elements of "endings"
-#   and no infinite decreasing sequence). But you can try to
-#   write it in the more standard way.
-#
-#   I don't know how to make arbitrary subsets natural
-#   here. Motivations that came to my mind are:
-#
-#   * To make the induction as convenient as possible. But I would
-#     like to postpone such technical details.
-#   * To make the definition as simple as possible in the elementary
-#     language of set theory.
-#
-# moconnor: Yeah, I have no problem with not using arbitrary subsets,
-# I was just trying to work around the terminological issue.
-# What do you think about using "initial segment" and "terminal segment"
-# and we just mention that (for some reason) "initial segment" is standard
-# but "terminal segment" is just for these videos?
-
 So it does not suffice that every element has a successor. We need
-to have a successor of any beginning. Whenever we take a set of filled
-elements from the beginning, there have to be the next element.
+to have a successor of any initial segment. Whenever we take a set of
+elements with assigned values from the beginning, there have to be the
+next element.
 
 But saying it in this way, we are not able to construct anything
-because the set itself can be considered as its beginning. So let's
+because the set itself can be considered as its initial segment. So let's
 simplify it and accept such sets that transfinite recursion can
 run through all of its elements even though the set does not cover the
 complete world of the transfinite recursion. In this simplification,
 the last element, if there is one, does not have to have a successor
 anymore.
 
-So, we are interested in such sets that every beginning which does not
-cover everything have the successor. It is actually the same as saying
-that every non-empty ending have the first element, endings are just
-complements to beginnings.
+So, we are interested in such sets that every initial segment which does not
+cover everything have the successor. Instead of focusing on the
+initial segment we can focus on its complement. There is no official
+opposite name for the initial segment but we will call it the terminal
+segment in this series. So saying that every initial segment which
+does not cover everything have the successor is actually the same as
+saying that every non-empty terminal segment have the first element.
 
-A very special case of such beginning can be an empty beginning. When
-no element is filled yet, the corresponding ending is the whole set
-itself, so the necessity of having the entirely first element is
-covered by the condition too.
+A very special case of such initial segment can be an empty initial segment. When
+no element has assigned value yet, the corresponding terminal segment
+is the whole set itself, so the necessity of having the entirely first
+element is covered by the condition too.
 
-So this condition, "every non-empty ending has a first element", is
+So this condition, "every non-empty terminal segment has a first element", is
 sufficient for the transfinite recursion. Any set satisfying this is
 called a well-ordered set, and the ordering itself is called
 well-ordering. When we want to construct a large set by the
@@ -161,21 +119,21 @@ transfinite recursion, we need to find a well-ordered set long enough.
 We finish this chapter with an alternative view of what well ordered
 sets mean. In fact, the only obstacle is an infinite decreasing
 sequence. Really, whenever there is an infinite decreasing sequence,
-it divides the set into a beginning and a non-empty ending without a
+it divides the set into a initial segment and a non-empty terminal segment without a
 first element. There cannot be the first element because the sequence
-goes backward and backward. And conversely, any non-empty ending
+goes backward and backward. And conversely, any non-empty terminal segment
 without the first element contains enough space for an infinite
 decreasing sequence. The absence of a first element assures that
 sequence cannot get stuck.
 
 So we have two ways how to determine whether a set is well ordered
 set, that means we can run the transfinite recursion on it. One way is
-to investigate all the non-empty endings and check whether all of them
+to investigate all the non-empty terminal segments and check whether all of them
 have their first elements. And the second way is to ensure that there
 is no infinite decreasing sequence in it.
 
 But if you will search for the definition of well ordering by your
-own, you will probably meet the following one: Not just every ending
+own, you will probably meet the following one: Not just every terminal segment
 but every possible non-empty subset has its first element. So, you can
 try to think over why the meaning is still the same.
 
