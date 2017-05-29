@@ -95,8 +95,40 @@ infinitely many previous elements.
 # has a lower bound from the outset) or calling them "downward closed"
 # and "upward closed" sets
 
+# Mirek: I agree that it is not standard, if there is a more
+#   standard notation, it would be nice. "Initial segment" sounds
+#   really good, so the problem is how to call the opposite in a natural
+#   way. I hope that the visualization, two complementary terms and
+#   examples will help the listeners to understand it.
+#
+#   How would an ordinary person describe the opposite of "initial segment"?
+#   What about "terminal segment"?
+#
+#   It is not necessary to have entirely standard terminology,
+#   we need a terminology that will be understood.
+#
+#   "Downward closed" and "upward closed" are acceptable but I
+#   prefered not so technical terms.
+#
+#   Arbitrary non-empty subsets are in my opinion less imaginable,
+#   less motivated and not so necessary. I prefer my
+#   definitions throughout the text (first elements of "endings"
+#   and no infinite decreasing sequence). But you can try to
+#   write it in the more standard way.
+#
+#   I don't know how to make arbitrary subsets natural
+#   here. Motivations that came to my mind are:
+#
+#   * To make the induction as convenient as possible. But I would
+#     like to postpone such technical details.
+#   * To make the definition as simple as possible in the elementary
+#     language of set theory.
+
 # moconnor: Also what does the phrase "filled elements" mean in the paragraph
 # below?
+
+# Mirek: I mean filled by the recursion, or used, simply the elements
+#   which have an assigned value
 
 So it does not suffice that every element has a successor. We need
 to have a successor of any beginning. Whenever we take a set of filled
