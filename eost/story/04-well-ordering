@@ -17,12 +17,12 @@ In previous chapters we have seen that when we take the set of all
 subsets of natural numbers, we get a bigger set. The set of all
 natural numbers is usually denoted by a greek letter omega and
 includes the number zero which is rather technical detail for
-now. Taking the set of al possible subsets is denoted by the
-caligraphic letter P meaning "power set". So P of omega is bigger than
+now. Taking the set of all possible subsets is denoted by the
+calligraphic letter P meaning "power set". So P of omega is bigger than
 omega. And we have also shown that the power set is a universal tool
 for making sets bigger. So P of P of omega is even bigger than P of
 omega, and P of P of P of omega is even bigger. Let's try to construct
-as large set set possible. We continue by taking a further power
+as large a set as possible. We continue by taking a further power
 set. And again, and again. For any natural number $n$, we can
 construct a set created by $n$ gradual applications of P.
 
@@ -39,7 +39,7 @@ The process happening here is called transfinite recursion. An
 ordinary recursion is just something living on natural numbers. We
 define the thing we start with, in our case omega, and the recursive
 step, in our case taking the power set of the previous set.
-But transfinite resursion can do one more, it can combine the data
+But transfinite recursion can do one more, it can combine the data
 collected in previous steps even if there is no immediately preceding
 one. This kind of a recursive step is called a limit step while the
 usual recursive step, allowed to rely on the immediately preceding
@@ -59,7 +59,7 @@ mysterious world of transfinite recursion. A better understaning of
 what can we afford here will help us to produce the super large-sets
 which we wanted at the beginning.
 
-Let's see why we cannot proceed the transfintie recursion on positive
+Let's see why we cannot proceed by transfinite recursion on positive
 reals. At first, we need to start with the zero step somewhere. That
 is, we need the set have to a minimal element. But positive reals does
 not have it, for any positive real number, there is another positive
@@ -74,20 +74,37 @@ but even every element have to have a successor in it.
 
 This assures us that we can run the successor step every time. But
 what about the limit step? Take the following example: one infinite
-increasing sequence and a two-sided infinite sequence behing it. The
-set itself has the first element, so we can assign zero. Every element
-here have its successor, so we can run successor steps and get P
+increasing sequence and a two-sided infinite sequence behind it. The
+set itself has a first element, so we can assign zero. Every element
+here has a successor, so we can run successor steps and get P
 omega, P P omega and so on... But what next? Now we should run the
 limit step, but there is no next bar which can be assigned to
 it. Again, whenever we assign the union to a bar here, we skip
 infinitely many previous elements.
-So it does not suffice that every element have its successor. We need
+
+# moconnor: I think the use of the words "beginning" and "ending" here
+# is not standard, it took me a minute to figure out what it meant.
+# 
+# I think the standard term for "beginning" (at least in set theory)
+# is "initial segment".  I don't think there's a corresponding standard
+# term for ending.  However, Wikipedia lists some choices, although
+# not in the context set theory: https://en.wikipedia.org/wiki/Upper_set
+#
+# I would favor either calling "beginning"s initial segments and not
+# referring to endings (instead just saying that every non-empty subset
+# has a lower bound from the outset) or calling them "downward closed"
+# and "upward closed" sets
+
+# moconnor: Also what does the phrase "filled elements" mean in the paragraph
+# below?
+
+So it does not suffice that every element has a successor. We need
 to have a successor of any beginning. Whenever we take a set of filled
 elements from the beginning, there have to be the next element.
 
 But saying it in this way, we are not able to construct anything
 because the set itself can be considered as its beginning. So let's
-simplify it and accept such sets that the transfinite recursion can
+simplify it and accept such sets that transfinite recursion can
 run through all of its elements even though the set does not cover the
 complete world of the transfinite recursion. In this simplification,
 the last element, if there is one, does not have to have a successor
@@ -109,10 +126,10 @@ called a well-ordered set, and the ordering itself is called
 well-ordering. When we want to construct a large set by the
 transfinite recursion, we need to find a well-ordered set long enough.
 
-We finish this chapter with an alternative view, what the well ordered
-set mean. In fact, the only obstacle is an infinite decreasing
+We finish this chapter with an alternative view of what well ordered
+sets mean. In fact, the only obstacle is an infinite decreasing
 sequence. Really, whenever there is an infinite decreasing sequence,
-it divides the set into a beginning and a non-empty ending without the
+it divides the set into a beginning and a non-empty ending without a
 first element. There cannot be the first element because the sequence
 goes backward and backward. And conversely, any non-empty ending
 without the first element contains enough space for an infinite

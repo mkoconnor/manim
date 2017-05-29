@@ -26,7 +26,7 @@ This chapter will be pretty technical.
 And to be honest, it is not necessary to know the entrails of recursion for using it.
 :{examples animations}
 That is why we introduced transfinite recursion rather by some examples instead of analyzing it on the formal level.
-Despite this, the formal understanding of recursion is quite an essential part of the set theory.
+Despite this, the formal understanding of recursion is quite an essential part of set theory.
 :{Connection between "Theory of Infinity" and Foundation of mathematics}
 It forms the bridge between the two roles of the set theory.
 :{chapter list}
@@ -151,4 +151,4 @@ but it does not matter. The sequence is determined now, so all the
 finite sequences have to be compatible, so we can merge them to one
 infinite sequence.
 
-TODO: recap, note about the transfinice recursion
+TODO: recap, note about the transfinite recursion
