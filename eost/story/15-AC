@@ -1,0 +1,11 @@
+The controversial axiom
+=======================
+
+* The axiom of choice, do not confuse with the axiom of selection
+* statement: for any set of non-empty disjoint sets, we can find a set intersecting each of them in exactly one element
+  * explanation: we can do infinite number of non-predescribed choices at one time
+  * if they are predescribed, axiom of replacement suffices
+  * if there is just a finite number of them, we can construct the selection set in a usual way
+* ordinary usage: Union of countable sets? Haine's theorem? (just one of them)
+* paradoxical usage: Prisoners? Non-measurable set? (just one of them)
+* axiom of choice is a forgotten axiom, the opposite to the axiom of regularity

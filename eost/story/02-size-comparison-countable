@@ -1,0 +1,116 @@
+Set size comparison and countable sets
+
+Outline
+=======
+* link to hotel infinity?
+* how to compare finite sets without computation? by matching their elements
+* problems with infinity: ``omega is less than omega''
+* $2\times\omega = \omega$
+* $\omega\times \omega = \omega$
+* rationals are countable
+* finite sets of rationals are countable
+* uncountability: infinite sequences of 0,1
+
+:---- Scene1 -----
+. Assume that we have some apples and some pears. And we would like to
+. figure out what is more. Well, that's an exercise for first year
+. pupils of elementary school, we just compute the number of apples,
+. then the number of pears and since 5 is more than 4, there are more
+. apples than pears.
+.
+. But let's go before elementary school, imagine that you cannot
+. count. How could you determine what is more? There is another option:
+. matching pears with apples. We see that when we make such pairs, there
+. is one extra apple, so there are more apples than pears. 
+.
+. And even if we reorder apples or pears and try an absolutely different matching
+. the result is still the same. There is one more apple. Isn't that surprising?
+.
+. Well, it isn't because we can count. We know that 5 apples minus 4
+. pears is one extra apple. It is not surprising at all. At least until
+. we meet infinity...
+
+:---- Scene2 -----
+Let's have an infinite number of apples, each sitting at a natural
+number, and an infinite number of pears also each sitting on a natural
+number. There is a natural matching between apples and pears, so there
+should be the same number of them. But if we use another matching,
+connecting the pear at number 0 to the apple at number 1, the pear at
+number 1 to the apple at number 2, and so on, there is one extra
+apple. So there should be more apples than pears.
+
+And similarly, there can be one extra pear. How to manage it? The reasonable way how to untangle this is the following definition.
+:{"Definition"}
+Consider two sets, $A$ and $B$.
+:{Boxes around apples and pears}
+If there is any matching between $A$ and $B$ such that every element of $A$ and every element of $B$ is used exactly once, we say that these two sets have the same size. We write size by absolute value, so we can write is like that,
+:{$|A|=|B|$}
+the size of $A$ equals the size of $B$.
+
+If, on the other hand, if there is no way how to match these sets together,
+:{Finite number of pears, matching attempts}
+and no matter how we try, we can just match the elements of the set $B$ with a part of the set $A$, we say that the size $A$ is bigger than $B$.
+
+But this definition leads us to several surprising observations. Take
+the set of all natural numbers. And then take just the subset
+consisted of all even numbers. Intuitively, the number of even
+naturals should be less than the number of all naturals. After all, we
+discarded an infinite number of odd naturals something like the half
+of all numbers here. But there is a simple correspondence between
+natural numbers and even numbers:
+:{|natural numbers|=|even natural numbers|}
+We can just match every number with its double, zero with zero, one
+with two, two with four, three with six and so on. So the number of
+all even numbers is the same as the set of all naturals. 
+
+It was not really important to take exactly natural numbers. If we
+take squares of integers, we can match zero with zero, one with one,
+two with four, and so on. Or if we take just prime numbers, we can
+match then zero with two, one with three, two with five, and so on. If
+we take any infinite subset of natural numbers, however sparse, the
+size will be still the same.
+
+Let's introduce
+:{upbrace: finite sizes}
+some notation now. Sizes of finite sets are determined by natural
+numbers, zero, one, two and so on. Now we introduce an infinite size,
+it is called Aleph 0 (a funny comment about Hebrew alphabet and a
+reason of the zero?) and we already know that it is the least infinite
+size because every infinite part of it is still the same size. All
+:{downbrace: countable sizes}
+these sizes are called countable meaning that natural numbers are
+enough for counting its elements even though we may need all natural
+numbers. During the rest of this chapter we will mainly investigate
+the properties of the size aleph 0 and countability.
+
+We will show the notation on the example with even numbers. We already
+know that the set of even numbers can be matched with natural numbers,
+that means that the number of even numbers is aleph 0. Similarly, the
+set of odd numbers has the size aleph 0. So there are two sets of size
+aleph 0 which altogether gives again a set of size aleph 0, the set of
+all naturals.
+
+But for size comparison, the particular elements does not really
+matter. Just because we know that there are some sets of size aleph 0
+which altogether have again the size aleph 0, we can generalize this
+fact to whatsoever two sets with size aleph 0. They can be again our
+sets of apples and pears. Each of them has the size aleph 0 but
+altogether they still have the size aleph 0. So aleph 0 plus aleph 0
+is still the same size aleph 0. Alternatively speaking, the union of
+two countable sets is still countable. There is a meaningful
+example. The number of non-positive integers, zero, minus one, minus
+two and so on, is aleph 0. They are just natural numbers reflected by
+the point zero. And there are aleph 0 of natural numbers.
+
+TODO:
+=====
+Comment, perhaps with student's question, on what happened to merged
+zero: it is still countable and infinite, therefore aleph
+0. $\omega\times\omega$, proposal: continue with splitting even
+numbers to 2 mod 4 and 0 mod 4, then numbers divisible by 4 by
+divisibility by 8 and so on. It is not the well-known mainstream
+picture of diagonals but it can be still visualized pretty well and we
+get a simple exact formula for the bijection. Meaningful example,
+rational numbers. Completing the picture: opposites Infinite and
+uncountable. Is there anything uncountable? Statement (perhaps without
+proof at this chapter).

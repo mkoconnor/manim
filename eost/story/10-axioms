@@ -1,0 +1,13 @@
+A new beginning
+===============
+
+Motto: In the beginning was the Word, and the Word was by Mathematician, and the Word was ``a set''.
+
+* Axioms
+* basics: existence, pair, selection, union for pairs
+* Recall the chapter~\ref{well-order}, what do we actually need for the union of $\omega, \P(\omega), \P(\P(\omega)), \ldots$?
+  * infinity, powerset, replacement, union
+* one more core axiom: extensionality
+  * "every element can be in a set just once and the ordering does not matter" is forced by the language
+* mentioning other axioms: regularity, choice
+  * we will look at them in more detail in chapters~\ref{regularity},\ref{AC}

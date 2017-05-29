@@ -1,0 +1,14 @@
+Ordinal arithmetics
+===================
+
+Outline
+=======
+* addition
+* plus is not commutative, $x + \hbox{anything} > x$
+* $1+\omega=\omega$ as a race, two turtles, one with a head start
+* $\omega + x = x$?
+* $x = omega \cdot omega$
+* multiplication
+* times is not commutative in the same direction as plus, again $x \cdot \hbox{anything} > x$ (if $\hbox{anything} > 1$)
+* $2\cdot omega=omega$ as a race between turtle and a hare
+* how the turtle catches the Achiles at $\omega^\omega$, still countable

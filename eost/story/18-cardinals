@@ -1,0 +1,10 @@
+What are cardinal numbers good for
+==================================
+
+* how to formally measure the cardinality?
+* use specific ordinals -- weird but working
+* ``cardinal numbers are more than just an amount''
+* recursion on a cardinal
+  * simple example: alternative solution to the grid coloring from chapter~\ref{intro}
+  * example: there is a set of points in the plane having 3-element intersection with every circle
+  * why ordinary recursion on ordinals fails?

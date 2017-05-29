@@ -1,0 +1,134 @@
+To the infinity and beyond
+==========================
+
+Outline
+=======
+* Creation of large sets by transfinite recursion
+  * isolated and limit steps
+* well-ordered sets: what is the sufficient and necessary condition for transfinite recursion?
+  * infinite decreasing sequence makes trouble (example of positive reals)
+  * we need to be able to continue from any beginning
+  * i.e. every non-empty ending has to have the first element
+  * it is actually equivalent
+  * usual definition of well ordering
+
+
+In previous chapters we have seen that when we take the set of all
+subsets of natural numbers, we get a bigger set. The set of all
+natural numbers is usually denoted by a greek letter omega and
+includes the number zero which is rather technical detail for
+now. Taking the set of al possible subsets is denoted by the
+caligraphic letter P meaning "power set". So P of omega is bigger than
+omega. And we have also shown that the power set is a universal tool
+for making sets bigger. So P of P of omega is even bigger than P of
+omega, and P of P of P of omega is even bigger. Let's try to construct
+as large set set possible. We continue by taking a further power
+set. And again, and again. For any natural number $n$, we can
+construct a set created by $n$ gradual applications of P.
+
+"So let's find a big integer"
+Does it mean that for finding a large infinite number, we need to find
+a large finite number? No, because we live in the infinite world. We
+are not limited by natural numbers. We can just take all of them at
+once and merge all of the appropriate sets. This merging is called the
+union and using that we get a set which is even bigger than all the
+preceding. But we are not finished yet. We can again take the power
+set, and again, and again, and so on, and then the union.
+
+The process happening here is called transfinite recursion. An
+ordinary recursion is just something living on natural numbers. We
+define the thing we start with, in our case omega, and the recursive
+step, in our case taking the power set of the previous set.
+But transfinite resursion can do one more, it can combine the data
+collected in previous steps even if there is no immediately preceding
+one. This kind of a recursive step is called a limit step while the
+usual recursive step, allowed to rely on the immediately preceding
+value, is called the successor step.
+So in our case, the zero step of the transfinite recursion is omega,
+the successor step is taking the power set, and the limit step is
+union. But the key question here is: What is the thing the transfinite
+recursion live on? The usual recursion is easy, it lives on natural
+numbers, but what about the transfinite one? In fact this question is
+quite tricky. On one hand, whenever we begin to see a pattern in the
+transfinite resursion, we can take the limit step and overcome it. On
+the other hand, transfinite recursion does not work on everything, it
+fails, for example on positive real numbers.
+
+So in this chapter and several following ones we will talk about the
+mysterious world of transfinite recursion. A better understaning of
+what can we afford here will help us to produce the super large-sets
+which we wanted at the beginning.
+
+Let's see why we cannot proceed the transfintie recursion on positive
+reals. At first, we need to start with the zero step somewhere. That
+is, we need the set have to a minimal element. But positive reals does
+not have it, for any positive real number, there is another positive
+real which is smaller. This can still be fixed, let's add zero and
+take positive reals with zero.
+
+Now we assign omega to the point zero on the real axis. But... what next?
+If we take any other real number, we inevitably skip an infinite
+amount of real numbers between zero and our chosen number. That is a
+problem, not just that the set itself has to contain a minimal element
+but even every element have to have a successor in it.
+
+This assures us that we can run the successor step every time. But
+what about the limit step? Take the following example: one infinite
+increasing sequence and a two-sided infinite sequence behing it. The
+set itself has the first element, so we can assign zero. Every element
+here have its successor, so we can run successor steps and get P
+omega, P P omega and so on... But what next? Now we should run the
+limit step, but there is no next bar which can be assigned to
+it. Again, whenever we assign the union to a bar here, we skip
+infinitely many previous elements.
+So it does not suffice that every element have its successor. We need
+to have a successor of any beginning. Whenever we take a set of filled
+elements from the beginning, there have to be the next element.
+
+But saying it in this way, we are not able to construct anything
+because the set itself can be considered as its beginning. So let's
+simplify it and accept such sets that the transfinite recursion can
+run through all of its elements even though the set does not cover the
+complete world of the transfinite recursion. In this simplification,
+the last element, if there is one, does not have to have a successor
+anymore.
+
+So, we are interested in such sets that every beginning which does not
+cover everything have the successor. It is actually the same as saying
+that every non-empty ending have the first element, endings are just
+complements to beginnings.
+
+A very special case of such beginning can be an empty beginning. When
+no element is filled yet, the corresponding ending is the whole set
+itself, so the necessity of having the entirely first element is
+covered by the condition too.
+
+So this condition, "every non-empty ending has a first element", is
+sufficient for the transfinite recursion. Any set satisfying this is
+called a well-ordered set, and the ordering itself is called
+well-ordering. When we want to construct a large set by the
+transfinite recursion, we need to find a well-ordered set long enough.
+
+We finish this chapter with an alternative view, what the well ordered
+set mean. In fact, the only obstacle is an infinite decreasing
+sequence. Really, whenever there is an infinite decreasing sequence,
+it divides the set into a beginning and a non-empty ending without the
+first element. There cannot be the first element because the sequence
+goes backward and backward. And conversely, any non-empty ending
+without the first element contains enough space for an infinite
+decreasing sequence. The absence of a first element assures that
+sequence cannot get stuck.
+
+So we have two ways how to determine whether a set is well ordered
+set, that means we can run the transfinite recursion on it. One way is
+to investigate all the non-empty endings and check whether all of them
+have their first elements. And the second way is to ensure that there
+is no infinite decreasing sequence in it.
+
+But if you will search for the definition of well ordering by your
+own, you will probably meet the following one: Not just every ending
+but every possible non-empty subset has its first element. So, you can
+try to think over why the meaning is still the same.
+
+Next time, we will meet ordinal numbers and we will learn the indexing
+meaning of well ordered sets. See you then.

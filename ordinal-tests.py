@@ -6,6 +6,11 @@ from scene import Scene
 import eost.ordinal
 from eost.ordinal import *
 
+def color_interpolate(color1, color2, alpha):
+    color1 = color_to_rgb(color1)
+    color2 = color_to_rgb(color2)
+    return rgb_to_color(interpolate(color1, color2, alpha))
+
 class OrdinalPowerScene(Scene):
 
     def construct(self):
@@ -63,6 +68,7 @@ class OrdinalPowerScene(Scene):
         self.remove(src_power, ori_ord, ori_ord2)
         self.add(self.ordinal)
         for l in self.layers: self.add(*l)
+        for l in self.layers2: self.add(*l)
         self.dither()
         target_brace, target_desc = self.make_description(self.power, self.ordinal)
         self.play(
@@ -89,7 +95,9 @@ class OrdinalPowerScene(Scene):
         for i, layer in reversed(list(enumerate(self.layers))):
             for mob in layer:
                 mob.pow_layer = self.power-i
-                mob.set_color(self.power_color(mob.pow_layer))
+                color = self.power_color(mob.pow_layer)
+                color = color_interpolate(color, BLACK, float(max(i-1, 0))/(self.max_pow))
+                mob.set_color(color)
         self.layers = self.layers[:-1]
 
         self.layers2, self.ordinal2 = copy.deepcopy((self.layers, self.ordinal))
@@ -98,7 +106,7 @@ class OrdinalPowerScene(Scene):
         self.layers[-1][0].set_color(WHITE)
 
     def power_color(self, power):
-        if power == 0: return GRAY
+        if power == 0: return WHITE
         else: return [GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE][(power-1) % 6]
 
 class OrdinalPowerScene2(OrdinalPowerScene):
@@ -108,14 +116,14 @@ class OrdinalPowerTest(OrdinalPowerScene):
     def construct(self):
 
         eost.ordinal.pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
-        self.max_pow = 3
+        self.max_pow = 5
 
-        self.init_scene(3)
+        self.init_scene(5)
         self.dither()
-        self.power_inc()
-        self.dither()
-        self.power_inc()
-        self.dither()
+        #self.power_inc()
+        #self.dither()
+        #self.power_inc()
+        #self.dither()
 
 
 class OrdinalAsIndex(Scene):

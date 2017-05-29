@@ -1,0 +1,14 @@
+Combo of the transfinite recursion and the axiom of choice
+==========================================================
+
+* Why are every two sets comparable?
+* By transfinite recursion, we add edges
+  * If we defined it on all ordinals, we get a contradiction with replacement and the class of ordinals being a class
+  * Do we really needed working with a class and the axiom of replacement?
+    * No, but it is convenient.
+    * If we wanted to avoid it, we could use the set of all ordinals embeddable into bijections
+* generalization: Zorn's lemma (call it Zorn's lemma or the Principle of maximality?)
+  * it is actually similar to previous chapter
+  * it is an interface between set theory and the rest of mathematics
+* The well ordering principle
+  * other reason why every two sets are comparable
