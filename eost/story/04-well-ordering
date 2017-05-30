@@ -35,15 +35,18 @@ Outline
 . :{"Integers are too small."}
 . No, because we live in the infinite world. We
 . are not limited by natural numbers.
+.
+. We can just take all of them at once as well as all the appropriate sets
 
-We can just take all of them at
-once and merge all of the appropriate sets. This merging is called the
-union and using that we get a set which is even bigger than all the
-preceding. But we are not finished yet. We can again take the power
-set, and again, and again, and so on, and then the union.
+:--------FirstLimitStep-------
+. and merge them. This merging is called the
+. union and using that we get a set which is even bigger than all the
+. preceding. But we are not finished yet. We can again take the power
+. set, and again, and again, and so on, and then the union...
+.
+. The process happening here is called transfinite recursion.
 
-The process happening here is called transfinite recursion. An
-ordinary recursion is just something living on natural numbers. We
+An ordinary recursion is just something living on natural numbers. We
 define the thing we start with, in our case omega, and the recursive
 step, in our case taking the power set of the previous set.
 But transfinite recursion can do one more, it can combine the data

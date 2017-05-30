@@ -83,6 +83,12 @@ class OrdinalOne(Ordinal):
         #    arc.add_tip(0.15*(self.x1 - self.x0))
         return VGroup(arc)
 
+    def add_description(self, desc, size = 0.8, direction = UP, buff = DEFAULT_MOBJECT_TO_MOBJECT_BUFFER, **kwargs):
+        scale = size*(self.x1 - self.x0) / desc.get_width()
+        if scale < 1: desc.scale(scale)
+        else: scale = 1
+        desc.next_to(self, direction = direction, buff = buff*scale, **kwargs)
+
 class LimitOrdinal(Ordinal):
     CONFIG = {
         "zero_at_fg" : False,
@@ -141,6 +147,16 @@ class LimitSubOrdinal(LimitOrdinal):
 class OrdinalOmega(LimitOrdinal):
     def __init__(self, **kwargs):
         LimitOrdinal.__init__(self, OrdinalOne, **kwargs)
+
+    def add_descriptions(self, desc_maker, **kwargs):
+        descriptions = []
+        for i, subord in enumerate(self.submobjects):
+            desc = desc_maker(i)
+            subord.add_description(desc, **kwargs)
+            descriptions.append(desc)
+            if desc.get_height() < pixel_size or desc.get_width() < pixel_size: break
+
+        return VGroup(*descriptions)
 
 def make_ordinal_power(power, **kwargs):
     if power == 0: return OrdinalOne(**kwargs)    
