@@ -12,26 +12,31 @@ Outline
   * it is actually equivalent
   * usual definition of well ordering
 
+:-------PowerSetsScene-------
+.
+. In previous chapters we have seen that when we take the set of all
+. natural numbers, take all possible subsets of it and pack it to a new
+. set, we get a bigger set than the set of all
+. natural numbers itself. The set of all
+. natural numbers is usually denoted by a greek letter omega. Taking the
+. set of all possible subsets is denoted by the
+. calligraphic letter P which is an abbreviation of the "power set". So
+. P of omega is bigger than omega. Let's try to construct
+. as large a set as possible. We have also shown that the power set
+. is a universal tool for making sets bigger. So P of P of omega is even
+. bigger than P of omega, and P of P of P of omega is even bigger.
+.
+. For any natural number $n$, we can construct a set created by $n$ gradual
+. applications of P.
+.
+. :{"So let's find a big integer"}
+. Does it mean that for finding a large infinite number, we need to find
+. a large finite number?
+. :{"Integers are too small."}
+. No, because we live in the infinite world. We
+. are not limited by natural numbers.
 
-In previous chapters we have seen that when we take the set of all
-subsets of natural numbers, we get a bigger set. The set of all
-natural numbers is usually denoted by a greek letter omega and
-includes the number zero which is rather technical detail for
-now. Taking the set of all possible subsets is denoted by the
-calligraphic letter P meaning "power set". So P of omega is bigger than
-omega. And we have also shown that the power set is a universal tool
-for making sets bigger. So P of P of omega is even bigger than P of
-omega, and P of P of P of omega is even bigger. Let's try to construct
-as large a set as possible. We continue by taking a further power
-set. And again, and again. For any natural number $n$, we can
-construct a set created by $n$ gradual applications of P.
-
-"So let's find a big integer"
-Does it mean that for finding a large infinite number, we need to find
-a large finite number?
-"Integers are too small."
-No, because we live in the infinite world. We
-are not limited by natural numbers. We can just take all of them at
+We can just take all of them at
 once and merge all of the appropriate sets. This merging is called the
 union and using that we get a set which is even bigger than all the
 preceding. But we are not finished yet. We can again take the power

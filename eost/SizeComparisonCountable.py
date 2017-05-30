@@ -3,12 +3,12 @@ from mobject.tex_mobject import *
 from topics.geometry import *
 from constants import *
 from mobject import Mobject, Group
-from .widgets import *
+from eost.widgets import *
 from animation.simple_animations import *
 from animation.transform import *
 import helpers
-from .matching import get_matching, MatchingAnimations
-import deterministic
+from eost.matching import get_matching, MatchingAnimations
+import eost.deterministic
 
 def permute(l):
     ret = l[:]

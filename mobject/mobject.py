@@ -253,6 +253,7 @@ class Mobject(object):
                 buff = DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,
                 aligned_edge = ORIGIN,
                 align_using_submobjects = False,
+                coor_mask = np.array([1,1,1]),
                 ):
         if isinstance(mobject_or_point, Mobject):
             mob = mobject_or_point
@@ -266,7 +267,7 @@ class Mobject(object):
             aligned_edge-direction,
             use_submobject = align_using_submobjects
         )
-        self.shift(target_point - point_to_align + buff*direction)
+        self.shift((target_point - point_to_align + buff*direction)*coor_mask)
         return self
 
 
