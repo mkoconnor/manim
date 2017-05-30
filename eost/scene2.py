@@ -44,7 +44,6 @@ def number_submobjects(mobj,direction):
 
 class Scene2(Scene):
     def construct(self):
-        self.force_skipping()
         apples = Group(*(Apple() for _ in xrange(60))).arrange_submobjects().shift((0,1.5,0))
         apples.shift((-SPACE_WIDTH*3/4 - apples.get_critical_point(LEFT)[0],0,0))
         apple_numbers = number_submobjects(apples,direction=UP)
@@ -127,7 +126,6 @@ class Scene2(Scene):
                 Transform(pear_label,pear_label.copy().replace(equality.get_part_by_tex("B"))),
                 Write(equality.get_parts_by_tex("vert"))
             )
-        self.revert_to_original_skipping_status()
         transform_to_equality(equality)
         self.dither()
         self.play(
