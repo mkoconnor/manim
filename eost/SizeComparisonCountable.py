@@ -10,9 +10,6 @@ import helpers
 from .matching import get_matching, MatchingAnimations
 import deterministic
 
-import deterministic
-
-
 def permute(l):
     ret = l[:]
     random.shuffle(ret)
