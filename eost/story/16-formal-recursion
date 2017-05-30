@@ -37,14 +37,14 @@ are just based on hand-waving.
 
 At this chapter, we are going to look very closely into the proof of
 the following observation we met in chapter~{well-ordering}. Whenever
-an ordered set contains a non-empty ending without first element,
+an ordered set contains a non-empty terminal segment without first element,
 :{brace: "No first element"}
 then there is an infinite decreasing sequence in it.
 
 And the proof is actually pretty straightforward. Start with any
-element of the ending. It is not the first one, so we can go below.
+element of the terminal segment. It is not the first one, so we can go below.
 And again, and again, and so on.
-So we constructed an infinite decreasing sequence in the ending.
+So we constructed an infinite decreasing sequence in the terminal segment.
 
 But infinite proofs are not allowed. Even though we are investigating
 an infinite world, we need to use finite number of steps for proving it.
