@@ -208,22 +208,32 @@ def number_submobjects(mobj,direction):
     submobjs.append(dots)
     return Group(*submobjs)
 
+def buffer_width(mobj,width):
+    buff = Rectangle(
+        height=mobj.get_height(),
+        width=width,
+        color=BLACK
+    )
+    buff.shift(mobj.get_center() - buff.get_center())
+    mobj.add_to_back(buff)
+    return mobj
+Mobject.buffer_width = buffer_width
+
+def left_justify(mobj):
+    mobj.shift((-SPACE_WIDTH*3/4 - mobj.get_critical_point(LEFT)[0],0,0))
+    return mobj
+Mobject.left_justify = left_justify
+
 class Scene2(Scene):
     def construct(self):
         apples = Group(*(Apple() for _ in xrange(60))).arrange_submobjects().shift((0,1.5,0))
-        apples.shift((-SPACE_WIDTH*3/4 - apples.get_critical_point(LEFT)[0],0,0))
+        apples.left_justify
         apple_numbers = number_submobjects(apples,direction=UP)
-        # l for "larger"
-        def lpear():
-            p = Pear()
-            buff = Rectangle(
-                height=p.get_height(),
-                width=apples.submobjects[0].get_width(),
-                color=BLACK
-            ).center()
-            return Group(buff,p)
-        pears = Group(*(lpear() for _ in xrange(60))).arrange_submobjects().shift((0,-1.5,0))
-        pears.shift((-SPACE_WIDTH*3/4 - pears.get_critical_point(LEFT)[0],0,0))
+        pear_width = apples.submobjects[0].get_width()
+        pears = Group(*(
+            Pear().buffer_width(pear_width) for _ in xrange(60)
+        )).arrange_submobjects().shift((0,-1.5,0))
+        pears.left_justify
         pear_numbers = number_submobjects(pears,direction=DOWN)
         self.play(ShowCreation(apples),Write(apple_numbers))
         self.play(ShowCreation(pears),Write(pear_numbers))
@@ -325,3 +335,33 @@ class Scene2(Scene):
         inequality = TexMobject("\\lvert{}","A","{}\\rvert>\\lvert{}","B","{}\\rvert").center().to_edge(UP)
         transform_to_equality(inequality)
         self.dither()
+
+class Scene3(Scene):
+    def construct(self):
+        def number_tex(i):
+            mobj = TexMobject(str(i))
+            mobj.number = i
+            return mobj
+        numbers = Group(*(number_tex(i) for i in xrange(150)))
+        max_width = max(mobj.get_width() for mobj in numbers.submobjects)
+        for n in numbers.submobjects:
+            n.buffer_width(width=max_width + 0.1)
+        numbers.arrange_submobjects().left_justify().shift((0,1.5,0))
+        self.play(ShowCreation(numbers))
+        def show_matching(pred):
+            pred_numbers = Group(*filter(lambda i: pred(i.number), numbers.submobjects)).copy()
+            self.play(Transform(pred_numbers,pred_numbers.copy().shift((0,-3,0))))
+            self.play(Transform(pred_numbers,pred_numbers.copy().arrange_submobjects().left_justify().shift((0,-1.5,0))))
+            matching = get_matching(pred_numbers,numbers)
+            self.play(ShowCreation(matching))
+            self.play(Uncreate(matching),Uncreate(pred_numbers))
+        show_matching(lambda n: n % 2 == 0)
+        self.dither()
+        import math
+        show_matching(lambda n: n == int(math.sqrt(n)) ** 2)
+        self.dither()
+        small_primes = [
+            2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,
+            71,73,79,83,89,97,101,103,107,109,113
+        ]
+        show_matching(lambda n: n in small_primes)
