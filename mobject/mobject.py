@@ -329,13 +329,13 @@ class Mobject(object):
             submob.scale_in_place(1./factor)
         return self
 
-    def move_to(self, point_or_mobject, aligned_edge = ORIGIN):
+    def move_to(self, point_or_mobject, aligned_edge = ORIGIN, coor_mask = np.array([1,1,1])):
         if isinstance(point_or_mobject, Mobject):
             target = point_or_mobject.get_critical_point(aligned_edge)
         else:
             target = point_or_mobject
         point_to_align = self.get_critical_point(aligned_edge)
-        self.shift(target - point_to_align)
+        self.shift((target - point_to_align)*coor_mask)
         return self
 
     def replace(self, mobject, dim_to_match = 0, stretch = False):

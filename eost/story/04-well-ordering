@@ -44,50 +44,55 @@ Outline
 . preceding. But we are not finished yet. We can again take the power
 . set, and again, and again, and so on, and then the union...
 .
-. The process happening here is called transfinite recursion.
+. The process happening here is called transfinite recursion
+. and you can meet it ... TODO
 
-An ordinary recursion is just something living on natural numbers. We
-define the thing we start with, in our case omega, it is called the
-zero step.
-And the recursive step, it is in our case taking the power set of the
-previous set.
-But transfinite recursion can do one more, it can combine the data
-collected in previous steps even if there is no immediately preceding
-one. This kind of a recursive step is called a limit step while the
-usual recursive step, allowed to rely on the immediately preceding
-value, is called the successor step.
-So in our case, the zero step of the transfinite recursion is omega,
-the successor step is taking the power set, and the limit step is
-union. But the key question here is: What is the thing the transfinite
-recursion live on? The usual recursion is simple, it lives on natural
-numbers, but what about the transfinite one? In fact this question is
-quite tricky. On one hand, whenever we begin to see a pattern in the
-transfinite resursion, we can take the limit step and overcome it. On
-the other hand, transfinite recursion does not work on everything, it
-fails, for example on positive real numbers.
-
+:------OrdinaryRecursion------
+. An ordinary recursion is just something living on natural numbers. We
+. define the thing we start with, in our case omega, it is called the
+. zero step.
+. And then we define the recursive step, it is in our case taking the
+. power set of the previous set.
+. But transfinite recursion can do one more, it can combine the data
+. collected in previous steps even if there is no immediately preceding
+. one. There are two types of limit steps, the usual one is called the
+. successor step, and the one which cannot rely on a previous value is
+. called the limit step.
+. So in our case, the zero step of the transfinite recursion is omega,
+. the successor step is taking the power set, and the limit step is the
+. union of all previous values.
+. But the key question here is: What is the thing the transfinite
+. recursion live on? The usual recursion is simple, it lives on natural
+. numbers, but what about the transfinite one? In fact this question is
+. quite tricky. On one hand, whenever we begin to see a pattern in the
+. transfinite resursion, we can take the limit step and overcome it. On
+. the other hand, transfinite recursion does not work on everything, it
+. fails, for example on positive real numbers.
+. 
 So in this chapter and several following ones we will talk about the
 mysterious world of transfinite recursion. A better understaning of
-what can we afford here will help us to produce the super large-sets
+what we can afford here will help us to produce the super large-sets
 which we wanted at the beginning.
 
-Let's see why we cannot proceed by transfinite recursion on positive
-reals. At first, we need to start with the zero step somewhere. That
-is, we need the set have to a minimal element. But positive reals does
-not have it, for any positive real number, there is another positive
-real which is smaller. This can still be fixed, let's add zero and
-take positive reals with zero.
-
-Now we assign omega to the point zero on the real axis. But... what next?
-If we take any other real number, we inevitably skip an infinite
-amount of real numbers between zero and our chosen number. That is a
-problem, not just that the set itself has to contain a minimal element
-but even every element have to have a successor in it.
+:---------RealsProblems-------
+. Let's see why we cannot proceed by transfinite recursion on positive
+. reals. At first, we need to start with the zero step somewhere. But
+. for any positive real number, no matter how small, we can find a smaller one.
+. That is, we need a minimal element in the set. This is not so big
+. issue yet, we can fix it by adding zero and taking positive reals with
+. zero.
+.
+. So we can assign omega to the point zero on the real axis now. But... what next?
+. If we take any other real number for p of omega, we inevitably skip an infinite
+. amount of real numbers between zero and our chosen number. That is a
+. problem, not just that the set itself has to contain a minimal element
+. but even every element have to have a successor in it.
 
 This assures us that we can run the successor step every time. But
-what about the limit step? Take the following example: one infinite
+what about the limit step? Take the following example:
+one infinite
 increasing sequence and a two-sided infinite sequence behind it. The
-set itself has a first element, so we can assign zero. Every element
+set itself has a first element, so we can assign omega. Every element
 here has a successor, so we can run successor steps and get P
 omega, P P omega and so on... But what next? Now we should run the
 limit step, but there is no next bar which can be assigned to

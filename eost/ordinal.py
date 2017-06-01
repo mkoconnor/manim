@@ -46,11 +46,32 @@ class Ordinal(VMobject):
         VMobject.__init__(self, *args, **kwargs)
         self.ini_size = np.array((self.x1 - self.x0, self.height, self.thickness))
 
-    def to_steps(self):
-        return VMobject(*[subord.to_steps() for subord in self.submobjects])
+    def to_steps(self, **kwargs):
+        return VMobject(*[subord.to_steps(**kwargs) for subord in self.submobjects])
 
     def make_deeper(self):
         for subord in self.submobjects: subord.make_deeper()
+
+class StepCurve(VMobject):
+    CONFIG = {
+        "x_handle"      : 0.2,
+        "y_handle"      : 0.4,
+        "size"          : 1, 
+    }
+    def __init__(self, **kwargs):
+        digest_locals(self)
+        VMobject.__init__(self, **kwargs)
+
+    def generate_points(self):
+        a0 = ORIGIN
+        a1 = RIGHT
+        h0 = a0 + self.x_handle*RIGHT + self.y_handle*UP
+        h1 = a1 + self.x_handle*LEFT  + self.y_handle*UP
+        self.set_anchors_and_handles(
+            [a0, a1], [h0], [h1]
+        )
+
+        self.scale(self.size)
 
 class OrdinalOne(Ordinal):
     def __init__(self, **kwargs):
@@ -64,24 +85,15 @@ class OrdinalOne(Ordinal):
     def make_deeper(self):
         self.submobjects = [self.copy()]
 
-    def to_steps(self):
+    def to_steps(self, h_placement = 0):
 
-        size = self.x1 - self.x0
-        x_dist = size*0.2
-        y_dist = size*0.4
-        a0 = self.x0*RIGHT + x_dist*RIGHT + y_dist*UP
-        a1 = self.x1*RIGHT - x_dist*RIGHT + y_dist*UP
-        arc = VMobject(
-            stroke_width = self.thickness,
-            color = YELLOW
-        )
-        arc.set_anchors_and_handles(
-            [self.x1 * RIGHT, self.x0 * RIGHT], [a1], [a0]
-        )
+        step = StepCurve(size = self.ini_size[0], stroke_width = self.thickness)
+        step.shift(self.x0*RIGHT + h_placement*self.height*UP)
+        step.set_color(YELLOW)
 
         #if self.x1 - self.x0 > 0.3:
         #    arc.add_tip(0.15*(self.x1 - self.x0))
-        return VGroup(arc)
+        return VGroup(step)
 
     def add_description(self, desc, size = 0.8, direction = UP, buff = DEFAULT_MOBJECT_TO_MOBJECT_BUFFER, **kwargs):
         scale = size*(self.x1 - self.x0) / desc.get_width()
