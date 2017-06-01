@@ -47,8 +47,10 @@ Outline
 . The process happening here is called transfinite recursion.
 
 An ordinary recursion is just something living on natural numbers. We
-define the thing we start with, in our case omega, and the recursive
-step, in our case taking the power set of the previous set.
+define the thing we start with, in our case omega, it is called the
+zero step.
+And the recursive step, it is in our case taking the power set of the
+previous set.
 But transfinite recursion can do one more, it can combine the data
 collected in previous steps even if there is no immediately preceding
 one. This kind of a recursive step is called a limit step while the
@@ -57,7 +59,7 @@ value, is called the successor step.
 So in our case, the zero step of the transfinite recursion is omega,
 the successor step is taking the power set, and the limit step is
 union. But the key question here is: What is the thing the transfinite
-recursion live on? The usual recursion is easy, it lives on natural
+recursion live on? The usual recursion is simple, it lives on natural
 numbers, but what about the transfinite one? In fact this question is
 quite tricky. On one hand, whenever we begin to see a pattern in the
 transfinite resursion, we can take the limit step and overcome it. On
