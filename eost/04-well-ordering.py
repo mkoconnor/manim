@@ -16,6 +16,7 @@ from topics.characters import *
 from topics.functions import *
 from topics.number_line import *
 from topics.combinatorics import *
+from topics.objects import *
 from scene import Scene
 from camera import Camera
 from mobject.svg_mobject import *
@@ -349,7 +350,7 @@ class FirstLimitStep(Scene):
         self.play(Write(TextMobject("Transfinite",  " Recursion").to_edge(DOWN)))
         self.dither(2)
 
-class RecursionIntro(Scene):
+class RecursionScene(Scene):
 
     def construct(self):
 
@@ -486,11 +487,39 @@ class RecursionIntro(Scene):
         omega_pow2_src.submobjects += omega_pow2_end.submobjects
         omega_pow2_dest[0][0].set_color(zero_color)
 
-        #self.skip_animations = False
         self.play(ReplacementTransform(omega_pow2_src, omega_pow2_dest))
         self.play(ShowCreation(last_bar))
+        self.dither()
+        #self.skip_animations = False
 
-        self.dither(10)
+        self.play(*map(FadeOut, [
+            mob for mob in self.get_top_level_mobjects() if mob.get_center()[1] > 0
+        ]))
+        series = VideoSeries()
+        series.to_edge(UP)
+        self.play(FadeIn(
+            series,
+            submobject_mode = "lagged_start",
+            run_time = 2
+        ))
+        ordinal_series = VGroup(*series[3:8])
+        ordinal_series_target = ordinal_series.copy()
+        ordinal_series_target.shift(DOWN)
+        ordinal_series_target.set_color(YELLOW)
+        for i, s in enumerate(ordinal_series_target):
+            s.remove(s[-1])
+            num = TexMobject(str(i+4))
+            num.scale(0.7)
+            num.move_to(s)
+            s.add(num)
+
+        series_brace = Brace(ordinal_series_target)
+        self.play(
+            Transform(ordinal_series, ordinal_series_target),
+            GrowFromCenter(series_brace),
+        )
+
+        self.dither(2)
 
 class TrianglePointer(VMobject):
     CONFIG = {
@@ -685,3 +714,9 @@ class RealsProblems(Scene):
             ReplacementTransform(self.pointer, next_pointer),
         )
         self.pointer = next_pointer
+
+class IconTest(Scene):
+    
+    def construct(self):
+        self.add(VideoIcon())
+        self.dither()

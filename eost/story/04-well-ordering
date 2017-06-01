@@ -69,10 +69,10 @@ Outline
 . the other hand, transfinite recursion does not work on everything, it
 . fails, for example on positive real numbers.
 . 
-So in this chapter and several following ones we will talk about the
-mysterious world of transfinite recursion. A better understaning of
-what we can afford here will help us to produce the super large-sets
-which we wanted at the beginning.
+. So in this chapter and several following ones we will focus on the
+. mysterious world of transfinite recursion. A better understaning of
+. what we can afford here will help us to produce the super large-sets
+. which we wanted at the beginning.
 
 :---------RealsProblems-------
 . Let's see why we cannot proceed by transfinite recursion on positive
