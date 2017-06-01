@@ -4,9 +4,49 @@ There is just one true well-ordering
 Outline
 =======
 
-* ordinals as abstraction of well-ordered sets, analogy to numbers as abstractions of counted sets
-* ordinals cannot fork
-* supremum
-* ordinals as indices of elements of a larger ordinal, Warning: 0 = first element
-* interpretation of supremum in the view of indices
-* Is there an ordinal containing all ordinals? Rather no, wait for chapter~\ref{paradoxes}
+Mirek:
+I am not completely sure what exactly and in what order it should be
+so that it sound motivated the best.
+The main message I want to convey in this chapter is:
+ "Ordinals have two roles:
+   (1) Types of well ordered sets,
+   (2) indeces of an universal well ordering.
+I also want to explain supremum here, so that it can be
+used in further chapters about ordinal arithmetics and omega1.
+
+
+Some random ideas what can be shown (in some order, other things can be skipped):
+
+* Any two well ordered sets can be aligned in a unique way so that one
+  matches with an initial segment of the other.
+  * This is in the contrast with the fact that omega and reversed
+    omega cannot be matched at all and there are multiple ways how to
+    match Z with itself.
+  * From the "transfinite recursion" point of view, this is not
+    very surprising.
+  * Emphasise the difference between 
+* Ordinals are abstractions of well ordered sets as well as
+  natural numbers are abstraction of numbers of things.
+* System in terminology
+  (1) "transfinite recursion"
+  (2) "well ordered set"
+  (3) "well ordering"
+  (4) "ordinal (number)"
+  * The most important are (1) and (4)
+* Supremum of ordinals
+  * We can align infinite number of ordinals and get an even bigger
+    one by that.
+  * meaning in the index point of view
+* set-index correspondence
+  * What happens when we run transfinite recursion with supremum
+    as a limit step and '+1' as a successor step?
+    * Mirek: I like the idea, it serves as an example of transfinite recursion as
+      well as of use of the supremum
+  * By the definition of well ordering, there is a correspondence
+    between non-terminal segments and indices. It can be further
+    translated into the standard correspondence.
+  * Warning: Index correspond to the sccessor, not the last element.
+    * There is a reason for that, some ordinals (the limit ones) does
+      not have the last element.
+  * The 'universal ordering', ordinals indeing ot
+    * Is there an ordinal containing all ordinals? Rather no, wait for chapter~\ref{paradoxes}
