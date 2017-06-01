@@ -621,7 +621,7 @@ class RealsProblems(Scene):
         succ_step_q = TextMobject("Successor"," step?")
         succ_step_q.to_corner(UP+LEFT)
         succ_step_q.set_color(WHITE)
-        succ_step_q.shift(DOWN)
+        succ_step_q.next_to(zero_step_a, DOWN, coor_mask = UP)
 
         self.play(Write(succ_step_q))
 
@@ -644,7 +644,7 @@ class RealsProblems(Scene):
         succ_step_a = TextMobject("Successors","needed")
         succ_step_a.to_corner(UP+LEFT)
         succ_step_a.set_color(WHITE)
-        succ_step_a.shift(DOWN)
+        succ_step_a.next_to(zero_step_a, DOWN, coor_mask = UP)
 
         #self.skip_animations = False
         self.play(
@@ -671,6 +671,13 @@ class RealsProblems(Scene):
             ShowCreation(dots, submobject_mode = 'lagged_start'),
             FadeOut(real_title),
         )
+        self.dither()
+
+        lim_step_q = TextMobject("Limit step?")
+        lim_step_q.to_corner(UP+LEFT)
+        lim_step_q.set_color(YELLOW)
+        lim_step_q.next_to(succ_step_q, DOWN, coor_mask = UP)
+        self.play(Write(lim_step_q))
         self.dither()
 
     def pointer_with_number(self, x):
@@ -715,8 +722,41 @@ class RealsProblems(Scene):
         )
         self.pointer = next_pointer
 
-class IconTest(Scene):
-    
+class OmegaPlusZScene(Scene):
+
     def construct(self):
-        self.add(VideoIcon())
+
+        omega = OrdinalOmega(x1 = -1)
+
+        omega2 = omega.copy()
+        omega_reversed = omega2.copy()
+        omega_reversed.scale([-1,1,1], about_point = omega2[0].get_center())
+        Z = VGroup(omega_reversed, omega2)
+
+        omega_plus_Z = VGroup(omega, Z)
+        omega_plus_Z.arrange_submobjects()
+        omega_plus_Z.center()
+        omega_plus_Z.set_color(DARK_GREY)
+
+        self.play(ShowCreation(omega))
         self.dither()
+        self.play(
+            ShowCreation(omega2),
+            ShowCreation(omega_reversed),
+        )
+        self.dither()
+        omega_colorful = omega.copy()
+        omega_colorful.set_color(WHITE)
+        omega_colorful[0].set_color(GREEN)
+
+        first_step_desc = TexMobject("\\omega")
+        first_step_desc.set_color(GREEN)
+        first_step_desc.next_to(omega_colorful[0], UP)
+        self.play(ShowCreation(omega_colorful[0]), ShowCreation(first_step_desc))
+        self.dither()
+        self.play(ShowCreation(omega_colorful[1]))
+        self.play(ShowCreation(omega_colorful[2]))
+        self.play(ShowCreation(VGroup(*omega_colorful[3:])))
+        self.dither(5)
+
+        

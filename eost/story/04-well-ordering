@@ -87,14 +87,17 @@ Outline
 . amount of real numbers between zero and our chosen number. That is a
 . problem, not just that the set itself has to contain a minimal element
 . but even every element have to have a successor in it.
-
-This assures us that we can run the successor step every time. But
-what about the limit step? Take the following example:
-one infinite
-increasing sequence and a two-sided infinite sequence behind it. The
-set itself has a first element, so we can assign omega. Every element
-here has a successor, so we can run successor steps and get P
-omega, P P omega and so on... But what next? Now we should run the
+.
+. This assures us that we can run the successor step every time. But
+. what about the limit step?
+:------OmegaPlusZScene--------
+. Take the following example:
+. one infinite
+. increasing sequence and a two-sided infinite sequence behind it. The
+. set itself has a first element, so we can assign omega. Every element
+. here has a successor, so we can run successor steps and get P
+. omega, P P omega and so on... But what next?
+Now we should run the
 limit step, but there is no next bar which can be assigned to
 it. Again, whenever we assign the union to a bar here, we skip
 infinitely many previous elements.
