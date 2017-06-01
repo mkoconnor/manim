@@ -68,7 +68,7 @@ take squares of integers, we can match zero with zero, one with one,
 two with four, and so on. Or if we take just prime numbers, we can
 match then zero with two, one with three, two with five, and so on. If
 we take any infinite subset of natural numbers, however sparse, the
-size will be still the same.
+size will still be the same.
 
 Let's introduce
 :{upbrace: finite sizes}

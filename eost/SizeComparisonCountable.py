@@ -347,21 +347,38 @@ class Scene3(Scene):
         for n in numbers.submobjects:
             n.buffer_width(width=max_width + 0.1)
         numbers.arrange_submobjects().left_justify().shift((0,1.5,0))
-        self.play(ShowCreation(numbers))
-        def show_matching(pred):
+        numbers_text = TextMobject("Natural Numbers").to_edge(UP)
+        self.play(ShowCreation(numbers),Write(numbers_text))
+        def show_matching(pred,extra_anims):
             pred_numbers = Group(*filter(lambda i: pred(i.number), numbers.submobjects)).copy()
             self.play(Transform(pred_numbers,pred_numbers.copy().shift((0,-3,0))))
             self.play(Transform(pred_numbers,pred_numbers.copy().arrange_submobjects().left_justify().shift((0,-1.5,0))))
             matching = get_matching(pred_numbers,numbers)
-            self.play(ShowCreation(matching))
+            self.play(*([ShowCreation(matching)] + extra_anims()))
             self.play(Uncreate(matching),Uncreate(pred_numbers))
-        show_matching(lambda n: n % 2 == 0)
+
+        def cardinality_tex(number_type):
+            return TexMobject("|","\\text{Natural Numbers}","|=|","\\text{" + number_type + " Numbers}","|").to_edge(UP)
+        even_numbers=cardinality_tex("Even")
+        # Creating the transform animation already mutates numbers_text, so
+        # we have to wrap it in a closure.  There's probably some better way
+        # to do this
+        show_matching(
+            lambda n: n % 2 == 0,
+            extra_anims=lambda : [Transform(numbers_text,even_numbers)]
+        )
         self.dither()
         import math
-        show_matching(lambda n: n == int(math.sqrt(n)) ** 2)
+        show_matching(
+            lambda n: n == int(math.sqrt(n)) ** 2,
+            extra_anims=lambda:[Transform(numbers_text,cardinality_tex("Square"))]
+        )
         self.dither()
         small_primes = [
             2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,
             71,73,79,83,89,97,101,103,107,109,113
         ]
-        show_matching(lambda n: n in small_primes)
+        show_matching(
+            lambda n: n in small_primes,
+            extra_anims=lambda:[Transform(numbers_text,cardinality_tex("Prime"))]
+        )
