@@ -101,6 +101,37 @@ class OrdinalOne(Ordinal):
         else: scale = 1
         desc.next_to(self, direction = direction, buff = buff*scale, **kwargs)
 
+class OrdinalSum(Ordinal):
+    def __init__(self, *args, **kwargs):
+        Ordinal.__init__(self, **kwargs)
+
+        prev_x = self.x0
+        args += (1,)
+        for SubOrd, x1 in zip(args[::2], args[1::2]):
+            x1 = interpolate(self.x0, self.x1, x1)
+
+            kwargs['x0'] = prev_x
+            kwargs['x1'] = x1
+            self.add(SubOrd(**kwargs))
+
+            prev_x = x1
+
+class OrdinalFiniteProd(Ordinal):
+    def __init__(self, SubOrd, prod, **kwargs):
+        Ordinal.__init__(self, **kwargs)
+
+        x_list = np.linspace(self.x0, self.x1, prod+1)
+        x0_list = x_list[:-1]
+        x1_list = x_list[1:]
+        for x0, x1 in zip(x0_list, x1_list):
+            kwargs['x0'] = x0
+            kwargs['x1'] = x1
+            self.add(SubOrd(**kwargs))
+
+class OrdinalFinite(OrdinalFiniteProd):
+    def __init__(self, num, **kwargs):
+        OrdinalFiniteProd.__init__(self, OrdinalOne, num, **kwargs)
+
 class LimitOrdinal(Ordinal):
     CONFIG = {
         "zero_at_fg" : False,

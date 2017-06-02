@@ -50,7 +50,7 @@ Outline
 :------OrdinaryRecursion------
 . An ordinary recursion is just something living on natural numbers. We
 . define the thing we start with, in our case omega, it is called the
-. zero step.
+. base case.
 . And then we define the recursive step, it is in our case taking the
 . power set of the previous set.
 . But transfinite recursion can do one more, it can combine the data
@@ -58,7 +58,7 @@ Outline
 . one. There are two types of limit steps, the usual one is called the
 . successor step, and the one which cannot rely on a previous value is
 . called the limit step.
-. So in our case, the zero step of the transfinite recursion is omega,
+. So in our case, the base case of the transfinite recursion is omega,
 . the successor step is taking the power set, and the limit step is the
 . union of all previous values.
 . But the key question here is: What is the thing the transfinite
@@ -76,7 +76,7 @@ Outline
 
 :---------RealsProblems-------
 . Let's see why we cannot proceed by transfinite recursion on positive
-. reals. At first, we need to start with the zero step somewhere. But
+. reals. At first, we need to start with the base case somewhere. But
 . for any positive real number, no matter how small, we can find a smaller one.
 . That is, we need a minimal element in the set. This is not so big
 . issue yet, we can fix it by adding zero and taking positive reals with
@@ -97,63 +97,85 @@ Outline
 . set itself has a first element, so we can assign omega. Every element
 . here has a successor, so we can run successor steps and get P
 . omega, P P omega and so on... But what next?
-Now we should run the
-limit step, but there is no next bar which can be assigned to
-it. Again, whenever we assign the union to a bar here, we skip
-infinitely many previous elements.
+. Now we should run the
+. limit step, but there is no next bar which can be assigned to
+. it. Again, whenever we assign the union to a bar here, we skip
+. infinitely many previous elements.
+.
+. So it does not suffice that every element has a successor. We need
+. to have a successor of any initial segment.
+. Whenever we take a set of elements with assigned values from the
+. beginning, there have to be the next element.
+.
+. This condition actually covers the previous ones. We can get a
+. successor of any by finding the successor of the corresponding initial
+. segment.
+. And even the empty set can be considered as an empty initial segment,
+. so the base case is covered as well.
 
-So it does not suffice that every element has a successor. We need
-to have a successor of any initial segment. Whenever we take a set of
-elements with assigned values from the beginning, there have to be the
-next element.
+:----------WellOrderingCondition-----
+. Unfortunately, there is a little issue, no set can meet the required
+. condition. The whole set can be allways considered as an
+. initial segment and there is no successor then. 
+. So let's simplify the problem and accept
+. such sets that transfinite
+. recursion can run through all of its elements even though the set does
+. not cover the complete world of the transfinite recursion.
+. In this simplification, the last element, if there is one, does not
+. have to have a successor anymore.
+. So we require the successor just from such initial segments that
+. does not cover everything, they are called the proper ones.
+.
+. Any set satisfying such a condition is called a well-ordered
+. set. These are those on which transfinite recursion can run.
+. When
+. we want to construct a large set by the transfinite recursion, it
+. suffices to find a well-ordered set long enough.
+. 
+. In the rest of the chapter we will look at alternative views of the
+. condition of well ordering.
 
-But saying it in this way, we are not able to construct anything
-because the set itself can be considered as its initial segment. So let's
-simplify it and accept such sets that transfinite recursion can
-run through all of its elements even though the set does not cover the
-complete world of the transfinite recursion. In this simplification,
-the last element, if there is one, does not have to have a successor
-anymore.
+At first, instead of looking at proper initial segments it may be useful to
+look at its complements. There is no official name for the opposite of
+initial segments but we will call them terminal segments in this
+series.
 
-So, we are interested in such sets that every initial segment which does not
-cover everything have the successor. Instead of focusing on the
-initial segment we can focus on its complement. There is no official
-opposite name for the initial segment but we will call it the terminal
-segment in this series. So saying that every initial segment which
-does not cover everything have the successor is actually the same as
-saying that every non-empty terminal segment have the first element.
+From this point of view, proper initial segments correspond to
+non-empty terminal segments.
+And a successor of an initial segment corresponds to the first element
+of appropriate terminal segments.
+So a set is well ordered if and only if
+all non-empty terminal segments have their first elements.
 
-A very special case of such initial segment can be an empty initial segment. When
-no element has assigned value yet, the corresponding terminal segment
-is the whole set itself, so the necessity of having the entirely first
-element is covered by the condition too.
-
-So this condition, "every non-empty terminal segment has a first element", is
-sufficient for the transfinite recursion. Any set satisfying this is
-called a well-ordered set, and the ordering itself is called
-well-ordering. When we want to construct a large set by the
-transfinite recursion, we need to find a well-ordered set long enough.
-
-We finish this chapter with an alternative view of what well ordered
-sets mean. In fact, the only obstacle is an infinite decreasing
-sequence. Really, whenever there is an infinite decreasing sequence,
-it divides the set into a initial segment and a non-empty terminal segment without a
-first element. There cannot be the first element because the sequence
-goes backward and backward. And conversely, any non-empty terminal segment
+Another interesting point of view is to ask what constraint a set from
+being well-ordered.
+In fact, the only obstacle is an infinite decreasing
+sequence.
+Indeed, whenever there is an infinite decreasing sequence,
+it divides the set into a proper initial segment and a non-empty
+terminal segment without a first element.
+There cannot be the first element in the terminal segment because the sequence
+goes backward and backward.
+And conversely, any non-empty terminal segment
 without the first element contains enough space for an infinite
 decreasing sequence. The absence of a first element assures that
-sequence cannot get stuck.
+the sequence cannot get stuck.
 
-So we have two ways how to determine whether a set is well ordered
-set, that means we can run the transfinite recursion on it. One way is
-to investigate all the non-empty terminal segments and check whether all of them
-have their first elements. And the second way is to ensure that there
-is no infinite decreasing sequence in it.
+So we have several ways how to determine whether a set is well
+ordered, that means we can run the transfinite recursion on it.
+One way is
+to investigate all the proper initial segments and check whether they
+have their successor. It is actually the same as
+investigating all the non-empty terminal segments and check whether all of them
+have their first elements.
+And an other way how to determine whether a set is well ordered is to
+ensure that there is no infinite decreasing sequence in it.
 
 But if you will search for the definition of well ordering by your
-own, you will probably meet the following one: Not just every terminal segment
-but every possible non-empty subset has its first element. So, you can
-try to think over why the meaning is still the same.
+own, you will probably meet the following one: Not just every
+non-empty terminal segment but every possible non-empty subset has its
+first element. So, you can try to think over why the meaning is still
+the same.
 
 Next time, we will meet ordinal numbers and we will learn the indexing
 meaning of well ordered sets. See you then.

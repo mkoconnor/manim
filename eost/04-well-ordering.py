@@ -23,7 +23,7 @@ from mobject.svg_mobject import *
 from mobject.tex_mobject import *
 
 from mobject.vectorized_mobject import *
-from random import randint
+import random
 from chat_bubbles import Conversation
 
 from eost.ordinal import *
@@ -77,7 +77,7 @@ class PowerSetsScene(Scene):
 
         # Create picture of P(omega)
         for i in range(inf_right):
-            subset = [num for num in subsets_maker[0] if randint(0,1) == 0]
+            subset = [num for num in subsets_maker[0] if random.randint(0,1) == 0]
             subset = VGroup(VGroup(*subset).copy(), subsets_maker[1].copy())
             subsets.append(subset)
             self.add(subset)
@@ -347,7 +347,7 @@ class FirstLimitStep(Scene):
         )
 
         self.dither(2)
-        self.play(Write(TextMobject("Transfinite",  " Recursion").to_edge(DOWN)))
+        self.play(Write(TextMobject("Transfinite",  "Recursion").to_edge(DOWN)))
         self.dither(2)
 
 class RecursionScene(Scene):
@@ -356,12 +356,12 @@ class RecursionScene(Scene):
 
         #self.skip_animations = True
 
-        zero_color = GREEN
+        base_color = GREEN
         succ_color = WHITE
         lim_color = YELLOW
         ordinal_shift = DOWN
 
-        title = TextMobject("Transfinite",  " Recursion").to_edge(DOWN)
+        title = TextMobject("Transfinite",  "Recursion").to_edge(DOWN)
         title[0].highlight(DARK_GREY)
         self.add(title)
         naturals = OrdinalOmega()
@@ -369,14 +369,14 @@ class RecursionScene(Scene):
         naturals_desc = naturals.add_descriptions(lambda n: TexMobject(str(n)),
                                                   direction = DOWN, size = 0.5)
 
-        zero_step_title = TextMobject("Zero step: $\\omega$")
-        zero_step_title.set_color(zero_color)
-        zero_step_title.to_corner(UP+LEFT)
-        zero_desc = TexMobject("\\omega")
-        zero_desc.next_to(naturals[0], UP)
-        zero_desc.set_color(GREEN)
+        base_case_title = TextMobject("Base case: $\\omega$")
+        base_case_title.set_color(base_color)
+        base_case_title.to_corner(UP+LEFT)
+        base_desc = TexMobject("\\omega")
+        base_desc.next_to(naturals[0], UP)
+        base_desc.set_color(GREEN)
 
-        rec_step_title = TextMobject("Recursive", " step", ": ", "Powerset")
+        rec_step_title = TextMobject("Recursive", " step", ": ", "Powerset", arg_separator = '')
         rec_step_title.set_color(succ_color)
         rec_step_title.to_corner(UP+LEFT)
         rec_step_title.shift(DOWN)
@@ -386,7 +386,7 @@ class RecursionScene(Scene):
         succ_steps.set_color(succ_color)
         succ_steps_desc.set_color(succ_color)
 
-        VGroup(naturals, naturals_desc, succ_steps, zero_desc, succ_steps_desc).shift(ordinal_shift)
+        VGroup(naturals, naturals_desc, succ_steps, base_desc, succ_steps_desc).shift(ordinal_shift)
         for succ_step_desc, succ_step in zip(succ_steps_desc, succ_steps):
             succ_step_desc.next_to(succ_step, UP, buff=succ_step_desc.get_width()*0.7)
 
@@ -394,10 +394,10 @@ class RecursionScene(Scene):
             ShowCreation(naturals),
             ShowCreation(naturals_desc))
         self.dither()
-        self.play(Write(zero_desc))
+        self.play(Write(base_desc))
         self.play(
-            Write(VGroup(*zero_step_title[:-1])),
-            ReplacementTransform(zero_desc, zero_step_title[-1]))
+            Write(VGroup(*base_case_title[:-1])),
+            ReplacementTransform(base_desc, base_case_title[-1]))
 
         self.play(Write(rec_step_title))
         self.play(
@@ -418,7 +418,7 @@ class RecursionScene(Scene):
             ShowCreation(next_ordinal[0]))
 
         title[0].highlight(WHITE)
-        succ_step_title = TextMobject("Successor", " step", ": ", "Powerset")
+        succ_step_title = TextMobject("Successor", " step", ": ", "Powerset", arg_separator = '')
         succ_step_title.set_color(succ_color)
         lim_step_title = TextMobject("Limit step: Union")
         lim_step_title.set_color(lim_color)
@@ -485,7 +485,7 @@ class RecursionScene(Scene):
         omega_pow2_end = omega_pow2_dest.copy()
         omega_pow2_end.next_to(next_ordinal)
         omega_pow2_src.submobjects += omega_pow2_end.submobjects
-        omega_pow2_dest[0][0].set_color(zero_color)
+        omega_pow2_dest[0][0].set_color(base_color)
 
         self.play(ReplacementTransform(omega_pow2_src, omega_pow2_dest))
         self.play(ShowCreation(last_bar))
@@ -574,10 +574,10 @@ class RealsProblems(Scene):
         #real_title.shift()
         self.play(ShowCreation(self.numberline), Write(VGroup(real_title[0], real_title[1])))
         self.dither()
-        zero_step_q = TextMobject("Zero step?")
-        zero_step_q.to_corner(UP+LEFT)
-        zero_step_q.set_color(GREEN)
-        self.play(Write(zero_step_q))
+        base_case_q = TextMobject("Base case?")
+        base_case_q.to_corner(UP+LEFT)
+        base_case_q.set_color(GREEN)
+        self.play(Write(base_case_q))
 
         self.pointer = self.pointer_with_number(2.5)
         self.pointer.set_fill(opacity = 0)
@@ -591,37 +591,37 @@ class RealsProblems(Scene):
         self.dither()
         self.move_pointer(0.01)
 
-        zero_step_a = TextMobject("Minimal element needed")
-        zero_step_a.to_corner(UP+LEFT)
-        zero_step_a.set_color(GREEN)
+        base_case_a = TextMobject("Minimal element needed")
+        base_case_a.to_corner(UP+LEFT)
+        base_case_a.set_color(GREEN)
         self.play(
-            ReplacementTransform(zero_step_q, zero_step_a)
+            ReplacementTransform(base_case_q, base_case_a)
         )
         self.dither()
 
         zero_dot = Dot(self.line_start, color = BLUE)
         zero_desc = TexMobject("0")
-        zero_desc.next_to(zero_dot, LEFT+DOWN)
+        zero_desc.next_to(zero_dot, LEFT)
         self.play(FadeOut(self.pointer))
         self.play(
             ShowCreation(zero_dot),
             Write(zero_desc),
             Write(real_title[2]),
         )
-        zero_step = Line(self.line_start+UP, self.line_start, color = GREEN)
-        zero_desc = TexMobject("\\omega").set_color(GREEN)
-        zero_desc.next_to(zero_step, UP)
+        base_case = Line(self.line_start+UP, self.line_start, color = GREEN)
+        base_desc = TexMobject("\\omega").set_color(GREEN)
+        base_desc.next_to(base_case, UP)
         self.dither()
         self.play(
-            Write(zero_desc),
-            ShowCreation(zero_step),
+            Write(base_desc),
+            ShowCreation(base_case),
         )
 
         self.dither()
-        succ_step_q = TextMobject("Successor"," step?")
+        succ_step_q = TextMobject("Successor s","tep?", arg_separator = '')
         succ_step_q.to_corner(UP+LEFT)
         succ_step_q.set_color(WHITE)
-        succ_step_q.next_to(zero_step_a, DOWN, coor_mask = UP)
+        succ_step_q.next_to(base_case_a, DOWN, coor_mask = UP)
 
         self.play(Write(succ_step_q))
 
@@ -638,13 +638,10 @@ class RealsProblems(Scene):
         self.move_pointer(1, False)
         self.dither()
 
-        letter_s = succ_step_q[1][0]
-        succ_step_q[1].remove(letter_s)
-        succ_step_q[0].add(letter_s)
         succ_step_a = TextMobject("Successors","needed")
         succ_step_a.to_corner(UP+LEFT)
         succ_step_a.set_color(WHITE)
-        succ_step_a.next_to(zero_step_a, DOWN, coor_mask = UP)
+        succ_step_a.next_to(base_case_a, DOWN, coor_mask = UP)
 
         #self.skip_animations = False
         self.play(
@@ -665,7 +662,7 @@ class RealsProblems(Scene):
         VGroup(lines, dots).highlight(BLUE)
         lines.submobjects.reverse()
 
-        self.add_foreground_mobjects(zero_step, self.pointer[0])
+        self.add_foreground_mobjects(base_case, self.pointer[0])
         self.play(
             Uncreate(lines, submobject_mode = 'lagged_start', lag_factor = 2),
             ShowCreation(dots, submobject_mode = 'lagged_start'),
@@ -676,7 +673,7 @@ class RealsProblems(Scene):
         lim_step_q = TextMobject("Limit step?")
         lim_step_q.to_corner(UP+LEFT)
         lim_step_q.set_color(YELLOW)
-        lim_step_q.next_to(succ_step_q, DOWN, coor_mask = UP)
+        lim_step_q.next_to(succ_step_a, DOWN, coor_mask = UP)
         self.play(Write(lim_step_q))
         self.dither()
 
@@ -722,10 +719,42 @@ class RealsProblems(Scene):
         )
         self.pointer = next_pointer
 
+def named_brace(brace_base, name, direction = DOWN):
+    brace = Brace(brace_base, direction = direction)
+    desc = TextMobject(*name)
+    brace.put_at_tip(desc)
+    return VGroup(brace, desc)
+
+def ini_segment_brace(brace_base, **kwargs):
+    return named_brace(brace_base, ("Initial", "segment"), **kwargs)
+
+def term_segment_brace(brace_base, **kwargs):
+    return named_brace(brace_base, ("Terminal", "segment"), **kwargs)
+
 class OmegaPlusZScene(Scene):
 
     def construct(self):
 
+        #self.skip_animations = True
+
+        # Titles
+        base_case_a = TextMobject("Minimal element needed")
+        base_case_a.to_corner(UP+LEFT)
+        base_case_a.set_color(GREEN)
+
+        succ_step_a = TextMobject("Successors","needed")
+        succ_step_a.to_corner(UP+LEFT)
+        succ_step_a.set_color(WHITE)
+        succ_step_a.next_to(base_case_a, DOWN, coor_mask = UP)
+
+        lim_step_q = TextMobject("Limit step?")
+        lim_step_q.to_corner(UP+LEFT)
+        lim_step_q.set_color(YELLOW)
+        lim_step_q.next_to(succ_step_a, DOWN, coor_mask = UP)
+
+        self.add(base_case_a, succ_step_a, lim_step_q)
+
+        # Construct the set
         omega = OrdinalOmega(x1 = -1)
 
         omega2 = omega.copy()
@@ -736,6 +765,7 @@ class OmegaPlusZScene(Scene):
         omega_plus_Z = VGroup(omega, Z)
         omega_plus_Z.arrange_submobjects()
         omega_plus_Z.center()
+        omega_plus_Z.shift(DOWN)
         omega_plus_Z.set_color(DARK_GREY)
 
         self.play(ShowCreation(omega))
@@ -745,18 +775,439 @@ class OmegaPlusZScene(Scene):
             ShowCreation(omega_reversed),
         )
         self.dither()
+
+        # Fill the initial segment
         omega_colorful = omega.copy()
         omega_colorful.set_color(WHITE)
         omega_colorful[0].set_color(GREEN)
 
-        first_step_desc = TexMobject("\\omega")
-        first_step_desc.set_color(GREEN)
-        first_step_desc.next_to(omega_colorful[0], UP)
-        self.play(ShowCreation(omega_colorful[0]), ShowCreation(first_step_desc))
+        base_case_desc = TexMobject("\\omega")
+        base_case_desc.set_color(GREEN)
+        base_case_desc.next_to(omega_colorful[0], UP)
+        self.play(ShowCreation(omega_colorful[0]), ShowCreation(base_case_desc))
         self.dither()
         self.play(ShowCreation(omega_colorful[1]))
         self.play(ShowCreation(omega_colorful[2]))
         self.play(ShowCreation(VGroup(*omega_colorful[3:])))
+        self.dither()
+
+        self.remove(Z)
+        Z.remove(omega2, omega_reversed)
+        omega_reversed.remove(omega_reversed[0])
+        Z.submobjects = sorted(omega2.submobjects + omega_reversed.submobjects,
+                               key = lambda bar: bar.get_center()[0])
+        self.add(Z)
+
+
+        # No place for the limit step
+        self.Z = Z
+        self.init_skipped(0.7)
+        self.dither()
+        self.move_skipped(0.3)
+        self.dither()
+        self.move_skipped(0.1)
+        self.dither()
+
+        # Property for the limit step
+        lim_step_a = TextMobject("All initial segments have successors")
+        lim_step_a.to_corner(UP+LEFT)
+        lim_step_a.set_color(YELLOW)
+        lim_step_a.next_to(succ_step_a, DOWN, coor_mask = UP)
+        self.play(
+            ReplacementTransform(lim_step_q, lim_step_a),
+            self.highlighted.highlight, DARK_GREY,
+            FadeOut(self.pointer),
+            FadeOut(self.skipped),
+        )
+        self.dither()
+
+        # Show initial segment
+        self.omega = omega
+        self.init_initial()
+        for _ in range(2):
+            self.add_bar()
+            self.dither()
+            self.update_ini_segment()
+
+        self.add_bar()
+        self.dither()
+        self.update_ini_segment(empty = True)
+        self.dither()
+        self.play(ShowCreation(omega_colorful[0]))
+        self.dither()
+
+        well_ordered_title = TextMobject("Well ordered set")
+        well_ordered_title.to_edge(UP)
+        lim_step_a_target = lim_step_a.copy()
+        lim_step_a_target.next_to(well_ordered_title, DOWN, coor_mask = UP)
+        self.play(
+            FadeOut(base_case_a),
+            FadeOut(succ_step_a),
+            Transform(lim_step_a, lim_step_a_target),
+        )
         self.dither(5)
+        self.skip_animations = False
+        self.remove(omega)
+        self.play(*map(FadeOut, [
+            omega_colorful,
+            Z,
+            base_case_desc,
+            self.added_bars,
+            self.ini_segment,
+        ]))
+
+    def construct_skipped(self, x):
+
+        center_list = [bar.get_center() for bar in self.Z]
+        x_list = [c[0] for c in center_list]
+        x = interpolate(x_list[0], x_list[-1], x)
+
+        index, _ = max(enumerate([xx for xx in x_list if xx < x]),
+                       key=lambda (i,val): val)
+
+        skipped_brace = Brace(Line(center_list[0], center_list[index]))
+        skipped_brace.shift(DOWN)
+        skipped_desc = TextMobject("skipped")
+        skipped_brace.put_at_tip(skipped_desc)
+
+        highlighted = self.Z[index+1]
+
+        pointer = TrianglePointer()
+        pointer.shift(x_list[index+1]*RIGHT + (center_list[0][1]+1)*UP)
+        pointer_desc = TexMobject('U')
+        pointer_desc.next_to(pointer, UP)
+        pointer_desc.set_color(YELLOW)
+
+        return VGroup(pointer, pointer_desc), highlighted, VGroup(skipped_brace, skipped_desc)
+
+    def init_skipped(self, x):
+
+        self.pointer, self.highlighted, self.skipped = self.construct_skipped(x)
+        self.play(
+            self.highlighted.highlight, YELLOW,
+            FadeIn(self.pointer),
+        )
+        self.play(
+            GrowFromCenter(self.skipped[0]),
+            FadeIn(self.skipped[1]),
+        )
+
+    def move_skipped(self, x):
+
+        next_pointer, next_highlighted, next_skipped = self.construct_skipped(x)
+        self.play(ReplacementTransform(self.pointer, next_pointer))
+        self.pointer = next_pointer
+
+        self.highlighted.highlight(DARK_GREY)
+        self.highlighted = next_highlighted
+        self.highlighted.highlight(YELLOW)
+
+        self.play(ReplacementTransform(self.skipped, next_skipped))
+        self.skipped = next_skipped
+
+    def construct_initial(self, empty = False):
+        if empty:
+            begin_point = self.omega[0][0].get_end()
+            brace_base = Line(begin_point+0.1*LEFT, begin_point+0.4*LEFT)
+        elif len(self.added_bars) == 0:
+            brace_base = self.omega
+        else:
+            brace_base = VGroup(self.omega, self.added_bars)
+
+        return ini_segment_brace(brace_base)
+
+    def init_initial(self):
+        
+        self.added_bars = VGroup()
+        self.ini_segment = self.construct_initial()
+        self.play(
+            GrowFromCenter(self.ini_segment[0]),
+            FadeIn(self.ini_segment[1]),
+        )
+
+    def add_bar(self):
+
+        next_bar = self.omega[0].copy()
+
+        if len(self.added_bars) == 0:
+            next_bar.next_to(self.omega)
+            next_bar.set_color(YELLOW)
+        else:
+            next_bar.next_to(self.added_bars)
+            next_bar.set_color(WHITE)
+
+        self.added_bars.add(next_bar)
+
+        Z_target = self.Z.copy()
+        Z_target.next_to(next_bar)
+        self.play(
+            Transform(self.Z, Z_target),
+            ShowCreation(next_bar),
+        )
+
+    def update_ini_segment(self, empty = False):
+
+        ini_segment_target = self.construct_initial(empty)
+        self.play(Transform(self.ini_segment, ini_segment_target))
+
+class WellOrderingCondition(Scene):
+
+    def construct(self):
+
+        #self.skip_animations = True
+        well_ordered_title = TextMobject("Well ordered set")
+        well_ordered_title.to_edge(UP)
+
+        lim_step_a = TextMobject("All", "initial segments have successors")
+        lim_step_a.to_corner(UP+LEFT)
+        lim_step_a.set_color(YELLOW)
+        lim_step_a.next_to(well_ordered_title, DOWN, coor_mask = UP)
+
+        self.add(lim_step_a)
+
+        any_set = DashedLine(4*LEFT, 4*RIGHT)
+        any_set.shift(DOWN)
+        any_set_desc = TextMobject("Any set")
+        any_set_desc.next_to(any_set, UP)
+
+        self.play(
+            ShowCreation(any_set),
+            FadeIn(any_set_desc),
+        )
+        self.dither()
+
+        ini_segment = ini_segment_brace(any_set)
+        self.play(
+            GrowFromCenter(ini_segment[0]),
+            FadeIn(ini_segment[1]),
+        )
+        self.dither()
+
+        self.play(*map(FadeOut, [
+            ini_segment, any_set, any_set_desc
+        ]))
+
+        self.dither()
+        #self.fill_ordinal(make_ordinal_power(2, q = (0.8, 0.9, 0.9)))
+        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 4), one_range = 1)
+        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 2), one_range = 1)
+        last_ordinal = self.fill_ordinal(OrdinalSum(OrdinalOmega, 0.8,
+                                                    lambda **kwargs: OrdinalFinite(5, **kwargs)),
+                                         one_range = 0,
+                                         remove = False)
+
+        #self.skip_animations = False
+
+        real_condition = TextMobject("All", "proper", "initial segments have successors")
+        real_condition.to_corner(UP+LEFT)
+        real_condition.set_color(YELLOW)
+        real_condition.next_to(well_ordered_title, DOWN, coor_mask = UP)
+
+        proper_src = real_condition[1].copy()
+        proper_src.replace(Point(real_condition[1].get_edge_center(LEFT)))
+        self.play(
+            ReplacementTransform(lim_step_a[0],  real_condition[0]),
+            ReplacementTransform(proper_src,     real_condition[1]),
+            ReplacementTransform(lim_step_a[-1], real_condition[2]),
+        )
+        self.dither()
+        self.play(Write(well_ordered_title))
+        self.dither()
+
+    def fill_ordinal(self, ordinal, remove = True, one_range = 3, omega_range = 1): # omega+k -> omega^2 supported
+
+        ordinal_bg = ordinal.copy()
+        ordinal_bg.shift(DOWN)
+        ordinal_bg.set_color(DARK_GREY)
+        self.add(ordinal_bg)
+
+        ordinal_col = ordinal_bg.copy()
+        ordinal_col.set_color(WHITE)
+
+        for subord in ordinal_col:
+            subord[0].set_color(YELLOW)
+        ordinal_col[0][0].set_color(GREEN)
+
+        self.add(ordinal_bg)
+
+        for i in range(one_range): self.play(ShowCreation(ordinal_col[0][i]))
+        self.play(ShowCreation(VGroup(*ordinal_col[0][one_range:])))
+
+        for i in range(1, omega_range):
+            if i < len(ordinal_col.submobjects):
+                self.play(ShowCreation(ordinal_col[i]))
+
+        if omega_range < len(ordinal_col.submobjects):
+            self.play(ShowCreation(VGroup(*ordinal_col[omega_range:])))
+
+        self.remove(ordinal_bg)
+        self.dither()
+        if remove: self.play(FadeOut(ordinal_col))
+        else: return ordinal_col
+
+dec_seq_color = ORANGE
+
+class OmegaSquaredScene(Scene):
+
+    def init_ordinal(self):
+        self.brace_list = []
+        self.ordinal = make_ordinal_power(2, q=(0.8, 0.9, 0.9), x0 = -4, x1 = 4)
+        self.add(self.ordinal)
+
+        self.ordinal.shift(DOWN)
+        _, self.lim_bars, self.bars = extract_ordinal_subpowers(self.ordinal)
+
+        self.center_list = [bar.get_center() for bar in self.bars]
+        self.x_list = [c[0] for c in self.center_list]
+        self.lim_x_list = [bar.get_center()[0] for bar in self.lim_bars]
+        self.lim_x_set = set(list(self.lim_x_list))
+        self.lim_indices = [self.x_list.index(x) for x in self.lim_x_list]
+
+    def split_at_point(self, x, use_lim = False):
+
+        if use_lim:
+            x_list = self.lim_x_list
+            indices = self.lim_indices
+        else:
+            x_list = self.x_list
+            indices = range(len(self.x_list))
+
+        x = interpolate(x_list[0], x_list[-1], x)
+
+        index, _ = min([(i,val) for i,val in zip(indices, x_list) if val >= x],
+                       key=lambda (i,val): val)
+
+        return index-1, index
+
+    def random_split(self):
+        use_lim = (random.random() < 0.4)
+        x = random.random()
+        return self.split_at_point(x, use_lim)
+
+    def random_dec_seq(self):
+
+        def rand_x():
+            return (random.random())
+
+        last, _ = self.split_at_point((rand_x()+1)/2)
+        seq = []
+
+        while last != 0:
+            if len(seq) == 0 or self.x_list[seq[-1]] - self.x_list[last] > 0.1:
+                if random.random() < 0.4: seq.append(last)
+            if last in self.lim_x_set:
+                last, _ = self.split_at_point(rand_x() * self.x_list[last])
+            else: last -= 1
+
+        seq.append(0)
+
+        seq_bars = VGroup(*[self.bars[i] for i in seq]).copy()
+        seq_jumps = []
+        for i in range(len(seq)-1):
+            size = self.x_list[seq[i]] - self.x_list[seq[i+1]]
+            stroke_width = max(seq_bars[i].stroke_width, seq_bars[i+1].stroke_width)
+            jump = StepCurve(size = size, stroke_width = stroke_width)
+            jump.scale((-1,1,1))
+            jump.shift(seq_bars[i].get_start())
+            seq_jumps.append(jump)
+
+        seq_jumps = VGroup(*seq_jumps)
+
+        seq_bars.set_color(dec_seq_color)
+        seq_jumps.set_color(dec_seq_color)
+
+        return seq_bars, seq_jumps, seq
+
+    def construct_ini_brace(self, index, direction = DOWN):
+        return ini_segment_brace(Line(self.center_list[0], self.center_list[index]),
+                                 direction = direction).shift(direction)
+
+    def construct_term_brace(self, index, direction = DOWN):
+        return term_segment_brace(Line(self.center_list[index], self.center_list[-1]),
+                                  direction = direction).shift(direction)
+
+    def construct_brace(self, (ini_brace, direction)):
+        if ini_brace: return self.construct_ini_brace(self.cur_split[0], direction)
+        else: return self.construct_term_brace(self.cur_split[1], direction)
+
+    def add_brace(self, brace_type, show_creation = True):
+        brace = self.construct_brace(brace_type)
+        if show_creation:
+            self.play(
+                GrowFromCenter(brace[0]),
+                FadeIn(brace[1]),
+            )
+        self.brace_list.append((brace_type, brace))
+
+        return brace
+
+    def highlight_split(self):
+        VGroup(*self.bars[:self.cur_split[1]]).set_color(self.ini_color)
+        VGroup(*self.bars[self.cur_split[1]:]).set_color(self.term_color)
+    
+    def update_split(self, ini_color = WHITE, term_color = DARK_GREY):
+        self.play(*[
+            Transform(brace, self.construct_brace(brace_type))
+            for brace_type, brace in self.brace_list
+        ])
+        self.highlight_split()
+
+class OmegaSquaredTestSplits(OmegaSquaredScene):
+
+    def construct(self):
+
+        self.init_ordinal()
+        self.ini_color = WHITE
+        self.term_color = DARK_GREY
+
+        self.cur_split = self.random_split()
+        self.add_brace((True, DOWN))
+        self.highlight_split()
+        self.dither()
+
+        for _ in range(3):
+            self.cur_split = self.random_split()
+            self.update_split()
+            self.dither()
+
+        self.add_brace((False, UP))
+
+        for _ in range(3):
+            self.cur_split = self.random_split()
+            self.update_split()
+            self.dither()
+
+        i = 0
+        while True:
+            successor = self.bars[self.cur_split[1]].copy()
+            successor.highlight(YELLOW)
+            self.play(ShowCreation(successor))
+            self.dither()
+
+            if i == 3: break
+            i += 1
+
+            self.cur_split = self.random_split()
+            self.remove(successor)
+            self.update_split()
 
         
+
+class OmegaSquaredTestDecSeq(OmegaSquaredScene):
+
+    def construct(self):
+
+        self.init_ordinal()
+
+        self.ordinal.set_color(DARK_GREY)
+        for _ in range(5):
+            seq_bars, seq_jumps, seq = self.random_dec_seq()
+            self.add(seq_jumps)
+            self.play(
+                ShowCreation(seq_bars),
+                ShowCreation(seq_jumps),
+                run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
+            )
+            self.dither()
+            self.remove(seq_bars, seq_jumps)
+
