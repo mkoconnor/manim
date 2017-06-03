@@ -90,11 +90,42 @@ well-ordering can be used as the basis for a recursive construction.
 # * Mention that we actually did not really care about the elements in the last
 #   chapter either. But technically, n and 1-2^n are different
 #   sequences -- that is why ordinals are introduced.
+# * Notation: I prefer 'c' to 'beth1' for continuum
 # * Math issue: either A < B or A = B or A > B (not <=), and for having the
 #   unique matching, we have to require matching with an initial
 #   segment, not just arbitrary subset (it makes really sense from the
 #   transfinite recursion point of view).
-
+#
+# By the way, sorry for my eternal critique :-) However, the idea of
+#   measuring length of well ordered sets by "running transfinite
+#   recursion on them simultaneously" occured to my right after
+#   reading your concept, so it helped :-) Nevertheless, my current
+#   favourite ordering of the chapter could be something like that:
+#
+# * Recall: Well ordered sets are those such that transfinite
+#   recursion can run through all of its elements although the set
+#   does not cover the whole world of transfinite recursion.
+# * Measure well ordered sets by simultanous run of transfinite
+#   recursion on them.
+# * Align one set to the initial segment of another
+# * Introduce ordinal numbers and explain how it differs from the set
+#   itself
+#   * It assert that we really do not care about the elements, just
+#     the ordering
+# * See the analogies with cardinality
+#   * again some matching
+#   * example of same cardinality but different ordinality
+#     (reorder -> different ordinal)
+#   * reordering does not change finite sets
+#     (as we have seen in chapter 2)
+# * Supremum by merging infinitely many aligned ordinals
+#   (or simultaneous run recursion on them?)
+# * Let's try what happens when we construct some ordinals by
+#   recursion.
+# * Set <-> index correspondence
+#   * index in a universal well ordering
+# * Index meaning of ordinals and analogy with real numbers
+#   * this is why it is reall called the supremum
 
 Just like our first conception of "number" classified sets by possible matchings
 to other sets, our second conception of "number" will classify /well-ordered/
