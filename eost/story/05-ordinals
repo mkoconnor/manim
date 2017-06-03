@@ -43,12 +43,12 @@ Some random ideas what can be shown (in some order, other things can be skipped)
     * Mirek: I like the idea, it serves as an example of transfinite recursion as
       well as of use of the supremum
   * By the definition of well ordering, there is a correspondence
-    between non-terminal segments and indices. It can be further
+    between proper initial segments and indices. It can be further
     translated into the standard correspondence.
-  * Warning: Index correspond to the sccessor, not the last element.
+  * Warning: Index correspond to the successor, not the last element.
     * There is a reason for that, some ordinals (the limit ones) does
       not have the last element.
-  * The 'universal ordering', ordinals indeing ot
+  * The 'universal ordering', ordinals indexing it
     * Is there an ordinal containing all ordinals? Rather no, wait for chapter~\ref{paradoxes}
 
 Script proposal from moconnor:
@@ -63,6 +63,38 @@ Determining the sizes of sets is a very important concept in set theory.
 However, there's another way that sets can be used in set theory (and
 mathematics) that we discussed in the last chapter: sets that come with a
 well-ordering can be used as the basis for a recursive construction.
+
+# Mirek: The idea of analogy with cardinals can be a nice
+#   start. However I have some comments
+# * I think that we can mention the name 'cardinal number' in
+#   chapters 2,3 so there it would be rather a recap. Otherwise
+#   it would be a weird place to introduce them here since we are
+#   not going to talk about them for a while.
+# * I want to convey essential background ideas, similarly as in the
+#   last chapter where I emphasised that well-ordered sets are those on
+#   which transfinite recursion works. There is what I have in mind for
+#   cardinals and ordinals:
+#   * Cardinal number describes what the set looks like if we ignore
+#     meaning of its elements
+#   * Ordinal number is the same but we care about the ordering
+#     now.
+#   * Bigger ordinal means that the transfinite recursion will run
+#     in some sense longer (connection to the previous chapter!)
+#   * Visual difference:
+#     * For cardinality, we are allowed to reorder elements
+#     * For ordinality, we are allowed just to align them
+#       * By the way, this 'alignment' point of view is useful for supremum
+#     * An example with two well ordered sets of the same cardinality
+#     	but different ordinality. 
+#
+# * Mention that we actually did not really care about the elements in the last
+#   chapter either. But technically, n and 1-2^n are different
+#   sequences -- that is why ordinals are introduced.
+# * Math issue: either A < B or A = B or A > B (not <=), and for having the
+#   unique matching, we have to require matching with an initial
+#   segment, not just arbitrary subset (it makes really sense from the
+#   transfinite recursion point of view).
+
 
 Just like our first conception of "number" classified sets by possible matchings
 to other sets, our second conception of "number" will classify /well-ordered/
