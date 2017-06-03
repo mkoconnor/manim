@@ -1,5 +1,9 @@
-To the infinity and beyond
-==========================
+Transfinite recursion and well-ordered sets
+===========================================
+
+Quote:
+  To the infinity and beyond!
+  -- Buzz Lightyear
 
 Outline
 =======
@@ -131,51 +135,56 @@ Outline
 . When
 . we want to construct a large set by the transfinite recursion, it
 . suffices to find a well-ordered set long enough.
-. 
+.
 . In the rest of the chapter we will look at alternative views of the
 . condition of well ordering.
 
-At first, instead of looking at proper initial segments it may be useful to
-look at its complements. There is no official name for the opposite of
-initial segments but we will call them terminal segments in this
-series.
+:------------ConditionTerminalScene------------
+. At first, instead of looking at proper initial segments it may be useful to
+. look at its complements. There is no official name for the opposite of
+. initial segments but we will call them terminal segments in this
+. series.
+.
+. From this point of view, proper initial segments correspond to
+. non-empty terminal segments.
+. And a successor of an initial segment corresponds to the first element
+. of appropriate terminal segments.
+. So a set is well ordered if and only if
+. all non-empty terminal segments have their first elements.
 
-From this point of view, proper initial segments correspond to
-non-empty terminal segments.
-And a successor of an initial segment corresponds to the first element
-of appropriate terminal segments.
-So a set is well ordered if and only if
-all non-empty terminal segments have their first elements.
+:----------OmegaPlusZDecSeq-------------
+. Another interesting point of view is to ask what constraint a set from
+. being well-ordered.
+. In fact, the only obstacle is an infinite decreasing
+. sequence.
+:--------------RealDecSeq---------------
+. Indeed, whenever there is an infinite decreasing sequence,
+. it divides the set into a proper initial segment and a non-empty
+. terminal segment without a first element covered by the sequence.
+. There cannot be the first element in the terminal segment because the sequence
+. goes backward and backward.
+. And conversely, any non-empty terminal segment
+. without the first element contains enough space for an infinite
+. decreasing sequence. The absence of a first element assures that
+. the sequence cannot get stuck.
 
-Another interesting point of view is to ask what constraint a set from
-being well-ordered.
-In fact, the only obstacle is an infinite decreasing
-sequence.
-Indeed, whenever there is an infinite decreasing sequence,
-it divides the set into a proper initial segment and a non-empty
-terminal segment without a first element.
-There cannot be the first element in the terminal segment because the sequence
-goes backward and backward.
-And conversely, any non-empty terminal segment
-without the first element contains enough space for an infinite
-decreasing sequence. The absence of a first element assures that
-the sequence cannot get stuck.
+:------------ConditionsRecap------------
+. So we have several ways how to determine whether a set is well
+. ordered, that means we can run the transfinite recursion on it.
+. One way is
+. to investigate all the proper initial segments and check whether they
+. have their successor. It is actually the same as
+. investigating all the non-empty terminal segments and check whether all of them
+. have their first elements.
+. And an other way how to determine whether a set is well-ordered is to
+. ensure that there is no infinite decreasing sequence in it.
+.
+. But if you search for the definition of well ordering by your
+. own, you will probably meet the following one: Not just every
+. non-empty terminal segment but every possible non-empty subset has its
+. first element. So, you can try to think over why the meaning is still
+. the same.
 
-So we have several ways how to determine whether a set is well
-ordered, that means we can run the transfinite recursion on it.
-One way is
-to investigate all the proper initial segments and check whether they
-have their successor. It is actually the same as
-investigating all the non-empty terminal segments and check whether all of them
-have their first elements.
-And an other way how to determine whether a set is well ordered is to
-ensure that there is no infinite decreasing sequence in it.
-
-But if you will search for the definition of well ordering by your
-own, you will probably meet the following one: Not just every
-non-empty terminal segment but every possible non-empty subset has its
-first element. So, you can try to think over why the meaning is still
-the same.
-
-Next time, we will meet ordinal numbers and we will learn the indexing
-meaning of well ordered sets. See you then.
+:-------ordinal-test.OrdinalAsIndex---------
+. Next time, we will meet ordinal numbers and we will learn the indexing
+. meaning of well ordered sets. See you then.

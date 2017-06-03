@@ -169,3 +169,14 @@ class OmegaShowcase(Scene):
         self.dither()
         self.play(Transform(o_even, OrdinalOmega()))
         self.dither()
+
+class JumpTest(Scene):
+
+    def construct(self):
+
+        point1 = LEFT  + 2*DOWN
+        point2 = RIGHT + 2*UP
+
+        self.add(Dot(point1))
+        self.add(Dot(point2))
+        self.add(StepCurve(start = point1, end = point2).set_color(BLUE))
