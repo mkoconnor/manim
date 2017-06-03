@@ -56,22 +56,25 @@ class StepCurve(VMobject):
     CONFIG = {
         "x_handle"      : 0.2,
         "y_handle"      : 0.4,
-        "size"          : 1, 
+        "start"         : ORIGIN,
+        "end"           : RIGHT,
     }
     def __init__(self, **kwargs):
         digest_locals(self)
         VMobject.__init__(self, **kwargs)
 
     def generate_points(self):
-        a0 = ORIGIN
-        a1 = RIGHT
-        h0 = a0 + self.x_handle*RIGHT + self.y_handle*UP
-        h1 = a1 + self.x_handle*LEFT  + self.y_handle*UP
+        a0 = self.start
+        a1 = self.end
+        x_dist = a1[0] - a0[0]
+        y_dist = a1[1] - a0[1]
+        h0 = interpolate(a0, a1, self.x_handle) + self.y_handle*abs(x_dist)*UP
+        h1 = interpolate(a1, a0, self.x_handle) + self.y_handle*abs(x_dist)*UP
+        #self.add(Dot(h0))
+        #self.add(Dot(h1))
         self.set_anchors_and_handles(
             [a0, a1], [h0], [h1]
         )
-
-        self.scale(self.size)
 
 class OrdinalOne(Ordinal):
     def __init__(self, **kwargs):
@@ -87,8 +90,10 @@ class OrdinalOne(Ordinal):
 
     def to_steps(self, h_placement = 0):
 
-        step = StepCurve(size = self.ini_size[0], stroke_width = self.thickness)
-        step.shift(self.x0*RIGHT + h_placement*self.height*UP)
+        step = StepCurve(
+            start = self.x0*RIGHT + h_placement*self.height*UP,
+            end = self.x1*RIGHT + h_placement*self.height*UP,
+            stroke_width = self.thickness)
         step.set_color(YELLOW)
 
         #if self.x1 - self.x0 > 0.3:

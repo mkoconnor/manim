@@ -28,12 +28,25 @@ from chat_bubbles import Conversation
 
 from eost.ordinal import *
 from topics.number_line import NumberLine
+from topics.common_scenes import OpeningQuote
 
 import eost.deterministic
 
 def make_p_power(n, start = "\\omega"):
     tex = ("\\mathcal P("*n) + start + (")"*n)
     return TexMobject(tex)
+
+class Chapter4OpeningQuote(OpeningQuote):
+    CONFIG = {
+        "quote" : [
+            "To the","infinity,","and ","beyond!",
+        ],
+        "highlighted_quote_terms" : {
+            "infinity," : GREEN,
+            "beyond!" : YELLOW,
+        },
+        "author" : "Buzz Lightyear"
+    }
 
 class PowerSetsScene(Scene):
 
@@ -719,9 +732,10 @@ class RealsProblems(Scene):
         )
         self.pointer = next_pointer
 
-def named_brace(brace_base, name, direction = DOWN):
+def named_brace(brace_base, name, direction = DOWN, scale = 1):
     brace = Brace(brace_base, direction = direction)
     desc = TextMobject(*name)
+    desc.scale(scale)
     brace.put_at_tip(desc)
     return VGroup(brace, desc)
 
@@ -730,6 +744,35 @@ def ini_segment_brace(brace_base, **kwargs):
 
 def term_segment_brace(brace_base, **kwargs):
     return named_brace(brace_base, ("Terminal", "segment"), **kwargs)
+
+dec_seq_color = ORANGE
+
+class WellOrderingConditions(VMobject):
+
+    def __init__(self):
+        VMobject.__init__(self)
+
+        self.title = TextMobject("Well ordered set").to_edge(UP)
+        self.wrong_succ = TextMobject("All", "initial segments have successors")
+        self.succ = TextMobject("All", "proper", "initial segments have successors").to_corner(UP+LEFT)
+        self.term_min = TextMobject("$\Leftrightarrow{}$First elements of non-empty teminal segments").to_corner(UP+LEFT)
+        self.inf_dec = TextMobject("$\Leftrightarrow{}$No infinite decreasing sequence").to_corner(UP+LEFT)
+        self.set_min = TextMobject("$\Leftrightarrow{}$First elements of all non-empty subsets").to_corner(UP+LEFT)
+
+        self.add(self.title)
+
+        for mob in self.succ, self.term_min, self.inf_dec, self.set_min:
+            mob.scale(0.9)
+            mob.to_edge(LEFT)
+            mob.next_to(self[-1], DOWN, coor_mask = UP)
+            self.add(mob)
+        
+        self.succ.set_color(YELLOW)
+        self.wrong_succ.set_color(YELLOW)
+        VGroup(*self.term_min[1:]).set_color(YELLOW)
+        VGroup(*self.inf_dec[1:]).set_color(dec_seq_color)
+
+        self.wrong_succ.shift(self.succ[0].get_edge_center(LEFT) - self.wrong_succ[0].get_edge_center(LEFT))
 
 class OmegaPlusZScene(Scene):
 
@@ -836,17 +879,14 @@ class OmegaPlusZScene(Scene):
         self.play(ShowCreation(omega_colorful[0]))
         self.dither()
 
-        well_ordered_title = TextMobject("Well ordered set")
-        well_ordered_title.to_edge(UP)
-        lim_step_a_target = lim_step_a.copy()
-        lim_step_a_target.next_to(well_ordered_title, DOWN, coor_mask = UP)
+        conditions = WellOrderingConditions()
         self.play(
             FadeOut(base_case_a),
             FadeOut(succ_step_a),
-            Transform(lim_step_a, lim_step_a_target),
+            lim_step_a.move_to, conditions.wrong_succ,
         )
         self.dither(5)
-        self.skip_animations = False
+        #self.skip_animations = False
         self.remove(omega)
         self.play(*map(FadeOut, [
             omega_colorful,
@@ -955,15 +995,8 @@ class WellOrderingCondition(Scene):
     def construct(self):
 
         #self.skip_animations = True
-        well_ordered_title = TextMobject("Well ordered set")
-        well_ordered_title.to_edge(UP)
-
-        lim_step_a = TextMobject("All", "initial segments have successors")
-        lim_step_a.to_corner(UP+LEFT)
-        lim_step_a.set_color(YELLOW)
-        lim_step_a.next_to(well_ordered_title, DOWN, coor_mask = UP)
-
-        self.add(lim_step_a)
+        conditions = WellOrderingConditions()
+        self.add(conditions.wrong_succ)
 
         any_set = DashedLine(4*LEFT, 4*RIGHT)
         any_set.shift(DOWN)
@@ -976,7 +1009,7 @@ class WellOrderingCondition(Scene):
         )
         self.dither()
 
-        ini_segment = ini_segment_brace(any_set)
+        ini_segment = ini_segment_brace(any_set, scale = 0.9)
         self.play(
             GrowFromCenter(ini_segment[0]),
             FadeIn(ini_segment[1]),
@@ -998,20 +1031,14 @@ class WellOrderingCondition(Scene):
 
         #self.skip_animations = False
 
-        real_condition = TextMobject("All", "proper", "initial segments have successors")
-        real_condition.to_corner(UP+LEFT)
-        real_condition.set_color(YELLOW)
-        real_condition.next_to(well_ordered_title, DOWN, coor_mask = UP)
-
-        proper_src = real_condition[1].copy()
-        proper_src.replace(Point(real_condition[1].get_edge_center(LEFT)))
+        proper_src = conditions.succ[1].copy()
+        proper_src.replace(Point(conditions.succ[1].get_edge_center(LEFT)))
         self.play(
-            ReplacementTransform(lim_step_a[0],  real_condition[0]),
-            ReplacementTransform(proper_src,     real_condition[1]),
-            ReplacementTransform(lim_step_a[-1], real_condition[2]),
+            ReplacementTransform(VGroup(conditions.wrong_succ[0], proper_src, conditions.wrong_succ[-1]),
+                                 conditions.succ),
         )
         self.dither()
-        self.play(Write(well_ordered_title))
+        self.play(Write(conditions.title))
         self.dither()
 
     def fill_ordinal(self, ordinal, remove = True, one_range = 3, omega_range = 1): # omega+k -> omega^2 supported
@@ -1045,16 +1072,29 @@ class WellOrderingCondition(Scene):
         if remove: self.play(FadeOut(ordinal_col))
         else: return ordinal_col
 
-dec_seq_color = ORANGE
+def bars_to_jumps(bars, color = dec_seq_color):
+
+    jumps = []
+    for i in range(len(bars)-1):
+        stroke_width = max(bars[i].stroke_width, bars[i+1].stroke_width)
+        jump = StepCurve(
+            start = bars[i].get_start(), 
+            end = bars[i+1].get_start(),
+            stroke_width = stroke_width)
+        jump.set_color(color)
+        jumps.append(jump)
+
+    return VGroup(*jumps)
 
 class OmegaSquaredScene(Scene):
 
-    def init_ordinal(self):
+    def init_ordinal(self, shift = 1.5*DOWN):
+        self.successor = None
         self.brace_list = []
         self.ordinal = make_ordinal_power(2, q=(0.8, 0.9, 0.9), x0 = -4, x1 = 4)
         self.add(self.ordinal)
 
-        self.ordinal.shift(DOWN)
+        self.ordinal.shift(shift)
         _, self.lim_bars, self.bars = extract_ordinal_subpowers(self.ordinal)
 
         self.center_list = [bar.get_center() for bar in self.bars]
@@ -1102,33 +1142,27 @@ class OmegaSquaredScene(Scene):
         seq.append(0)
 
         seq_bars = VGroup(*[self.bars[i] for i in seq]).copy()
-        seq_jumps = []
-        for i in range(len(seq)-1):
-            size = self.x_list[seq[i]] - self.x_list[seq[i+1]]
-            stroke_width = max(seq_bars[i].stroke_width, seq_bars[i+1].stroke_width)
-            jump = StepCurve(size = size, stroke_width = stroke_width)
-            jump.scale((-1,1,1))
-            jump.shift(seq_bars[i].get_start())
-            seq_jumps.append(jump)
-
-        seq_jumps = VGroup(*seq_jumps)
-
+        seq_jumps = bars_to_jumps(seq_bars)
         seq_bars.set_color(dec_seq_color)
-        seq_jumps.set_color(dec_seq_color)
 
         return seq_bars, seq_jumps, seq
 
     def construct_ini_brace(self, index, direction = DOWN):
         return ini_segment_brace(Line(self.center_list[0], self.center_list[index]),
-                                 direction = direction).shift(direction)
+                                 direction = direction, scale = 0.9).shift(direction)
+
+    def construct_tight_term_brace(self, index, direction = DOWN):
+        return term_segment_brace(VGroup(*self.bars[index:]), direction = direction, scale = 0.9)
 
     def construct_term_brace(self, index, direction = DOWN):
         return term_segment_brace(Line(self.center_list[index], self.center_list[-1]),
-                                  direction = direction).shift(direction)
+                                  direction = direction, scale = 0.9).shift(direction)
 
-    def construct_brace(self, (ini_brace, direction)):
-        if ini_brace: return self.construct_ini_brace(self.cur_split[0], direction)
-        else: return self.construct_term_brace(self.cur_split[1], direction)
+    def construct_brace(self, (brace_type, direction)):
+        if brace_type == 'ini': return self.construct_ini_brace(self.cur_split[0], direction)
+        elif brace_type == 'term': return self.construct_term_brace(self.cur_split[1], direction)
+        elif brace_type == 'tight_term': return self.construct_tight_term_brace(self.cur_split[1], direction)
+        else: raise Exception("Invalid submobject mode")
 
     def add_brace(self, brace_type, show_creation = True):
         brace = self.construct_brace(brace_type)
@@ -1141,28 +1175,90 @@ class OmegaSquaredScene(Scene):
 
         return brace
 
-    def highlight_split(self):
-        VGroup(*self.bars[:self.cur_split[1]]).set_color(self.ini_color)
-        VGroup(*self.bars[self.cur_split[1]:]).set_color(self.term_color)
-    
-    def update_split(self, ini_color = WHITE, term_color = DARK_GREY):
-        self.play(*[
-            Transform(brace, self.construct_brace(brace_type))
-            for brace_type, brace in self.brace_list
-        ])
-        self.highlight_split()
+    def highlight_split(self, animation = False, subset = False):
+        ini_group = []
+        term_group = []
 
-class OmegaSquaredTestSplits(OmegaSquaredScene):
+        split = self.cur_split[1]
+        for i,bar in enumerate(self.bars):
+            if i < split or (subset and i > split and random.random() < 0.8):
+                ini_group.append(bar)
+            else: term_group.append(bar)
+
+        ini_group = VGroup(*ini_group)
+        term_group = VGroup(*term_group)
+        if animation:
+            return [
+                ini_group.highlight, self.ini_color,
+                term_group.highlight, self.term_color,
+            ]
+        else:
+            ini_group.highlight(self.ini_color)
+            term_group.highlight(self.term_color)
+    
+    def update_split(self, subset = False):
+        if len(self.brace_list) > 0:
+            self.play(*[
+                Transform(brace, self.construct_brace(brace_type))
+                for brace_type, brace in self.brace_list
+            ])
+        self.highlight_split(subset = subset)
+        self.update_successor()
+
+    def add_successor(self, add_pointer = None):
+        self.successor = self.bars[self.cur_split[1]].copy()
+        self.successor.highlight(YELLOW)
+        animations = [ShowCreation(self.successor)]
+        if add_pointer is not None:
+            direction = add_pointer
+            self.pointer = TrianglePointer(color = YELLOW)
+            if (direction == DOWN).all(): self.pointer.scale(-1)
+            self.pointer.next_to(self.ordinal[0][0], direction, buff = 0)
+            self.pointer.move_to(self.successor, coor_mask = RIGHT)
+            animations.append(FadeIn(self.pointer))
+        else:
+            self.pointer = None
+
+        self.play(*animations)
+
+    def update_successor(self):
+        if self.successor is None: return
+
+        self.remove(self.successor)
+        self.successor = self.bars[self.cur_split[1]].copy()
+        self.successor.highlight(YELLOW)
+
+        animations = [ShowCreation(self.successor)]
+
+        if self.pointer is not None:
+            pointer_target = self.pointer.copy()
+            pointer_target.move_to(self.successor, coor_mask = RIGHT)
+            animations.append(Transform(self.pointer, pointer_target))
+
+        self.play(*animations)
+
+class ConditionTerminalScene(OmegaSquaredScene):
 
     def construct(self):
+
+        conditions = WellOrderingConditions()
+        self.add(conditions.title, conditions.succ)
 
         self.init_ordinal()
         self.ini_color = WHITE
         self.term_color = DARK_GREY
 
         self.cur_split = self.random_split()
-        self.add_brace((True, DOWN))
         self.highlight_split()
+        self.add_brace(('ini', DOWN))
+        self.dither()
+
+        for _ in range(0):
+            self.cur_split = self.random_split()
+            self.update_split()
+            self.dither()
+
+        self.add_brace(('tight_term', UP))
         self.dither()
 
         for _ in range(3):
@@ -1170,44 +1266,239 @@ class OmegaSquaredTestSplits(OmegaSquaredScene):
             self.update_split()
             self.dither()
 
-        self.add_brace((False, UP))
+        self.add_successor()
+        self.dither()
+
+        for _ in range(3):
+
+            self.cur_split = self.random_split()
+            self.update_split()
+            self.dither()
+
+        self.play(Write(conditions.term_min))
+        self.dither(5)
+
+class OmegaPlusZDecSeq(Scene):
+
+    def construct(self):
+
+        conditions = WellOrderingConditions()
+
+        omega = OrdinalOmega(x1 = -1)
+
+        omega2 = omega.copy()
+        omega_reversed = omega2.copy()
+        omega_reversed.scale([-1,1,1], about_point = omega2[0].get_center())
+        Z = VGroup(omega_reversed, omega2)
+
+        omega_plus_Z = VGroup(omega, Z)
+        omega_plus_Z.arrange_submobjects()
+        omega_plus_Z.center()
+        omega_plus_Z.shift(2*DOWN)
+        omega_plus_Z.set_color(BLUE)
+
+        self.add(conditions.title, conditions.succ, conditions.term_min, omega_plus_Z)
+
+        dec_seq = omega_reversed.copy()
+        dec_seq.set_color(dec_seq_color)
+        dec_seq_jumps = bars_to_jumps(omega_reversed.family_members_with_points())
+        self.play(
+            ShowCreation(dec_seq),
+            ShowCreation(dec_seq_jumps),
+            run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
+        )
+        self.play(Write(conditions.inf_dec),)
+        self.dither()
+
+class RealDecSeq(Scene):
+
+    def construct(self):
+
+        conditions = WellOrderingConditions()
+        self.line_x = 4
+        self.line_y = -1.5
+        y_shift = 1
+        real_line = Line(self.line_x*LEFT + self.line_y*UP,
+                         self.line_x*RIGHT+self.line_y*UP)
+        real_line.add(Dot(real_line.get_start()))
+        real_line.set_color(BLUE)
+
+        jumps = self.make_jumps(3, -1)
+
+        self.add(conditions.title, conditions.succ, conditions.term_min, conditions.inf_dec, real_line)
+        self.play(ShowCreation(jumps))
+        self.dither()
+
+        ini_segment, term_segment = self.construct_segments(jumps[-1].get_center()[0])
+        self.remove(real_line)
+        self.play(
+            ini_segment.shift, y_shift*UP,
+            VGroup(term_segment, jumps).shift, y_shift*DOWN,
+        )
+        self.dither()
+
+        pointer = TrianglePointer(color = YELLOW)
+        pointer.scale(-1)
+
+        buff = 0.04
+        pointer.next_to(jumps[0], DOWN, buff)
+        self.play(FadeIn(pointer))
+        self.play(pointer.next_to, jumps[2], DOWN, buff)
+        self.play(pointer.next_to, jumps[5], DOWN, buff)
+        self.dither()
+
+        jumps_target = jumps.copy()
+        jumps_target.shift(y_shift*UP)
+        jumps_target.set_stroke(width = 0)
+
+        self.play(
+            FadeOut(pointer),
+            ini_segment.shift,  y_shift*DOWN,
+            term_segment.shift, y_shift*UP,
+            Transform(jumps, jumps_target),
+        )
+        self.remove(jumps, ini_segment, term_segment)
+        self.add(real_line)
+        self.dither()
+
+        ini_segment, term_segment = self.construct_segments(0.5)
+        self.remove(real_line)
+        self.add(ini_segment, term_segment)
+        self.play(
+            ini_segment.shift, y_shift*UP,
+            term_segment.shift, y_shift*DOWN,
+        )
+        jumps = self.make_jumps(3.5, 0, q = 0.9)
+        jumps.shift(y_shift*DOWN)
+
+        for i in range(10):
+            self.play(ShowCreation(jumps[i]))
+
+        self.play(*map(FadeOut, [
+            ini_segment,
+            term_segment,
+        ]+jumps[:i+1]
+        ))
+
+    def make_jumps(self, start_x, end_x, q = 0.8):
+
+        t = DEFAULT_POINT_THICKNESS
+        pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
+        x = start_x - end_x
+        buff = 0.02
+        jumps = []
+
+        while True:
+            next_x = x*q
+            t *= q**0.5
+            if x-next_x < pixel_size: break
+
+            jumps.append(
+                StepCurve(start = (end_x+x)*RIGHT + self.line_y*UP+buff,
+                          end = (end_x+next_x)*RIGHT + self.line_y*UP+buff,
+                          stroke_width = t)
+            )
+            x = next_x
+
+        jumps = VGroup(*jumps)
+        jumps.set_color(dec_seq_color)
+
+        return jumps
+
+    def construct_segments(self, split_point):
+
+        ini_segment = Line(
+            self.line_x*LEFT + self.line_y*UP,
+            split_point*RIGHT + self.line_y*UP,
+        )
+        ini_segment.add(Dot(ini_segment.get_start()), Dot(ini_segment.get_end()))
+        term_segment = Line(
+            split_point*RIGHT + self.line_y*UP,
+            self.line_x*RIGHT + self.line_y*UP,
+        )
+        ini_segment.set_color(BLUE)
+        term_segment.set_color(BLUE)
+
+        return ini_segment, term_segment
+
+class ConditionsRecap(OmegaSquaredScene):
+
+    def construct(self):
+
+        self.skip_animations = True
+
+        conditions = WellOrderingConditions()
+        self.add(conditions.title, conditions.succ, conditions.term_min, conditions.inf_dec)
+
+        self.init_ordinal()
+        self.ini_color = WHITE
+        self.term_color = DARK_GREY
+
+        self.cur_split = self.random_split()
+        self.highlight_split()
+        ini_brace = self.add_brace(('ini', DOWN))
+
+        self.add_successor(add_pointer = UP)
+        self.dither()
 
         for _ in range(3):
             self.cur_split = self.random_split()
             self.update_split()
             self.dither()
 
-        i = 0
-        while True:
-            successor = self.bars[self.cur_split[1]].copy()
-            successor.highlight(YELLOW)
-            self.play(ShowCreation(successor))
+        self.ini_color = DARK_GREY
+        self.term_color = WHITE
+        self.brace_list = []
+        term_brace = self.add_brace(('term', DOWN), show_creation = False)
+        highlight_animation = self.highlight_split(animation = True)
+        self.play(*[
+            ReplacementTransform(ini_brace, term_brace),
+        ]+highlight_animation+[Animation(self.successor)])
+        self.dither()
+
+        for _ in range(2):
+            self.cur_split = self.random_split()
+            self.update_split()
             self.dither()
 
-            if i == 3: break
-            i += 1
-
-            self.cur_split = self.random_split()
-            self.remove(successor)
-            self.update_split()
-
+        self.dither()
         
+        self.play(
+            self.ordinal.highlight, DARK_GREY,
+            FadeOut(VGroup(term_brace, self.successor, self.pointer)),
+        )
+        self.successor = self.pointer = None
+        self.brace_list = []
+        self.dither()
 
-class OmegaSquaredTestDecSeq(OmegaSquaredScene):
+        prev = None
+        for _ in range(3):
+            if prev is not None: self.remove(*prev)
 
-    def construct(self):
+            bars, jumps, _ = self.random_dec_seq()
+            prev = bars, jumps
 
-        self.init_ordinal()
-
-        self.ordinal.set_color(DARK_GREY)
-        for _ in range(5):
-            seq_bars, seq_jumps, seq = self.random_dec_seq()
-            self.add(seq_jumps)
             self.play(
-                ShowCreation(seq_bars),
-                ShowCreation(seq_jumps),
+                ShowCreation(bars),
+                ShowCreation(jumps),
                 run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
             )
             self.dither()
-            self.remove(seq_bars, seq_jumps)
 
+        self.dither()
+
+        self.play(*map(FadeOut, prev))
+        self.play(Write(conditions.set_min))
+
+        self.skip_animations = False
+        
+        self.cur_split = self.split_at_point(0.5)
+        self.play(
+            *self.highlight_split(animation = True, subset = True)
+        )
+        self.add_successor(DOWN)
+
+        for x in 0.7, 0.3, 0.1:
+            self.cur_split = self.split_at_point(x)
+            self.update_split(subset = True)
+            self.dither()
