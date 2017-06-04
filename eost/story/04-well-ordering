@@ -183,7 +183,7 @@ Outline
 . own, you will probably meet the following one: Not just every
 . non-empty terminal segment but every possible non-empty subset has its
 . first element. So, you can try to think over why the meaning is still
-. the same.
+. the same, it is not difficult.
 
 :-------ordinal-test.OrdinalAsIndex---------
 . Next time, we will meet ordinal numbers and we will learn the indexing

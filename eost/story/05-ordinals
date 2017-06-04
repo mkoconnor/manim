@@ -224,7 +224,96 @@ the ordering itself, not the underlying set.
 So from now on, we will use ordinals instead of well-ordered sets. We
 will draw them in the same way as we drawed well ordered sets and the
 meaning is virtually the same. Just keep in mind that the ordering is
-the only thing important here and by adjusting the bars a bit we don't
-change the ordinal number.
+the only thing important here and we don't change the ordinal number
+by adjusting the bars a bit.
 
-...
+Now let's try a kind of circular idea and let's construct ordinals by
+transfinite recursion. The base case is the empty ordinal zero. It is
+a bit weird well-ordered set but it is technically correct, there is
+no infinite decreasing sequence in the empty set, right? The successor
+step is so called plus one operation, adding one element to the end.
+So we get ordinals one, two, three, and all natural numbers.
+
+What about the limit step?
+For that, we need to return to the idea of alignment of ordinals. When
+we have two different ordinals, then one of them actually represents
+just an initial segment of the other. So when we merge them, we don't
+get anything new. This operation, aligning ordinals to the left and
+then merging them, is called supremum. When there s just a finite
+number of ordinals, the result is just the largest one. But it become
+to be interesting, when there are infinite number of ordinals, in our
+case all natural numbers. The result cannot be the maximal number
+because there is no such natural number. So the result of merging of
+all of these ordinals is the least infinite ordinal of an infinite
+increasing sequence. The set of natural numbers was chosen to
+represent this ordinal, so we call it omega.
+
+Then, we continue by the successor steps. Add one and get omega plus
+one. Then omega plus two, omega plus three and so on. At the limit
+step again merge all these and get omega plus omega.
+
+Q:"It is not helping for constructing large ordinals."
+A:"It is not, but it shows an interesting correspondence."
+
+We cannot boost our ordinal creation by this approach since we need
+the underlying ordinal large enough anyway. The nice thing here is
+that we have got labeled the elements of the underlying ordinal by
+another ordinal numbers. Ordinals have two roles --
+they either represent order types of well ordered sets, or indices of
+their elements.
+
+There are several ways how to see this correspondence.
+By the construction, the point at a position, say omega plus three, is
+the one omega ... plus three steps from the first point. So indices actually
+computes ordered number of steps from the first point.
+
+Alternatively, each step can be identified with its starting
+point. They form a proper initial segment and the corresponding
+final point is the successor of the initial segment.
+
+This is a bit different from usual ordering by naturals numbers,
+right? It can be consufing. When we talk about forth element in the
+natural language, we mean that we take four elements as an initial
+segment and then pick the last of them. But this approach cannot work
+for set theory. Some initial segments, like omega, does not have their
+elements. That is why it is better to pick the successor which is
+guaranteed to exist by the well-ordering property, even though it may
+seem unnatural at first.
+
+All right, ordinals can play two roles, either order types of a well
+ordered sets, or indices. But indices to what exactly? It turns out
+that it does not really matter. Every ordinal can play the index role
+somewhere, in any larger ordinal. It does not matter on what
+larger set exactly we run a recursion if we are interested just in the
+result at, say omega plus five. The recursion runs omega plus five
+successor steps to that point every time.
+
+So ordinals represents indices of an universal well ordering. Ordinals
+form the world of transfinite recursion as particular points of
+it. This world of ordinals is unlimited. For some reasons which will
+be discussed in later videos, we are not even allowed to make a set of
+them. But it does not prevent us from running a recursion on all
+ordinals.
+
+At the end of the video, we let's see how the index view of ordinal
+numbers is compatible with the supremum operation mentioned
+recently. It is the operation which takes several ordinals, align them
+to the left and merges them. In fact, we introduced supremum in a bit
+non-standard way because we needed it. However the usual introduction
+of ordinals goes as follows.
+
+Take a subset of the real numbers, say the
+closed interval minus one, one. This set has its maximum, that is the
+point one. But not every set has a maximum, so we can want at least
+something as close as possible. It is called the supremum. More
+precisely, if there is a maximum, the supremum is that maximum. If, on
+the other hand, the set does not contain a maximum, as in the example
+of an open interval minus one, one, the supremum is the first element
+after the set.
+
+This definition works for ordinals as well. The supremum of a set of
+ordinal indices is either the maximal index here, if there is one, or
+the index just after the set.
+
+Next time, we will examine ordinal addition and multiplication and see
+whether a turtle can catch Achiles. See you then.
