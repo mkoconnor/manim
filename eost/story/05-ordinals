@@ -51,19 +51,6 @@ Some random ideas what can be shown (in some order, other things can be skipped)
   * The 'universal ordering', ordinals indexing it
     * Is there an ordinal containing all ordinals? Rather no, wait for chapter~\ref{paradoxes}
 
-Script proposal from moconnor:
-
-Recall from the second and third chapters, we talked about sizes: finite
-sizes, countably infinite sizes (aleph 0) and some uncountable sizes as well
-(beth 1 = |R| = |P(N)|).  Our strategy was that we first showed how to tell if two
-sets had the /same/ size [replay matching animations], and then had these numbers
-represent all sets of a given size.
-
-Determining the sizes of sets is a very important concept in set theory.
-However, there's another way that sets can be used in set theory (and
-mathematics) that we discussed in the last chapter: sets that come with a
-well-ordering can be used as the basis for a recursive construction.
-
 # Mirek: The idea of analogy with cardinals can be a nice
 #   start. However I have some comments
 # * I think that we can mention the name 'cardinal number' in
@@ -127,6 +114,19 @@ well-ordering can be used as the basis for a recursive construction.
 # * Index meaning of ordinals and analogy with real numbers
 #   * this is why it is reall called the supremum
 
+Script proposal from moconnor:
+
+Recall from the second and third chapters, we talked about sizes: finite
+sizes, countably infinite sizes (aleph 0) and some uncountable sizes as well
+(beth 1 = |R| = |P(N)|).  Our strategy was that we first showed how to tell if two
+sets had the /same/ size [replay matching animations], and then had these numbers
+represent all sets of a given size.
+
+Determining the sizes of sets is a very important concept in set theory.
+However, there's another way that sets can be used in set theory (and
+mathematics) that we discussed in the last chapter: sets that come with a
+well-ordering can be used as the basis for a recursive construction.
+
 Just like our first conception of "number" classified sets by possible matchings
 to other sets, our second conception of "number" will classify /well-ordered/
 sets by the recursive constructions they allow. To distinguish the two, the
@@ -153,5 +153,78 @@ order-preserving matching from A to an /initial segment/ of B.
 Just like the cardinality case, this satisfies what's called /trichotomy/:
 For any two well-ordered sets A and B, either A <= B, A = B, or A >= B
 (we can use the squiggly versions of these relations).
+
+...
+
+Script proposal from Mirek:
+
+In the last chapter, we discussed well-ordered sets. It is such a set
+that transfinite recursion can run through all of its elements even
+though it does not cover the full world of transfinite
+recursion. It makes sense that some well-ordered sets are longer than
+others, that the transfinite recursion will run on them for longer
+time in some sense. We start this chapter by examining
+this comparison in more detail.
+
+Let's take two well-ordered sets and run the transfinite recursion
+simultaneously on both of them. That is, we proceed the zero case at
+the same time, then the first successor step at the same time, then
+the second, and so on. We stop at the moment when one of the set is
+filled. Either the recursion fills the whole first set and a proper
+initial segment of the second one, or vice versa, or it finishes both
+of them at the same time.
+
+But the simultaneous recursion gived us something more than the final
+result. For every processed element in the first set, there is a
+corresponding element of the second set. That means that we can align
+these sets so that they actually looks the same.
+
+This appearance up to alignment is measured by so called ordinal
+numbers. If there is an order preserving matching between two
+well-ordered sets A, B, that is without crossing, we say that their
+order type is the same ordinal number.
+:{type(A) = type(B)}
+The matching is equivalent to checking that these
+two sets can be aligned one above the other without reordering. If on
+the other hand, we match the set B just with a proper initial segment
+of A, we say that the order type of A is bigger that the one of B.
+:{type(A) > type(B)}
+
+Q:"Is it the same as what we have done with apples and pears in chapter 2?"
+A:"It is similar but different."
+
+In chapters 2 and 3 we discussed cardinal numbers determining sizes of
+sets. They describes the appearence of a set when we ignore the
+meaning of its elements at all. We don't care even about some
+ordering.
+The finite world is simple.
+:{|A| = 4, type(A) = 4}
+By reordering a finite set, we
+cannot change the order type. So for finite sets, ordinal numbers are
+the same natural numbers as cardinal numbers.
+However, infinite ordinal numbers begin to behave differently.
+
+We can reorder a well-ordered set to another well-ordered set with the
+same size but another order type.
+:{omega -> omega*2, or omega+x?}
+That is because we need to examine all possible matchings to assure
+whether the two sets have different size. It is not
+neccessary for ordinal type, there is just one possible matching
+with an initial segment -- the one given by the simultaneous
+transfinite recursion.
+
+And then there are different motivations behind the abstractions of
+set sizes or order types. We introduced cardinal numbers for
+investigation of sizes of different sets such as natural numbers,
+rational numbers, real numbers and so on. But ordinals are not
+primarily intended for examining different well ordered sets. They are
+useful for focusing on what is essential on well-ordering property,
+the ordering itself, not the underlying set.
+
+So from now on, we will use ordinals instead of well-ordered sets. We
+will draw them in the same way as we drawed well ordered sets and the
+meaning is virtually the same. Just keep in mind that the ordering is
+the only thing important here and by adjusting the bars a bit we don't
+change the ordinal number.
 
 ...
