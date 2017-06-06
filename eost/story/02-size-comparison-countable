@@ -39,17 +39,23 @@ connecting the pear at number 0 to the apple at number 1, the pear at
 number 1 to the apple at number 2, and so on, there is one extra
 apple. So there should be more apples than pears.
 
-And similarly, there can be one extra pear. How to manage it? The reasonable way how to untangle this is the following definition.
+And similarly, there can be one extra pear. How to manage it? The
+reasonable way how to untangle this is the following definition.
 :{"Definition"}
 Consider two sets, $A$ and $B$.
 :{Boxes around apples and pears}
-If there is any matching between $A$ and $B$ such that every element of $A$ and every element of $B$ is used exactly once, we say that these two sets have the same size. We write size by absolute value, so we can write is like that,
+If there is any matching between $A$ and $B$ such that every element
+of $A$ and every element of $B$ is used exactly once, we say that
+these two sets have the same size. We write size by absolute value, so
+we can write is like that,
 :{$|A|=|B|$}
 the size of $A$ equals the size of $B$.
 
 If, on the other hand, if there is no way how to match these sets together,
 :{Finite number of pears, matching attempts}
-and no matter how we try, we can just match the elements of the set $B$ with a part of the set $A$, we say that the size $A$ is bigger than $B$.
+and no matter how we try, we can just match the elements of the set
+$B$ with a part of the set $A$, we say that the size $A$ is bigger
+than $B$.
 
 But this definition leads us to several surprising observations. Take
 the set of all natural numbers. And then take just the subset
@@ -73,9 +79,11 @@ size will still be the same.
 Let's introduce
 :{upbrace: finite sizes}
 some notation now. Sizes of finite sets are determined by natural
-numbers, zero, one, two and so on. Now we introduce an infinite size,
-it is called Aleph 0 (a funny comment about Hebrew alphabet and a
-reason of the zero?) and we already know that it is the least infinite
+numbers, zero, one, two and so on. In general, sizes are measured by
+so called cardinal numbers. Now, we have introduced an infinite
+cardinal number,
+it is called Aleph 0. (TODO: a funny comment about Hebrew alphabet and a
+reason of the zero?). We already know that Aleph 0 is the least infinite
 size because every infinite part of it is still the same size. All
 :{downbrace: countable sizes}
 these sizes are called countable meaning that natural numbers are
@@ -100,17 +108,85 @@ is still the same size aleph 0. Alternatively speaking, the union of
 two countable sets is still countable. There is a meaningful
 example. The number of non-positive integers, zero, minus one, minus
 two and so on, is aleph 0. They are just natural numbers reflected by
-the point zero. And there are aleph 0 of natural numbers.
+the point zero. And there are aleph 0 of natural numbers. So the
+number of all integers is still Aleph 0.
 
-TODO:
-=====
-Comment, perhaps with student's question, on what happened to merged
-zero: it is still countable and infinite, therefore aleph
-0. $\omega\times\omega$, proposal: continue with splitting even
-numbers to 2 mod 4 and 0 mod 4, then numbers divisible by 4 by
-divisibility by 8 and so on. It is not the well-known mainstream
-picture of diagonals but it can be still visualized pretty well and we
-get a simple exact formula for the bijection. Meaningful example,
-rational numbers. Completing the picture: opposites Infinite and
-uncountable. Is there anything uncountable? Statement (perhaps without
-proof at this chapter).
+Q:"Hey, what happened to the merged zero?"
+Technically, the size could be less than aleph zero because two zeros
+were merged to one
+A:"The size is still countable infinite."
+but there is just one infinite countable cardinal number, the
+Aleph 0. So the size is still the same in our case.
+
+All right, omega can be divided to two sets of the same size, odd
+numbers and even numbers. We can go on and partition even numbers to
+numbers divisible by four and the others. All these three sets are
+infinite countable, thus of size aleph 0, so aleph 0 times three is
+still aleph 0. Let's continue and partition numbers divisible by 4 to
+those which are divisible by 8 and those which are not. Then partition
+the numbers divisible by 8 to those which are divisible by sixteen and
+the others. And so on.
+
+We end up with an infinite table of natural numbers. Every number
+occurs here exactly once with the exception of missing zero which has
+disappered somewhere in infinity. Nevertheless, the size of every row
+is aleph 0, there are aleph 0 rows. But all elements altogether are
+just natural numbers without zero, that is there are aleph 0 of
+them. That shows that aleph 0 times aleph 0 is still aleph zero. More
+generaly, the union of countable sets is still countable.
+
+In this case, we can even directly describe the matching. The numbers
+in a row with an index r, say 3, is filled by odd multiplies of 8, in
+general two to the power of r. That is there is the number 2 to the
+power of r times 2 i plus 1 at the position i of the row. So, when
+these sets are filled by some other elements, we can just match an
+element at the position i of the row r with the natural number given
+by our formula. To tune it into perfectness, we tweak the formula
+by shifting by one to the left so we cover even the missing zero.
+
+Let's see this in practice. We already know that the size of all
+integers is aleph 0. Similarly, the set of all integers divided by two
+is of the same size. The same holds for integers divided by three,
+integers divided by four and so on.
+
+What if we merge all of these sets? The line becomes pretty
+full. There are actually all rational numbers. Every number of a form
+an integer divided by a non-zero natural number were in some of our
+rows so it is in the resulting set. Therefore, the size of all
+rational numbers is aleph 0 as well. And again, technically, some
+points got merged but aleph zero is the only countable infinite
+cardinal number, so the size cannot be anything else.
+
+Q:"Are all sets countable?"
+Considering all this you could be under the impression that actually every set
+can be countable.
+A:"Of course not."
+But in that case, the notion of countability and aleph 0 would be
+quite useless, don't you think? In fact, there is a whole variety of
+uncountable cardinals and the aleph 0 is just the first of infinite
+cardinals, by no means the last one. A famous example of an
+uncountable set is the set of all real numbers. While the line seems
+to be filled by rational numbers, the vast majority of it is in fact
+still missing.
+
+But real numbers are technical a bit so for now let's see another
+famous example: The number of all infinite sequences of zeros and ones
+is uncountable. Indeed, whenever we make an atempt of matching natural
+numbers with such sequences we can find a sequence we have missed by
+the following procedure. Look at the digits on the diagonal, that is
+the digit at the position zero of the sequence matched with zero, then
+the digit at the position one of the sequence matched with number one,
+and so on. Finally, we invert the sequence, that is replace the zeros
+with ones and vice versa. This sequence cannot be in in our list
+because the diagonal is blocking all possible rows. And it is not the
+only sequence missing, it would not be problem since aleph 0 plus one
+is still aleph zero. But if we add it, we can find another one by the
+same procedure. In fact, the vast majority of sequences is missing, an
+uncountable cardinal number of them.
+
+The procedure of finding missing sequence is called Cantor's diagonal
+argument and in the next chapter we will explore it in more detail and
+more generality. You can also expect the explanation of the technical
+details of real numbers together with another key set-theoretical tool
+making set size comparison cleaner, the Cantor-Bernstein theorem. See
+you then.
