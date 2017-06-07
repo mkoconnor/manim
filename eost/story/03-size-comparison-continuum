@@ -1,7 +1,7 @@
 Set size comparison and continuum
 =================================
 
-Where to put the ordinary diagonal argument? To the "countable" chapter? At the beginning of this chapter? Omit it?
+Quote: Some infinities are bigger than other infinities. -- John Green
 
 Outline
 =======
@@ -12,3 +12,10 @@ Outline
 * unanswered questions: Are every two sets comparable? Are reals the least uncountable set?
 * Cantor's theorem in general,  $|\P(X)| > |X|$.
 * $\P(\P(\P(\omega))) > \P(\P(\omega)) > \P(\omega) > \omega$
+
+In the last video, we have shown several sets of the size aleph 0 --
+natural numbers, prime numbers, integers, rational numbers, and
+one bigger set, the set of all infinite sequences of zeros and
+ones. The current chapter is devoted primarily to this particular bigger
+size.
+

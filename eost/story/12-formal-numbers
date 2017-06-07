@@ -1,6 +1,8 @@
 Formal numbers
 ==============
 
+Quote: Everything is nothing with a twist. (0 -> \intfy) -- Kurt Vonnegut
+
 * first idea of naturals: $0 = \{\}, 1 = \{\{\}\}, 2 = \{\{\{\}\}\}$
 * problems:
   * they are one-element sets, it is difficult to count with it

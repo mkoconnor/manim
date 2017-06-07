@@ -1,5 +1,7 @@
 Set size comparison and countable sets
 
+Quote: The Infinite! No other question has ever moved so profoundly the spirit of man; no other idea has so fruitfully stimulated his intellect; yet no other concept stands in greater need of clarification -- David Hilbert
+
 Outline
 =======
 * link to hotel infinity?
@@ -82,9 +84,14 @@ some notation now. Sizes of finite sets are determined by natural
 numbers, zero, one, two and so on. In general, sizes are measured by
 so called cardinal numbers. Now, we have introduced an infinite
 cardinal number,
-it is called Aleph 0. (TODO: a funny comment about Hebrew alphabet and a
-reason of the zero?). We already know that Aleph 0 is the least infinite
-size because every infinite part of it is still the same size. All
+it is called Aleph 0. The inventor of set theory, George cantor
+established aleph, the first letter of Hebrew alphabet for the notation.
+Perhaps he considered both latin and greek alphabets too
+mainstream...
+
+We already know that Aleph 0 is the least infinite
+size because every infinite part of it is still the same size. That's
+why there is the zero at the subscript. All
 :{downbrace: countable sizes}
 these sizes are called countable meaning that natural numbers are
 enough for counting its elements even though we may need all natural
