@@ -182,9 +182,9 @@ corresponding element of the second set. That means that we can align
 these sets so that they actually looks the same.
 
 This appearance up to alignment is measured by so called ordinal
-numbers. If there is an order preserving matching between two
-well-ordered sets A, B, that is without crossing, we say that their
-order type is the same ordinal number.
+numbers, shortly ordinals. If there is an order preserving matching
+between two well-ordered sets A, B, that is without crossing, we say
+that their order type is the same ordinal number.
 :{type(A) = type(B)}
 The matching is equivalent to checking that these
 two sets can be aligned one above the other without reordering. If on

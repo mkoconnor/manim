@@ -44,15 +44,15 @@ then there is an infinite decreasing sequence in it.
 And the proof is actually pretty straightforward. Start with any
 element of the terminal segment. It is not the first one, so we can go below.
 And again, and again, and so on.
-So we constructed an infinite decreasing sequence in the terminal segment.
+So we have constructed an infinite decreasing sequence in the terminal segment.
 
 But infinite proofs are not allowed. Even though we are investigating
-an infinite world, we need to use finite number of steps for proving it.
+an infinite world, we need to use just finite number of steps for proving it.
 :{"You cannot use infinite number in steps in a proof?"}
 :{"What? I am doing it all the time!"}
 :{"It can be avoided by clever operations with infinite structures."}
-You may be surprised by this, but take the proof of Cantor's theorem
-as an example. It is the theorem from chapter \ref{size-comparison}
+You may be surprised by this. Take the proof of Cantor's theorem
+as an example. It is the theorem from chapter~{size-comparison}
 saying that whenever you assign natural numbers to infinite sequences
 of zero's and one's, there have to be a sequence you have missed.
 
@@ -93,13 +93,16 @@ That is because natural numbers are well ordered. In fact, this is the
 reason why the usual definition of transfinite recursion is defined in the
 way that any non-empty subset have to contain a minimal element. So
 we can convenietly use it now on the set of all numbers which gave
-a negative answer, and get the minimal one.
+a negative answer, and get the minimal one. But in fact, the
+definition of well-ordering does not matter very much, if we miss
+decreasing sequences of some lengths, they have to form terminal
+sequence in omega in any case.
 
 So, say that eleven is the least number which answered negatively. In
 particular, ten gave a positive answer, so there is an infinite
 decreasing sequence of length 10. But when we have such a decreasing
 sequence, we can simply extend it to a sequence of length 11. So 11
-lied. But numbers are perfect objects in the mathematical world, they
+lied. Come on, numbers are perfect objects in the mathematical world, they
 are not allowed to lie. So the only possible outcome is that our
 initial assumption that some numbers answered negatively was wrong.
 
@@ -116,8 +119,8 @@ length. We could pick one sequence of every length by the axiom of
 choice but they don't have to be compatible. So we cannot simply
 merge them together.
 
-There is a fundamental problem: just a decreasing
-of every length does not ensure an infinite decreasing sequence.
+There is a fundamental problem: just a decreasing sequence
+of every finite length does not ensure an infinite decreasing sequence.
 As an example, take the ordinal omega plus one. There is a decreasing
 sequence of length one, as well as a decreasing sequence of length 5
 or any other finite length. So our incautious use of induction
@@ -133,8 +136,8 @@ compatible. Every sequence starts at the number 4, then continue to
 the number 2, then to 1, to one half, and so on. In that case, we can
 merge all the finite sequences and get the infinite one.
 
-And this idea leads to the solution, we just have to figure out how to
-make the proces determinable even if we work with a general setup.The
+This idea leads to the solution, we just have to figure out how to
+make the proces determinable even if we work with a general setup. The
 trick is to use the axiom of choice, not after the induction, not
 during it but before. For every point, there are many places where to
 continue. There are a lot of possibilities how to continue from this
@@ -142,13 +145,38 @@ point, as well as there are lot of possibilities where to continue
 from this point, and so on. But we can consider all the points
 and all the possible steps for each of them. By the axiom of choice,
 we pick just one step for every possible point and collect them into
-the rule list.
+our rule list.
 
 Now we launch the recursion with these rules: At every point
 the only step we are allowed to take is the one in the rule list.
 These rules are given by the axiom of choice, not by a written formula
 but it does not matter. The sequence is determined now, so all the
 finite sequences have to be compatible, so we can merge them to one
-infinite sequence.
+infinite sequence. And that's it, that is the formal proof. Well,
+at least that are the human-viewable main ideas of the formal proof.
 
-TODO: recap, note about the transfinite recursion
+But because it was pretty technical this time, let's recapitulate
+it. When we want to construct a sequence by recursion, we can just
+proof by induction that there is such a sequence of any length. The
+induction requires for the underlying set just to satisfy the
+well-ordering property. In our case, the underlying set were just
+natural numbers, but if the limit step was defined, we could construct
+a sequence of any ordinal length. That is because the only requirement
+on the underlying set is the following: if the induction fails
+somewhere, we can find the first step where it failed, then a
+contradiction and conclude that the induction did not failed at all.
+
+But for a kind of a limit step, we need determinacy. That is
+acomplished by an application of the axiom of choice before the launch
+of the induction, so that we get a rule list which tells us what
+exactly to do under any circumstances. The whole machine using
+the axiom of choice, recursion, induction, and the well-ordering
+property is packed as a blackbox recursion with choice. Mathematicians
+usually use it as a black-box because its usage is more natural than
+the proof. But it is good to know that the transfinite recursion with
+choice has solid foundations.
+
+In the next chapter, we will see this machine in practice. We will be
+finaly able to proof that every two sets are comparable, and we will
+get famous set-theoretical tools known as Zorn's lemma and
+the well-ordering principle. See you then.

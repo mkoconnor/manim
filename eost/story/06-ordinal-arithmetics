@@ -13,10 +13,131 @@ Outline
 * $2\cdot omega=omega$ as a race between turtle and a hare
 * how the turtle catches the Achiles at $\omega^\omega$, still countable
 
-This chapter may not be so essential, ordinal addition and
+In the last chapter we have introduced ordinal numbers as order types
+of well ordered sets and their indexing role. This chapter about
+ordinal arithmetics may not be so essential, ordinal addition and
 multiplication are definitelly less usual operations with ordinal
 numbers than the supremum and adding one which we have seen in the
-last chapter. But we regard it important to get in touch with ordinals
-a bit before we meet the ordinal Omega 1 which is far more important
-but also far less imaginable.
+last chapter. But we regard it useful to get in touch with
+ordinals and their indexing meaning a bit more before we meet the
+ordinal Omega 1 in the next chapter, which is far more important but
+also far less imaginable.
 
+We have mentioned ordinal addition in the last chapter when we labeled
+some infinite ordinals as omega plus one, omega plus two, and so
+on. If we want to sum two ordinals, say omega and three, we just
+place one after the another. Quite natural, isn't it? But the fact
+that ordinals actually determine ordering causes some behaviour that
+is not so natural. Namely, order matters. The ordinal omega plus
+three is really three steps longer than omega. But in the other
+direction, three plus omega is just omega. The three elements lose in
+the infinite omega.
+
+We can vizualize it in the index meaning of ordinals. Consider two
+turtles Gordon and Steve racing on ordinals. Gordon starts at the
+point zero and but Steve is starting ahead by three steps. Now, they
+begin to run. After one step, Gordon is at the position one while
+Steve is at the position three plus one, that is four. It is similar
+for the second step, third step, and so on.
+
+But than comes the limit step. Although Gordon was three steps behind
+Steve all the time, both of them just managed to run through the
+omega. So at the limit step, both turtles jump to the point omega. In
+Steve's case we can interpret is as three plus omega because he
+started with a head start but the point is the same. From now one,
+our turtles run one next to the other. So three plus any infinite
+ordinal equals the infinite ordinal.
+
+This is in the contrast with the case omega plus three which can be
+seen as follows. Both turtles run next to each other for omega steps
+and then Steve makes three more steps. No matter, how much they
+traveled at the beginning, Steve will be ahead. So three plus alpha
+where alpha stands for any infinite ordinal equals alpha, while alpha
+plus three is bigger than alpha.
+
+What if the head start of Steve were larger? You can imagine that a
+head start of ten steps does make much difference but what if it
+starts omega steps ahead? When Gordon gets to omega, Steve is already
+gone at the point omega plus omega, omega times two for short.
+When Gordon gets to the point omega times two, Steve is at omega times
+three. But in the end, there is the supremum of all natural multiplies
+of omega. And both turtles get to that point at the same time. The
+supremum is called, reasonably enough, omega times omega.
+
+That brings us to the next topic in this chapter, the ordinal
+multiplication. Take two ordinals, say omega and two. If we want to
+compute their product, we take the first one as a base and copy it so
+many times as suggests the second ordinal. That is, every point of the
+second ordinal is replaced by a copy of the first one.
+
+And again, order matters, it was important to write the product in the
+order omega times two. Let's see what happens if we multiply it in the
+opposite way two times omega. So we replace every point of omega by
+two. The result is just omega.
+
+We can again interpret it as a race. Let the turtle compete with a
+rabbit. Rabbit is faster than a turtle, when a turtle moves by one,
+the rabbit jumps two steps forward. They both start at the point
+zero. After one step, turtle is at the point one, rabbit at the point
+two times one. After three steps, turtle is at the point three, rabbit
+is at the point two times three, that is six. And at the limit step,
+the turtle catches the rabbit. So two times omega equals omega. At the
+next successor step, the rabbit escapes again, and at the next limit
+step, the turtle catches it again. So two times alpha equals alpha for
+any limit ordinal alpha.
+
+It is similar to the addition case. It can happen that the second
+coordinate don't get bigger but the first one certainly does unless we
+multiply by zero or one.
+
+In our race interpretation, the product omega times two corresponds to
+a superhero, say Achiles capable of jumps of length omega. Just omega
+represent one jump of Achiles, omega times two represents two jumps of
+Achiles. Of course that the achiles gets further by the second step.
+
+But what if we summon the turtle against Achiles. Has the turtle a
+chance of catching him? Is there an ordinal alpha such that omega
+times alpha equals omega? Let's see.
+
+After one step, turtle is at the point one and Achiles is allready at
+the point omega. The turtle needs omega more steps to getting to that
+point but Achiles is at the point omega times omega by the time, let's
+denote it omega squared for short. After next omega steps, the turtle
+gets to the point omega times two while achiles gets to the point
+omega squared times two. And so on. When the turtle gets to the
+the point omega squared while the Achiles is at the point
+omega cubed. The achiles is still one round before the turtle. Turtle
+at omega cubed, Achiles at omega to the power of four. And so on.
+
+But you know how it goes. There is a supremum of all natural powers of
+omega, reasonably enough called omega to the power of omega, and the
+turtle catches the achiles at that point. We can understand omega to
+the power of omega as the point just after the spiral. Alternatively,
+in the opint of view of well ordered sets, omega to the power of omega
+is the spiral itself.
+
+We are not going to go into details of ordinal powers, the definition
+is more technical and less visual. Just note that it is perfectly fine
+to define it by transfinite recursion. The limit step is the
+supremum and the successor step is multiplication by omega from the
+right. This is important, we allready know, that omega times omega to
+the power of omega is still the same, so if we defined it otherwise we
+would get stuck at that point. On the other hand, multiplication from
+the right guarrantees us to reach higher ordinals.
+
+At the end of the chapter let's compute the size, that is the
+cardinality of omega to the power of omega. The size of omega is
+aleph 0. The size of omega squared is aleph zero times aleph zero
+that is still aleph zero. Analogously, the size of omega cubed is
+aleph 0, the size of omega to the power of four is aleph zero and so
+on.
+
+Finally, omega to the power of omega is a supremum of countable many
+countable ordinals. Supremum is a kind of union, that is merging the
+elements, so the size of omega to the power of omega is still
+countable, more precisely aleph zero.
+
+Apparently, it is not easy to get an uncountable ordinal number. In
+fact, the ordinal power does not help it either. However, we will
+explore an uncountable ordinal number in the next chapter. See you
+then.
