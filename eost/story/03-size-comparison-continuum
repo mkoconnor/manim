@@ -19,3 +19,95 @@ one bigger set, the set of all infinite sequences of zeros and
 ones. The current chapter is devoted primarily to this particular bigger
 size.
 
+First of all, an infinite sequence of zeros and ones is in a sense the
+same thing as a subset of omega, the set of all natural numbers.
+Indeed, we can interpret the sequence as a mask. Zero at a position n
+means "don't take the number n", one means "take it". So we can
+translate a sequence of zeros and ones, that is a mask, to the set
+itself, and vice versa, any set of natural numbers can be encoded into
+such a mask by writing ones to the positions of occuring numbers and
+zeros to the rest.
+
+More formally, this translation can be considered as a matching between
+all sequences of zeros and ones and subsets of omega. So we actually
+have proved that the set of all subsets of omega has the same size as
+the set of all infinite sequences of zeros and ones. In fact, this
+procedural description of matching is quite common in set theory
+since is difficult to construct a matching of unimaginably large sets
+otherwise.
+
+This operation, taking all subsets of a set is pretty procedure common
+in set theory. Take a set X, for example the set of numbers 0,1,2, and
+consider all the subsets, that is the empty set, three subsets containing
+just one element, three subsets containing two elements and the set
+itself. The operation is denoted by a caligraphic P, meaning power-set.
+Thus, the resulting set is denoted P of X.
+
+The reason for such a name is inspired by the behavior in finite case.
+We started with a set of size three, and the resulting set have 8 elements,
+that is 2 to the power of three. That is not a coincidence, we can decide
+whether to include the number zero, that are two cases, whether to include
+the number one, again two cases, and whether to include the number two.
+So the total number of cases is two times two times two. In general, if
+there is a finite set of n elements, we can decide for each of them whether
+to include it, or not, and the size of the powerset is then two to the
+power of n.
+
+In finite case, it is obvious that powerset creates bigger set, two to
+the power of n is much larger than n, right? From the last video we know that
+that the power-set overcomes even the countability, the powerset of omega is
+larger than omega. Does that hold in general? Is the power-set of any set
+larger than the original set?
+
+In fact, the Cantor's diagonal argument was general enough to cover all
+possible sets. But let's see it from the power-set perspective to make it
+more universal and to see different forms of the same idea.
+
+Take the power-set of a set, say omega, and consider a matching of natural
+numbers with members of the power-set, that is subsets of omega. We want to
+find a missing subset in that matching.
+
+Some numbers are matched with a set that contains it. For example the set
+matched with zero contains zero, ot the set matched with four contains four.
+Other numbers are missing in their corresponding subset: One is missing
+in the set matched with one, two is missing in the set matched with two,
+and so on.
+
+Now, take the set of all missing elements. This one cannot occur in the
+matching. It cannot be matched with any missing number because it includes
+it and, on the other hand it cannot be matched with any included number,
+because such number would not be included anymore. And really, this idea
+is actually the same as saying that the diagonal is blocking any position
+of the set but for this argument, we don't need to be able to draw it.
+We divide elements to "included" and "missing" and take the missing ones.
+So power-set is a general tool for making infinite sets bigger. And it
+serves for the finite case as well, so we could say that the Cantor's
+diagonal argument provides a proof that two to the power of n is bigger
+than n. But it is kinda overkill, don't you think?
+
+Another famous example of an uncountable set is the set of all real
+numbers. In the rest of the chapter we will see how the size of all reals
+and the size of the powerset of omega are connected.
+
+The reason why reals are uncountable is actually simple. If we take a
+sequence of zeros and ones encoding a subset of omega, it can be
+transformed into a real number by writing zero point before it.
+Sure, we have missed a lot of real numbers, for example minus one, ten,
+zero point one. But we have matched an uncountable set P of omega
+to a part of real numbers. So reals cannot be countable either.
+
+Does it mean that the size P of omega is less that the size of reals?
+No, until we look over all possible matchings and check whether there
+is no matching covering all real numbers. In fact, there is one. All
+what we need is to take a real number and encode it into a subset of
+omega. There are many ways how to do it, for example the
+following one. The decimal representation of a real number can consist
+of twelve symbols: ten digits, the decimal point, and the minus sign.
+We enumerate these symbols by numbers from one to twelve. Now, when
+a real number comes, we rewrite it using our encoding and then
+transform the sequence to a set by succesive summation of elements.
+
+Now, all real numbers are covered by design but some subsets are
+missing this time. So it seems that reals form a smaller set than
+P of omega until we check all possible matchings to check whether
+they are not equal.

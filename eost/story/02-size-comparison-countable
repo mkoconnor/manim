@@ -82,8 +82,8 @@ Let's introduce
 :{upbrace: finite sizes}
 some notation now. Sizes of finite sets are determined by natural
 numbers, zero, one, two and so on. In general, sizes are measured by
-so called cardinal numbers. Now, we have introduced an infinite
-cardinal number,
+so called cardinal numbers, or simply cardinals.
+Now, we have introduced an infinite cardinal number,
 it is called Aleph 0. The inventor of set theory, George cantor
 established aleph, the first letter of Hebrew alphabet for the notation.
 Perhaps he considered both latin and greek alphabets too
@@ -125,7 +125,8 @@ A:"The size is still countable infinite."
 but there is just one infinite countable cardinal number, the
 Aleph 0. So the size is still the same in our case.
 
-All right, omega can be divided to two sets of the same size, odd
+All right, the set of all natural numbers, denoted by omega, can be
+divided into two sets of the same size, odd
 numbers and even numbers. We can go on and partition even numbers to
 numbers divisible by four and the others. All these three sets are
 infinite countable, thus of size aleph 0, so aleph 0 times three is
