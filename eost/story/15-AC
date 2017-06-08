@@ -1,6 +1,8 @@
 The controversial axiom
 =======================
 
+The Axiom of Choice is necessary to select a set from an infinite number of pairs of socks, but not an infinite number of pairs of shoes. -- Bertrand Russell
+
 * The axiom of choice, do not confuse with the axiom of selection
 * statement: for any set of non-empty disjoint sets, we can find a set intersecting each of them in exactly one element
   * explanation: we can do infinite number of non-predescribed choices at one time

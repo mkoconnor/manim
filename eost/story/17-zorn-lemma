@@ -1,6 +1,8 @@
 Combo of the transfinite recursion and the axiom of choice
 ==========================================================
 
+Quote: The Axiom of Choice is obviously true, the well-ordering principle obviously false, and who can tell about Zorn's lemma? -- Jerry Bona
+
 * Why are every two sets comparable?
 * By transfinite recursion, we add edges
   * If we defined it on all ordinals, we get a contradiction with replacement and the class of ordinals being a class
