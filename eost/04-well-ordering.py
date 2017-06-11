@@ -215,7 +215,7 @@ class PowerSetsScene(Scene):
         self.remove(*(x for x in self.mobjects if isinstance(x,P_power_cardinality)))
         self.play(*(
             map(FadeOut, [x.pipes for x in self.ineq_seq])
-            + [Transform(VGroup(*(x.set for x in self.ineq_seq), p_powers))]
+            + [Transform(VGroup(*(x.set for x in self.ineq_seq)), p_powers)]
         ))
         self.dither()
 
