@@ -39,10 +39,10 @@ def make_p_power(n, start = "\\omega"):
 class Chapter4OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "To the","infinity,","and ","beyond!",
+            "To","infinity","and","beyond!",
         ],
         "highlighted_quote_terms" : {
-            "infinity," : GREEN,
+            "infinity" : GREEN,
             "beyond!" : YELLOW,
         },
         "author" : "Buzz Lightyear"
