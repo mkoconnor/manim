@@ -35,24 +35,28 @@ this procedural description of matching is quite common in set theory
 since is difficult to construct a matching of unimaginably large sets
 otherwise.
 
-This operation, taking all subsets of a set is pretty procedure common
-in set theory. Take a set X, for example the set of numbers 0,1,2, and
-consider all the subsets, that is the empty set, three subsets
-containing just one element, three subsets containing two elements and
-the set itself. The operation is denoted by a caligraphic P, meaning
-power-set.  Thus, the resulting set is denoted P of X.
+This operation, taking all subsets of a set is pretty common procedure
+in set theory.
 
-The reason for such a name is inspired by the behavior in finite case.
-We started with a set of size three, and the resulting set have 8
-elements, that is 2 to the power of three. That is not a coincidence,
-we can decide whether to include the number zero, that are two cases,
-whether to include the number one, again two cases, and whether to
-include the number two.  So the total number of cases is two times two
-times two. In general, if there is a finite set of n elements, we can
-decide for each of them whether to include it, or not, and the size of
-the powerset is then two to the power of n.
+:-----------FinitePowerSetScene--------------
+. Take a set X, for example the set of numbers 0,1,2, and
+. consider all the subsets, that is the empty set, three subsets
+. containing just one element, three subsets containing two elements and
+. the set itself, and pack it to another set.
+. The operation is denoted by a caligraphic P, meaning
+. power-set.  Thus, the resulting set is denoted P of X.
+. 
+. The reason for such a name is inspired by the behavior in finite case.
+. We started with a set of size three, and the resulting set have 8
+. elements, that is 2 to the power of three. That is not a coincidence,
+. we can decide whether to include the number zero, that are two cases,
+. whether to include the number one, again two cases, and whether to
+. include the number two.  So the total number of subsets is two times two
+. times two. It applies in general. If there is a finite set of n
+. elements, we can decide for each of them whether to include it, or
+. not, and the size of the powerset is then two to the power of n.
 
-In finite case, it is obvious that powerset creates bigger set, two to
+In finite case, it is obvious that powerset creates bigger sets, two to
 the power of n is much larger than n, right? From the last video we
 know that that the power-set overcomes even the countability, the
 powerset of omega is larger than omega. Does that hold in general? Is
@@ -97,7 +101,7 @@ we have missed a lot of real numbers, for example minus one, ten, zero
 point one. But we have matched an uncountable set P of omega to a part
 of real numbers. So reals cannot be countable either.
 
-Does it mean that the size P of omega is less that the size of reals?
+Does it mean that the size of P of omega is less that the size of reals?
 No, until we look over all possible matchings and check whether there
 is no matching covering all real numbers. In fact, there is one. All
 what we need is to take a real number and encode it into a subset of
@@ -120,9 +124,10 @@ But it is just our definition of being bigger or smaller inspired by
 the finite comparison. We are not guarranteed that whatever definition
 of bigger and smaller sets we make up will work as we expect. We could
 see a paradoxical behaviour even with countable sets. So, it is true
-that a set cannot be greater and smaller at the same time but we need
-to justify it.
+that a set cannot be greater and smaller at the same time but it
+desires a justification.
 
+:----------------------CantorBernsteinScene------------------------
 There is a green matching which covers all subsets of omega but
 not all reals. And then another red matching covering all real
 numbers but not all the subsets of omega. We would like to somehow
@@ -162,15 +167,16 @@ edges. By merging these components together, we have extracted a
 single matching between our two sets which covers both sides.
 
 In general, this is the proof of so called Cantor-Bernstein theorem
-which states that a set cannot be smaller than another and bigger than
-it at the same time. But can still be some unclear stuff around the set
-comparison. Namely we should not be sure yet whether every two sets
-are comparable, that is whether we can allways find a matching of one
-of them to a part of the other. And another natural question is to ask
-whether the cardinal number continuum, which measures the real line
-or the power set of omega, is the smallest uncountable cardinal. The
-answer to the first question is "Yes" but we need the set theory built
-for the proof so you can expect it in the end of the series.
+which exactly states that a set cannot be smaller than another and
+bigger than it at the same time. But can still be some unclear stuff
+around the set comparison. Namely we should not be sure yet whether
+every two sets are comparable, that is whether we can allways find a
+matching of one of them to a part of the other. And another natural
+question is to ask whether the cardinal number continuum, which
+measures the real line or the power set of omega, is the smallest
+uncountable cardinal. The answer to the first question is "Yes" but we
+need the set theory built for the proof so you can expect it in the
+end of the series.
 
 The second question is tricky, it is called the continuum hypothesis
 and it is open, that is no one knows the truth. But in this case, it

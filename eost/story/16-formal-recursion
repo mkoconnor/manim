@@ -173,8 +173,8 @@ exactly to do under any circumstances. The whole machine using
 the axiom of choice, recursion, induction, and the well-ordering
 property is packed as a blackbox recursion with choice. Mathematicians
 usually use it as a black-box because its usage is more natural than
-the proof. But it is good to know that the transfinite recursion with
-choice has solid foundations.
+the proof. But it is good to know that the transfinite recursion is
+not just built on sand.
 
 In the next chapter, we will see this machine in practice. We will be
 finaly able to proof that every two sets are comparable, and we will
