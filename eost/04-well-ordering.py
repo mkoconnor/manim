@@ -153,7 +153,6 @@ class PowerSetsScene(Scene):
             ReplacementTransform(powerset_desc[0].copy(), p_omega_desc.set[0], path_arc = -np.pi/3),
             ReplacementTransform(omega_desc.set.copy(), VGroup(*p_omega_desc.set[1:])),
         )
-        
         # Increasing sequence
         self.ineq = TexMobject("<")
         self.ineq.move_to((omega_desc.get_center() + p_omega_desc[0].get_center())/2)
@@ -162,7 +161,7 @@ class PowerSetsScene(Scene):
         self.dither()
 
         self.ineq_seq_buff = 0.4
-        self.ineq_seq = VGroup(omega_desc, self.ineq, p_omega_desc).copy()
+        self.ineq_seq = VGroup(omega_desc, self.ineq, p_omega_desc).deepcopy()
 
         self.ineq_seq.set_color(WHITE)
         self.ineq_seq.arrange_submobjects(
@@ -170,10 +169,28 @@ class PowerSetsScene(Scene):
             coor_mask = RIGHT,
             buff = self.ineq_seq_buff,
         )
+        # self.skip_animations = False
 
+        universal_statement = VGroup(
+            TexMobject("|X|"),
+            self.ineq.copy(),
+            TexMobject("|\\mathcal P(X)|")
+        )
+        universal_statement.arrange_submobjects(
+            buff = self.ineq_seq_buff,
+        )
+        universal_statement.shift(
+            (0,self.ineq_seq.get_center()[1]-universal_statement.get_center()[1],0)
+        )
         self.play(
             ReplacementTransform(
                 VGroup(omega_desc, self.ineq, p_omega_desc),
+                universal_statement
+            ))
+        self.dither()
+        self.play(
+            ReplacementTransform(
+                universal_statement,
                 self.ineq_seq
             ))
         self.dither()
@@ -187,6 +204,7 @@ class PowerSetsScene(Scene):
 
         for _ in range(3): self.extend_ineq_seq()
 
+        # self.skip_animations = True
         # integer powers at the center of scene
         self.p_power = None
         self.make_p_power_with_brace(2)
