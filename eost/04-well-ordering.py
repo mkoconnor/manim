@@ -32,17 +32,29 @@ from topics.common_scenes import OpeningQuote
 
 import eost.deterministic
 
-def make_p_power(n, start = "\\omega"):
-    tex = ("\\mathcal P("*n) + start + (")"*n)
-    return TexMobject(tex)
+def make_p_power_tex_string(n, start = "\\omega"):
+    if n == 0:
+        return start
+    else:
+        return ("\\mathcal P("*n) + start + (")"*n)
+
+def make_p_power(*args, **kwargs):
+    return TexMobject(make_p_power_tex_string(*args,**kwargs))
+
+class P_power_cardinality(TexMobject):
+    def __init__(self,*args,**kwargs):
+        tex_string = "|" + make_p_power_tex_string(*args,**kwargs) + "|"
+        TexMobject.__init__(self,tex_string)
+        self.set = VGroup(*self[1:-1])
+        self.pipes = VGroup(self[0],self[-1])
 
 class Chapter4OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "To the","infinity,","and ","beyond!",
+            "To","infinity","and","beyond!",
         ],
         "highlighted_quote_terms" : {
-            "infinity," : GREEN,
+            "infinity" : GREEN,
             "beyond!" : YELLOW,
         },
         "author" : "Buzz Lightyear"
@@ -51,7 +63,7 @@ class Chapter4OpeningQuote(OpeningQuote):
 class PowerSetsScene(Scene):
 
     def construct(self):
-        #self.skip_animations = True
+        # self.skip_animations = True
         omega_col = GREEN
         p_omega_col = BLUE
 
@@ -111,17 +123,18 @@ class PowerSetsScene(Scene):
         self.dither()
 
         # Various descriptions
-        p_omega_desc = make_p_power(1)
+        p_omega_desc = P_power_cardinality(1)
         p_omega_desc.next_to(p_omega, UP+LEFT)
         p_omega_desc.shift(2*RIGHT)
 
-        omega_desc = p_omega_desc[-2].copy()
+        omega_desc = P_power_cardinality(0)
+        omega_desc.shift(p_omega_desc.get_center() - omega_desc.get_center())
         omega_desc.shift(RIGHT*(omega.get_center()[0] - omega_desc.get_center()[0]))
 
         omega_desc.set_color(omega_col)
         p_omega_desc.set_color(p_omega_col)
 
-        self.play(Write(omega_desc))
+        self.play(Write(omega_desc.set))
 
         powerset_arrow = Arrow(omega.get_edge_center(RIGHT),
                                subsets[0].get_edge_center(LEFT)+MED_SMALL_BUFF*LEFT)
@@ -137,19 +150,18 @@ class PowerSetsScene(Scene):
         )
         self.play(Write(VGroup(*powerset_desc[1:])))
         self.play(
-            ReplacementTransform(powerset_desc[0].copy(), p_omega_desc[0], path_arc = -np.pi/3),
-            ReplacementTransform(omega_desc.copy(), VGroup(*p_omega_desc[1:])),
+            ReplacementTransform(powerset_desc[0].copy(), p_omega_desc.set[0], path_arc = -np.pi/3),
+            ReplacementTransform(omega_desc.set.copy(), VGroup(*p_omega_desc.set[1:])),
         )
-        
         # Increasing sequence
         self.ineq = TexMobject("<")
         self.ineq.move_to((omega_desc.get_center() + p_omega_desc[0].get_center())/2)
-        self.play(Write(self.ineq))
+        self.play(*(Write(x) for x in [self.ineq, omega_desc.pipes, p_omega_desc.pipes]))
 
         self.dither()
 
         self.ineq_seq_buff = 0.4
-        self.ineq_seq = VGroup(omega_desc, self.ineq, p_omega_desc).copy()
+        self.ineq_seq = VGroup(omega_desc, self.ineq, p_omega_desc).deepcopy()
 
         self.ineq_seq.set_color(WHITE)
         self.ineq_seq.arrange_submobjects(
@@ -157,14 +169,7 @@ class PowerSetsScene(Scene):
             coor_mask = RIGHT,
             buff = self.ineq_seq_buff,
         )
-
-        self.play(
-            ReplacementTransform(
-                VGroup(omega_desc, self.ineq, p_omega_desc),
-                self.ineq_seq
-            ))
-        self.dither()
-
+        # self.skip_animations = False
         self.play(
             *map(FadeOut,
                  [omega, p_omega,
@@ -172,8 +177,37 @@ class PowerSetsScene(Scene):
                   big_ineq,
                  ]))
 
+        inequality = VGroup(
+            TexMobject("|X|"),
+            self.ineq.copy(),
+            TexMobject("|\\mathcal P(X)|")
+        )
+        inequality.arrange_submobjects(
+            buff = self.ineq_seq_buff,
+        )
+        quantifier = TextMobject("For all sets $X$, ").next_to(inequality,direction=LEFT)
+        universal_statement = VGroup(quantifier,inequality).center()
+        universal_statement.shift(
+            (0,self.ineq_seq.get_center()[1]-universal_statement.get_center()[1],0)
+        )
+        self.play(
+            FadeIn(quantifier),
+            ReplacementTransform(
+                VGroup(omega_desc, self.ineq, p_omega_desc),
+                inequality
+            ))
+        self.dither()
+        self.play(FadeOut(quantifier))
+        self.play(
+            ReplacementTransform(
+                inequality,
+                self.ineq_seq
+            ))
+        self.dither()
+
         for _ in range(3): self.extend_ineq_seq()
 
+        # self.skip_animations = True
         # integer powers at the center of scene
         self.p_power = None
         self.make_p_power_with_brace(2)
@@ -186,23 +220,24 @@ class PowerSetsScene(Scene):
         self.dither(3)
         conversation.add_bubble("Integers are too small.")
         self.dither(3)
-
+        # self.skip_animations = False
         ordinal = OrdinalOmega(x0 = -6, x1 = 5, q = (0.8, 0.9, 0.9))
         naturals = ordinal.add_descriptions(lambda n: TexMobject(str(n)),
                                             direction = DOWN, size = 0.5)
         p_powers = ordinal.add_descriptions(make_p_power,
                                             direction = UP)
-
         for _ in range(len(p_powers) - (len(self.ineq_seq)+1)/2):
             self.extend_ineq_seq(animated = False)
         self.play(*map(FadeOut, [conversation.dialog, self.p_power]+self.ineq_seq[1::2]))
         self.ineq_seq = VGroup(*self.ineq_seq[::2])
-
-        #self.skip_animations = False
         self.play(*map(ShowCreation, [
             naturals, ordinal
         ]))
-        self.play(Transform(self.ineq_seq, p_powers))
+        self.remove(*(x for x in self.mobjects if isinstance(x,P_power_cardinality)))
+        self.play(*(
+            map(FadeOut, [x.pipes for x in self.ineq_seq])
+            + [Transform(VGroup(*(x.set for x in self.ineq_seq)), p_powers)]
+        ))
         self.dither()
 
     def make_p_power_with_brace(self, exp):
@@ -256,7 +291,7 @@ class PowerSetsScene(Scene):
     def extend_ineq_seq(self, animated = True):
         n = (len(self.ineq_seq)+1)/2
 
-        next_p_power = make_p_power(n)
+        next_p_power = P_power_cardinality(n)
         next_ineq = self.ineq.copy()
         next_p_power.shift(self.ineq_seq[-1][-1].get_center() - next_p_power[-1].get_center())
 
@@ -271,8 +306,8 @@ class PowerSetsScene(Scene):
             buff = self.ineq_seq_buff)
 
         if animated:
-            self.play(ReplacementTransform(self.ineq_seq[-1].copy(), VGroup(*next_p_power[2:-1])))
-            self.play(Write(VGroup(next_p_power[0], next_p_power[1], next_p_power[-1], next_ineq)))
+            self.play(ReplacementTransform(self.ineq_seq[-1].set.copy(), VGroup(*next_p_power.set[2:-1])))
+            self.play(Write(VGroup(next_p_power[0], next_p_power[1], next_p_power[2], next_p_power[-2], next_p_power[-1], next_ineq)))
         else:
             self.add(next_ineq, next_p_power)
 

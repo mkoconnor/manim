@@ -2,7 +2,7 @@ Transfinite recursion and well-ordered sets
 ===========================================
 
 Quote:
-  To the infinity and beyond!
+  To infinity and beyond!
   -- Buzz Lightyear
 
 Outline
@@ -22,15 +22,15 @@ Outline
 . natural numbers, take all possible subsets of it and pack it to a new
 . set, we get a bigger set than the set of all
 . natural numbers itself. The set of all
-. natural numbers is usually denoted by a greek letter omega. Taking the
+. natural numbers is usually denoted by the Greek letter omega. Taking the
 . set of all possible subsets is denoted by the
-. calligraphic letter P which is an abbreviation of the "power set". So
+. calligraphic letter P which is short for "power set". So
 . P of omega is bigger than omega. Let's try to construct
 . as large a set as possible. We have also shown that the power set
 . is a universal tool for making sets bigger. So P of P of omega is even
 . bigger than P of omega, and P of P of P of omega is even bigger.
 .
-. For any natural number $n$, we can construct a set created by $n$ gradual
+. For any natural number $n$, we can construct a set created by $n$ iterated
 . applications of P.
 .
 . :{"So let's find a big integer"}
@@ -65,7 +65,7 @@ Outline
 . So in our case, the base case of the transfinite recursion is omega,
 . the successor step is taking the power set, and the limit step is the
 . union of all previous values.
-. But the key question here is: What is the thing the transfinite
+. But the key question here is: What is the thing that transfinite
 . recursion live on? The usual recursion is simple, it lives on natural
 . numbers, but what about the transfinite one? In fact this question is
 . quite tricky. On one hand, whenever we begin to see a pattern in the
@@ -87,7 +87,7 @@ Outline
 . zero.
 .
 . So we can assign omega to the point zero on the real axis now. But... what next?
-. If we take any other real number for p of omega, we inevitably skip an infinite
+. If we take any other real number for P of omega, we inevitably skip an infinite
 . amount of real numbers between zero and our chosen number. That is a
 . problem, not just that the set itself has to contain a minimal element
 . but even every element have to have a successor in it.
@@ -119,7 +119,7 @@ Outline
 
 :----------WellOrderingCondition-----
 . Unfortunately, there is a little issue, no set can meet the required
-. condition. The whole set can be allways considered as an
+. condition. The whole set can be always considered as an
 . initial segment and there is no successor then. 
 . So let's simplify the problem and accept
 . such sets that transfinite
