@@ -177,26 +177,30 @@ class PowerSetsScene(Scene):
                   big_ineq,
                  ]))
 
-        universal_statement = VGroup(
+        inequality = VGroup(
             TexMobject("|X|"),
             self.ineq.copy(),
             TexMobject("|\\mathcal P(X)|")
         )
-        universal_statement.arrange_submobjects(
+        inequality.arrange_submobjects(
             buff = self.ineq_seq_buff,
         )
+        quantifier = TextMobject("For all sets $X$, ").next_to(inequality,direction=LEFT)
+        universal_statement = VGroup(quantifier,inequality).center()
         universal_statement.shift(
             (0,self.ineq_seq.get_center()[1]-universal_statement.get_center()[1],0)
         )
         self.play(
+            FadeIn(quantifier),
             ReplacementTransform(
                 VGroup(omega_desc, self.ineq, p_omega_desc),
-                universal_statement
+                inequality
             ))
         self.dither()
+        self.play(FadeOut(quantifier))
         self.play(
             ReplacementTransform(
-                universal_statement,
+                inequality,
                 self.ineq_seq
             ))
         self.dither()
