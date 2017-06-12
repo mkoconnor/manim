@@ -215,6 +215,29 @@ class PowerSetsScene(Scene):
         self.make_general_p_power_with_brace(exp)
         self.dither()
 
+        brace = self.p_power[1]
+        desc = self.p_power[2]
+        desc_17 = TexMobject("17")
+        desc_googol = VGroup(
+            TexMobject("1"+20*'0'),
+            TexMobject(20*'0'),
+            TexMobject(20*'0'),
+            TexMobject(20*'0'),
+            TexMobject(20*'0'),
+        )
+        desc_googol.arrange_submobjects(DOWN, aligned_edge = RIGHT)
+        #desc_googol.scale(0.7)
+
+        brace.put_at_tip(desc_17)
+        brace.put_at_tip(desc_googol)
+
+        self.play(Transform(desc, desc_17))
+        self.dither()
+        self.play(Transform(desc, desc_googol))
+        self.dither()
+
+        return
+
         conversation = Conversation(self)
         conversation.add_bubble("So let's find a big integer!")
         self.dither(3)
