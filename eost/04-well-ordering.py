@@ -170,6 +170,12 @@ class PowerSetsScene(Scene):
             buff = self.ineq_seq_buff,
         )
         # self.skip_animations = False
+        self.play(
+            *map(FadeOut,
+                 [omega, p_omega,
+                  powerset_desc, powerset_arrow,
+                  big_ineq,
+                 ]))
 
         universal_statement = VGroup(
             TexMobject("|X|"),
@@ -194,13 +200,6 @@ class PowerSetsScene(Scene):
                 self.ineq_seq
             ))
         self.dither()
-
-        self.play(
-            *map(FadeOut,
-                 [omega, p_omega,
-                  powerset_desc, powerset_arrow,
-                  big_ineq,
-                 ]))
 
         for _ in range(3): self.extend_ineq_seq()
 
