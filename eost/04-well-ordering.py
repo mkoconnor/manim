@@ -217,6 +217,7 @@ class PowerSetsScene(Scene):
 
         brace = self.p_power[1]
         desc = self.p_power[2]
+        orig_desc = desc.copy()
         desc_17 = TexMobject("17")
         desc_googol = VGroup(
             TexMobject("1"+20*'0'),
@@ -228,6 +229,7 @@ class PowerSetsScene(Scene):
         desc_googol.arrange_submobjects(DOWN, aligned_edge = RIGHT)
         #desc_googol.scale(0.7)
 
+        # self.skip_animations=False
         brace.put_at_tip(desc_17)
         brace.put_at_tip(desc_googol)
 
@@ -235,23 +237,18 @@ class PowerSetsScene(Scene):
         self.dither()
         self.play(Transform(desc, desc_googol))
         self.dither()
+        self.play(Transform(desc, orig_desc))
+        self.dither()
 
-        return
-
-        conversation = Conversation(self)
-        conversation.add_bubble("So let's find a big integer!")
-        self.dither(3)
-        conversation.add_bubble("Integers are too small.")
-        self.dither(3)
         # self.skip_animations = False
-        ordinal = OrdinalOmega(x0 = -6, x1 = 5, q = (0.8, 0.9, 0.9))
+        ordinal = OrdinalOmega(x0 = -6, x1 = 4, q = (0.8, 0.9, 0.9))
         naturals = ordinal.add_descriptions(lambda n: TexMobject(str(n)),
                                             direction = DOWN, size = 0.5)
         p_powers = ordinal.add_descriptions(make_p_power,
                                             direction = UP)
         for _ in range(len(p_powers) - (len(self.ineq_seq)+1)/2):
             self.extend_ineq_seq(animated = False)
-        self.play(*map(FadeOut, [conversation.dialog, self.p_power]+self.ineq_seq[1::2]))
+        self.play(*map(FadeOut, [self.p_power]+self.ineq_seq[1::2]))
         self.ineq_seq = VGroup(*self.ineq_seq[::2])
         self.play(*map(ShowCreation, [
             naturals, ordinal
@@ -343,7 +340,7 @@ class FirstLimitStep(Scene):
 
         #self.skip_animations = True
 
-        ordinal = OrdinalOmega(x0 = -6, x1 = 5, q = (0.8, 0.9, 0.9))
+        ordinal = OrdinalOmega(x0 = -6, x1 = 4, q = (0.8, 0.9, 0.9))
         naturals = ordinal.add_descriptions(lambda n: TexMobject(str(n)),
                                             direction = DOWN, size = 0.5)
         p_powers = ordinal.add_descriptions(make_p_power,
@@ -365,16 +362,25 @@ class FirstLimitStep(Scene):
             result = make_p_power(n, start = "U")
             result[-n-1].set_color(limit_col)
             return result
-
         U_powers = next_ordinal.add_descriptions(make_U_power)
+
+        explicit_union = TexMobject("\\bigcup_{n=0}^\\infty\\mathcal{P}^n(\\omega)").center()
+        def left_down_justify(m,n):
+            m.shift((
+                n.get_critical_point(LEFT)[0] - m.get_critical_point(LEFT)[0],
+                n.get_critical_point(DOWN)[1] - m.get_critical_point(DOWN)[1],
+                0
+            ))
+        left_down_justify(explicit_union,U_powers[0])
+        explicit_union.set_color(limit_col)
         for i in range(len(U_powers), len(next_ordinal)):
             U_powers.add(Dot(radius=0))
             U_powers[-1].next_to(ordinal[i], direction = UP, buff=0)
 
-        self.play(ReplacementTransform(p_powers.copy(), U_powers[0]))
+        self.play(ReplacementTransform(p_powers.copy(), explicit_union))
+        self.dither()
+        self.play(ReplacementTransform(explicit_union, U_powers[0]))
         self.play(ShowCreation(next_ordinal[0]))
-        union_desc = TextMobject("Union").next_to(U_powers[0], UP, buff = LARGE_BUFF)
-        self.play(Write(union_desc))
 
         self.dither()
         
@@ -406,13 +412,15 @@ class FirstLimitStep(Scene):
         limit_step_desc.set_color(limit_col)
         limit_step.add_description(limit_step_desc)
 
-        union_desc2 = union_desc.copy()
-        union_desc2.next_to(limit_step_desc, UP, buff = LARGE_BUFF)
+        explicit_union2 = TexMobject("\\bigcup_{n=0}^\\infty\\mathcal P^n(U)")
+        left_down_justify(explicit_union2,limit_step_desc)
+        explicit_union2.set_color(limit_col)
 
+        self.play(ReplacementTransform(U_powers.copy(), explicit_union2))
+        self.dither()
         self.play(
-            Write(union_desc2),
             Succession(
-                ReplacementTransform(U_powers.copy(), limit_step_desc),
+                ReplacementTransform(explicit_union2, limit_step_desc),
                 ShowCreation(limit_step),
                 rate_func = None),
         )
