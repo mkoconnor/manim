@@ -133,19 +133,19 @@ desires a justification.
 . but not all reals. We would like to somehow
 . combine these two matchings so that every real number will be
 . connected with just one subset of omega.
-
-The trouble-makers are primarily such elements that are not covered by
-one of the matching, for example the real number five which is not of
-the form zero point and then some zeros and ones. So we need the other
-matching assigning it the one-element set containing 6. That means
-that we cannot use the appropriate green connection between the
-singleton containing 6 and the real number zero point zero zero zero
-zero zero zero one. So we have to take the red connection from that
-real number again. By this procedure, we take an infinite journey from
-a point not covered by the green matching by the steps which are
-guaranteed to exist. That is red step from reals to subsets and green
-step from subsets to reals. On this path we are forced to use green
-connections.
+. 
+. The trouble-makers are primarily such elements that are not covered by
+. one of the matching, for example the real number five which is not of
+. the form zero point and then some zeros and ones. So we need the other
+. matching assigning it the one-element set containing 6. That means
+. that we cannot use the appropriate green connection between the
+. singleton containing 6 and the real number zero point zero zero zero
+. zero zero zero one. So we have to take the green connection from that
+. real number again. By this procedure, we take an infinite journey from
+. a point not covered by the green matching by the steps which are
+. guaranteed to exist. That is red step from reals to subsets and green
+. step from subsets to reals. On this path we are forced to use green
+. connections.
 
 Similarly, if we start with a point which not covered by the red
 matching, we find a path on which we are forced to take the green
