@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import sys
 import getopt
@@ -192,7 +192,7 @@ def main():
          print "\n\n"
          traceback.print_exc()
          print "\n\n"
-         play_error_sound()
+         # play_error_sound()
 
 
 if __name__ == "__main__":

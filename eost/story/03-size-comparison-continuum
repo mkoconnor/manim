@@ -142,30 +142,43 @@ desires a justification.
 . singleton containing 6 and the real number zero point zero zero zero
 . zero zero zero one. So we have to take the green connection from that
 . real number again. By this procedure, we take an infinite journey from
-. a point not covered by the green matching by the steps which are
-. guaranteed to exist. That is red step from reals to subsets and green
+. a point not covered by the red matching by the steps which are
+. guaranteed to exist. That is green step from reals to subsets and red
 . step from subsets to reals. On this path we are forced to use green
 . connections.
-
-Similarly, if we start with a point which not covered by the red
-matching, we find a path on which we are forced to take the green
-connections.
-
-And what about the other points which are not on any of these two
-kinds of paths? They can be connected by a red edge and the green
-edge at the same time. Or, they can be in a cycle path. Or in an
-both-sided infinite path. Nevertheless, such points can be matched by
-both colors so it is up to us what color we like more, for example
-green.
-
-So the proof goes as follows. Divide the whole picture into three
-types of components. One-sided infinite paths starting at the top,
-one-sided infinite paths starting at the bottom, and the rest, that is
-both-sided sequences and cycles. In the first case take red edges, in
-the second take green edges and in the third one take say again green
-edges. By merging these components together, we have extracted a
-single matching between our two sets which covers both sides.
-
+.
+. The infinite path is isolated from any other matching edges because
+. every point in the path can be connected by at most one green edge
+. and one red edge and both of them are already in the path. The only
+. exception is the first point which was chosen so that there is no red
+. path matching it.
+.
+. Similarly, if we start with a point which not covered by the green
+. matching, we find a path on which we are forced to take the green
+. connections.
+. For every uncovered red or green point, there is a corresponding
+. infinite sequence of forced matching lines.
+. Technically, there is an infinite amount of such sequences. But
+. there is no difference in the reasoning and showing all of them
+. would make the picture too messy, so we have just five of them here.
+.
+. But even after isolation of these sequences, the matching is not
+. completely analyzed. Just that every remaining point is connected by
+. both red and green matching, so we can choose the matching we like,
+. for example the green one.
+.
+. There can be in a cycle path. Or some both-sided infinite
+. paths. Nevertheless, we can just use the green matching for these
+. types.
+.
+. So the proof goes as follows. Divide the whole picture into three
+. types of components. One-sided infinite paths starting at the top,
+. one-sided infinite paths starting at the bottom, and the rest, that is
+. both-sided sequences and cycles. In the first case take green edges, in
+. the second take red edges and in the third one take say again green
+. edges. By merging these components together, we have extracted a
+. single matching between our two sets which covers both sides.
+.
 In general, this is the proof of so called Cantor-Bernstein theorem
 which exactly states that a set cannot be smaller than another and
 bigger than it at the same time. But can still be some unclear stuff

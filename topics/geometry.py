@@ -269,7 +269,8 @@ class DoubleArrow(Arrow):
 class Cross(VMobject):
     CONFIG = {
         "color"  : YELLOW,
-        "radius" : 0.3
+        "propogate_style_to_family" : True,
+        "radius" : 0.3,
     }
     def generate_points(self):
         p1, p2, p3, p4 = self.radius * np.array([

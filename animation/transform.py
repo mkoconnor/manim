@@ -167,6 +167,15 @@ class FadeIn(Transform):
             self.starting_mobject.set_stroke(width = 0)
             self.starting_mobject.set_fill(opacity = 0)
 
+class FadeInZoomOut(Transform):
+    def __init__(self, mobject, scale = 1.5, about_point = DOWN, **kwargs):
+        target = mobject.copy()
+        Transform.__init__(self, mobject, target, **kwargs)
+        self.starting_mobject.fade(1)
+        if isinstance(self.starting_mobject, VMobject):
+            self.starting_mobject.set_stroke(width = 0)
+            self.starting_mobject.set_fill(opacity = 0)
+            self.starting_mobject.scale(scale, about_point = about_point)
 
 class ShimmerIn(DelayByOrder):
     def __init__(self, mobject, **kwargs):

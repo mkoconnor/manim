@@ -1,6 +1,8 @@
 from scene import Scene
 from mobject.tex_mobject import *
 from topics.geometry import *
+from topics.fixed_size_dot import *
+from topics.icons import *
 from constants import *
 from mobject import Mobject, Group
 from eost.widgets import *
@@ -257,7 +259,9 @@ class CantorBernsteinScene(Scene):
 
     def construct(self):
 
-        #self.skip_animations = True
+        #self.force_skipping()
+
+        self.side_scale = 0.4
         self.node_bound = 14
         self.color_up = RED
         self.color_down = GREEN
@@ -293,27 +297,33 @@ class CantorBernsteinScene(Scene):
             first_comp.add_one(matching_src)
             if first_comp.finished: unfinished.remove(first_comp)
 
-        self.nodes_up = VGroup(*[
-            Dot(self.get_upper_point(i)) for i in range(-self.node_bound, self.node_bound+1)
+        self.nodes_up = VGroupPS(*[
+            FixedSizeDot(self.get_upper_point(i), radius = 0.05)
+            for i in range(-self.node_bound, self.node_bound+1)
         ])
         self.nodes_up.set_color(self.color_down)
-        self.nodes_down = VGroup(*[
-            Dot(self.get_lower_point(i)) for i in range(-self.node_bound, self.node_bound+1)
+        self.nodes_down = VGroupPS(*[
+            FixedSizeDot(self.get_lower_point(i), radius = 0.05)
+            for i in range(-self.node_bound, self.node_bound+1)
         ])
         self.nodes_down.set_color(self.color_up)
 
         edges_up = VGroup()
         edges_down = VGroup()
         for component in components:
-            component.up_matching_mobj = self.construct_up_matching(component)
             component.down_matching_mobj = self.construct_down_matching(component)
-            component.up_nodes_mobj = self.get_component_up_nodes(component)
+            component.up_matching_mobj = self.construct_up_matching(component)
             component.down_nodes_mobj = self.get_component_down_nodes(component)
+            component.up_nodes_mobj = self.get_component_up_nodes(component)
+            component.mobj = VGroupPS(component.down_matching_mobj,
+                                    component.up_matching_mobj,
+                                    component.down_nodes_mobj,
+                                    component.up_nodes_mobj)
             edges_up.add(component.up_matching_mobj)
             edges_down.add(component.down_matching_mobj)
 
-        missed_up = VGroup(*[component.up_nodes_mobj[0] for component in one_sided_up])
-        missed_down = VGroup(*[component.down_nodes_mobj[0] for component in one_sided_down])
+        missed_up = VGroupPS(*[component.up_nodes_mobj[0] for component in one_sided_up])
+        missed_down = VGroupPS(*[component.down_nodes_mobj[0] for component in one_sided_down])
 
         desc_PX = TexMobject('\\mathcal P(\\omega)')
         desc_R = TexMobject('\\mathbb R')
@@ -323,64 +333,233 @@ class CantorBernsteinScene(Scene):
         self.add_foreground_mobjects(self.nodes_up, self.nodes_down)
 
         self.play(ShowCreation(edges_down, submobject_mode = "all_at_once"))
-        self.highlight(missed_down, DOWN)
+        self.highlight_point(missed_down, DOWN)
         self.play(edges_down.highlight, self.dark_down)
 
         self.play(ShowCreation(edges_up, submobject_mode = "all_at_once"))
-        self.highlight(missed_up, UP)
+        self.highlight_point(missed_up, UP)
         self.play(edges_up.highlight, self.dark_up)
 
         self.dither()
-        #self.skip_animations = False
+        self.play(self.nodes_up.highlight, self.dark_down,
+                  self.nodes_down.highlight, self.dark_up)
 
-        seq = one_sided_up[2]
+        comp_rearranged = one_sided_down+cycles+both_sided+one_sided_up
+        for i, comp in enumerate(comp_rearranged):
+            comp.comp_index = i
 
-        dot = seq.up_nodes_mobj[0]
-        descs = ["5", "\{5\}", "0.000001"]
+        seq = one_sided_up[-1]
+        descs_group = self.gradually_connect(seq, descs=("5", "\{5\}", "0.000001") )
+        self.dither()
+        self.play(FadeOut(descs_group))
+
+        self.play(self.to_side(seq))
+        self.dither()
+
+        seq = one_sided_down[0]
+        self.gradually_connect(one_sided_down[0])
+        self.play(self.to_side(seq))
+        self.dither()
+
+        self.play(*map(FadeOut, [desc_R, desc_PX]))
+        #self.revert_to_original_skipping_status()
+
+        for seq in [one_sided_up[1], one_sided_down[1], one_sided_up[0]]:
+            self.simultaneously_connect(seq)
+            self.dither()
+            self.play(self.to_side(seq))
+        self.dither()
+
+        self.gradually_connect(cycles[0])
+        self.play(self.to_side(cycles[0]))
+        self.dither()
+        self.play(*map(self.to_side, both_sided))
+
+        for seq in both_sided:
+            self.simultaneously_connect(seq)
+        self.dither()
+
+        self.play(*(self.unhighlight_seqs(one_sided_down+both_sided+cycles)))
+        self.dither()
+        self.play(*(self.unhighlight_seqs(one_sided_up) +
+                    self.highlight_seqs(one_sided_down)))
+        self.dither()
+        self.play(*(self.unhighlight_seqs(one_sided_down) +
+                    self.highlight_seqs(both_sided+cycles)))
+        self.dither()
+
+        self.play(*(self.unhighlight_seqs(both_sided+cycles) +
+                    self.highlight_seqs(one_sided_up)))
+        self.dither()
+        self.remove_matching(one_sided_up)
+        self.dither()
+        self.play(*(self.unhighlight_seqs(one_sided_up) +
+                    self.highlight_seqs(one_sided_down)))
+        self.dither()
+        self.remove_matching(one_sided_down)
+        self.dither()
+        self.play(*(self.unhighlight_seqs(one_sided_up) +
+                    self.highlight_seqs(both_sided+cycles)))
+        self.dither()
+        self.remove_matching(both_sided+cycles)
+        self.dither()
+
+        self.play(*self.highlight_seqs(one_sided))
+        to_center_anim = []
+        for seq in components:
+            to_center_anim.append(self.to_center(seq))
+        self.play(*to_center_anim)
+        self.dither()
+
+    def gradually_connect(self, seq, descs = ()):
+
+        self.remove(seq.mobj)
+        self.add(seq.mobj)
+
+        forward = True
+        dir = UP
+        colorA = self.color_down
+        colorB = self.color_up
+        nodesA = seq.down_nodes_mobj
+        nodesB = seq.up_nodes_mobj
+        matchingA = seq.down_matching_mobj.submobjects
+        matchingB = seq.up_matching_mobj.submobjects
+
+        both_sided = isinstance(seq, MatchingBothSided)
+        if (isinstance(seq, MatchingOneSided) and seq.start_down) or both_sided:
+            dir = -dir
+            colorA, colorB = colorB, colorA
+            nodesA, nodesB = nodesB, nodesA
+            matchingA, matchingB = matchingB, matchingA
+
+        descs_group = VGroup()
         index = 0
-        while True:
-            if len(descs) > 0:
+
+        if not both_sided:
+            dot = nodesB[0]
+            self.highlight_point(dot, dir, keep_colored = True, color = colorA)
+
+        else: forward = False
+
+        while index < len(matchingA):
+            if len(descs) > 0 and dot is not None:
                 desc = TexMobject(descs[0])
-                desc.next_to(dot, UP)
+                descs_group.add(desc)
+                desc.next_to(dot, dir)
                 descs = descs[1:]
-                self.highlight(dot, UP, keep_colored = True)
                 self.play(FadeIn(desc))
                 self.dither()
 
-            if index >= len(seq.down_matching_mobj): break
-            connection = seq.down_matching_mobj[index].copy()
-            connection.highlight(self.color_down)
-            if index < len(seq.down_nodes_mobj):
-                dot = seq.down_nodes_mobj[index]
-            self.play(ShowCreation(connection),
-                      dot.highlight, YELLOW)
+            connection_ori = matchingA[index]
+            if forward: connection = connection_ori.copy()
+            else: connection = DashedLine(*connection_ori.get_start_and_end())
+            connection.highlight(colorA)
 
-            if len(descs) > 0:
-                desc = TexMobject(descs[0])
-                desc.next_to(dot, DOWN)
-                descs = descs[1:]
-                self.highlight(dot, DOWN, keep_colored = True)
-                self.play(FadeIn(desc))
-                self.dither()
-
-            connection_ori = seq.up_matching_mobj[index]
-            connection = DashedLine(*connection_ori.get_start_and_end())
-            connection.highlight(self.color_up)
-            if index+1 < len(seq.up_nodes_mobj):
-                dot = seq.up_nodes_mobj[index+1]
-            self.play(ShowCreation(connection),
-                      dot.highlight, YELLOW)
-
-            index += 1
-            if index >= len(seq.down_matching_mobj): break
+            if forward or both_sided: dot_index = index
+            else: dot_index = index+1
             
+            if dot_index < len(nodesA): dot = nodesA[dot_index]
+            else: dot = None
 
-    def highlight(self, mobj, direction = ORIGIN, keep_colored = False):
+            animations = [ShowCreation(connection)]
+            if not forward: animations.append(FadeOut(connection_ori))
+            if dot is not None: animations += [dot.highlight, colorB]
+            self.play(*animations)
+
+            self.remove(connection_ori)
+            matchingA[index] = connection
+
+            dir = -dir
+            colorA, colorB = colorB, colorA
+            nodesA, nodesB = nodesB, nodesA
+            matchingA, matchingB = matchingB, matchingA
+            forward = not forward
+
+            if both_sided:
+                if not forward: index += 1
+            else:
+                if forward: index += 1
+
+        return descs_group
+
+    def simultaneously_connect(self, seq):
+
+        nodes = VGroup(seq.up_nodes_mobj, seq.down_nodes_mobj)
+
+        colorA = self.color_down
+        colorB = self.color_up
+        matchingA = seq.down_matching_mobj
+        matchingB = seq.up_matching_mobj
+        if isinstance(seq, MatchingOneSided) and seq.start_down:
+            colorA, colorB = colorB, colorA
+            matchingA, matchingB = matchingB, matchingA
+
+        dashed_matching = VGroup(*[
+            DashedLine(*connection.get_start_and_end())
+            for connection in matchingB
+        ])
+        dashed_matching.highlight(colorB)
+        self.play(FadeOut(matchingB),
+                  matchingA.highlight, colorA,
+                  FadeIn(dashed_matching),
+                  seq.up_nodes_mobj.highlight, self.color_down,
+                  seq.down_nodes_mobj.highlight, self.color_up)
+        for i, connection in enumerate(dashed_matching):
+            matchingB.submobjects[i] = connection
+
+    
+    def to_side(self, seq):
+        dest = seq.mobj.copy()
+        dest.stretch(self.side_scale, 1)
+        dest.shift(DOWN*(seq.comp_index - 3.5))
+        return Transform(seq.mobj, dest)
+
+    def to_center(self, seq):
+        dest = seq.mobj.copy()
+        dest.shift(UP*(seq.comp_index - 3.5))
+        dest.stretch(1/self.side_scale, 1)
+        return Transform(seq.mobj, dest)
+
+    def remove_matching(self, seq_list):
+        removed = []
+        for seq in seq_list:
+            if isinstance(seq, MatchingOneSided) and seq.start_down:
+                removed.append(seq.down_matching_mobj)
+            else:
+                removed.append(seq.up_matching_mobj)
+        removed = VGroup(*removed)
+            
+        self.play(FadeOut(removed))
+        removed.set_stroke(width = 0)
+
+    def highlight_seqs(self, seq_list):
+        result = []
+        for seq in seq_list:
+            result += [
+                seq.up_nodes_mobj.highlight, self.color_down,
+                seq.down_nodes_mobj.highlight, self.color_up,
+                seq.up_matching_mobj.highlight, self.color_up,
+                seq.down_matching_mobj.highlight, self.color_down,
+            ]
+        return result
+
+    def unhighlight_seqs(self, seq_list):
+        result = []
+        for seq in seq_list:
+            result += [
+                seq.up_nodes_mobj.highlight, self.dark_down,
+                seq.down_nodes_mobj.highlight, self.dark_up,
+                seq.up_matching_mobj.highlight, self.dark_up,
+                seq.down_matching_mobj.highlight, self.dark_down,
+            ]
+        return result
+
+    def highlight_point(self, mobj, direction = ORIGIN, keep_colored = False, color = YELLOW):
         target0 = mobj.copy()
         target = mobj.copy()
 
-        if keep_colored: target0.highlight(YELLOW)
-        target.highlight(YELLOW)
+        if keep_colored: target0.highlight(color)
+        target.highlight(color)
 
         target.shift(0.2*direction)
         self.play(Transform(mobj, target,
@@ -391,10 +570,10 @@ class CantorBernsteinScene(Scene):
         ))
         
     def get_upper_point(self, index):
-        return UP + index*0.5*RIGHT
+        return 0.9*UP + index*0.48*RIGHT
 
     def get_lower_point(self, index):
-        return DOWN + index*0.5*RIGHT
+        return 0.9*DOWN + index*0.48*RIGHT
 
     def construct_down_matching(self, matching_data, color = None):
         if color is None: color = self.color_down
@@ -411,11 +590,44 @@ class CantorBernsteinScene(Scene):
         ])
 
     def get_component_up_nodes(self, component):
-        return VGroup(*[self.nodes_up[a+self.node_bound]
+        return VGroupPS(*[self.nodes_up[a+self.node_bound]
                         for a,b in component.matching_down
                         if a >= -self.node_bound and a <= self.node_bound])
 
     def get_component_down_nodes(self, component):
-        return VGroup(*[self.nodes_down[a+self.node_bound]
+        return VGroupPS(*[self.nodes_down[a+self.node_bound]
                         for a,b in component.matching_up
                         if a >= -self.node_bound and a <= self.node_bound])
+
+class RemainingQuestions(Scene):
+    def construct(self):
+        comparable = TextMobject("Are every two sets comparable?")
+        continuum = TextMobject("Is continuum the smallest uncountable size?")
+        questions = VGroup(comparable, continuum)
+        questions.arrange_submobjects(DOWN, aligned_edge = LEFT, buff = 1)
+        self.play(Write(comparable))
+        self.play(Write(continuum))
+        icon_yes = IconYes().next_to(comparable, buff = 0.5)
+        self.play(ShowCreation(icon_yes))
+        self.dither()
+
+        continuum_ans = TextMobject("Forever open...")
+        continuum_ans.set_color(YELLOW)
+        continuum_ans.next_to(continuum, DOWN, buff = 0.5)
+        self.play(Write(continuum_ans))
+        self.dither()
+
+        stamp_text = TextMobject("Proven")
+        stamp_rect = SurroundingRectangle(stamp_text, buff = 0.2)
+        stamp_bg = BackgroundRectangle(stamp_rect)
+        stamp = VGroup(stamp_bg, stamp_rect, stamp_text)
+        stamp.set_color(RED)
+        stamp.rotate(np.pi/6)
+        stamp.next_to(continuum_ans)
+        stamp.shift(1.3*LEFT + 0.25*DOWN)
+
+        self.play(FadeInZoomOut(stamp, about_point = stamp.get_center()))
+        self.dither()
+
+        return
+        self.play(Write(comparable))
