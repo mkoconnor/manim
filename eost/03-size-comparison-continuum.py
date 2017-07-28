@@ -12,10 +12,35 @@ import helpers
 from eost.matching import get_matching, MatchingAnimations
 import eost.deterministic
 
+def make_inequalities():
+    inequalities = VGroup(
+        TexMobject("n","<","2^n"),
+        TexMobject("1","<","2"),
+        TexMobject("4","<","16"),
+        TexMobject("10","<","1024"),
+        TexMobject("\\vdots"),
+        TexMobject("|\omega|","<","|\\mathcal P(\omega)|"),
+        TexMobject("|X|","<","|\\mathcal P(X)|\,?"),
+    )
+    for ineq in inequalities:
+        if len(ineq) > 1: ineq.shift(-ineq[1].get_center())
+        else: ineq.center()
+
+    for ineq in inequalities[-2:]:
+        ineq[0][1].set_color(GREEN)
+        ineq[2][3].set_color(GREEN)
+        ineq[2][1].set_color(YELLOW)
+
+    inequalities.arrange_submobjects(DOWN, coor_mask = UP)
+    inequalities[0].shift(0.2*UP)
+    inequalities.to_corner(UP+RIGHT)
+
+    return inequalities
+
 class FinitePowerSetScene(Scene):
     def construct(self):
         
-        #self.skip_animations = True
+        self.force_skipping()
         elements_X = VGroup(*[
             TexMobject(str(n)) for n in range(3)
         ])
@@ -86,8 +111,6 @@ class FinitePowerSetScene(Scene):
         self.play(FadeIn(VGroup(*desc_size_PX[8:])))
         self.dither()
 
-        #self.skip_animations = False
-
         arrows_possib = VGroup()
         descs_possib = VGroup()
         for i in range(3):
@@ -109,7 +132,65 @@ class FinitePowerSetScene(Scene):
             cdots.add(cdot)
 
         self.play(FadeIn(cdots))
-        self.dither(4)
+        self.dither()
+        desc_size_PX2 = TexMobject("2^3 = |\\mathcal P(X)|")
+        desc_size_PX2[-3].set_color(GREEN)
+        desc_size_PX2[-5].set_color(YELLOW)
+
+        desc_size_PX2.shift(descs_possib.get_center() - desc_size_PX2[0].get_center() + DOWN)
+        self.play(ReplacementTransform(VGroup(descs_possib, cdots).copy(), VGroup(*desc_size_PX2[:2])))
+
+        self.revert_to_original_skipping_status()
+        self.dither()
+        self.play(*map(FadeOut, [PX, arrow_P, desc_P]))
+        self.play(FadeOut(VGroup(*desc_size_PX[6:])),
+                  FadeIn(desc_size_PX2[2]),
+                  ReplacementTransform(VGroup(*desc_size_PX[:6]),
+                                       VGroup(*desc_size_PX2[3:]))
+                  )
+        self.dither()
+
+        tmp_tex = TexMobject("1 \ldots n-1")
+        tmp_tex.shift(elements_X[1].get_center() - tmp_tex[0].get_center())
+        elements_X2 = elements_X.copy()
+        elements_X2.remove(elements_X2[-1])
+        elements_X2.add(*tmp_tex[1:])
+        X2 = VGroup(
+            elements_X2,
+            SurroundingRectangle(elements_X2, color = GREEN, buff = MED_SMALL_BUFF),
+        )
+        arrow_shift = (elements_X2[-2].get_center() - elements_X[-1].get_center())*RIGHT
+        cdots3 = VGroup(*tmp_tex[1:4]).copy()
+        cdots3.move_to(cdots[1].get_center()+arrow_shift/2)
+
+        tmp_tex = TexMobject("2^n")
+        tmp_tex.shift(desc_size_PX2[0].get_center() - tmp_tex[0].get_center())
+        general_exponent = tmp_tex[1]
+        while len(elements_X) < len(elements_X2):
+            elements_X.add(elements_X[-1].copy())
+        self.play(
+            ReplacementTransform(self.X, X2),
+            VGroup(arrow_possib, desc_possib).shift, arrow_shift,
+            Animation(arrows_possib),
+            ReplacementTransform(cdots[1], cdots3),
+            Transform(desc_size_PX2[1], general_exponent),
+        )
+        self.dither()
+
+        inequalities = make_inequalities()
+        brace = Brace(VGroup(*inequalities[1:]), LEFT)
+        brace_desc = TextMobject("All by Cantor's\\\\ diagonal argument")
+        brace.put_at_tip(brace_desc)
+
+        for i, ineq in enumerate(inequalities):
+            if i == 0 or i >= 5: self.play(Write(ineq))
+            else: self.play(FadeIn(ineq))
+            self.dither()
+        self.play(
+            GrowFromCenter(brace),
+            FadeIn(brace_desc),
+        )
+        self.dither()
 
     def X_subsets(self, element_lists):
         source = VGroup(*[self.X_subset(elements) for elements in element_lists])
@@ -124,6 +205,199 @@ class FinitePowerSetScene(Scene):
             VGroup(*[self.X[0][el].copy() for el in elements]),
             self.X[1].copy(), # the same surrounding rectangle
         )
+
+class CantorRevisited(Scene):
+    def construct(self):
+        self.inf_down = 7
+        self.inf_right = 13
+        column_el = VGroup(*[TexMobject(str(n)) for n in range(self.inf_down)])
+        column_el.arrange_submobjects(DOWN, buff = 0.55)
+        column_rect = SurroundingRectangle(column_el, color = GREEN, buff = MED_SMALL_BUFF)
+        column_w = VGroup(column_rect, column_el)
+
+        row_el = VGroup(*[TexMobject(str(n)) for n in range(self.inf_right)])
+        row_el.arrange_submobjects(RIGHT, buff = 0.55)
+        row_rect = SurroundingRectangle(row_el, color = GREEN, buff = SMALL_BUFF)
+        row_w = VGroup(row_rect, row_el)
+
+        missing_data = [True, False, False, True]
+        missing_data += [random.randint(0,1) == 0 for x in range(4, self.inf_down)]
+        missing = column_w.copy()
+        missing[0].set_color(ORANGE)
+        missing_desc = TexMobject("M")
+        missing_desc.set_color(ORANGE)
+        missing_desc.next_to(missing, UP)
+        missing.add(missing_desc)
+
+        missing[1].remove(*[missing.submobjects[1][i] for i in range(self.inf_down) if missing_data[i]])
+        missing.to_corner(UP+LEFT)
+        missing.shift(DOWN*MED_SMALL_BUFF)
+
+        icon_shift = RIGHT
+        column_w.shift(missing[0].get_center() - column_w[0].get_center() + 2*icon_shift)
+        column_w_desc = TexMobject("\\omega")
+        column_w_desc.set_color(GREEN)
+        column_w_desc.next_to(column_w, UP)
+        column_w.add(column_w_desc)
+
+        icons = VGroup(*[
+            (IconYes if missing_data[i] else IconNo)().scale(0.5).move_to(x)
+            for i,x in enumerate(column_el)
+        ])
+        icons.shift(-icon_shift)
+
+        rows = []
+        connections = []
+        for i,x in enumerate(column_el):
+            for j,y in enumerate(row_el):
+                if i == j: b = missing_data[i]
+                else: b = random.randint(0,1) == 0
+                if b: y.highlight(WHITE)
+                else: y.highlight(BLACK)
+
+            cur_row = row_w.copy()
+            cur_row.shift(x.get_center() - cur_row[1][0].get_center())
+            cur_row.shift(2*RIGHT)
+            connection = Line(x.get_edge_center(RIGHT), cur_row.get_edge_center(LEFT), buff = 0.1)
+            rows.append(cur_row)
+            connections.append(connection)
+
+        rows = VGroup(*rows)
+        connections = VGroup(*connections)
+
+        Pw_rect = SurroundingRectangle(rows, color = BLUE, buff = MED_SMALL_BUFF)
+        Pw_desc = TexMobject("\\mathcal P(\\omega)")
+        Pw_desc.set_color(BLUE)
+        Pw_desc.next_to(Pw_rect, UP)
+
+        self.draw_column(column_rect, Write(column_el))
+        self.play(Write(column_w_desc))
+        self.dither()
+        self.play(ShowCreation(Pw_rect), Write(Pw_desc))
+        self.dither()
+        self.draw_rows(connections, rows)
+        self.dither()
+
+        def highlight_diag(i):
+            if missing_data[i]: color = YELLOW
+            else: color = DARK_GREY
+
+            x = rows[i][1][i]
+            self.play(x.highlight, color,
+                      x.scale_in_place, 1.5,
+                      run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
+            self.play(x.scale_in_place, 1/1.5,
+                      run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
+            self.play(ShowCreation(icons[i]), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
+
+        highlight_diag(0)
+        self.dither()
+        highlight_diag(3)
+        self.dither()
+        highlight_diag(1)
+        self.dither()
+        highlight_diag(2)
+        self.dither()
+
+        animations = []
+        for i,b in list(enumerate(missing_data))[4:]:
+            animations.append(rows[i][1][i].highlight)
+            if b: animations.append(YELLOW)
+            else: animations.append(DARK_GREY)
+            animations.append(FadeIn(icons[i]))
+
+        self.play(*animations)
+        self.draw_column(missing[0], ShowCreation(missing[1]))
+        self.play(Write(missing_desc))
+        self.dither()
+
+        def try_connect_M(i):
+            point_r = column_el[i].get_edge_center(LEFT)
+            point_l = missing.get_edge_center(RIGHT)
+            point_l[1] = point_r[1]
+            line = Line(point_r, point_l,
+                        buff = 0.1,
+                        color = ORANGE)
+
+            icon = icons[i]
+            icon_ori = icon.copy()
+            icon_shifted = icon.copy()
+            icon_shifted.next_to(line, UP, coor_mask = UP)
+
+            self.play(
+                Transform(icon, icon_shifted),
+                ShowCreation(line),
+            )
+            self.dither(4)
+            self.play(
+                Transform(icon, icon_ori),
+                Uncreate(line),
+            )
+
+        try_connect_M(0)
+        try_connect_M(2)
+
+        M_in_Pw = Rectangle(height = 0.15, width = 5, color = ORANGE)
+        M_in_Pw.shift((rows[3].get_center()+rows[4].get_center())/2 - M_in_Pw.get_edge_center(LEFT))
+
+        self.play(GrowFromCenter(M_in_Pw))
+        self.dither()
+
+        self.play(*map(FadeOut, [Pw_rect, Pw_desc, rows, connections, M_in_Pw]))
+
+        inequalities = make_inequalities()
+        inequalities[-1][-1].remove(inequalities[-1][-1][-1])
+        self.play(Write(inequalities[-1]))
+        self.dither()
+        self.play(FadeIn(VGroup(*inequalities[:-1])))
+
+    def draw_column(self, rect, inner_animation):
+        up_left, up_right, _, down_left, _ = rect.get_anchors()
+        up = (up_left + up_right)/2
+        left = [interpolate(up_left, down_left, alpha) for alpha in np.linspace(0,1,2*self.inf_right)]
+
+        line_left = VMobject(color = rect.color,
+                             stroke_width = rect.stroke_width)
+        line_left.set_anchor_points([up]+left, mode="corners")
+        line_right = line_left.copy()
+        line_right.stretch_about_point(-1, 0, up)
+
+        self.play(
+            ShowCreation(line_left, run_time = inner_animation.run_time),
+            ShowCreation(line_right, run_time = inner_animation.run_time),
+            inner_animation,
+        )
+        self.remove(line_left, line_right)
+        self.add(rect)
+
+    def draw_rows(self, connections, rows):
+        creating = []
+        to_remove = []
+        to_add = []
+
+        for row, connection in zip(rows, connections):
+            rect, numbers = row.submobjects
+            up_left, up_right, _, down_left, _ = rect.get_anchors()
+            left = (up_left + down_left)/2
+            up = [interpolate(up_left, up_right, alpha) for alpha in np.linspace(0,1,2*self.inf_right)]
+
+            line_up = VMobject(color = rect.color,
+                               stroke_width = rect.stroke_width)
+            line_up.set_anchor_points([left]+up, mode="corners")
+            line_down = line_up.copy()
+            line_down.stretch_about_point(-1, 1, left)
+
+            to_remove += [line_up, line_down]
+            creating.append(VGroup(connection, line_up, line_down, numbers))
+            to_add.append(rect)
+
+        self.play(
+            ShowCreation(VGroup(*creating)),
+            submobject_mode = "lagged_start",
+            run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
+        )
+        self.remove(*to_remove)
+        self.add(*to_add)
 
 class DoubleMatching():
     def __init__(self):
@@ -362,7 +636,6 @@ class CantorBernsteinScene(Scene):
         self.dither()
 
         self.play(*map(FadeOut, [desc_R, desc_PX]))
-        #self.revert_to_original_skipping_status()
 
         for seq in [one_sided_up[1], one_sided_down[1], one_sided_up[0]]:
             self.simultaneously_connect(seq)
@@ -410,6 +683,8 @@ class CantorBernsteinScene(Scene):
             to_center_anim.append(self.to_center(seq))
         self.play(*to_center_anim)
         self.dither()
+
+        #self.revert_to_original_skipping_status()
 
     def gradually_connect(self, seq, descs = ()):
 

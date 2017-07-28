@@ -52,42 +52,58 @@ in set theory.
 . we can decide whether to include the number zero, that are two cases,
 . whether to include the number one, again two cases, and whether to
 . include the number two.  So the total number of subsets is two times two
-. times two. It applies in general. If there is a finite set of n
+. times two, that is two to the power of three.
+. It applies in general. If there is a finite set of n
 . elements, we can decide for each of them whether to include it, or
 . not, and the size of the powerset is then two to the power of n.
-
-In finite case, it is obvious that powerset creates bigger sets, two to
-the power of n is much larger than n, right? From the last video we
-know that that the power-set overcomes even the countability, the
-powerset of omega is larger than omega. Does that hold in general? Is
-the power-set of any set larger than the original set?
-
-In fact, the Cantor's diagonal argument was general enough to cover
-all possible sets. But let's see it from the power-set perspective to
-make it more universal and to see different forms of the same idea.
-
-Take the power-set of a set, say omega, and consider a matching of
-natural numbers with members of the power-set, that is subsets of
-omega. We want to find a missing subset in that matching.
-
-Some numbers are matched with a set that contains it. For example the
-set matched with zero contains zero, ot the set matched with four
-contains four.  Other numbers are missing in their corresponding
-subset: One is missing in the set matched with one, two is missing in
-the set matched with two, and so on.
-
-Now, take the set of all missing elements. This one cannot occur in
-the matching. It cannot be matched with any missing number because it
-includes it and, on the other hand it cannot be matched with any
-included number, because such number would not be included
-anymore. And really, this idea is actually the same as saying that the
-diagonal is blocking any position of the set but for this argument, we
-don't need to be able to draw it.  We divide elements to "included"
-and "missing" and take the missing ones.  So power-set is a general
-tool for making infinite sets bigger. And it serves for the finite
-case as well, so we could say that the Cantor's diagonal argument
-provides a proof that two to the power of n is bigger than n. But it
-is kinda overkill, don't you think?
+.
+. In finite case, it is obvious that powerset creates bigger sets, two to
+. the power of n is much larger than n, right? One is less than two,
+. four is less than sixteen, ten is less than one thousand and twenty
+. four.
+. From the last video we
+. know that that the power-set overcomes even the countability, the
+. powerset of omega is larger than omega. Does that hold in general?
+. Is the power-set of arbitrarily large set larger than the original
+. set?
+. 
+. In fact, the Cantor's diagonal argument was general enough to cover
+. all possible sets. But let's see it from the power-set perspective to
+. make it more universal and to see different forms of the same idea.
+.
+:-----------CantorRevisited--------------
+. Take the power-set of a set, say omega, and consider a matching of
+. natural numbers with members of the power-set, that is subsets of
+. omega. We want to find a missing subset in that matching.
+. 
+. Some numbers are matched with a set that contains it. For example the
+. set matched with zero contains zero, ot the set matched with four
+. contains four.  Other numbers are missing in their corresponding
+. subset: One is missing in the set matched with one, two is missing in
+. the set matched with two, and so on.
+.
+. Now, take the set of all missing elements, let's denote it say M as missing.
+. This cannot be matched with any number like zero which is contained in
+. the matched subset because such a number is missing in M. And on the
+. other hand, it cannot be matched even with any number missing in the
+. matched subset, like two, because such a number is contained by M.
+. Of course, the subset M is a subset of omega, it is hiding somewhere
+. in the powerset of omega, it just managed to avoid the matching.
+.
+. The idea is actually the same as saying that the
+. diagonal is blocking any position of the set but we don't need to be
+. able to draw it for this kind of reasoning.
+. We have divided elements to "contained"
+. and "missing" and taken the set of all missing ones.
+. So the power-set is a general
+. tool for making infinite sets bigger. And it serves for the finite
+. case as well, so we could say that the Cantor's diagonal argument
+. provides a proof that two to the power of n is bigger than n. But it
+. is kinda overkill, don't you think?
+. 
+. In the next chapter we will explore the possibility of making large
+. sets with the powerset but for now, the size of P of omega will
+. suffice.
 
 Another famous example of an uncountable set is the set of all real
 numbers. In the rest of the chapter we will see how the size of all
@@ -179,25 +195,27 @@ desires a justification.
 . edges. By merging these components together, we have extracted a
 . single matching between our two sets which covers both sides.
 .
-In general, this is the proof of so called Cantor-Bernstein theorem
-which exactly states that a set cannot be smaller than another and
-bigger than it at the same time. But can still be some unclear stuff
-around the set comparison. Namely we should not be sure yet whether
-every two sets are comparable, that is whether we can allways find a
-matching of one of them to a part of the other. And another natural
-question is to ask whether the cardinal number continuum, which
-measures the real line or the power set of omega, is the smallest
-uncountable cardinal. The answer to the first question is "Yes" but we
-need the set theory built for the proof so you can expect it in the
-end of the series.
-
-The second question is tricky, it is called the continuum hypothesis
-and it is open, that is no one knows the truth. But in this case, it
-is open in another sense than other famous open problems like Riemann
-hypothesis, or P-NP problem. Usual open problems are open because
-nobody solved them yet. But the continuum hypothesis is proven to be
-open forever. However the proof of unsolvability of the continuum
-hypothesis is too advanced for this series at all.
-
-In the next chapter, we will look at the idea of constructing a large
-set by transfinite recursion. See you then.
+. In general, this is the proof of so called Cantor-Bernstein theorem
+. which exactly states that a set cannot be smaller than another and
+. bigger than it at the same time. But there still can be some unclear
+. stuff around the set comparison.
+. Namely we should not be sure yet whether
+. every two sets are comparable, that is whether we can allways find a
+. matching of one of them to a part of the other. And another natural
+. question is to ask whether the cardinal number continuum, which
+. measures the real line or the power set of omega, is the smallest
+. uncountable cardinal. The answer to the first question is "Yes" but we
+. need the set theory built for the proof so you can expect it in the
+. end of the series.
+. 
+. The second question is tricky, it is called the continuum hypothesis
+. and it is open, that is no one knows the truth. But in this case, it
+. is open in another sense than other famous open problems like Riemann
+. hypothesis, or P-NP problem. Usual open problems are open because
+. nobody solved them yet. But the continuum hypothesis is proven to be
+. open forever. However the proof of unsolvability of the continuum
+. hypothesis is too advanced for this series at all.
+.
+:04----------------------FirstLimitStep------------------------
+. In the next chapter, we will look at the idea of constructing a large
+. set by transfinite recursion. See you then.
