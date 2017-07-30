@@ -13,31 +13,32 @@ Outline
 * Cantor's theorem in general,  $|\P(X)| > |X|$.
 * $\P(\P(\P(\omega))) > \P(\P(\omega)) > \P(\omega) > \omega$
 
-In the last video, we have shown several sets of the size aleph 0 --
-natural numbers, prime numbers, integers, rational numbers, and one
-bigger set, the set of all infinite sequences of zeros and ones. The
-current chapter is devoted primarily to this particular bigger size.
-
-First of all, an infinite sequence of zeros and ones is in a sense the
-same thing as a subset of omega, the set of all natural numbers.
-Indeed, we can interpret the sequence as a mask. Zero at a position n
-means "don't take the number n", one means "take it". So we can
-translate a sequence of zeros and ones, that is a mask, to the set
-itself, and vice versa, any set of natural numbers can be encoded into
-such a mask by writing ones to the positions of occuring numbers and
-zeros to the rest.
-
-More formally, this translation can be considered as a matching
-between all sequences of zeros and ones and subsets of omega. So we
-actually have proved that the set of all subsets of omega has the same
-size as the set of all infinite sequences of zeros and ones. In fact,
-this procedural description of matching is quite common in set theory
-since is difficult to construct a matching of unimaginably large sets
-otherwise.
-
-This operation, taking all subsets of a set is pretty common procedure
-in set theory.
-
+:-------------------------RecapChapter2------------------------------
+. In the last video, we have shown several sets of the size aleph 0 --
+. natural numbers, prime numbers, integers, rational numbers, and one
+. bigger set, the set of all infinite sequences of zeros and ones. The
+. current chapter is devoted primarily to this particular bigger size.
+.
+. First of all, an infinite sequence of zeros and ones is in a sense the
+. same thing as a subset of omega, the set of all natural numbers.
+. Indeed, we can interpret the sequence as a mask.
+. Ones simply represents the naturals included in that subset and zeros
+. represents the omited numbers.
+. And vice versa, any set of natural numbers can be encoded into
+. such a mask by writing ones to the positions of occuring numbers and
+. zeros to the rest.
+.
+. More formally, this translation defines a matching
+. between infinite binary sequences and subsets of omega. Any binary
+. sequence is matched with a subset of omega and vice versa. So we
+. have actually proved that the set of all subsets of omega has the same
+. size as the set of all infinite sequences of zeros and ones. In fact,
+. a procedural description of matching is quite common in set theory
+. since is difficult to construct a matching of unimaginably large sets
+. otherwise.
+. 
+. Moreover, the operation of taking all subsets of a set is pretty
+. common procedure in set theory.
 :-----------FinitePowerSetScene--------------
 . Take a set X, for example the set of numbers 0,1,2, and
 . consider all the subsets, that is the empty set, three subsets
@@ -104,47 +105,67 @@ in set theory.
 . In the next chapter we will explore the possibility of making large
 . sets with the powerset but for now, the size of P of omega will
 . suffice.
-
-Another famous example of an uncountable set is the set of all real
-numbers. In the rest of the chapter we will see how the size of all
-reals, usually called continuum and denoted by a fraktur c,
-and the size of the powerset of omega are connected.
-
-The reason why reals are uncountable is actually simple. If we take a
-sequence of zeros and ones encoding a subset of omega, it can be
-transformed into a real number by writing zero point before it.  Sure,
-we have missed a lot of real numbers, for example minus one, ten, zero
-point one. But we have matched an uncountable set P of omega to a part
-of real numbers. So reals cannot be countable either.
-
-Does it mean that the size of P of omega is less that the size of reals?
-No, until we look over all possible matchings and check whether there
-is no matching covering all real numbers. In fact, there is one. All
-what we need is to take a real number and encode it into a subset of
-omega. There are many ways how to do it, for example the following
-one. The decimal representation of a real number can consist of twelve
-symbols: ten digits, the decimal point, and the minus sign.  We
-enumerate these symbols by numbers from one to twelve. Now, when a
-real number comes, we rewrite it using our encoding and then transform
-the sequence to a set by succesive summation of elements.
-
-Now, all real numbers are covered by design but some subsets are
-missing this time. For example, zero is never in a subset constructed
-in this way.  So it seems that reals form a smaller set than P of
-omega until we check all possible matchings to check whether they are
-not equal. It is tempting to say that there is just one possible
-outcome, the sizes of the two sets have to be equal since a set cannot
-be smaller and bigger at the same time, right?
-
-But it is just our definition of being bigger or smaller inspired by
-the finite comparison. We are not guarranteed that whatever definition
-of bigger and smaller sets we make up will work as we expect. We could
-see a paradoxical behaviour even with countable sets. So, it is true
-that a set cannot be greater and smaller at the same time but it
-desires a justification.
-
+.
+:-----------------------SubsetToReal---------------------------------
+. Another famous example of an uncountable set is the set of all real
+. numbers. In the rest of the chapter we will see how the size of all
+. reals, usually called continuum and denoted by a fraktur c,
+. and the size of the powerset of omega are connected.
+.
+. The reason why reals are uncountable is actually simple.
+. We already know that a subset can be transformed into an infinite
+. sequence of zeros and ones.
+. And such a thing can be simply transformed into a real number by
+. writing zero point before it.
+. If we managed to enumerate all real numbers by naturals, we would
+. cover even those special real numbers matched with subsets of
+. omega. That cannot happen since we know that the powerset of omega is
+. uncountable, so the real line have to be uncountable too.
+.
+. It seems that the real line is actually larger than the powerset of
+. omega since we have matched all subsets of omega with a negligible
+. amount of real numbers. But to be sure, we have to check all possible
+. matchings between reals and the powerset of omega to see whether there
+. is one covering all real numbers.
+.
+. One example of such a matching is the following.
+. Take a real number, say minus one and half..
+.
+:-------------------------RealToSubset-----------------------------
+.
+. Any such number can be described by a decimal representation. It is
+. a finite or infinite sequence of characters from a small list --
+. there are ten digits, decimal mark and a possible minus sign.
+. These symbols can be encoded into numbers from zero to eleven.
+. If we packed these numbers into a set now, we would lose the ordering
+. of these characters. But we can fix that with a little trick, to
+. every encoded character we add a number of hundreds signalizing its
+. position. So the first encoded character remains the same, the
+. second one is changed to one hundred and one, the third is changed
+. to two hundreds and eleven and the last one transforms into three
+. hundreds and five.
+.
+. And the same procedure works even for real numbers with infinite
+. decimal expansion, just the resulting set is infinite too.
+. 
+. Now, all real numbers are covered by this green matching but some subsets are
+. missing this time. For example, forty two is never in a subset constructed
+. in this way.  So it seems that reals form a smaller set than P of
+. omega until we check all possible matchings to check whether they are
+. not equal. It is tempting to say that there is just one possible
+. outcome, the sizes of the two sets have to be equal since a set cannot
+. be smaller and bigger at the same time, right?
+.
+. But having the same size is just our shortcut for an existence of a
+. perfect matching between these two sets which cover both of them.
+. We are not guarranteed that whatever definition
+. of bigger and smaller sets we make up will work as we expect. We could
+. see a paradoxical behaviour even with countable sets. Now, it is true
+. that a set cannot be greater and smaller at the same time but it
+. desires a justification.
+.
 :----------------------CantorBernsteinScene------------------------
-. There is a green matching which covers all reals but not all subsets of omega.
+. We have a green matching which covers all reals but not all subsets of omega.
 . And then another red matching covering all subsets of omega
 . but not all reals. We would like to somehow
 . combine these two matchings so that every real number will be

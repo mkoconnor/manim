@@ -3,6 +3,7 @@ from mobject.tex_mobject import *
 from topics.geometry import *
 from topics.fixed_size_dot import *
 from topics.icons import *
+from topics.number_line import NumberLine
 from constants import *
 from mobject import Mobject, Group
 from eost.widgets import *
@@ -11,6 +12,172 @@ from animation.transform import *
 import helpers
 from eost.matching import get_matching, MatchingAnimations
 import eost.deterministic
+from topics.common_scenes import OpeningQuote
+
+class Chapter3OpeningQuote(OpeningQuote):
+    CONFIG = {
+        "quote" : [
+            "Some infinities are", "bigger", "than other infinities."
+        ],
+        "highlighted_quote_terms" : {
+            "bigger" : GREEN,
+        },
+        "author" : "John Green"
+    }
+
+class SubsetsSeqs(Scene):
+
+    def construct(self):
+        self.force_skipping()
+
+        naturals = ('0', '1', '2')
+        primes = ('2', '3', '5')
+        integers = ('0', '-3', '3')
+        fractions = ('\\textstyle\\frac 32', '\\textstyle-\\frac17', '11')
+        triangles = []
+        left_pos = 1*UP + 5*LEFT
+        right_pos = 1*UP + 5*RIGHT
+
+        aleph_0 = TexMobject("\\aleph_0")
+        aleph_0.scale(1.5)
+        aleph_0.to_edge(UP)
+        self.play(Write(aleph_0))
+        self.dither()
+
+        for color, alpha, data in zip(color_gradient([GREEN, ORANGE], 4),
+                                      np.linspace(0, 1, 4),
+                                      [naturals, primes, integers, fractions]):
+
+            triangle = VGroup(*[TexMobject(x) for x in data])
+            triangle[0].shift(UP)
+            triangle[1].shift(0.6*LEFT)
+            triangle[2].shift(0.6*RIGHT)
+            triangle.scale(1.2)
+            triangle.set_color(color)
+            triangle.move_to((1-alpha)*left_pos + alpha*right_pos)
+
+            for mobj in triangle:
+                self.play(FadeIn(mobj), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
+            self.dither()
+            triangles.append(triangle)
+        triangles = VGroup(*triangles)
+
+        zero = TexMobject('0')
+        one = TexMobject('1')
+        seq_len = 30
+        sequences = VGroup(*[
+            VGroup(*[
+                [zero, one][random.randint(0,1)].copy()
+                for i in range(seq_len)
+            ]).arrange_submobjects()
+            for _ in range(3)
+        ])
+        for seq, color in zip(sequences, color_gradient([WHITE, DARK_GREY], 3)):
+            seq.set_color(color)
+        sequences.arrange_submobjects(DOWN)
+        sequences.to_corner(LEFT+DOWN)
+        sequences[1].shift(2*RIGHT)
+        sequences[2].shift(RIGHT)
+
+        self.play(FadeOut(aleph_0))
+        for seq in sequences:
+            self.play(ShowCreation(seq))
+        
+        self.dither()
+        self.play(FadeOut(triangles))
+        self.dither()
+
+        seq = sequences[0]
+        seq_data = [x.tex_string == '1' for x in seq]
+        set_el = VGroup(*[TexMobject(str(i))
+                          for i in range(len(seq_data))])
+        set_el.arrange_submobjects(buff = 0.4)
+        set_rect = SurroundingRectangle(set_el, color = GREEN, buff = MED_SMALL_BUFF)
+        set_complet = VGroup(set_rect, set_el)
+        set_complet.to_edge(LEFT)
+
+        seq_dest = seq.copy()
+        for digit, num, b in zip(seq_dest, set_el, seq_data):
+            digit.move_to(num)
+            if b: digit.set_color(GREEN)
+            else: digit.set_color(DARK_GREY)
+
+        seq_dest.shift(DOWN)
+        set_complet.shift(UP)
+
+        self.revert_to_original_skipping_status()
+
+        self.dither()
+        self.play(Transform(seq, seq_dest),
+                  FadeOut(VGroup(*sequences[1:])))
+        self.dither()
+        self.play(FadeIn(set_complet))
+        self.dither()
+
+        seq_ones = []
+        seq_zeros = []
+        set_ones = []
+        set_zeros = []
+        for digit, num, b in zip(seq, set_el, seq_data):
+            if b:
+                seq_ones.append(digit)
+                set_ones.append(num)
+            else:
+                seq_zeros.append(digit)
+                set_zeros.append(num)
+        seq_ones = VGroup(*seq_ones)
+        seq_zeros = VGroup(*seq_zeros)
+        set_ones = VGroup(*set_ones)
+        set_zeros = VGroup(*set_zeros)
+
+        ones_dest = seq_ones.copy()
+        ones_dest.set_fill(GREEN, opacity = 0)
+        ones_dest.shift(2*UP)
+        self.play(set_ones.highlight, GREEN,
+                  ReplacementTransform(seq_ones.copy(), ones_dest))
+        self.remove(ones_dest)
+        self.dither()
+        self.play(set_zeros.highlight, BLACK)
+        self.dither(4)
+        matching_line = Line(0.5*DOWN, 0.5*UP, color = RED, stroke_width = 0)
+        seq_set = VGroup(seq, set_complet, matching_line)
+
+        set_title = TexMobject("|\\hbox{Subsets of }\\omega|")
+        seq_title = TexMobject("=|\\hbox{Binary sequences}|")
+
+        both_titles = VGroup(set_title, seq_title)
+        both_titles.arrange_submobjects(DOWN, buff = 1)
+        both_titles.to_edge(UP)
+
+        set_title_part = VGroup(*set_title[1:-1])
+        seq_title_part = VGroup(*seq_title[2:-1])
+        both_titles_part = VGroup(set_title_part, seq_title_part)
+
+        self.play(seq_set.to_corner, LEFT+DOWN,
+                  FadeIn(both_titles_part))
+        matching_line.set_stroke(width = DEFAULT_POINT_THICKNESS)
+        self.play(ShowCreation(matching_line))
+        self.dither()
+
+        title_matching_center = set_title_part.get_edge_center(DOWN)
+        title_matching_center[1] += seq_title_part.get_edge_center(UP)[1]
+        title_matching_center[1] /= 2
+
+        title_matching = VGroup(*[matching_line.copy() for _ in range(14)])
+        title_matching.arrange_submobjects()
+        title_matching.move_to(title_matching_center)
+        title_matching_even = VGroup(*title_matching[1::2])
+        title_matching_even.scale_in_place(-1)
+
+        self.play(ShowCreation(title_matching),
+                  submobject_mode = "lagged_start",
+                  run_time = 2*DEFAULT_ANIMATION_RUN_TIME)
+        self.dither()
+        both_titles_rest = VGroup(set_title[0], set_title[-1],
+                                  seq_title[0], seq_title[1], seq_title[-1])
+        self.play(FadeOut(title_matching),
+                  Write(both_titles_rest))
+        self.dither()
 
 def make_inequalities():
     inequalities = VGroup(
@@ -40,7 +207,7 @@ def make_inequalities():
 class FinitePowerSetScene(Scene):
     def construct(self):
         
-        self.force_skipping()
+        #self.force_skipping()
         elements_X = VGroup(*[
             TexMobject(str(n)) for n in range(3)
         ])
@@ -140,7 +307,7 @@ class FinitePowerSetScene(Scene):
         desc_size_PX2.shift(descs_possib.get_center() - desc_size_PX2[0].get_center() + DOWN)
         self.play(ReplacementTransform(VGroup(descs_possib, cdots).copy(), VGroup(*desc_size_PX2[:2])))
 
-        self.revert_to_original_skipping_status()
+        #self.revert_to_original_skipping_status()
         self.dither()
         self.play(*map(FadeOut, [PX, arrow_P, desc_P]))
         self.play(FadeOut(VGroup(*desc_size_PX[6:])),
@@ -399,6 +566,223 @@ class CantorRevisited(Scene):
         self.remove(*to_remove)
         self.add(*to_add)
 
+class SubsetToReal(Scene):
+    def construct(self):
+        desc_R = TexMobject('\\mathfrak c=|\\mathbb R|')
+        desc_R[-2].set_color(GREEN)
+        desc_R.to_edge(RIGHT)
+        numberline = NumberLine(unit_size = 3)
+        numberline.shift(2*UP)
+        desc_R.shift(2.6*UP)
+        self.play(ShowCreation(numberline),
+                  Write(desc_R[-2]))
+        self.play(Write(VGroup(*desc_R[:-2] + [desc_R[-1]])))
+
+        seq_len = 30
+        seq_data = [random.randint(0,1) for _ in range(seq_len)]
+        set_el = VGroup(*[TexMobject(str(i))
+                          for i in range(seq_len)])
+
+        for x, b in zip(set_el, seq_data):
+            x.set_color([BLACK, WHITE][b])
+
+        set_el.arrange_submobjects(buff = 0.4)
+        set_rect = SurroundingRectangle(set_el, color = RED, buff = MED_SMALL_BUFF)
+        set_complet = VGroup(set_rect, set_el)
+        set_complet.to_corner(LEFT+DOWN)
+        self.play(FadeIn(set_complet))
+
+        zero = TexMobject('0').set_color(DARK_GREY)
+        one = TexMobject('1').set_color(GREEN)
+        seq = VGroup(*[[zero, one][b].copy() for b in seq_data])
+        for (digit, num) in zip(seq, set_el):
+            digit.move_to(num)
+
+        seq.shift(2*UP)
+        match_start = set_rect.get_edge_center(UP)
+        match_end = seq.get_edge_center(DOWN)+0.1*DOWN
+        match_start[0] = match_end[0] = 0
+        match_line = Line(match_start, match_end, color = RED)
+        self.play(ReplacementTransform(set_el.copy(), seq), ShowCreation(match_line))
+        self.dither()
+
+        num = seq_data[0]*.1 + seq_data[1]*.01 + seq_data[2]*.001 + seq_data[3]*.0001
+        num_dot = Dot(numberline.number_to_point(num))
+
+        zero_point = TexMobject("0.")
+        zero_point.set_color(GREEN)
+        num_seq = seq.copy()
+        num_seq.highlight(GREEN)
+        num_seq.arrange_submobjects(buff = 0.1)
+        num_seq.next_to(num_dot, DOWN, aligned_edge = LEFT)
+
+        match_line_dest = Line(match_start, num_seq.get_corner(LEFT+DOWN)+0.1*DOWN, color = RED)
+
+        self.play(ReplacementTransform(seq, num_seq),
+                  Transform(match_line, match_line_dest))
+
+        zero_point.next_to(num_seq, LEFT, buff = 0.1)
+        self.dither()
+        self.play(Write(zero_point), ShowCreation(num_dot))
+        self.dither()
+
+        nats_and_arrows = []
+        for i,x in enumerate([-1.7, 1.2, num]):
+            arrow_end = numberline.number_to_point(x)
+            arrow = Arrow(arrow_end+UP, arrow_end)
+            nat = TexMobject(str(i))
+            nat.next_to(arrow, UP)
+            nats_and_arrows += [arrow, nat]
+            self.play(ShowCreation(arrow), FadeIn(nat))
+            self.dither()
+
+        nat_dest = nat.copy()
+        nat_dest.next_to(match_end, UP)
+        match_line_dest = Line(match_start, match_end, color = RED)
+        self.play(Transform(match_line, match_line_dest),
+                  ReplacementTransform(nat.copy(), nat_dest, path_arc = np.pi/2))
+        self.dither()
+
+        uncount = TexMobject("|\\mathbb R|\\geq", "|\\mathcal P(\\omega)| > \\aleph_0")
+        uncount[0][1].set_color(GREEN)
+        VGroup(*uncount[1][1:5]).set_color(RED)
+        uncount.to_edge(RIGHT)
+        self.play(Write(uncount[1]))
+        self.dither()
+        self.play(Write(uncount[0]))
+        self.dither()
+
+        strict_q = TexMobject("|\\mathbb R|>|\\mathcal P(\\omega)|?").to_edge(LEFT)
+        strict_q[1].set_color(GREEN)
+        VGroup(*strict_q[5:9]).set_color(RED)
+
+        self.play(Write(strict_q))
+        self.play(*map(FadeOut, nats_and_arrows+[match_line, nat_dest]))
+
+        brace = Brace(Line(*map(numberline.number_to_point, [0, 0.11111])), UP)
+        #brace.shift(0.2*UP)
+        self.play(GrowFromCenter(brace))
+        self.dither()
+        simple_num_dot = Dot(numberline.number_to_point(-1.5))
+        simple_num_desc = TexMobject("-1.5").next_to(simple_num_dot, DOWN)
+        simple_num_desc.set_color(GREEN)
+
+        self.play(*(map(FadeOut, [set_complet, strict_q, zero_point, num_seq, uncount, brace]) +
+                    [FadeIn(simple_num_desc), Transform(num_dot, simple_num_dot)]))
+
+class RealToSubset(Scene):
+    def construct(self):
+        numberline = NumberLine(unit_size = 3)
+        numberline.shift(2*UP)
+        desc_R = TexMobject('\\mathfrak c=|\\mathbb R|')
+        desc_R[-2].set_color(GREEN)
+        desc_R.to_edge(RIGHT)
+        desc_R.shift(2.6*UP)
+        num_dot = Dot(numberline.number_to_point(-1.5))
+        num_desc = TexMobject("-1.5").next_to(num_dot, DOWN)
+        num_desc.set_color(GREEN)
+
+        self.add(numberline, desc_R, num_dot, num_desc)
+
+        encoding = map(str, list(range(10))) + ['-', '.']
+        encoding = VGroup(*[
+            TextMobject("``$"+c+"$''","$\\to$", str(i))
+            for i,c in enumerate(encoding)
+            ])
+        for rule in encoding:
+            rule.shift(encoding[0][1].get_center()-rule[1].get_center())
+
+        encoding.arrange_submobjects(DOWN, coor_mask = UP)
+        enc_part2 = VGroup(*encoding[6:])
+        enc_part2.shift(encoding[0][1].get_center()
+                        -enc_part2[0][1].get_center()
+                        + 3*RIGHT)
+        encoding.to_corner(LEFT+DOWN)
+
+        #self.add(encoding)
+        representation_data = [10, 1, 11, 5]
+        representation = VGroup(*[encoding[i][0].copy() for i in representation_data])
+        representation.arrange_submobjects(buff = 1)
+        representation.to_corner(UP+LEFT)
+        repr_body = VGroup(*[repr[1] for repr in representation])
+        repr_quotes = VGroup(*[VGroup(repr[0],repr[2]) for repr in representation])
+        self.play(ReplacementTransform(num_desc.copy(), repr_body),
+                  FadeIn(repr_quotes))
+
+        self.play(ShowCreation(VGroup(*[enc[0] for enc in encoding])))
+        self.dither()
+        self.play(ShowCreation(VGroup(*[VGroup(enc[1], enc[2]) for enc in encoding])))
+
+        repr_num = VGroup(*[encoding[i][2].copy() for i in representation_data])
+        for num, char in zip(repr_num, repr_body):
+            center = char.get_center()
+            center[1] = repr_body[0].get_center()[1]
+            num.move_to(center)
+
+        self.play(FadeOut(repr_quotes),
+                  ReplacementTransform(repr_body, repr_num))
+        self.dither()
+        repr_rect = SurroundingRectangle(repr_num, color = RED, buff = MED_SMALL_BUFF)
+        self.play(ShowCreation(repr_rect))
+
+        for _ in range(2):
+            self.play(Swap(repr_num[1], repr_num[3]), Swap(num_desc[1], num_desc[3]))
+            self.dither()
+
+        info = []
+        for i in range(1,4):
+            cur_info = self.index_info(repr_num[i], 100*i+representation_data[i])
+            self.play(FadeIn(cur_info))
+            info.append(cur_info)
+
+        info = VGroup(*info)
+        self.dither()
+        self.play(*map(FadeOut, [repr_num, numberline, desc_R, info, repr_rect, num_dot, num_desc]))
+
+        pi_str = "3.14159265358979323846265338327950288"
+        pi_str_mobj = TexMobject(pi_str)
+        pi_str_mobj.set_color(GREEN)
+        pi_str_mobj.shift(1.5*UP+2*RIGHT)
+        pi_str_mobj = VGroup(*[VGroup(c) for c in pi_str_mobj])
+        self.play(FadeIn(pi_str_mobj))
+        self.dither()
+
+        pi_num_list = [3, 111] + [200+100*i+int(c) for i,c in enumerate(pi_str[2:])]
+        pi_num_list_mobj = VGroup(*[TexMobject(str(num)) for num in pi_num_list])
+        pi_num_list_mobj.arrange_submobjects(buff = 0.25)
+        pi_rect = SurroundingRectangle(pi_num_list_mobj, color = RED, buff = MED_SMALL_BUFF)
+        VGroup(pi_num_list_mobj, pi_rect).to_corner(LEFT+UP)
+        self.play(FadeIn(pi_rect),
+                  ReplacementTransform(pi_str_mobj.copy(), pi_num_list_mobj))
+        self.dither()
+        match_start = pi_str_mobj.get_edge_center(UP)+0.1*UP
+        match_end = pi_rect.get_edge_center(DOWN)
+        match_start[0] = match_end[0] = 0
+        match_line = Line(match_start, match_end, color = GREEN)
+        self.play(ShowCreation(match_line))
+
+        question = TexMobject("|", "\\mathbb R", "| = |", "\\mathcal P(\\omega)", "|?")
+        question[1].highlight(GREEN)
+        question[-2].highlight(RED)
+        note = TextMobject("Just a shortcut for\\\\a perfect matching")
+
+        q_point = encoding.get_corner(UP+RIGHT)
+        q_point[0] = (q_point[0] + SPACE_WIDTH)/2
+        question.shift(q_point - question.get_edge_center(UP))
+        self.play(Write(question))
+        self.dither()
+        arrow = Arrow(ORIGIN, UP)
+        arrow.next_to(question[2][1], DOWN)
+        note.next_to(arrow, DOWN)
+        self.play(ShowCreation(arrow), FadeIn(note))
+        self.dither()
+
+    def index_info(self, mobj, value):
+        result = TexMobject(str(value))
+        result.shift(mobj[-1].get_center() - result[-1].get_center())
+        result = VMobject(*result[:-len(mobj)])
+        return result
+
 class DoubleMatching():
     def __init__(self):
         self.matching_up = list()
@@ -600,7 +984,9 @@ class CantorBernsteinScene(Scene):
         missed_down = VGroupPS(*[component.down_nodes_mobj[0] for component in one_sided_down])
 
         desc_PX = TexMobject('\\mathcal P(\\omega)')
+        desc_PX.set_color(RED)
         desc_R = TexMobject('\\mathbb R')
+        desc_R.set_color(GREEN)
         desc_PX.to_edge(RIGHT).next_to(self.nodes_down, DOWN, coor_mask = UP)
         desc_R.to_edge(RIGHT).next_to(self.nodes_up, UP, coor_mask = UP)
         self.add(desc_PX, desc_R)
