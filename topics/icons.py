@@ -19,3 +19,22 @@ class IconYes(VMobject):
         )
         self.move_to(ORIGIN)
         self.scale(.35)
+
+class TrianglePointer(VMobject):
+    CONFIG = {
+        "stroke_width" : 0,
+        "fill_opacity" : 1.0,
+        "color"  : WHITE,
+        "mark_paths_closed" : True,
+        "close_new_points" : True,
+        "considered_smooth" : False,
+        "width"   : 0.2,
+        "height"  : 0.2,
+    }
+    def generate_points(self):
+        y, x = self.height, self.width/2.
+        self.set_anchor_points([
+            ORIGIN,
+            ORIGIN + UP*y + LEFT*x,
+            ORIGIN + UP*y + RIGHT*x,
+        ], mode = "corners")

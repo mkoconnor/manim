@@ -585,7 +585,7 @@ class Mobject(object):
         )
         return self
 
-    ## Alignment  
+    ## Alignment
     def align_data(self, mobject):
         self.align_submobjects(mobject)
         self.align_points(mobject)

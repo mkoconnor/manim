@@ -76,14 +76,17 @@ class StepCurve(VMobject):
             [a0, a1], [h0], [h1]
         )
 
-class OrdinalOne(Ordinal):
-    def __init__(self, **kwargs):
+class OrdinalObj(Ordinal):
+    CONFIG = {
+        "pos" : ORIGIN,
+    }
+    def __init__(self, obj, **kwargs):
         Ordinal.__init__(self, **kwargs)
-        #print(self.x0 / pixel_size)
+        obj.scale(self.height)
+        obj.set_stroke(width = self.thickness)
+        obj.shift(self.x0*RIGHT - obj.get_critical_point(self.pos))
 
-        self.add(Line(self.x0*RIGHT + self.height*UP,
-                      self.x0*RIGHT + self.height*DOWN,
-                      stroke_width = self.thickness))
+        self.add(obj)
 
     def make_deeper(self):
         self.submobjects = [self.copy()]
@@ -105,6 +108,10 @@ class OrdinalOne(Ordinal):
         if scale < 1: desc.scale(scale)
         else: scale = 1
         desc.next_to(self, direction = direction, buff = buff*scale, **kwargs)
+
+class OrdinalOne(OrdinalObj):
+    def __init__(self, **kwargs):
+        OrdinalObj.__init__(self, Line(UP, DOWN), **kwargs)
 
 class OrdinalSum(Ordinal):
     def __init__(self, *args, **kwargs):
@@ -223,3 +230,14 @@ def extract_ordinal_subpowers(o):
                 layer += partial[i]
 
     return ([result[0][0]],)+result
+
+def make_ordinal_matching(o1, o2):
+    if not isinstance(o1, Ordinal):
+        return Line(o1.get_edge_center(DOWN) + 0.05*DOWN,
+                    o2.get_edge_center(UP) + 0.05*UP,
+                    stroke_width = (o1.stroke_width + o2.stroke_width) / 2)
+
+    else: return VGroup(*[
+            make_ordinal_matching(sub_o1, sub_o2)
+            for sub_o1, sub_o2 in zip(o1, o2)
+    ])

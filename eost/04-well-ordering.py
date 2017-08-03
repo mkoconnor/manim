@@ -17,14 +17,14 @@ from topics.functions import *
 from topics.number_line import *
 from topics.combinatorics import *
 from topics.objects import *
+from topics.icons import TrianglePointer
 from scene import Scene
 from camera import Camera
 from mobject.svg_mobject import *
 from mobject.tex_mobject import *
 
-from mobject.vectorized_mobject import *
 import random
-from chat_bubbles import Conversation
+from topics.chat_bubbles import Conversation
 
 from eost.ordinal import *
 from topics.number_line import NumberLine
@@ -599,25 +599,6 @@ class RecursionScene(Scene):
         )
 
         self.dither(2)
-
-class TrianglePointer(VMobject):
-    CONFIG = {
-        "stroke_width" : 0,
-        "fill_opacity" : 1.0,
-        "color"  : WHITE,
-        "mark_paths_closed" : True,
-        "close_new_points" : True,
-        "considered_smooth" : False,
-        "width"   : 0.2,
-        "height"  : 0.2,
-    }
-    def generate_points(self):
-        y, x = self.height, self.width/2.
-        self.set_anchor_points([
-            ORIGIN,
-            ORIGIN + UP*y + LEFT*x,
-            ORIGIN + UP*y + RIGHT*x,
-        ], mode = "corners")
 
 class RealsProblems(Scene):
 
@@ -1491,7 +1472,7 @@ class ConditionsRecap(OmegaSquaredScene):
 
     def construct(self):
 
-        self.skip_animations = True
+        #self.skip_animations = True
 
         conditions = WellOrderingConditions()
         self.add(conditions.title, conditions.succ, conditions.term_min, conditions.inf_dec)
@@ -1556,7 +1537,7 @@ class ConditionsRecap(OmegaSquaredScene):
         self.play(*map(FadeOut, prev))
         self.play(Write(conditions.set_min))
 
-        self.skip_animations = False
+        #self.skip_animations = False
         
         self.cur_split = self.split_at_point(0.5)
         self.play(

@@ -23,6 +23,7 @@ class Animation(object):
         "submobject_mode" : "all_at_once",
         "lag_factor" : 2,
         "prepare_families" : False,
+        "clean_up_alpha" : 1,
     }
     def __init__(self, mobject, **kwargs):
 
@@ -127,7 +128,7 @@ class Animation(object):
         return self.remover
 
     def clean_up(self, surrounding_scene = None):
-        self.update(1)
+        self.update(self.clean_up_alpha)
         if surrounding_scene is not None:
             if self.is_remover():
                 surrounding_scene.remove(self.mobject)
