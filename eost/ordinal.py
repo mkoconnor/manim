@@ -235,7 +235,9 @@ def make_ordinal_matching(o1, o2):
     if not isinstance(o1, Ordinal):
         return Line(o1.get_edge_center(DOWN) + 0.05*DOWN,
                     o2.get_edge_center(UP) + 0.05*UP,
-                    stroke_width = (o1.stroke_width + o2.stroke_width) / 2)
+                    stroke_width = (o1.stroke_width + o2.stroke_width) / 2,
+                    #stroke_width = max(o1.stroke_width, o2.stroke_width),
+        )
 
     else: return VGroup(*[
             make_ordinal_matching(sub_o1, sub_o2)

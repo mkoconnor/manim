@@ -56,80 +56,89 @@ Quote: All that is actually completely trivial. What is difficult is to realize 
 . information about the ordering. So for preserving
 . the ordinal type we are just allowed to shift the bars but not
 . to swap them.
-
-It does not really matter in finite case. If we shuffle elements in a
-finite ordered set, the result is still the same. There are still five
-bars in one line.
-So finite ordinal
-numbers are identical with finite cardinal numbers, that is natural
-numbers.
-
-But it is easy to reorder an infinite well ordered set to obtain a
-well ordered set of another type. The cardinality is still the same
-but the ordinal type has changed.
-That is because we have to examine all possible matchings to assure
-whether the two sets have different size. It is not
-neccessary for ordinal type, there is just one possible
-order-preserving matching with an initial segment -- the one given by
-the simultaneous transfinite recursion.
-
-And then there are different motivations behind the abstractions of
-set sizes or order types. We introduced cardinal numbers for
-investigation of sizes of different sets such as natural numbers,
-rational numbers, real numbers and so on. But ordinals are not
-primarily intended for examining different well ordered sets. They are
-useful for focusing on what is essential on well-ordering property,
-the ordering itself, not the underlying set.
-
-So from now on, we will use ordinals instead of well-ordered sets. We
-will draw them in the same way as and the meaning is virtually the
-same. Just keep in mind that the ordering is the only thing important
-here and we don't change the ordinal number by adjusting the bars a
-bit.
-
-Now let's try a kind of circular idea and let's construct ordinals by
-transfinite recursion. The base case is the empty ordinal zero. It is
-a bit weird well-ordered set but it is technically correct, there is
-no infinite decreasing sequence in the empty set, right? The successor
-step is so called plus one operation, adding one element to the end.
-So we get ordinals one, two, three, and all natural numbers.
-
-What about the limit step?
-For that, we need to return to the idea of alignment of ordinals. When
-we have two different ordinals, then one of them actually represents
-just an initial segment of the other. So when we merge them, we don't
-get anything new. This operation, aligning ordinals to the left and
-then merging them, is called supremum. When there s just a finite
-number of ordinals, the result is just the largest one. But it become
-to be interesting, when there are infinite number of ordinals, in our
-case all natural numbers. The result cannot be the maximal number
-because there is no such natural number. So the result of merging of
-all of these ordinals is the least infinite ordinal of an infinite
-increasing sequence. The set of natural numbers was chosen to
-represent this ordinal, so we call it omega.
-
-Then, we continue by the successor steps. Add one and get omega plus
-one. Then omega plus two, omega plus three and so on. At the limit
-step again merge all these and get omega plus omega.
+.
+:----------------FiniteOrInfinite----------------------------------
+. It does not really matter in finite case. If we shuffle elements in a
+. finite ordered set, it does not change its ordinal type. There are
+. still five bars in one line.
+. We identify finite ordinal numbers with finite cardinal numbers,
+. so we the ordinal type of that set is five.
+.
+. But in infinite case, it is easy to reorder a well ordered
+. set to obtain a well ordered set of another type. The cardinality is
+. still the same but the ordinal type has changed.
+. That is because we have to examine all possible matchings to assure
+. whether the two sets have different sizes. It is not
+. neccessary for ordinal types, there is just one possible
+. order-preserving matching with an initial segment -- the one given by
+. the transfinite recursion.
+.
+:--------------------ApplicationDifference-------------------------
+. And then there are different motivations behind the abstractions of
+. set sizes or order types. We introduced cardinal numbers for
+. investigation of sizes of different sets such as natural numbers,
+. integers, rational numbers, real numbers and so on. But ordinals are not
+. primarily intended for examining different well ordered sets. They
+. rather extract the essence of well-ordered sets. They are
+. useful for focusing on what is essential on well-ordering property,
+. the ordering itself, not the underlying set.
+.
+. So from now on, we will use ordinals instead of well-ordered sets. We
+. will draw them in the same way as and the meaning is virtually the
+. same. Just keep in mind that the ordering is the only thing important
+. here and we don't change the ordinal number by adjusting the bars a
+. bit.
+.
+:----------------------OrdinalByRecursion-----------------------------
+. Now let's try a kind of circular idea and let's construct ordinals by
+. transfinite recursion. The base case is the empty ordinal zero. We
+. represent it as an empty brace now. It is
+. a bit weird well-ordered set but it is technically correct, there is
+. no infinite decreasing sequence in the empty set, right? The successor
+. step is so called plus one operation, adding one element new to the
+. end of the set. This produces a new ordinal longer by just one step.
+. So we get ordinals one, two, three, four, and all natural numbers.
+.
+. The limit step is the so called supremum of all preceding values. For
+. a proper definition of supremum we have to return to the idea of
+. alignment of ordinals. When
+. we have two different ordinals, then one of them actually represents
+. just an initial segment of the other. Supremum is an operation
+. alligning them in that a way and merging them afterwards.
+. So supremum of two ordinals is not actually very interesting, it
+. returns just the bigger one.
+. But the definition -- align to the left and merge -- works even for an
+. infinite number of ordinals.
+. So in our case, we take all the natural numbers,
+. align them to the left and merge them.
+. The set of natural numbers was chosen to
+. represent this ordinal, so we call it omega.
+.
+. Then, we continue by the successor steps. Add one and get omega plus
+. one. Then omega plus two, omega plus three and so on. At the limit
+. step again merge all these and get an ordinal called reasonable enough
+. omega plus omega. We should technically take even the finite ones
+but they don't make a difference and they didn't fit into the screen.
 
 Q:"It is not helping for constructing large ordinals."
 A:"It is not, but it shows an interesting correspondence."
 
 We cannot boost our ordinal creation by this approach since we need
 the underlying ordinal large enough anyway. The nice thing here is
-that we have got labeled the elements of the underlying ordinal by
-another ordinal numbers. Ordinals have two roles --
+that we have got labeled the elements of the underlying well-ordered
+set by another ordinal numbers. Ordinals have two roles --
 they either represent order types of well ordered sets, or indices of
 their elements.
 
 There are several ways how to see this correspondence.
 By the construction, the point at a position, say omega plus three, is
-the one omega ... plus three steps from the first point. So indices actually
+the omega ... plus three steps from the first point. So it actually
 computes ordered number of steps from the first point.
 
 Alternatively, each step can be identified with its starting
 point. They form a proper initial segment and the corresponding
-final point is the successor of the initial segment.
+final point is the successor of the initial segment existing by the
+definition of well ordering.
 
 This is a bit different from usual ordering by naturals numbers,
 right? It can be consufing. When we talk about forth element in the
@@ -152,7 +161,7 @@ So ordinals represents indices of an universal well ordering. Ordinals
 form the world of transfinite recursion as particular points of
 it. This world of ordinals is unlimited. For some reasons which will
 be discussed in later videos, we are not even allowed to make a set of
-them. But it does not prevent us from running a recursion on all
+all of them. But it does not prevent us from running a recursion on all
 ordinals.
 
 At the end of the video, we let's see how the index view of ordinal
