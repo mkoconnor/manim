@@ -1119,20 +1119,6 @@ class WellOrderingCondition(Scene):
         if remove: self.play(FadeOut(ordinal_col))
         else: return ordinal_col
 
-def bars_to_jumps(bars, color = dec_seq_color):
-
-    jumps = []
-    for i in range(len(bars)-1):
-        stroke_width = max(bars[i].stroke_width, bars[i+1].stroke_width)
-        jump = StepCurve(
-            start = bars[i].get_start(), 
-            end = bars[i+1].get_start(),
-            stroke_width = stroke_width)
-        jump.set_color(color)
-        jumps.append(jump)
-
-    return VGroup(*jumps)
-
 class OmegaSquaredScene(Scene):
 
     def init_ordinal(self, shift = 1.5*DOWN):
@@ -1189,7 +1175,7 @@ class OmegaSquaredScene(Scene):
         seq.append(0)
 
         seq_bars = VGroup(*[self.bars[i] for i in seq]).copy()
-        seq_jumps = bars_to_jumps(seq_bars)
+        seq_jumps = seq_to_jumps(seq_bars, color = dec_seq_color)
         seq_bars.set_color(dec_seq_color)
 
         return seq_bars, seq_jumps, seq
@@ -1348,7 +1334,8 @@ class OmegaPlusZDecSeq(Scene):
 
         dec_seq = omega_reversed.copy()
         dec_seq.set_color(dec_seq_color)
-        dec_seq_jumps = bars_to_jumps(omega_reversed.family_members_with_points())
+        dec_seq_jumps = seq_to_jumps(omega_reversed.family_members_with_points(),
+                                      color = dec_seq_color)
         self.play(
             ShowCreation(dec_seq),
             ShowCreation(dec_seq_jumps),

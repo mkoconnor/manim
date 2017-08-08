@@ -76,6 +76,20 @@ class StepCurve(VMobject):
             [a0, a1], [h0], [h1]
         )
 
+def seq_to_jumps(bars, color = WHITE):
+
+    jumps = []
+    for i in range(len(bars)-1):
+        stroke_width = max(bars[i].stroke_width, bars[i+1].stroke_width)
+        jump = StepCurve(
+            start = bars[i].get_edge_center(UP), 
+            end = bars[i+1].get_edge_center(UP),
+            stroke_width = stroke_width)
+        jump.set_color(color)
+        jumps.append(jump)
+
+    return VGroup(*jumps)
+
 class OrdinalObj(Ordinal):
     CONFIG = {
         "pos" : ORIGIN,
@@ -97,7 +111,7 @@ class OrdinalObj(Ordinal):
             start = self.x0*RIGHT + h_placement*self.height*UP,
             end = self.x1*RIGHT + h_placement*self.height*UP,
             stroke_width = self.thickness)
-        step.set_color(YELLOW)
+        step.shift(self.get_center() - RIGHT*self.x0)
 
         #if self.x1 - self.x0 > 0.3:
         #    arc.add_tip(0.15*(self.x1 - self.x0))
