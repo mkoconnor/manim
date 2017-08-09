@@ -9,15 +9,14 @@ import os
 __all__ = ['Pear', 'Apple']
 
 class Fruit(SVGMobject):
-
+    CONFIG = {
+        "initial_scale_factor" : 0.0016
+    }
     def __init__(self, **kwargs):
         digest_config(self, kwargs, locals())
-        self.file_name = "fruit/"+self.fruit_type
-        #file_name = os.path.join(
-        #    os.path.dirname(__file__), "images", self.fruit_type+".svg"
-        #)
+        if self.file_name is None:
+            self.file_name = "fruit/"+self.fruit_type
         SVGMobject.__init__(self, **kwargs)
-        self.scale(0.0016)
         self[1].set_color(LIGHT_BROWN)
         self.set_color(self.color)
 

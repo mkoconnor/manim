@@ -74,7 +74,8 @@ class SVGMobject(VMobject):
         elif element.tagName in ['polygon', 'polyline']:
             result.append(self.polygon_to_mobject(element))
         else:
-            warnings.warn("Unknown element type: " + element.tagName)
+            if element.tagName not in ("sodipodi:namedview", "metadata"):
+                warnings.warn("Unknown element type: " + element.tagName)
         result = filter(lambda m : m is not None, result)
         self.handle_transforms(element, VMobject(*result))
         return result
@@ -225,14 +226,21 @@ class VMobjectFromSVGPathstring(VMobject):
         new_points = self.string_to_points(coord_string)
         if isLower and len(points) > 0:
             new_points += points[-1]
+
         if command == "M": #moveto
             if len(points) > 0:
-                self.growing_path = self.add_subpath(new_points)
+                self.growing_path = self.add_subpath(new_points[0])
             else:
-                if isLower: self.growing_path.start_at(np.sum(new_points, axis=0))
-                else: self.growing_path.start_at(new_points[-1])
-            return
-        elif command in ["L", "H", "V"]: #lineto
+                self.growing_path.start_at(new_points[0])
+
+            if len(new_points) <= 1: return
+
+            points = self.growing_path.points
+            new_points = new_points[1:]
+            command = "L"
+            if isLower: new_points += points[-1]
+
+        if command in ["L", "H", "V"]: #lineto
             if command == "H":
                 new_points[0,1] = points[-1,1]
             elif command == "V":
