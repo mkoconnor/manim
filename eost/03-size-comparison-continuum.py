@@ -6,7 +6,6 @@ from topics.icons import *
 from topics.number_line import NumberLine
 from constants import *
 from mobject import Mobject, Group
-from eost.widgets import *
 from animation.simple_animations import *
 from animation.transform import *
 import helpers

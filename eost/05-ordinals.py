@@ -5,7 +5,7 @@ from mobject.vectorized_mobject import *
 from topics.number_line import NumberLine
 from topics.icons import *
 from topics.chat_bubbles import Conversation
-from eost.widgets import *
+from topics.fruit import *
 
 from animation.transform import *
 from animation.simple_animations import *

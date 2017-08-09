@@ -1,7 +1,7 @@
 from mobject import Mobject
 from mobject.svg_mobject import SVGMobject
 from helpers import *
-from .. import deterministic
+from eost import deterministic
 
 import constants
 import os
@@ -12,10 +12,11 @@ class Fruit(SVGMobject):
 
     def __init__(self, **kwargs):
         digest_config(self, kwargs, locals())
-        file_name = os.path.join(
-            os.path.dirname(__file__), "images", self.fruit_type+".svg"
-        )
-        SVGMobject.__init__(self, file_name = file_name, **kwargs)
+        self.file_name = "fruit/"+self.fruit_type
+        #file_name = os.path.join(
+        #    os.path.dirname(__file__), "images", self.fruit_type+".svg"
+        #)
+        SVGMobject.__init__(self, **kwargs)
         self.scale(0.0016)
         self[1].set_color(LIGHT_BROWN)
         self.set_color(self.color)

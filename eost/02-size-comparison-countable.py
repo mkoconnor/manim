@@ -3,7 +3,7 @@ from mobject.tex_mobject import *
 from topics.geometry import *
 from constants import *
 from mobject import Mobject, Group
-from eost.widgets import *
+from topics.fruit import *
 from animation.simple_animations import *
 from animation.transform import *
 import helpers
