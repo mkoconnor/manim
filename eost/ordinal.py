@@ -228,7 +228,7 @@ class OrdinalOmega(LimitOrdinal):
         return VGroup(*descriptions)
 
 def make_ordinal_power(power, **kwargs):
-    if power == 0: return OrdinalOne(**kwargs)    
+    if power == 0: return OrdinalOne(**kwargs)
     return LimitOrdinal(lambda **kwargs: make_ordinal_power(power-1, **kwargs),
                         **kwargs)
 
