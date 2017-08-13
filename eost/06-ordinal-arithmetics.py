@@ -32,8 +32,8 @@ def make_spiral():
 
     ordinal = []
     i = 0
-    #for _ in range(3):
-    while True:
+    for _ in range(3):
+    #while True:
         size = np.exp(i*CIRCLE_DEC)
         min_size = (size, size, 0.1)
         thickness = DEFAULT_POINT_THICKNESS / np.sqrt(size)
@@ -91,10 +91,21 @@ class SpiralScene(Scene):
                 mob.shift(UP + 2.5*LEFT)
                 to_spiral(mob)
 
+        max_x = ahead_turtle[-1].get_center()[0] - SPACE_WIDTH
+        for mob in ahead_turtle.family_members_with_points():
+            alpha = mob.get_center()[0]
+            alpha -= SPACE_WIDTH
+            if alpha < 0: continue
+            alpha /= max_x
+            mob.rotate_in_place(-alpha*np.pi/2)
+            mob.move_to(interpolate(1.6*UP + SPACE_WIDTH*RIGHT,
+                                    behind_achiles[0][0].get_center(),
+                                    alpha))
+
         turtle_ord = make_ordinal_power(1, q=q, height = 0.5).shift(1.6*UP)
         achiles_ord = make_ordinal_power(2, q=q, height = 0.5).shift(DOWN)
-        turtle = Turtle().move_to(turtle_ord[0])
-        achiles = Achiles(pointer_pos = UP).move_to(achiles_ord[0][0])
+        turtle = Turtle().move_to(ahead_turtle[0])
+        achiles = Achiles(pointer_pos = UP).move_to(ahead_achiles[0][0])
         turtle.shift(0.5*DOWN)
         achiles.shift(0.5*UP)
         turtle_desc = TexMobject("\\omega").next_to(turtle_ord[0], DOWN)
@@ -103,8 +114,16 @@ class SpiralScene(Scene):
         rect = Rectangle(width = 2*SPACE_WIDTH, height = 2*SPACE_HEIGHT)
 
         spiral = make_spiral()
+        #for runner_dest, bar in [(turtle_dest, spiral[1][1][0]),
+        #                         (achiles_dest, spiral[2][1][0][0])]:
+        #    runner_dest.scale(np.array([0.35, 2, 1]))
+        #    runner_dest.next_to(bar, UP)
+        #    to_spiral(runner_dest)
+
         straight_spiral = spiral.copy()
         spiral.apply_to_family(to_spiral)
+        turtle_dest = TrianglePointer(color = GREEN).to_bar(spiral[1][1])
+        achiles_dest = TrianglePointer(color = ORANGE).to_bar(spiral[2][1])
         straight_spiral.stretch(0.5, 1)
         straight_spiral.shift(ahead_achiles.get_edge_center(RIGHT)
                               - straight_spiral[2][2].get_edge_center(LEFT))
@@ -120,19 +139,32 @@ class SpiralScene(Scene):
                              spiral.family_members_with_points()):
             src.highlight(dest.color)
 
-        self.add(straight_spiral)
+        self.add(straight_spiral, turtle, achiles)
 
-        #self.add(turtle, achiles, turtle_desc, achiles_desc, straight_spiral,
+        #animation = AnimationGroup(
+        #    ReplacementTransform(straight_spiral, spiral,
+        #                         prepare_family = True),
+        #    Transform(straight_spiral[0][2], spiral[0][2], path_arc = np.pi*0.6),
+        #    Transform(straight_spiral[0][3], spiral[0][3], path_arc = np.pi*0.6),
+        #)
+        #animation.update_mobject(0.5)
+
+        #self.add(#turtle, achiles, turtle_desc, achiles_desc,
         #         rect)
         #for mob in self.mobjects:
-        #    mob.points *= 0.25
+        #    mob.points *= 0.5
         #return
 
         self.dither()
 
         self.play(ReplacementTransform(straight_spiral, spiral,
                                        prepare_family = True),
+                  Transform(straight_spiral[0][2], spiral[0][2], path_arc = np.pi*0.6),
+                  Transform(straight_spiral[0][3], spiral[0][3], path_arc = np.pi*0.6),
+                  ReplacementTransform(turtle, turtle_dest),
+                  ReplacementTransform(achiles, achiles_dest),
                   order_f = light_key,
                   run_time = 3)
 
+        self.remove(straight_spiral[0][2], straight_spiral[0][3])
         self.dither()

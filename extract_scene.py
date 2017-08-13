@@ -56,6 +56,7 @@ def get_configuration(sys_argv):
       "save_image"      : False,
       "quiet"           : False,
       "write_all"       : False,
+      "mute_sounds"     : False,
       "output_name"     : None,
    }
    for opt, arg in opts:
@@ -67,6 +68,7 @@ def get_configuration(sys_argv):
          config["frame_duration"] = LOW_QUALITY_FRAME_DURATION
       if opt == '-p':
          config["preview"] = True
+         config["mute_sounds"] = True
          config["save_frames"] = True
       if opt == '-m':
          config["camera_config"] = MEDIUM_QUALITY_CAMERA_CONFIG
@@ -75,6 +77,7 @@ def get_configuration(sys_argv):
          config["write_to_movie"] = True
       if opt == '-s':
          config["save_image"] = True
+         config["mute_sounds"] = True
       if opt in ['-q', '-a']:
          config["quiet"] = True
       if opt == '-a':
@@ -185,14 +188,14 @@ def main():
    for SceneClass in get_scene_classes(scene_names_to_classes, config):
       try:
          handle_scene(SceneClass(**scene_kwargs), **config)
-         play_finish_sound()
+         if not config["mute_sounds"]: play_finish_sound()
       except RuntimeError:
-         play_finish_sound()
+         if not config["mute_sounds"]: play_finish_sound()
       except:
          print "\n\n"
          traceback.print_exc()
          print "\n\n"
-         # play_error_sound()
+         if not config["mute_sounds"]: play_error_sound()
 
 
 if __name__ == "__main__":

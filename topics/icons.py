@@ -1,6 +1,8 @@
 from geometry import Cross
 from mobject.vectorized_mobject import VMobject
 from constants import *
+from helpers import *
+from topics.geometry import Line
 
 class IconNo(Cross):
     CONFIG = {
@@ -38,3 +40,14 @@ class TrianglePointer(VMobject):
             ORIGIN + UP*y + LEFT*x,
             ORIGIN + UP*y + RIGHT*x,
         ], mode = "corners")
+
+    def to_bar(self, bar, buff = 0.1):
+        while not isinstance(bar, Line):
+            bar = bar[0]
+        start = bar.get_start()
+        end = bar.get_end()
+        buff = (start-end)*0.1
+        self.rotate(angle_of_vector(end-start) + np.pi/2)
+        self.shift(start - self.points[0] + buff)
+
+        return self
