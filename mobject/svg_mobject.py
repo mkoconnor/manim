@@ -229,7 +229,7 @@ class VMobjectFromSVGPathstring(VMobject):
 
         if command == "M": #moveto
             if len(points) > 0:
-                self.growing_path = self.add_subpath(new_points[0])
+                self.growing_path = self.add_subpath(new_points[:1])
             else:
                 self.growing_path.start_at(new_points[0])
 
