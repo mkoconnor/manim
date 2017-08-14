@@ -13,15 +13,17 @@ Outline
 * $2\cdot omega=omega$ as a race between turtle and a hare
 * how the turtle catches the Achiles at $\omega^\omega$, still countable
 
-In the last chapter we have introduced ordinal numbers as order types
-of well ordered sets and their indexing role. This chapter about
-ordinal arithmetics may not be so essential, ordinal addition and
-multiplication are definitelly less usual operations with ordinal
-numbers than the supremum and adding one which we have seen in the
-last chapter. But we regard it useful to get in touch with
-ordinals and their indexing meaning a bit more before we meet the
-ordinal Omega 1 in the next chapter, which is far more important but
-also far less imaginable.
+:-----------------------Chapter5Recap---------------------------------
+. In the last chapter we have introduced ordinal numbers as order types
+. of well ordered sets and their indexing role. This chapter about
+. ordinal arithmetics may not be so essential, ordinal addition and
+. multiplication are definitelly less usual operations with ordinal
+. numbers than the supremum and adding one which we have seen in the
+. last chapter. But we regard it useful to get in touch with
+. ordinals and their indexing meaning a bit more before we meet the
+. ordinal Omega 1 in the next chapter, which is far more important but
+. also far less imaginable.
+
 
 We have mentioned ordinal addition in the last chapter when we labeled
 some infinite ordinals as omega plus one, omega plus two, and so
@@ -60,7 +62,9 @@ head start of ten steps does make much difference but what if it
 starts omega steps ahead? When Gordon gets to omega, Steve is already
 gone at the point omega plus omega, omega times two for short.
 When Gordon gets to the point omega times two, Steve is at omega times
-three. But in the end, there is the supremum of all natural multiplies
+three.
+TODO: let the spectator guess the solution
+But in the end, there is the supremum of all natural multiplies
 of omega. And both turtles get to that point at the same time. The
 supremum is called, reasonably enough, omega times omega.
 

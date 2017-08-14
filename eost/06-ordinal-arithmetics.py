@@ -1,15 +1,67 @@
 from scene import Scene
 from eost.ordinal import *
 from topics.runners import *
+from topics.icons import *
 
-CIRCLE_DEC = 0.5
+class Chapter5Recap(Scene):
+
+    def construct(self):
+
+        ordinal = OrdinalFiniteProd(OrdinalOmega, 2, x1 = 12)
+        VGroup(*ordinal[1][3:]).highlight(DARK_GREY)
+        ordinal.shift(2*LEFT + DOWN)
+        self.play(FadeIn(ordinal))
+        self.dither()
+
+        brace_desc = TexMobject("\\omega+3")
+        brace = Brace(VGroup(ordinal[0][0], ordinal[1][2]), DOWN)
+        brace.put_at_tip(brace_desc)
+
+        self.play(GrowFromCenter(brace), FadeIn(brace_desc))
+        self.dither()
+
+        bar = ordinal[1][3].copy().highlight(YELLOW)
+        pointer = TrianglePointer(color = YELLOW).next_to(bar, UP)
+        pointer_desc = brace_desc.copy().next_to(pointer, UP)
+        self.play(ShowCreation(bar),
+                  ShowCreation(pointer),
+                  FadeIn(pointer_desc))
+        self.dither()
+
+        cur_topics = VGroup(
+            TextMobject("Addition:", "$\\alpha+\\beta$"),
+            TextMobject("Multiplication:", "$\\alpha\\cdot\\beta$"),
+        )
+        cur_topics.arrange_submobjects(DOWN, aligned_edge=LEFT)
+        cur_topics.to_corner(UP+LEFT)
+
+        last_topics = VGroup(
+            TextMobject("Successor:", "$\\alpha+1$"),
+            TextMobject("Supremum:", "$\\sup_{i\in I}(\\alpha_i)$"),
+        )
+        last_topics.arrange_submobjects(DOWN, aligned_edge=LEFT)
+        last_topics.to_corner(UP+RIGHT)
+
+        for topic in cur_topics.submobjects + last_topics.submobjects:
+            topic[1].highlight(BLUE)
+
+        self.play(FadeIn(cur_topics,
+                         submobject_mode = "lagged_start"),
+                  run_time = 3)
+        self.dither()
+        self.play(FadeIn(last_topics,
+                         submobject_mode = "lagged_start"),
+                  run_time = 3)
+        self.dither()
+
+CIRCLE_DECREASE = 0.5
 
 def to_spiral(mob):
 
     x = mob.points[:,0]
     y = mob.points[:,1]
     complex_points = 1j * x \
-                     + 1.5 + 0.2*y - CIRCLE_DEC*x/(2*np.pi)
+                     + 1.5 + 0.2*y - CIRCLE_DECREASE*x/(2*np.pi)
     complex_transformed = np.exp(complex_points)
     mob.points = np.stack([
         complex_transformed.imag,
@@ -34,7 +86,7 @@ def make_spiral():
     i = 0
     for _ in range(3):
     #while True:
-        size = np.exp(i*CIRCLE_DEC)
+        size = np.exp(i*CIRCLE_DECREASE)
         min_size = (size, size, 0.1)
         thickness = DEFAULT_POINT_THICKNESS / np.sqrt(size)
         if 1 / size < pixel_size or thickness < 0.1: break
