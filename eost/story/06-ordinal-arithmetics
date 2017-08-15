@@ -23,45 +23,54 @@ Outline
 . ordinals and their indexing meaning a bit more before we meet the
 . ordinal Omega 1 in the next chapter, which is far more important but
 . also far less imaginable.
+.
+.We have mentioned ordinal addition in the last chapter when we labeled
+.some infinite ordinals as omega plus one, omega plus two, and so
+.on.
+:------------------------------Addition-------------------------
+. If we want to sum two ordinals, say omega and three, we just
+. place one after the another. Well, that is quite simple and natural.
+. But the fact that ordinals actually determine ordering causes some
+. behaviour that is not so natural. Namely, order matters.
+. The ordinal omega plus three is really three steps longer than
+. omega.
+. But let's see what happens in the opposite order. Take ordinals three
+. and omega, place one after another, that is by definition three plus
+. omega, but it is also just omega. The three elements got lost lose in
+. the infinite omega.
 
-
-We have mentioned ordinal addition in the last chapter when we labeled
-some infinite ordinals as omega plus one, omega plus two, and so
-on. If we want to sum two ordinals, say omega and three, we just
-place one after the another. Quite natural, isn't it? But the fact
-that ordinals actually determine ordering causes some behaviour that
-is not so natural. Namely, order matters. The ordinal omega plus
-three is really three steps longer than omega. But in the other
-direction, three plus omega is just omega. The three elements lose in
-the infinite omega.
-
-We can vizualize it in the index meaning of ordinals. Consider two
-turtles Gordon and Steve racing on ordinals. Gordon starts at the
-point zero and but Steve is starting ahead by three steps. Now, they
-begin to run. After one step, Gordon is at the position one while
-Steve is at the position three plus one, that is four. It is similar
-for the second step, third step, and so on.
-
-But than comes the limit step. Although Gordon was three steps behind
-Steve all the time, both of them just managed to run through the
-omega. So at the limit step, both turtles jump to the point omega. In
-Steve's case we can interpret is as three plus omega because he
-started with a head start but the point is the same. From now one,
-our turtles run one next to the other. So three plus any infinite
-ordinal equals the infinite ordinal.
-
-This is in the contrast with the case omega plus three which can be
-seen as follows. Both turtles run next to each other for omega steps
-and then Steve makes three more steps. No matter, how much they
-traveled at the beginning, Steve will be ahead. So three plus alpha
-where alpha stands for any infinite ordinal equals alpha, while alpha
-plus three is bigger than alpha.
-
-What if the head start of Steve were larger? You can imagine that a
-head start of ten steps does make much difference but what if it
-starts omega steps ahead? When Gordon gets to omega, Steve is already
-gone at the point omega plus omega, omega times two for short.
-When Gordon gets to the point omega times two, Steve is at omega times
+:---------------------------TurtlesRace------------------------------
+. We can vizualize this by the index meaning of ordinals. Consider two
+. turtles Gordon and Steve racing on ordinals. Gordon starts at the
+. point zero and but Steve is starting ahead by three steps. Now, they
+. begin to run. After one step, Gordon is at the position one while
+. Steve is at the position three plus one, that is four. It is similar
+. for the second step, third step, and so on.
+.
+. Even though Gordon is three steps behind Steve all the time, both of
+. them are aproaching the same limit ordinal, that is omega.
+. So at the limit step, both turtles jump to the point omega. In
+. Steve's case we can interpret omega as three plus omega because he
+. started with a head start but the point is the same. From now on,
+. our turtles run one next to the other. So three plus any infinite
+. ordinal alpha equals the infinite ordinal alpha.
+.
+:--------------------------TurtlesRace2-------------------------------
+. This is in the contrast with the case omega plus three which can be
+. seen as follows. Both turtles run next to each other for omega steps
+. and then Steve makes three more steps. No matter, how much they
+. traveled at the beginning, Steve will be ahead. From the previous
+. race we've seen that three plus alpha equals alpha for any infinite
+. ordinal alpha. However, the current setup shows that alpha plus
+. three is certainly greater than alpha.
+.
+. What if the head start of Steve were larger? You can imagine that a
+. head start of ten steps does make much difference but what if it
+. starts omega steps ahead?
+. When Gordon gets to omega, Steve is already gone at
+:--------------------------TurtlesRace2-------------------------------
+. the point omega plus omega. Let us denote it omega times two for short.
+. When Gordon gets to the point omega times two, Steve is at omega times
 three.
 TODO: let the spectator guess the solution
 But in the end, there is the supremum of all natural multiplies

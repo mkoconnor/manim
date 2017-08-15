@@ -52,7 +52,8 @@ class TurtlePic(RunnerPic):
 
     def set_color(self, color):
         self.color = color
-        self.crust.set_color(color)
+        self.crust.color = color
+        self.crust.set_stroke(color = color)
         self.crust.set_fill(dark_color(self.crust.color),
                             opacity = 1)
 
@@ -121,7 +122,6 @@ class Runner(VMobject):
     CONFIG = {
         "phase_gen": None,
         "pointer_pos": DOWN,
-        "description" : None,
     }
     def __init__(self, **kwargs):
 
@@ -131,8 +131,10 @@ class Runner(VMobject):
         self.phase = [self.phase_gen(i, **kwargs)
                       for i in range(2)]
 
-        self.body = self.phase[0].copy()
+        self.body = self.phase[0].deepcopy()
+        self.cur_phase = 0
         self.color = self.body.color
+
         self.add(self.body)
 
         self.pointer = TrianglePointer(color = self.color)
@@ -142,22 +144,40 @@ class Runner(VMobject):
 
         self.add(self.pointer)
 
+    def set_color(self, color):
+        self.color = color
+        mob_list = self.phase + [self.body, self.pointer]
+        for mob in mob_list:
+            mob.set_color(color)
+
     def move_to(self, mob):
 
-        self.shift(mob.get_center() - 1.1*self.pointer_pos
+        self.shift(mob.get_edge_center(LEFT) - 1.1*self.pointer_pos
                    - self.pointer.get_edge_center(self.pointer_pos))
         return self
 
+    def step_to(self, mob):
+        self.cur_phase = 1-self.cur_phase
+        dest = self.deepcopy()
+        dest.move_to(mob)
+        dest.update_phase()
+        return Transform(self, dest)
+
+    def update_phase(self):
+        next_body = self.phase[self.cur_phase].copy()
+        next_body.move_to(self.body)
+        self.body.submobjects = next_body.submobjects
+    
     def run_in(self):
         end = self.body.get_center()
         start = end*UP + (SPACE_WIDTH + self.body.get_width())*LEFT
-
-        return AnimationGroup(
+        animations = [
             Transform(self.body, self.phase[1], rate_func = there_and_back),
             MoveAlongPath(self.body, Line(start, end)),
             FadeIn(self.pointer),
-            run_time = 1.5,
-        )
+        ]
+
+        return AnimationGroup(*animations, run_time = 1.5)
 
 class Turtle(Runner):
     CONFIG = {
