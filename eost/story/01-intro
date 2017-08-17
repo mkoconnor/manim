@@ -31,43 +31,71 @@ Outline
   * every column contains just finite number of yellow cells
   * that would not be possible if infinity were just a large finite number
 
-Hello, welcome to the essence of set theory. Since the video can watch
-a diverse population, let's clarify at first what is all this going to
-be about.
+Hello, welcome to the essence of set theory. Since the video can be
+watched by a diverse population, let's clarify at first what is all
+this going to be about.
 
 Set theory is a mathematical discipline studying the infinity, in
 particular infinite sets. If you've heard about some cool stuff with
-infinity, like you can "There is the same amount of rational numbers as
-of the natural numbers." or "You can divide a ball into ten parts and
-then compose two separate balls of the same size from the parts.", or
-"Almost all of the infinite amount of prisoners can guess the color of
-their hat.", it is strongly connected to this discipline.
+infinity it is likely to be strongly connected to this discipline.
 
-On the other hand, students studying set theory may be struggling with
-the topic. Drowning in weird symbols and definitions, they would often
-say that it is not a coincidence that the Czech shortcut for Set
-Theory is Darkness. Sometimes it seems as two isolated world. The cool
-infinite stuff, which we call the Theory of infinity, and the playing
-with axioms and formal definitions which we call The foundation of
-mathematics.
+To be honest, it is actually our main reason why we study
+it. Because it is beautiful. It provides to a mathematician a whole
+amazing world just for their ideas. Sorry, nothing for practically
+oriented people who want to see direct applications in real world. You
+don't meet the infinity on a street.
 
-But there are two reasons why these two roles come under one
-theory. When you are thinking about the intuitive theory of infinity, you meet
-some contradictory behaviour which looks like the whole math is
-broken. This is the reason why any deeper disquisition of set theory
-needs a formal framework. And the second reason is that it turned out
-that the formal framework of the theory of infinity is so powerful
-that it can span virtually any mathematic field. And the adventage is
-that this mathematic field can immediatelly apply the results of set
-theory such as the Zorn's lemma. So if you ask a mathematician what
-are the most bottom foundations of his theory, you will get likely a
-respond the Set theory, of course.
+But then there is also another reason why the theory is important, it
+is solid. It turned out that thinking about infinity can easily lead
+to direct contradictions. So mathematicians developed a formal
+framework to deal with that. And it turned out that their solution is
+so universal that it covers virtually any mathematical field.
 
-We are trying to build a bridge between these two approaches. The
-series is going to be image-driven, but giving a self-contained
-picture of set theory. We begin with the theory of infinity, that are
-cardinal and ordinal numbers, Then we will continue with the problems
-of the intuitive approach and the solution of them. And the series
-will be finished with basic, but by no means trivial tools of set
-theory.
+Therefore, set theory actually plays two roles in mathematics, the
+theory of infinity and the foundations of mathematics. We start with
+the intuitive theory of infinity in several chapters, then we describe
+the problems and their solution by providing an axiomatic
+framework. The series will be finished with some non-trivial tools of
+set theory like the principle of maximality.
 
+To begin with the theory of infinity, we have to clarify what infinity
+means to us. What is it besides just the symbol of rotated number
+eight? Actually, we are not going to answer this question, we will not
+use even the symbol of infinity in the series anyway. We will
+investigate a bit different problem, what is infinite? Of course,
+infinite is what is not finite, that answer was cheap. But finiteness
+can be defined quite simply, finite set is such a set that the
+number of its elements can be expressed by a natural number. A set of
+five elements is finite, a set of one hundrets elements is finite. But
+the set of all natural numbers is too big to be measured by a natural
+number, so it is infinite.
+
+Even an empty set is a finite set, that is why we consider zero as a
+natural number, which may be unusual in other fields but it is very
+usual in set theory.
+
+By this definition, infinity is definitelly not just a large
+number. The point is that infinite sets behave in unexpected ways and
+that is the area of the study. Consider the following problem. We have
+a grid five by five and we would like to color it by two colors,
+yellow and blue, so that every row is predominantly blue and every
+column is predominently yellow. Can you solve it?
+
+Well, it is impossible. We cannot fill the table in such a way that
+there is more blue in it, and more yellow in it at the same time.
+
+But what if we pick an infinite
+grid? There is a colorization of the grid such that every row contains
+just finite number of yellow squares and every column contain just a
+finite number of blue squares. We recommend you to pause the video and
+think about it for a while.
+...
+[wait for 20 seconds]
+...
+There comes the solution. Do you see? Every row is mostly blue, every
+column is mostly yellow. The obviously impossible task in the finite
+world became possible for infinite grid. And that is just the
+beginning.
+
+In the next chapter we will learn how to compare sizes of infinite
+sets. See you then.
