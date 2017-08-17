@@ -122,6 +122,7 @@ class Runner(VMobject):
     CONFIG = {
         "phase_gen": None,
         "pointer_pos": DOWN,
+        "dist" : 1.1,
     }
     def __init__(self, **kwargs):
 
@@ -152,7 +153,7 @@ class Runner(VMobject):
 
     def move_to(self, mob):
 
-        self.shift(mob.get_edge_center(LEFT) - 1.1*self.pointer_pos
+        self.shift(mob.get_edge_center(LEFT) - self.dist*self.pointer_pos
                    - self.pointer.get_edge_center(self.pointer_pos))
         return self
 
@@ -167,7 +168,7 @@ class Runner(VMobject):
         next_body = self.phase[self.cur_phase].copy()
         next_body.move_to(self.body)
         self.body.submobjects = next_body.submobjects
-    
+
     def run_in(self):
         end = self.body.get_center()
         start = end*UP + (SPACE_WIDTH + self.body.get_width())*LEFT
@@ -188,6 +189,19 @@ class Rabbit(Runner):
     CONFIG = {
         "phase_gen" : RabbitPic
     }
+    def step_to(self, mob):
+        dest = self.deepcopy()
+        dest.move_to(mob)
+        start = self.body.get_center()
+        end = dest.body.get_center()
+        animations = [
+            Transform(self.body, self.phase[1], rate_func = there_and_back),
+            MoveAlongPath(self.body, Line(start, end)),
+            Transform(self.pointer, dest.pointer),
+        ]
+
+        return AnimationGroup(*animations)
+
 
 class Achiles(Runner):
     CONFIG = {

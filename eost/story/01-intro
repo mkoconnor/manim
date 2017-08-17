@@ -30,3 +30,44 @@ Outline
   * every row contains just finite number of blue cells
   * every column contains just finite number of yellow cells
   * that would not be possible if infinity were just a large finite number
+
+Hello, welcome to the essence of set theory. Since the video can watch
+a diverse population, let's clarify at first what is all this going to
+be about.
+
+Set theory is a mathematical discipline studying the infinity, in
+particular infinite sets. If you've heard about some cool stuff with
+infinity, like you can "There is the same amount of rational numbers as
+of the natural numbers." or "You can divide a ball into ten parts and
+then compose two separate balls of the same size from the parts.", or
+"Almost all of the infinite amount of prisoners can guess the color of
+their hat.", it is strongly connected to this discipline.
+
+On the other hand, students studying set theory may be struggling with
+the topic. Drowning in weird symbols and definitions, they would often
+say that it is not a coincidence that the Czech shortcut for Set
+Theory is Darkness. Sometimes it seems as two isolated world. The cool
+infinite stuff, which we call the Theory of infinity, and the playing
+with axioms and formal definitions which we call The foundation of
+mathematics.
+
+But there are two reasons why these two roles come under one
+theory. When you are thinking about the intuitive theory of infinity, you meet
+some contradictory behaviour which looks like the whole math is
+broken. This is the reason why any deeper disquisition of set theory
+needs a formal framework. And the second reason is that it turned out
+that the formal framework of the theory of infinity is so powerful
+that it can span virtually any mathematic field. And the adventage is
+that this mathematic field can immediatelly apply the results of set
+theory such as the Zorn's lemma. So if you ask a mathematician what
+are the most bottom foundations of his theory, you will get likely a
+respond the Set theory, of course.
+
+We are trying to build a bridge between these two approaches. The
+series is going to be image-driven, but giving a self-contained
+picture of set theory. We begin with the theory of infinity, that are
+cardinal and ordinal numbers, Then we will continue with the problems
+of the intuitive approach and the solution of them. And the series
+will be finished with basic, but by no means trivial tools of set
+theory.
+

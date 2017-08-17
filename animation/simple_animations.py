@@ -395,6 +395,20 @@ class AnimationGroup(Animation):
         for anim in self.sub_anims:
             anim.update(alpha)
 
+    def clean_up(self, surrounding_scene = None):
+        for anim in self.sub_anims:
+            anim.clean_up(surrounding_scene = surrounding_scene)
+
+class DelayedAnimGroup(AnimationGroup):
+    CONFIG = {
+        "subanim_speed": 1.3,
+        "rate_func": None,
+    }
+    def update(self, alpha):
+        for i, anim in enumerate(self.sub_anims):
+            sub_alpha = self.subanim_speed*alpha + i*(1-self.subanim_speed)/len(self.sub_anims)
+            anim.update(sub_alpha)
+
 
 
 

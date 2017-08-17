@@ -52,6 +52,10 @@ class Ordinal(VMobject):
     def make_deeper(self):
         for subord in self.submobjects: subord.make_deeper()
 
+    def fix_x1(self):
+        for subord0, subord1 in zip(self.submobjects, self.submobjects[1:]):
+            subord0.x1 = subord1.x0
+
 class StepCurve(VMobject):
     CONFIG = {
         "x_handle"      : 0.2,
@@ -208,15 +212,6 @@ class LimitOrdinal(Ordinal):
         added.set_stroke(width = 0)
         self.submobjects += [added.copy() for _ in range(n_more)]
 
-class LimitSubOrdinal(LimitOrdinal):
-    def __init__(self, sub_list, **kwargs):
-        Ordinal.__init__(self, **kwargs)
-        self.submobjects = sub_list
-
-class OrdinalOmega(LimitOrdinal):
-    def __init__(self, **kwargs):
-        LimitOrdinal.__init__(self, OrdinalOne, **kwargs)
-
     def add_descriptions(self, desc_maker, **kwargs):
         descriptions = []
         for i, subord in enumerate(self.submobjects):
@@ -226,6 +221,15 @@ class OrdinalOmega(LimitOrdinal):
             if desc.get_height() < pixel_size or desc.get_width() < pixel_size: break
 
         return VGroup(*descriptions)
+
+class LimitSubOrdinal(LimitOrdinal):
+    def __init__(self, sub_list, **kwargs):
+        Ordinal.__init__(self, **kwargs)
+        self.submobjects = sub_list
+
+class OrdinalOmega(LimitOrdinal):
+    def __init__(self, **kwargs):
+        LimitOrdinal.__init__(self, OrdinalOne, **kwargs)
 
 def make_ordinal_power(power, **kwargs):
     if power == 0: return OrdinalOne(**kwargs)

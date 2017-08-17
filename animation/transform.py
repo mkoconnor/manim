@@ -158,6 +158,19 @@ class FadeOut(Transform):
         Transform.clean_up(self, surrounding_scene)
         self.update(0)
 
+class FocusOn2(Transform):
+    CONFIG = {
+        "scale" : 1.3,
+        "highlight_color" : YELLOW,
+        "rate_func" : there_and_back,
+    }
+    def __init__(self, mobject, **kwargs):
+        digest_config(self, kwargs, locals())
+        target = mobject.copy()
+        target.scale_in_place(self.scale)
+        target.highlight(self.highlight_color)
+        Transform.__init__(self, mobject, target)
+
 class FadeIn(Transform):
     def __init__(self, mobject, **kwargs):
         target = mobject.copy()

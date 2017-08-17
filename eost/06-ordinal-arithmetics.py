@@ -2,6 +2,21 @@ from scene import Scene
 from eost.ordinal import *
 from topics.runners import *
 from topics.icons import *
+from topics.icons import *
+from topics.common_scenes import OpeningQuote
+
+class Chapter6OpeningQuote(OpeningQuote):
+    CONFIG = {
+        "quote" : [
+            "Because philosophy arises from awe, a philosopher is bound in his way to be a lover of myths and",
+            "poetic fables.",
+            "Poets and philosophers are alike in being big with wonder",
+        ],
+        "highlighted_quote_terms" : {
+            "poetic fables" : YELLOW,
+        },
+        "author" : "Thomas Aquinas",
+    }
 
 class Chapter5Recap(Scene):
 
@@ -67,7 +82,7 @@ class Chapter5Recap(Scene):
 class Addition(Scene):
     def construct(self):
 
-        self.force_skipping()
+        #self.force_skipping()
         omega = OrdinalOmega(x1 = 2).shift(UP+LEFT)
         omega_desc = TexMobject("\\omega").next_to(omega, UP)
         three = OrdinalFinite(3, x0 = 2).shift(UP+RIGHT)
@@ -75,7 +90,7 @@ class Addition(Scene):
         omega_g = VGroup(omega, omega_desc)
         three_g = VGroup(three, three_desc)
 
-        VGroup(three, three_desc).highlight(GREEN)
+        three_g.highlight(GREEN)
         plus = TexMobject('+')
         plus.move_to((omega.get_edge_center(RIGHT) + three.get_edge_center(LEFT))/2)
 
@@ -98,7 +113,9 @@ class Addition(Scene):
         self.dither()
 
         self.play(FadeOut(VGroup(ord_sum, ord_sum_desc)))
-        self.revert_to_original_skipping_status()
+
+        # ------------------------ Reversed order ------------------------
+        #self.revert_to_original_skipping_status()
 
         omega_g_dest = omega_g.copy().shift(three.get_edge_center(RIGHT)
                                             - omega.get_edge_center(RIGHT))
@@ -141,6 +158,16 @@ class Addition(Scene):
 
 class RunnerScene(Scene):
 
+    def make_short_desc(self, corner, color):
+        result = TextMobject(':', '$0$')
+        model = result[1].copy()
+        model.to_corner(corner)
+
+        result.shift(model.get_center() - result[1].get_center())
+        result.set_color(color)
+        result[0].set_fill(color = BLACK, opacity = 0)
+        return result
+
     def transformed_desc(self, mobj, new_str):
         next_desc = TextMobject(":", "$"+new_str+"$")
         next_desc.shift(mobj[0][-1].get_center()
@@ -149,23 +176,24 @@ class RunnerScene(Scene):
         return next_desc[1]
 
     def transform_desc(self, mobj, new_str):
-        next_desc = self.transformed_desc(mobj, new_str)
-        return Transform(mobj[1], next_desc)
+        ori_desc = mobj[1]
+        mobj.submobjects[1] = self.transformed_desc(mobj, new_str)
+        return ReplacementTransform(ori_desc, mobj[1])
 
     def change_desc(self, mobj, new_str):
         self.remove(mobj[1])
         mobj.submobjects[1] = self.transformed_desc(mobj, new_str)
         self.add(mobj[1])
 
-    def runner_step(self, runner, desc, index, bar = None, omega_index = 0):
+    def runner_step(self, runner, desc, index, bar = None, omega_index = 0, new_str = None):
         if bar is None: bar = self.ordinal[omega_index][index]
 
-        new_str = str(index)
-
-        if omega_index > 0:
-            if omega_index == 1: new_str = "\\omega+"+new_str
-            else: new_str = "\\omega\\cdot"+str(omega_index)+"+"+new_str
-            if index == 0: new_str = new_str[:-2]
+        if new_str is None:
+            new_str = str(index)
+            if omega_index > 0:
+                if omega_index == 1: new_str = "\\omega+"+new_str
+                else: new_str = "\\omega\\cdot"+str(omega_index)+"+"+new_str
+                if index == 0: new_str = new_str[:-2]
 
         return AnimationGroup(
             runner.step_to(bar),
@@ -175,8 +203,8 @@ class RunnerScene(Scene):
 class TurtlesRace(RunnerScene):
     def introduce_turtles(self, animated = True, ord_copies = 2):
         self.ordinal = OrdinalFiniteProd(OrdinalOmega, ord_copies,
-                                         x1=-4+8*ord_copies)
-        self.ordinal.shift(0.2*LEFT)
+                                         x0 = -4.2,
+                                         x1 = -4.2+8*ord_copies)
 
         self.gordon = Turtle()
         self.steve = Turtle(pointer_pos = UP)
@@ -263,7 +291,7 @@ class TurtlesRace2(TurtlesRace):
         return question
 
     def construct(self):
-        self.force_skipping()
+        #self.force_skipping()
         self.introduce_turtles()
         self.dither()
         for _ in range(10):
@@ -321,39 +349,435 @@ class TurtlesRace2(TurtlesRace):
         for _ in range(9):
             self.play(self.steve_step(omega_index = 1),
                       self.gordon_step(), run_time = 0.5)
-        self.revert_to_original_skipping_status()
+        #self.revert_to_original_skipping_status()
 
         self.play(self.steve_step(next_index = "\\omega+\\omega", bar = self.ordinal[1][-1]),
                   self.gordon_step(next_index = 0, omega_index = 1), run_time = 0.5)
         self.dither()
 
+def light_key(mobj):
+    if hasattr(mobj, "darken"): return mobj.darken
+    return 0
 
 class TurtlesRace3(TurtlesRace2):
 
     def construct(self):
+        #self.force_skipping()
         self.introduce_turtles(animated = False, ord_copies = 6)
         question = self.make_question()
         self.add(question)
-        next_ordinal = OrdinalFiniteProd(OrdinalOmega, 6,
+        ordinal_dest = OrdinalFiniteProd(OrdinalOmega, 6,
                                          q = (0.8, 0.9, 0.9),
-                                         x0 = self.ordinal[0][0].get_center()[0],
+                                         x0 = self.ordinal.x0,
                                          x1 = 8)
-        next_ordinal.highlight(GREY)
-        VGroup(*extract_ordinal_subpowers(next_ordinal)[1]).highlight(YELLOW)
+        ordinal_dest.highlight(GREY)
+        VGroup(*extract_ordinal_subpowers(ordinal_dest)[1]).highlight(YELLOW)
 
         self.change_desc(self.gordon_desc, "\\omega")
         self.change_desc(self.steve_desc, "\\omega+\\omega")
         self.gordon.move_to(self.ordinal[1])
         self.steve.move_to(self.ordinal[2])
 
+        self.gordon_index = 1
+        self.steve_index = 2
         self.play(
-            ReplacementTransform(self.ordinal, next_ordinal),
-            self.gordon.move_to, next_ordinal[1],
-            self.steve.move_to, next_ordinal[2],
+            ReplacementTransform(self.ordinal, ordinal_dest),
+            self.gordon.move_to, ordinal_dest[self.gordon_index],
+            self.steve.move_to, ordinal_dest[self.steve_index],
         )
+        self.ordinal = ordinal_dest
         self.dither()
         self.play(self.transform_desc(self.steve_desc, "\\omega\cdot2"))
         self.dither()
+
+        self.play(self.gordon_step(), self.steve_step())
+        self.dither()
+
+        ordinal_dest = make_ordinal_power(2, q = (0.8, 0.9, 0.9),
+                                          x0 = self.ordinal.x0,
+                                          x1 = 4.5)
+        subpowers = extract_ordinal_subpowers(ordinal_dest)
+        for bar in subpowers[2]:
+            bar.highlight(GREY)
+            bar.darken = 0.5
+        for bar in subpowers[1]:
+            bar.highlight(YELLOW)
+            bar.darken = 0
+
+        tail = ordinal_dest.copy()
+        tail.shift(RIGHT*(self.ordinal.x1 - tail.x0))
+        self.ordinal.add(*tail.submobjects)
+        ordinal2 = tail.deepcopy()
+        ordinal2[0][0].highlight(ORANGE)
+        ordinal2.shift(RIGHT*(ordinal2.x1 - ordinal2.x0))
+        ordinal2_dest = ordinal2.copy()
+        ordinal2_dest.shift(RIGHT*(ordinal_dest.x1
+            - ordinal2_dest[0][0].get_center()[0]))
+
+        #self.revert_to_original_skipping_status()
+        self.play(
+            ReplacementTransform(self.ordinal, ordinal_dest, prepare_families = True),
+            ReplacementTransform(ordinal2, ordinal2_dest, prepare_families = True),
+            self.gordon.move_to, ordinal_dest[self.gordon_index],
+            self.steve.move_to, ordinal_dest[self.steve_index],
+            order_f = light_key,
+        )
+        self.dither()
+        for _ in range(6):
+            self.play(self.gordon_step(), self.steve_step(), run_time = 0.5)
+        self.play(
+            self.gordon_step(index = "\\omega\\cdot\\omega", bar = ordinal2),
+            self.steve_step(index = "\\omega\\cdot\\omega", bar = ordinal2),
+        run_time = 0.5)
+        self.dither()
+        answer = TexMobject("\\omega\\cdot\\omega", '=',
+                            "\\omega+\\omega\cdot\\omega", '?')
+        answer.to_edge(UP)
+        answer.shift(RIGHT)
+        question[2].add(question[2][-1].copy(), question[2][-1].copy())
+        answer[0].highlight(GREEN)
+        answer[2].highlight(YELLOW)
+        answer[3].highlight(BLACK)
+        self.play(Transform(question, answer))
+        self.dither()
+
+    def gordon_step(self, index = None, **kwargs):
+        if index is None:
+            self.gordon_index += 1
+            return self.runner_step(self.gordon, self.gordon_desc, 0,
+                                    omega_index = self.gordon_index, **kwargs)
+        else: return self.runner_step(self.gordon, self.gordon_desc, index, **kwargs)
+
+    def steve_step(self, index = None, **kwargs):
+        if index is None:
+            self.steve_index += 1
+            return self.runner_step(self.steve, self.steve_desc, 0,
+                                    omega_index = self.steve_index, **kwargs)
+        else: return self.runner_step(self.steve, self.steve_desc, index, **kwargs)
+
+class Multiplication(Scene):
+    def construct(self):
+
+        #self.force_skipping()
+
+        omega = OrdinalOmega(x1 = 2).shift(1.5*UP+LEFT)
+        omega_desc = TexMobject("\\omega").next_to(omega, UP)
+        two = OrdinalFinite(2, x0 = 2).shift(1.5*UP+RIGHT)
+        two_desc = TexMobject("2").next_to(two, UP)
+        omega_g = VGroup(omega, omega_desc)
+        two_g = VGroup(two, two_desc)
+
+        two_g.highlight(GREEN)
+        omega[0].highlight(GREEN)
+        times = TexMobject('\\cdot').scale(2)
+        times.move_to((omega.get_edge_center(RIGHT) + two.get_edge_center(LEFT))/2)
+
+        ord_prod = OrdinalFiniteProd(OrdinalOmega, 2)
+        ord_prod.shift(1.5*DOWN)
+        ord_prod_desc = TexMobject("\\omega\\cdot 2").next_to(ord_prod, UP)
+        green_part = VGroup(ord_prod[0][0], ord_prod[1][0])
+        white_part = VGroup(*[
+            LimitSubOrdinal(subord[1:])
+            for subord in ord_prod
+        ])
+        green_part.highlight(GREEN)
+
+        self.play(FadeIn(omega), FadeIn(omega_desc))
+        self.play(FadeIn(two), FadeIn(two_desc))
+        self.play(Write(times))
+        self.dither()
+
+        self.play(ReplacementTransform(omega.copy(), ord_prod[0]))
+        self.dither()
+        self.play(ReplacementTransform(ord_prod[0].copy(), ord_prod[1]),
+                  Write(ord_prod_desc))
+        self.dither()
+        self.add_foreground_mobjects(green_part)
+        self.play(FadeOut(white_part))
+        self.dither()
+
+        white_part_dest = white_part.copy()
+        for subgreen, subwhite in zip(green_part, white_part):
+            subwhite.stretch_about_point(0,0, subgreen.get_center())
+        self.play(DelayedAnimGroup(
+            Transform(white_part[0], white_part_dest[0]),
+            Transform(white_part[1], white_part_dest[1]),
+        ))
+        self.dither()
+
+        self.play(FadeOut(white_part), FadeOut(green_part), FadeOut(ord_prod_desc))
+        self.remove(ord_prod)
+        
+        # ------------------------ Reversed order ------------------------
+
+        omega_g_dest = omega_g.copy().shift(two.get_edge_center(RIGHT)
+                                            - omega.get_edge_center(RIGHT))
+        two_g_dest = two_g.copy().shift(omega.get_edge_center(LEFT)
+                                        - two.get_edge_center(LEFT))
+        omega_g_dest.highlight(GREEN)
+        two_g_dest.highlight(WHITE)
+        two_g_dest[0][0].highlight(GREEN)
+
+        times_dest = times.copy()
+        times_dest.move_to((two_g_dest[0].get_edge_center(RIGHT)
+                            + omega_g_dest[0].get_edge_center(LEFT))/2)
+        self.play(Transform(times, times_dest, path_arc = -np.pi*0.5),
+                  Transform(omega_g, omega_g_dest, path_arc = -np.pi*0.6),
+                  Transform(two_g, two_g_dest, path_arc = -np.pi*0.8),
+        )
+        self.dither()
+
+        q = (0.93, 0.96, 0.96)
+        ord_prod_standardized = OrdinalOmega(q = q).shift(1.5*DOWN)
+        ord_prod = ord_prod_standardized.copy()
+        green_part = LimitSubOrdinal(ord_prod[0::2])
+        white_part = LimitSubOrdinal(ord_prod[1::2])
+        white_part_hidden = white_part.copy()
+        green_part.highlight(GREEN)
+        for green_bar, white_bar, white_bar_hidden in zip(green_part, white_part, white_part_hidden):
+            white_bar.scale_in_place(1/q[1])
+            white_bar.move_to(0.2*green_bar.get_center() + 0.8*white_bar.get_center())
+            white_bar_hidden.scale_in_place(1/q[1])
+            white_bar_hidden.move_to(green_bar)
+
+        ord_prod_desc = TexMobject("2\\cdot\\omega", "=\\omega").next_to(ord_prod, UP)
+
+        self.play(ReplacementTransform(omega.copy(), green_part))
+        self.add_foreground_mobjects(green_part)
+        self.play(ReplacementTransform(white_part_hidden, white_part),
+                  Write(ord_prod_desc[0]))
+        #self.revert_to_original_skipping_status()
+        self.dither()
+        self.play(Write(ord_prod_desc[1]))
+        self.dither()
+        self.play(ReplacementTransform(ord_prod, ord_prod_standardized, run_time = 0.4))
+        self.dither()
+
+def make_achiles_ordinal1():
+    ordinal = OrdinalFiniteProd(OrdinalOmega, 3, q = (0.8, 0.9, 0.9), x1 = SPACE_WIDTH+2)
+    ordinal.set_color(GREY)
+    VGroup(*extract_ordinal_subpowers(ordinal)[1]).highlight(YELLOW)
+    return ordinal
+
+def make_achiles_question():
+    question = TexMobject('\\alpha', '=', '\\omega\\cdot\\alpha', '?')
+    question[0].set_color(GREEN)
+    question[2].set_color(ORANGE)
+    question.to_corner(UP+RIGHT)
+    return question
+
+class TurtleRabbitRace(RunnerScene):
+
+    def construct(self):
+
+        #self.force_skipping()
+        
+        self.ordinal = OrdinalFiniteProd(OrdinalOmega, 3, x1 = 24)
+        self.turtle = Turtle().move_to(self.ordinal[0])
+        self.rabbit = Rabbit(pointer_pos = UP).move_to(self.ordinal[0])
+
+        self.turtle_desc = self.make_short_desc(LEFT+UP, self.turtle.color)
+        self.rabbit_desc = self.make_short_desc(LEFT+DOWN, self.rabbit.color)
+
+        self.add(self.ordinal)
+        self.play(self.turtle.run_in(), self.rabbit.run_in(),
+                  FadeIn(self.turtle_desc), FadeIn(self.rabbit_desc))
+        self.dither()
+        self.turtle_index = self.rabbit_index = 0
+
+        self.omega_index = 0
+        self.play(self.global_step(expand_rabbit = True))
+        self.dither()
+        self.play(self.global_step(expand_rabbit = True, step_num = 2))
+        self.dither()
+        self.play(self.transform_desc(self.rabbit_desc, '6'))
+        self.dither()
+        for _ in range(10):
+            self.play(self.global_step())
+        self.play(self.global_step(limit = True, expand_rabbit = True))
+        self.dither()
+        formula = TexMobject("\\omega","=","2\\cdot\\omega\\quad")
+        formula[0].set_color(self.turtle.color)
+        formula[2].set_color(self.rabbit.color)
+        formula.to_edge(UP)
+        #self.revert_to_original_skipping_status()
+        self.play(Write(formula))
+        self.dither()
+        self.play(VGroup(self.rabbit, self.turtle, self.ordinal).shift, 9*LEFT)
+        self.play(self.global_step())
+        self.dither()
+        for _ in range(5):
+            self.play(self.global_step())
+        self.play(self.global_step(limit = True))
+        self.dither()
+        formula2 = TexMobject("\\alpha","=","2\\cdot\\alpha\\quad","\hbox{for limit $\\alpha$}")
+        formula2[0].set_color(self.turtle.color)
+        formula2[2].set_color(self.rabbit.color)
+        formula2.shift(formula[0].get_center() - formula2[0].get_center())
+        self.play(Transform(formula, VGroup(*formula2[:3])),
+                  Write(formula2[3]))
+        self.remove(formula)
+        self.add(formula2)
+        self.dither()
+        ordinal2 = make_achiles_ordinal1()
+        self.play(FadeOut(VGroup(self.turtle, self.rabbit, self.turtle_desc, self.rabbit_desc, formula2)),
+                  ReplacementTransform(self.ordinal, ordinal2))
+
+    def global_step(self, limit = False, step_num = 1, expand_rabbit = False):
+
+        if limit:
+            self.omega_index += step_num
+            self.rabbit_index = self.turtle_index = 0
+        else:
+            self.rabbit_index += 2*step_num
+            self.turtle_index += 1*step_num
+
+        turtle_anim = self.runner_step(self.turtle, self.turtle_desc, self.turtle_index,
+                                       omega_index = self.omega_index)
+        new_str = None
+        if expand_rabbit:
+            new_str = self.turtle_desc[1].tex_string[1:-1]
+            if self.turtle_index > 0 and self.omega_index > 0:
+                new_str = "("+new_str+")"
+            new_str = "2\\cdot"+new_str
+
+        rabbit_anim = self.runner_step(self.rabbit, self.rabbit_desc, self.rabbit_index,
+                                       omega_index = self.omega_index, new_str = new_str)
+
+        return AnimationGroup(turtle_anim, rabbit_anim)
+
+class AchilesScene(Scene):
+
+    def construct(self):
+
+        self.ordinal = make_achiles_ordinal1()
+        achiles = Achiles(pointer_pos = UP).move_to(self.ordinal)
+        self.add(self.ordinal)
+        omega_mul = [
+            TexMobject("\\omega\\cdot "+str(i)).next_to(subord[0], UP)
+            for i,subord in enumerate(self.ordinal)
+        ]
+
+        self.play(achiles.run_in())
+        self.dither()
+        self.play(Write(omega_mul[0]))
+        self.dither()
+        self.play(achiles.step_to(self.ordinal[1]))
+        self.play(Write(omega_mul[1]))
+        self.dither()
+        self.play(achiles.step_to(self.ordinal[2]))
+        self.play(Write(omega_mul[2]))
+        self.dither(3)
+        self.play(FadeOut(VGroup(*omega_mul)),
+                  achiles.move_to, self.ordinal)
+
+class TurtleAchilesRace(RunnerScene):
+
+    def construct(self):
+
+        #self.force_skipping()
+        self.ordinal = make_achiles_ordinal1()
+        self.achiles = Achiles(pointer_pos = UP).move_to(self.ordinal)
+        self.turtle = Turtle().move_to(self.ordinal)
+        self.achiles_desc = self.make_short_desc(LEFT+DOWN, self.achiles.color)
+        self.turtle_desc = self.make_short_desc(LEFT+UP, self.turtle.color)
+
+        self.add(self.ordinal, self.achiles)
+        self.play(FadeIn(self.achiles_desc), FadeIn(self.turtle_desc), self.turtle.run_in())
+        self.dither()
+
+        question = make_achiles_question()
+        self.play(Write(question))
+        self.dither()
+
+        self.play(self.global_step('1', self.ordinal[0][1],
+                                   '\\omega', self.ordinal[1]))
+        self.dither()
+        for i in range(2, 6):
+            if i < len(self.ordinal): achiles_bar = self.ordinal[i]
+            else: achiles_bar = self.ordinal[-1][-1]
+            self.play(self.global_step(str(i), self.ordinal[0][i],
+                                       '\\omega\\cdot'+str(i), achiles_bar),
+                      run_time = 0.5)
+        self.play(self.global_step("\\omega", self.ordinal[1][0],
+                                   '\\omega\\cdot\\omega', achiles_bar))
+        self.dither()
+        q = (0.7, 0.8, 0.8)
+        omega_squared = make_ordinal_power(2, q=q)
+        omega_squared.highlight(GREY)
+        VGroup(*extract_ordinal_subpowers(omega_squared)[1]).highlight(YELLOW)
+        omega_squared0 = omega_squared.copy()
+        omega_squared0.shift(RIGHT*(self.ordinal.x1 - omega_squared0.x0))
+        omega_squared1 = omega_squared0.copy()
+        omega_squared1[0][0].highlight(ORANGE)
+        omega_squared1.shift(RIGHT*(omega_squared0.x1 - omega_squared1.x0))
+        self.achiles.move_to(omega_squared1)
+
+        moving = VGroup(self.ordinal, self.achiles, self.turtle, omega_squared0, omega_squared1)
+        self.play(moving.shift, omega_squared.get_center() - omega_squared0.get_center())
+        self.dither()
+
+        self.play(FocusOn2(self.achiles_desc[1]))
+        self.dither()
+        self.play(self.transform_desc(self.achiles_desc, "\\omega^2"))
+        self.dither()
+
+        omega_squared2 = omega_squared1.copy()
+        omega_squared2.shift(RIGHT*(omega_squared1.x1 - omega_squared2.x0))
+        moving.add(omega_squared2)
+        self.play(moving.shift, omega_squared.get_center() - omega_squared1.get_center())
+        #self.revert_to_original_skipping_status()
+        self.dither()
+
+        self.turtle.dist = self.achiles.dist = 0.6
+
+        turtle_up_shift = 0.6
+        turtle_ord = OrdinalFiniteProd(OrdinalOmega, 3, x0 = -12, x1 = 12, q=q, height = 0.5)
+        turtle_ord.shift(UP*turtle_up_shift)
+        turtle_ord.highlight(GREY)
+        for subord in turtle_ord:
+            subord[0].highlight(YELLOW)
+
+        turtle_ord_ori = turtle_ord.copy()
+        turtle_ord_ori.shift(UP*SPACE_HEIGHT - turtle_ord_ori.get_edge_center(DOWN))
+        self.turtle.move_to(turtle_ord_ori[1])
+
+        achiles_down_shift = 1
+        achiles_ord = VGroup(omega_squared0, omega_squared1, omega_squared2)
+        omega_squared[0][0].highlight(ORANGE)
+        achiles_ord_dest = VGroup(omega_squared.copy(), omega_squared.copy(), omega_squared.copy())
+        achiles_ord_dest.stretch(0.5, 1)
+        achiles_ord_dest[0].shift(8*LEFT)
+        achiles_ord_dest[2].shift(8*RIGHT)
+        achiles_ord_dest.shift(DOWN*achiles_down_shift)
+
+        self.play(Transform(achiles_ord, achiles_ord_dest),
+                  ReplacementTransform(turtle_ord_ori, turtle_ord),
+                  self.turtle.move_to, turtle_ord[1],
+                  self.achiles.move_to, achiles_ord_dest[1],
+        )
+        self.dither()
+        for i in range(1, 6):
+            self.play(self.global_step('\\omega+'+str(i), turtle_ord[1][i],
+                                       '\\omega^2+\\omega\\cdot'+str(i), achiles_ord[1][i]),
+                      run_time = 0.5)
+        self.play(self.global_step("\\omega\\cdot2", turtle_ord[2],
+                                   '\\omega^2\\cdot2', achiles_ord[2]))
+        self.dither()
+
+        self.play(FocusOn2(self.turtle_desc[1]))
+        self.dither()
+        self.play(FocusOn2(self.achiles_desc[1]))
+        self.dither()
+
+
+    def global_step(self, turtle_str, turtle_bar, achiles_str, achiles_bar):
+        return AnimationGroup(
+            self.turtle.step_to(turtle_bar),
+            self.achiles.step_to(achiles_bar),
+            self.transform_desc(self.turtle_desc, turtle_str),
+            self.transform_desc(self.achiles_desc, achiles_str),
+        )
 
 CIRCLE_DECREASE = 0.5
 
@@ -385,8 +809,8 @@ def make_spiral():
 
     ordinal = []
     i = 0
-    for _ in range(3):
-    #while True:
+    #for _ in range(3):
+    while True:
         size = np.exp(i*CIRCLE_DECREASE)
         min_size = (size, size, 0.1)
         thickness = DEFAULT_POINT_THICKNESS / np.sqrt(size)
@@ -421,24 +845,56 @@ def make_spiral():
 
     return ordinal
 
-def light_key(mobj):
-    if hasattr(mobj, "darken"): return mobj.darken
-    return 0
+class SpiralPointer(TrianglePointer):
 
-class SpiralScene(Scene):
+    def to_pos(self, pos):
+        new_pointer = TrianglePointer()
+        bar = Line(0.8*UP, 0.8*DOWN)
+        bar.shift(RIGHT*pos)
+        to_spiral(bar)
+        new_pointer.to_bar(bar)
+        self.points = new_pointer.points
+        self.pos = pos
+
+        return self
+
+    def anim_to_pos(self, pos):
+        start_pos = self.pos
+        def update(mob, alpha):
+            mob.to_pos(interpolate(start_pos, pos, alpha))
+
+        return UpdateFromAlphaFunc(self, update)
+
+    def anim_to_ord(self, index):
+        return self.anim_to_pos(self.ord_to_pos(index))
+
+    def ord_to_pos(self, index):
+        size = np.pi*2
+        pos = np.pi*2*index[0]
+        for i in index[1:]:
+            pos += size*(1-0.7**i)
+            size *= 0.3*0.7**i
+
+        return pos
+
+    def to_ord(self, index):
+        return self.to_pos(self.ord_to_pos(index))
+
+class ToSpiralScene(RunnerScene):
     def construct(self):
 
         q = (0.7, 0.8, 0.8)
+        turtle_up_shift = 0.6
 
-        behind_turtle = make_ordinal_power(1, q=q, x0=-12, x1 = -4, height = 0.5).shift(1.6*UP)
+        behind_turtle = make_ordinal_power(1, q=q, x0=-12, x1 = -4, height = 0.5).shift(turtle_up_shift*UP)
 
-        ahead_turtle = make_ordinal_power(1, q=q, x0=4, x1 = 12, height = 0.5).shift(1.6*UP)
+        ahead_turtle = make_ordinal_power(1, q=q, x0=4, x1 = 12, height = 0.5).shift(turtle_up_shift*UP)
         behind_achiles = make_ordinal_power(2, q=q, x0=-12, x1 = -4, height = 0.5).shift(DOWN)
         ahead_achiles = make_ordinal_power(2, q=q, x0=4, x1 = 12, height = 0.5).shift(DOWN)
 
-        for mob in behind_turtle.family_members_with_points():
-            if abs(mob.get_center()[0]) > SPACE_WIDTH+1:
-                to_spiral(mob)
+        #for mob in behind_turtle.family_members_with_points():
+        #    if abs(mob.get_center()[0]) > SPACE_WIDTH+1:
+        #        to_spiral(mob)
         for mob in VGroup(*behind_achiles[:2]).family_members_with_points():
                 mob.stretch(0.7, 0)
                 mob.shift(UP + 2.5*LEFT)
@@ -451,32 +907,38 @@ class SpiralScene(Scene):
             if alpha < 0: continue
             alpha /= max_x
             mob.rotate_in_place(-alpha*np.pi/2)
-            mob.move_to(interpolate(1.6*UP + SPACE_WIDTH*RIGHT,
+            mob.move_to(interpolate(turtle_up_shift*UP + SPACE_WIDTH*RIGHT,
                                     behind_achiles[0][0].get_center(),
                                     alpha))
 
-        turtle_ord = make_ordinal_power(1, q=q, height = 0.5).shift(1.6*UP)
+        turtle_ord = make_ordinal_power(1, q=q, height = 0.5).shift(turtle_up_shift*UP)
         achiles_ord = make_ordinal_power(2, q=q, height = 0.5).shift(DOWN)
-        turtle = Turtle().move_to(ahead_turtle[0])
-        achiles = Achiles(pointer_pos = UP).move_to(ahead_achiles[0][0])
-        turtle.shift(0.5*DOWN)
-        achiles.shift(0.5*UP)
-        turtle_desc = TexMobject("\\omega").next_to(turtle_ord[0], DOWN)
-        achiles_desc = TexMobject("\\omega^2").next_to(achiles_ord[0][0], UP)
+        turtle = Turtle()
+        achiles = Achiles(pointer_pos = UP)
+        turtle.dist = achiles.dist = 0.6
+        turtle.move_to(ahead_turtle[0])
+        achiles.move_to(ahead_achiles[0][0])
+
+        turtle_desc = self.make_short_desc(LEFT+UP, turtle.color)
+        achiles_desc = self.make_short_desc(LEFT+DOWN, achiles.color)
+        self.change_desc(turtle_desc, "\\omega\\cdot2")
+        self.change_desc(achiles_desc, "\\omega^2\\cdot2")
+        question = make_achiles_question()
+        self.add(turtle_desc, achiles_desc, question)
 
         rect = Rectangle(width = 2*SPACE_WIDTH, height = 2*SPACE_HEIGHT)
 
         spiral = make_spiral()
-        #for runner_dest, bar in [(turtle_dest, spiral[1][1][0]),
-        #                         (achiles_dest, spiral[2][1][0][0])]:
-        #    runner_dest.scale(np.array([0.35, 2, 1]))
-        #    runner_dest.next_to(bar, UP)
-        #    to_spiral(runner_dest)
 
         straight_spiral = spiral.copy()
         spiral.apply_to_family(to_spiral)
-        turtle_dest = TrianglePointer(color = GREEN).to_bar(spiral[1][1])
-        achiles_dest = TrianglePointer(color = ORANGE).to_bar(spiral[2][1])
+        behind_turtle_swirled = VGroup(*spiral[0][:3]).copy()
+        behind_turtle_swirled.scale(3)
+        behind_turtle.add_to_back(*behind_turtle_swirled.submobjects)
+        #turtle_dest = TrianglePointer(color = GREEN).to_bar(spiral[1][1])
+        #achiles_dest = TrianglePointer(color = ORANGE).to_bar(spiral[2][1])
+        turtle_dest = SpiralPointer(color = GREEN).to_ord([1,1])
+        achiles_dest = SpiralPointer(color = ORANGE).to_ord([2,1])
         straight_spiral.stretch(0.5, 1)
         straight_spiral.shift(ahead_achiles.get_edge_center(RIGHT)
                               - straight_spiral[2][2].get_edge_center(LEFT))
@@ -492,7 +954,15 @@ class SpiralScene(Scene):
                              spiral.family_members_with_points()):
             src.highlight(dest.color)
 
+        behind_turtle.highlight(GREY)
+        for omega_squared in [behind_achiles, achiles_ord, ahead_achiles]:
+            omega_squared.highlight(GREY)
+            VGroup(*extract_ordinal_subpowers(omega_squared)[1]).highlight(YELLOW)
+            omega_squared[0][0].highlight(ORANGE)
+        behind_achiles[0][0].highlight(YELLOW)
+
         self.add(straight_spiral, turtle, achiles)
+        #return
 
         #animation = AnimationGroup(
         #    ReplacementTransform(straight_spiral, spiral,
@@ -500,12 +970,11 @@ class SpiralScene(Scene):
         #    Transform(straight_spiral[0][2], spiral[0][2], path_arc = np.pi*0.6),
         #    Transform(straight_spiral[0][3], spiral[0][3], path_arc = np.pi*0.6),
         #)
-        #animation.update_mobject(0.5)
+        #animation.update_mobject(0.0)
 
-        #self.add(#turtle, achiles, turtle_desc, achiles_desc,
-        #         rect)
+        #self.add(rect)
         #for mob in self.mobjects:
-        #    mob.points *= 0.5
+        #    mob.points *= 0.25
         #return
 
         self.dither()
@@ -521,3 +990,227 @@ class SpiralScene(Scene):
 
         self.remove(straight_spiral[0][2], straight_spiral[0][3])
         self.dither()
+
+class SpiralScene(RunnerScene):
+
+    def construct(self):
+        #self.force_skipping()
+        spiral = make_spiral()
+        spiral.apply_to_family(to_spiral)
+
+        self.add(spiral)
+        self.update_frame()
+        self.set_camera_background(self.get_frame())
+        self.remove(spiral)
+
+        self.turtle = SpiralPointer(color = GREEN)
+        self.achiles = SpiralPointer(color = ORANGE)
+
+        self.turtle_desc = self.make_short_desc(LEFT+UP, self.turtle.color)
+        self.achiles_desc = self.make_short_desc(LEFT+DOWN, self.achiles.color)
+        question = make_achiles_question()
+
+        self.global_set_ord(1,1)
+        self.add(self.turtle_desc, self.achiles_desc, question,
+                 self.turtle, self.achiles)
+
+        self.dither()
+        self.play(self.global_step(1,1,1))
+        self.play(self.global_step(1,2))
+        self.play(self.global_step(2))
+        self.dither()
+        self.play(FocusOn2(self.turtle_desc[1]))
+        self.dither()
+        self.play(FocusOn2(self.achiles_desc[1]))
+        self.dither()
+        self.play(self.global_step(3))
+        self.dither()
+        self.play(FocusOn2(self.turtle_desc[1]))
+        self.dither()
+        self.play(FocusOn2(self.achiles_desc[1]))
+        self.dither()
+        for i in range(4,7):
+            self.play(self.global_step(i))
+        self.dither()
+
+        brace = Brace(VGroup(spiral[0][4], Line((SPACE_HEIGHT-0.1)*UP, (SPACE_HEIGHT-0.1)*DOWN)), LEFT)
+        arrow = Arrow(brace.get_tip()+0.3*LEFT, ORIGIN)
+        dot = Dot(color = YELLOW, radius = 0.03)
+        spiral_desc = TexMobject("\\omega^\\omega")
+        spiral_desc.set_color(YELLOW)
+        brace.put_at_tip(spiral_desc)
+        
+        #self.revert_to_original_skipping_status()
+        self.play(ShowCreation(arrow),
+                  ShowCreation(dot))
+        self.dither()
+        self.play(Write(spiral_desc))
+        self.dither()
+        self.play(
+            self.turtle.anim_to_pos(24*np.pi),
+            self.achiles.anim_to_pos(25*np.pi),
+            self.transform_desc(self.turtle_desc, '\\omega^\\omega'),
+            self.transform_desc(self.achiles_desc, '\\omega^\\omega'),
+            run_time = 2,
+        )
+        self.dither()
+        answer = TexMobject('\\omega^\\omega', '=', '\\omega\\cdot\\omega^\\omega', '?')
+        answer[0].set_color(GREEN)
+        answer[2].set_color(ORANGE)
+        answer[3].set_color(BLACK)
+        answer.to_corner(UP+RIGHT)
+        answer.shift(RIGHT*(answer[3].get_edge_center(RIGHT) - answer[2].get_edge_center(RIGHT)))
+        question[2].add(question[2][-1].copy(), question[2][-1].copy())
+        self.play(ReplacementTransform(question, answer))
+        self.dither(5)
+        self.play(FadeOut(VGroup(arrow, dot, self.turtle, self.achiles,
+                                 self.turtle_desc, self.achiles_desc)))
+        self.dither()
+        self.play(GrowFromCenter(brace))
+        self.dither(5)
+
+    def ord_to_str(self, index):
+        degree = index[0]
+        poly = index[1:degree+2]
+        poly += list(0 for _ in range(degree+1-len(poly)))
+        poly[0] += 1
+        result = ""
+        for coef, power in zip(poly, reversed(range(degree+1))):
+            if coef == 0: continue
+            result += '+'
+            if power > 0:
+                result += '\\omega'
+                if power > 1: result += '^'+str(power)
+                if coef > 1: result += '\\cdot'+str(coef)
+            else: result += str(coef)
+
+        return result[1:]
+
+    def global_set_ord(self, *turtle_index):
+        self.turtle_index = list(turtle_index)
+        self.achiles_index = list(turtle_index)
+        self.achiles_index[0] += 1
+
+        self.change_desc(self.turtle_desc, self.ord_to_str(self.turtle_index))
+        self.change_desc(self.achiles_desc, self.ord_to_str(self.achiles_index))
+        self.turtle.to_ord(self.turtle_index)
+        self.achiles.to_ord(self.achiles_index)
+
+    def global_step(self, *turtle_index):
+        self.turtle_index = list(turtle_index)
+        self.achiles_index = list(turtle_index)
+        self.achiles_index[0] += 1
+
+        return AnimationGroup(
+            self.transform_desc(self.turtle_desc, self.ord_to_str(self.turtle_index)),
+            self.transform_desc(self.achiles_desc, self.ord_to_str(self.achiles_index)),
+            self.turtle.anim_to_ord(self.turtle_index),
+            self.achiles.anim_to_ord(self.achiles_index),
+        )
+
+class TransfinitePowers(Scene):
+
+    def construct(self):
+        equations = [
+            ["\\omega^0", '=', "1"],
+            ["\\omega^1", '=', "\\omega"],
+            ["\\omega^2", '=', "\\omega\\cdot\\omega"],
+            ['\\vdots'],
+            ["\\omega^\\omega", '=', "\\hbox{The supremum of all preceding}"],
+            ["\\omega^{\\omega+1}", '=', "\\omega^\\omega","\\cdot\\omega"],
+        ]
+        equations = VGroup(*[TexMobject(*eq) for eq in equations])
+        for eq in equations:
+            eq.shift(-eq[1].get_center())
+        equations.arrange_submobjects(DOWN, coor_mask = UP)
+        equations[-1][-1].highlight(YELLOW)
+        equations.to_corner(UP+LEFT)
+        self.play(FadeIn(VGroup(*equations[:-1]), submobject_mode = "lagged_start"),
+                  run_time = 3)
+
+        limit_step_title = TextMobject("Limit Step").highlight(YELLOW)
+        arrow_end = equations[-2][-1].get_edge_center(UP)
+        arrow = Arrow(arrow_end+1.5*UP, arrow_end)
+        limit_step_title.next_to(arrow, UP)
+
+        self.play(ShowCreation(arrow),
+                  Write(limit_step_title))
+        self.dither()
+
+        self.play(Write(equations[-1]))
+        self.dither()
+
+        demonstration = TexMobject("\\omega\cdot","\\omega^\\omega", "\\cdot\\omega")
+        demonstration.shift(2*DOWN)
+        demonstration[0].set_color(YELLOW)
+        demonstration[2].set_color(YELLOW)
+        self.play(FadeIn(demonstration[1]))
+        dest = demonstration[1][0].copy()
+        for _ in range(3):
+            cur_mul = demonstration[0].copy()
+            self.play(Write(cur_mul))
+            self.dither()
+            self.play(Transform(cur_mul, dest))
+            self.remove(cur_mul)
+            self.dither()
+
+        last = None
+        for _ in range(3):
+            cur_mul = demonstration[2].copy()
+            if last is not None:
+                cur_mul.next_to(last, coor_mask = RIGHT)
+            self.play(Write(cur_mul))
+            self.dither()
+            self.play(cur_mul.highlight, WHITE)
+            self.dither()
+            last = cur_mul
+
+class CountabilityScene(Scene):
+
+    def construct(self):
+        inf_power = self.make_inf_power()
+        exponent = 3
+        fin_power0 = make_ordinal_power(exponent, q = (0.7, 0.8, 0.8))
+        fin_power1 = fin_power0.copy().next_to(fin_power0)
+
+        self.add(fin_power0, fin_power1)
+        inf_power_ori = self.prepare_to_inf_transform(
+            fin_power0, fin_power1, exponent, inf_power
+        )
+        self.dither()
+        self.play(ReplacementTransform(inf_power_ori, inf_power))
+        self.dither()
+        main_bars = []
+        for subord in inf_power:
+            while isinstance(subord, LimitOrdinal): subord = subord[0]
+            main_bars.append(subord)
+        main_bars = LimitSubOrdinal(main_bars)
+        main_bars.fix_x1()
+
+        def make_desc(n):
+            if n == 0: return TexMobject('0')
+            elif n == 1: return TexMobject('\\omega')
+            else: return TexMobject('\\omega^'+str(n))
+        descriptions = main_bars.add_descriptions(make_desc)
+        for desc in descriptions[2:]:
+            desc.shift(RIGHT*desc[1].get_width()/2)
+        self.add(descriptions)
+
+    def make_inf_power(self):
+        def make_fin_power(order = 0, x0 = -4, x1 = 4, **kwargs):
+            power = min(3, order+1)
+            return make_ordinal_power(power, x0=x0, x1=x1, **kwargs)
+
+        return LimitOrdinal(make_fin_power, q = (0.7, 0.8, 0.8), x0 = -5, x1 = 5)
+
+    def prepare_to_inf_transform(self, fin_ord0, fin_ord1, exponent, inf_ord):
+        tail = LimitSubOrdinal(inf_ord[exponent:]).copy()
+        tail.next_to(fin_ord1, buff = 0)
+        tail[0].add_to_back(fin_ord1)
+        head = fin_ord0
+        for _ in range(exponent-1):
+            tail.add_to_back(LimitSubOrdinal(head[1:]))
+            head = head[0]
+        tail.add_to_back(head)
+
+        return tail
