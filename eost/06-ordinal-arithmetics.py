@@ -356,7 +356,7 @@ class TurtlesRace2(TurtlesRace):
         self.dither()
 
 def light_key(mobj):
-    if hasattr(mobj, "darken"): return mobj.darken
+    if hasattr(mobj, "darken"): return -mobj.darken
     return 0
 
 class TurtlesRace3(TurtlesRace2):
@@ -805,6 +805,17 @@ def color_interpolate(color0, color1, alpha):
     color1 = color_to_rgb(color1)
     return rgb_to_color(interpolate(color0, color1, alpha))
 
+def assign_ordinal_powers(ordinal, exponent):
+    subpowers = extract_ordinal_subpowers(ordinal)
+    for i,subord in reversed(list(enumerate(subpowers))):
+        for mob in subord:
+            mob[0].power = exponent-i
+
+    subpowers[0][0].power = exponent-1
+
+def assign_color_to_bar(bar):
+    bar.set_color(color_interpolate(power_color(bar.power), BLACK, bar.darken))
+
 def make_spiral():
 
     ordinal = []
@@ -828,20 +839,14 @@ def make_spiral():
             min_size = min_size,
             thickness = thickness,
         )
-        subpowers = extract_ordinal_subpowers(cur_ordinal)
-        for j,subord in enumerate(reversed(subpowers)):
-            for mob in subord:
-                mob[0].power = i+1-power+j
-
-        subpowers[0][0].power = i
-
+        assign_ordinal_powers(cur_ordinal, i+1)
         ordinal.append(cur_ordinal)
         i += 1
 
     ordinal = VGroup(*ordinal)
     for mob in ordinal.family_members_with_points():
         mob.darken = (mob.get_center()[0] / (2*np.pi) - mob.power)/5
-        mob.set_color(color_interpolate(power_color(mob.power), BLACK, mob.darken))
+        assign_color_to_bar(mob)
 
     return ordinal
 
@@ -1165,21 +1170,173 @@ class TransfinitePowers(Scene):
             self.dither()
             last = cur_mul
 
+class BraceDesc(VMobject):
+    CONFIG = {
+        "desc_constructor" : TexMobject
+    }
+    def __init__(self, obj, brace_direction, text, **kwargs):
+        VMobject.__init__(self, **kwargs)
+        self.brace_direction = brace_direction
+        self.brace = Brace(obj, brace_direction, **kwargs)
+        if isinstance(text, tuple) or isinstance(text, list):
+            self.desc = self.desc_constructor(*text, **kwargs)
+        else: self.desc = self.desc_constructor(str(text))
+        self.brace.put_at_tip(self.desc)
+        self.submobjects = [self.brace, self.desc]
+
+    def creation_anim(self, desc_anim = FadeIn, brace_anim = GrowFromCenter):
+        return AnimationGroup(brace_anim(self.brace), desc_anim(self.desc))
+
+    def shift_brace(self, obj, **kwargs):
+        self.brace = Brace(obj, self.brace_direction, **kwargs)
+        self.brace.put_at_tip(self.desc)
+        self.submobjects[0] = self.brace
+        return self
+
+    def change_desc(self, *text, **kwargs):
+        self.desc = self.desc_constructor(*text, **kwargs)
+        self.brace.put_at_tip(self.desc)
+        self.submobjects[1] = self.desc
+        return self
+
+    def change_brace_desc(self, obj, *text):
+        self.shift_brace(obj)
+        self.change_desc(*text)
+        return self
+
+    def copy(self):
+        copy_mobject = copy.copy(self)
+        copy_mobject.brace = self.brace.copy()
+        copy_mobject.desc = self.desc.copy()
+        copy_mobject.submobjects = [copy_mobject.brace, copy_mobject.desc]
+
+        return copy_mobject
+
 class CountabilityScene(Scene):
 
     def construct(self):
-        inf_power = self.make_inf_power()
-        exponent = 3
-        fin_power0 = make_ordinal_power(exponent, q = (0.7, 0.8, 0.8))
-        fin_power1 = fin_power0.copy().next_to(fin_power0)
 
-        self.add(fin_power0, fin_power1)
+        #self.force_skipping()
+
+        self.darken_coef = 0.2
+        fin_powers = self.make_fin_powers(1)
+
+        title = TextMobject("Cardinality").to_edge(UP)
+        self.play(Write(title), *map(FadeIn, fin_powers))
+
+        ord_brace = BraceDesc(fin_powers[0], DOWN, "\\omega")
+        card_brace = BraceDesc(fin_powers[0], UP, "\\aleph_0")
+
+        self.dither()
+        self.play(ord_brace.creation_anim())
+        self.dither()
+        self.play(card_brace.creation_anim())
+        self.dither()
+
+        for exponent in range(2,4):
+            next_fin_powers = self.make_fin_powers(exponent)
+            ori_fin_powers = self.prepare_to_fin_transform(*fin_powers+next_fin_powers)
+            transforms = [
+                ReplacementTransform(ori_fin_power, next_fin_power, prepare_families = True)
+                for ori_fin_power, next_fin_power in zip(ori_fin_powers, next_fin_powers)
+            ]
+            for transform in transforms: self.fix_transform(transform)
+
+            self.play(
+                ord_brace.shift_brace, next_fin_powers[0][0],
+                card_brace.shift_brace, next_fin_powers[0][0],
+                *transforms,
+                order_f = light_key
+            )
+            fin_powers = next_fin_powers
+            self.dither()
+            self.play(
+                ord_brace.change_brace_desc, fin_powers[0], "\\omega^"+str(exponent)
+            )
+            self.dither()
+            self.play(
+                card_brace.change_brace_desc, fin_powers[0], "\\aleph_0\\cdot\\aleph_0"
+            )
+
+            self.dither()
+            next_aleph0 = TexMobject("\\aleph_0")
+            card_brace.brace.put_at_tip(next_aleph0)
+            self.play(
+                FadeOut(card_brace.desc[2]),
+                Transform(VGroup(*card_brace.desc[:2]), next_aleph0.copy()),
+                Transform(VGroup(*card_brace.desc[3:]), next_aleph0.copy()),
+            )
+            self.remove(*self.mobjects_from_last_animation)
+            card_brace.change_desc("\\aleph_0")
+            self.add(card_brace)
+            self.dither()
+
+        inf_power = self.make_inf_power()
         inf_power_ori = self.prepare_to_inf_transform(
-            fin_power0, fin_power1, exponent, inf_power
+            fin_powers[0], fin_powers[1], exponent, inf_power
         )
         self.dither()
-        self.play(ReplacementTransform(inf_power_ori, inf_power))
+        transform = ReplacementTransform(inf_power_ori, inf_power, prepare_families = True)
+        self.fix_transform(transform)
+
+        brace_obj = VGroup(*inf_power[:exponent])
+        card_brace_dest = card_brace.copy()
+        card_brace_dest.shift_brace(brace_obj)
+        card_brace_dest.highlight(BLACK)
+
+        self.play(transform,
+                  ord_brace.shift_brace, brace_obj,
+                  Transform(card_brace, card_brace_dest),
+                  run_time = 2, order_f = light_key)
+        self.remove(card_brace)
+
+        self.revert_to_original_skipping_status()
+
         self.dither()
+        descriptions = self.make_descriptions(inf_power)
+        self.play(FadeIn(VGroup(*descriptions[1:])),
+                  submobject_mode = "lagged_start",
+                  run_time = 2)
+        self.dither()
+        self.play(
+            ord_brace.change_brace_desc, inf_power, "\\omega^\\omega",
+        )
+        self.dither()
+
+        power_countable = TexMobject("|","\\omega^\\omega","| = \\aleph_0")
+        power_countable.shift(ord_brace.desc.get_center()
+                              - power_countable[1].get_center())
+        power_countable.remove(power_countable[1])
+        self.play(Write(power_countable))
+        self.dither()
+
+    def fix_transform(self, transform):
+        families = transform.get_all_families_zipped()
+        for submob, start, end in families[1:]:
+            if end.power != start.power:
+                end.darken += (end.power-start.power+1)*self.darken_coef
+                end.power = start.power
+                assign_color_to_bar(end)
+        
+    def make_fin_powers(self, exponent):
+        if exponent == 1: q = (0.9, 0.95, 0.95)
+        elif exponent == 2: q = (0.8, 0.9, 0.9)
+        else: q = (0.7, 0.84, 0.84)
+        ordinal0 = make_ordinal_power(exponent, q = q)
+
+        assign_ordinal_powers(ordinal0, exponent)
+        family = ordinal0.family_members_with_points()
+        family[0].power = exponent
+        for mob in family:
+            mob.darken = (exponent-mob.power)*self.darken_coef
+            assign_color_to_bar(mob)
+
+        ordinal1 = ordinal0.copy().next_to(ordinal0)
+        family[0].set_color(WHITE)
+
+        return ordinal0, ordinal1
+
+    def make_descriptions(self, inf_power):
         main_bars = []
         for subord in inf_power:
             while isinstance(subord, LimitOrdinal): subord = subord[0]
@@ -1194,14 +1351,21 @@ class CountabilityScene(Scene):
         descriptions = main_bars.add_descriptions(make_desc)
         for desc in descriptions[2:]:
             desc.shift(RIGHT*desc[1].get_width()/2)
-        self.add(descriptions)
+        for desc, bar in zip(descriptions, main_bars):
+            desc.highlight(bar[0].color)
+        return descriptions
 
     def make_inf_power(self):
-        def make_fin_power(order = 0, x0 = -4, x1 = 4, **kwargs):
+        def aux_fin_power(order = 0, x0 = -4, x1 = 4, **kwargs):
             power = min(3, order+1)
-            return make_ordinal_power(power, x0=x0, x1=x1, **kwargs)
+            ordinal = make_ordinal_power(power, x0=x0, x1=x1, **kwargs)
+            assign_ordinal_powers(ordinal, order+1)
+            for mob in ordinal.family_members_with_points():
+                mob.darken = ((mob.get_center()[0]-x0) / (x1-x0) + order - mob.power)*self.darken_coef
+                assign_color_to_bar(mob)
+            return ordinal
 
-        return LimitOrdinal(make_fin_power, q = (0.7, 0.8, 0.8), x0 = -5, x1 = 5)
+        return LimitOrdinal(aux_fin_power, q = (0.7, 0.8, 0.8), x0 = -5, x1 = 5)
 
     def prepare_to_inf_transform(self, fin_ord0, fin_ord1, exponent, inf_ord):
         tail = LimitSubOrdinal(inf_ord[exponent:]).copy()
@@ -1214,3 +1378,8 @@ class CountabilityScene(Scene):
         tail.add_to_back(head)
 
         return tail
+
+    def prepare_to_fin_transform(self, fin_ord0, fin_ord1, next_fin_ord0, next_fin_ord1):
+        tail = VGroup(*next_fin_ord0[2:]).copy().next_to(fin_ord1, buff = 0)
+        tail.add_to_back(fin_ord0, fin_ord1)
+        return tail, next_fin_ord1.copy().next_to(tail)

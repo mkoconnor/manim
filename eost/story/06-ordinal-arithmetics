@@ -184,12 +184,14 @@ Outline
 . multiplication from the right guarrantees us to reach higher
 . ordinals.
 
-At the end of the chapter let's compute the size, that is the
-cardinality of omega to the power of omega. The size of omega is
-aleph 0. The size of omega squared is aleph zero times aleph zero
-that is still aleph zero. Analogously, the size of omega cubed is
-aleph 0, the size of omega to the power of four is aleph zero and so
-on.
+:-------------------------CountabilityScene--------------------------
+. At the end of the chapter let's compute the size, that is the
+. cardinality of omega to the power of omega. The size of omega is
+. aleph 0. The size of omega squared is aleph zero times aleph zero. As
+. we discussed in chapter 2, aleph zero times aleph zero is still aleph
+. zero. Then the size of omega cubed is aleph 0 times
+aleph zero, that is still aleph zero. And so on, every finite ordinal
+power is countable.
 
 Finally, omega to the power of omega is a supremum of countably many
 countable ordinals. Supremum is a kind of union, that is merging the

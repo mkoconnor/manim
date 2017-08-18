@@ -329,6 +329,9 @@ class Scene(object):
         self.add(*moving_mobjects)
         self.mobjects_from_last_animation = moving_mobjects
         self.clean_up_animations(*animations)
+        if 'order_f' in kwargs:
+            self.mobjects.sort(key = kwargs['order_f'])
+
         return self
 
     def clean_up_animations(self, *animations):
