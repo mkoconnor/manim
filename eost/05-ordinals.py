@@ -15,8 +15,12 @@ import eost.deterministic
 
 from eost.ordinal import *
 
-from topics.common_scenes import OpeningQuote
+from topics.common_scenes import OpeningTitle, OpeningQuote
 
+class Chapter5OpeningTitle(OpeningTitle):
+    CONFIG = {
+        "chapter_str" : "Chapter 5\\\\ Ordinal Numbers",
+    }
 class Chapter5OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [

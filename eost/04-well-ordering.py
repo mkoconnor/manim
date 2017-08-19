@@ -28,7 +28,7 @@ from topics.chat_bubbles import Conversation
 
 from eost.ordinal import *
 from topics.number_line import NumberLine
-from topics.common_scenes import OpeningQuote
+from topics.common_scenes import OpeningQuote, OpeningTitle
 
 import eost.deterministic
 
@@ -47,6 +47,11 @@ class P_power_cardinality(TexMobject):
         TexMobject.__init__(self,tex_string)
         self.set = VGroup(*self[1:-1])
         self.pipes = VGroup(self[0],self[-1])
+
+class Chapter4OpeningTitle(OpeningTitle):
+    CONFIG = {
+        "chapter_str" : "Chapter 4\\\\ Well Ordering",
+    }
 
 class Chapter4OpeningQuote(OpeningQuote):
     CONFIG = {

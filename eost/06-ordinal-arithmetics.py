@@ -3,8 +3,12 @@ from eost.ordinal import *
 from topics.runners import *
 from topics.icons import *
 from topics.icons import *
-from topics.common_scenes import OpeningQuote
+from topics.common_scenes import OpeningTitle, OpeningQuote
 
+class Chapter6OpeningTitle(OpeningTitle):
+    CONFIG = {
+        "chapter_str" : "Chapter 6\\\\ Ordinal Arithmetics",
+    }
 class Chapter6OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [

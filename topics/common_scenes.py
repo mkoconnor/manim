@@ -2,13 +2,29 @@
 from helpers import *
 
 from scene.scene import Scene
-from animation.simple_animations import Write, DrawBorderThenFill
+from animation.simple_animations import Write, DrawBorderThenFill, ShowCreation
 from animation.transform import FadeIn, FadeOut, ApplyMethod
 from mobject.vectorized_mobject import VGroup
 from mobject.tex_mobject import TexMobject, TextMobject
 from topics.characters import Mortimer, Blink
 from topics.objects import PatreonLogo
+from topics.icons import MirekOlsakLogo
 
+class OpeningTitle(Scene):
+    CONFIG = {
+        "series_str" : "Essence of Set Theory",
+    }
+    def construct(self):
+        logo = MirekOlsakLogo(self.camera)
+        series_title = TextMobject(self.series_str).to_edge(UP)
+        self.add(series_title)
+        chapter_title = TextMobject(self.chapter_str)
+        chapter_title.scale(1.4)
+        
+        self.play(Write(chapter_title))
+        self.play(ShowCreation(logo))
+        self.dither(5)
+        self.play(FadeOut(VGroup(series_title, chapter_title, logo)))
 
 class OpeningQuote(Scene):
     CONFIG = {

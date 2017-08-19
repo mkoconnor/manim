@@ -11,7 +11,12 @@ from animation.transform import *
 import helpers
 from eost.matching import get_matching, MatchingAnimations
 import eost.deterministic
-from topics.common_scenes import OpeningQuote
+from topics.common_scenes import OpeningTitle, OpeningQuote
+
+class Chapter3OpeningTitle(OpeningTitle):
+    CONFIG = {
+        "chapter_str" : "Chapter 3\\\\ Set Size Comparison, \\\ Continuum",
+    }
 
 class Chapter3OpeningQuote(OpeningQuote):
     CONFIG = {

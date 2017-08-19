@@ -190,15 +190,15 @@ Outline
 . aleph 0. The size of omega squared is aleph zero times aleph zero. As
 . we discussed in chapter 2, aleph zero times aleph zero is still aleph
 . zero. Then the size of omega cubed is aleph 0 times
-aleph zero, that is still aleph zero. And so on, every finite ordinal
-power is countable.
-
-Finally, omega to the power of omega is a supremum of countably many
-countable ordinals. Supremum is a kind of union, that is merging the
-elements, so the omega to the power of omega is still a
-countable ordinal, more precisely an ordinal of size aleph zero.
-
-Apparently, it is not easy to get an uncountable ordinal number. In
-fact, the ordinal power does not help it either. However, we will
-explore an uncountable ordinal number in the next chapter. See you
-then.
+. aleph zero, that is still aleph zero. And so on, every finite ordinal
+. power is countable.
+. 
+. Finally, omega to the power of omega is a supremum of countably many
+. countable ordinals. Supremum is a kind of union, that is merging the
+. elements, so the omega to the power of omega is still a
+. countable ordinal, more precisely an ordinal of size aleph zero.
+.
+. Apparently, it is not easy to get an uncountable ordinal number. In
+. fact, the ordinal power does not help it either. However, we will
+. explore an uncountable ordinal number in the next chapter. See you
+. then.

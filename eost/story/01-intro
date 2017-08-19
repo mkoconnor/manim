@@ -37,7 +37,10 @@ this going to be about.
 
 Set theory is a mathematical discipline studying the infinity, in
 particular infinite sets. If you've heard about some cool stuff with
-infinity it is likely to be strongly connected to this discipline.
+infinity like an infinite number of buses of infinite amount of people
+fitting into a single infinite hotel, or an infinite number of
+prisoners such that almost all of them guess their hat correctly, it
+is likely to be strongly connected to this discipline.
 
 To be honest, it is actually our main reason why we study
 it. Because it is beautiful. It provides to a mathematician a whole
@@ -92,8 +95,9 @@ think about it for a while.
 ...
 [wait for 20 seconds]
 ...
-There comes the solution. Do you see? Every row is mostly blue, every
-column is mostly yellow. The obviously impossible task in the finite
+There comes the solution. Do you see? Every row is mostly blue up to a
+finite number, every column is mostly yellow up to a finite number of
+blue squares. The obviously impossible task in the finite
 world became possible for infinite grid. And that is just the
 beginning.
 
