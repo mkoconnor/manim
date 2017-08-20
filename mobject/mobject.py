@@ -197,6 +197,7 @@ class Mobject(object):
     #### In place operations ######
 
     def do_about_point(self, point, method, *args, **kwargs):
+        point = np.array(point)
         self.shift(-point)
         method(*args, **kwargs)
         self.shift(point)
@@ -247,6 +248,14 @@ class Mobject(object):
 
     def to_edge(self, edge = LEFT, buff = DEFAULT_MOBJECT_TO_EDGE_BUFFER):
         return self.align_on_border(edge, buff)
+
+    def behind_edge(self, edge = LEFT, buff = DEFAULT_MOBJECT_TO_EDGE_BUFFER):
+        target_point = np.sign(edge) * (SPACE_WIDTH, SPACE_HEIGHT, 0)
+        point_to_align = self.get_critical_point(-edge)
+        shift_val = target_point - point_to_align + buff * np.array(edge)
+        shift_val = shift_val * abs(np.sign(edge))
+        self.shift(shift_val)
+        return self
 
     def next_to(self, mobject_or_point, 
                 direction = RIGHT, 

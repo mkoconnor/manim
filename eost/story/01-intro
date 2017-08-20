@@ -31,16 +31,23 @@ Outline
   * every column contains just finite number of yellow cells
   * that would not be possible if infinity were just a large finite number
 
-Hello, welcome to the essence of set theory. Since the video can be
-watched by a diverse population, let's clarify at first what is all
-this going to be about.
-
-Set theory is a mathematical discipline studying the infinity, in
-particular infinite sets. If you've heard about some cool stuff with
-infinity like an infinite number of buses of infinite amount of people
-fitting into a single infinite hotel, or an infinite number of
-prisoners such that almost all of them guess their hat correctly, it
-is likely to be strongly connected to this discipline.
+:------------------------CantorScene-----------------------------------
+. Hello, welcome to the essence of set theory. Since the video can be
+. watched by a diverse population, let's clarify at first what is all
+. this going to be about.
+.
+. Set theory is a mathematical discipline founded by Georg Cantor in the
+. nineteenth century.
+. The theory studies the infinity. Or rather infinite sets to be
+. precise.
+:------------------------HotelScene-----------------------------
+. If you've heard about some cool stuff with infinity like an
+. infinite number of buses of infinite amount of people fitting into a
+. single hotel having just infinite number of rooms...
+:-----------------------PrisonersScene-----------------------------
+. Or an infinite number of prisoners such that almost
+. all of them guess their hat correctly, it is likely to be strongly
+. connected to this discipline.
 
 To be honest, it is actually our main reason why we study
 it. Because it is beautiful. It provides to a mathematician a whole
