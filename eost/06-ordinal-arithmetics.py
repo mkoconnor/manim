@@ -2,8 +2,8 @@ from scene import Scene
 from eost.ordinal import *
 from topics.runners import *
 from topics.icons import *
-from topics.icons import *
 from topics.common_scenes import OpeningTitle, OpeningQuote
+from topics.objects import BraceDesc
 
 class Chapter6OpeningTitle(OpeningTitle):
     CONFIG = {
@@ -1174,48 +1174,6 @@ class TransfinitePowers(Scene):
             self.dither()
             last = cur_mul
 
-class BraceDesc(VMobject):
-    CONFIG = {
-        "desc_constructor" : TexMobject
-    }
-    def __init__(self, obj, brace_direction, text, **kwargs):
-        VMobject.__init__(self, **kwargs)
-        self.brace_direction = brace_direction
-        self.brace = Brace(obj, brace_direction, **kwargs)
-        if isinstance(text, tuple) or isinstance(text, list):
-            self.desc = self.desc_constructor(*text, **kwargs)
-        else: self.desc = self.desc_constructor(str(text))
-        self.brace.put_at_tip(self.desc)
-        self.submobjects = [self.brace, self.desc]
-
-    def creation_anim(self, desc_anim = FadeIn, brace_anim = GrowFromCenter):
-        return AnimationGroup(brace_anim(self.brace), desc_anim(self.desc))
-
-    def shift_brace(self, obj, **kwargs):
-        self.brace = Brace(obj, self.brace_direction, **kwargs)
-        self.brace.put_at_tip(self.desc)
-        self.submobjects[0] = self.brace
-        return self
-
-    def change_desc(self, *text, **kwargs):
-        self.desc = self.desc_constructor(*text, **kwargs)
-        self.brace.put_at_tip(self.desc)
-        self.submobjects[1] = self.desc
-        return self
-
-    def change_brace_desc(self, obj, *text):
-        self.shift_brace(obj)
-        self.change_desc(*text)
-        return self
-
-    def copy(self):
-        copy_mobject = copy.copy(self)
-        copy_mobject.brace = self.brace.copy()
-        copy_mobject.desc = self.desc.copy()
-        copy_mobject.submobjects = [copy_mobject.brace, copy_mobject.desc]
-
-        return copy_mobject
-
 class CountabilityScene(Scene):
 
     def construct(self):
@@ -1228,8 +1186,8 @@ class CountabilityScene(Scene):
         title = TextMobject("Cardinality").to_edge(UP)
         self.play(Write(title), *map(FadeIn, fin_powers))
 
-        ord_brace = BraceDesc(fin_powers[0], DOWN, "\\omega")
-        card_brace = BraceDesc(fin_powers[0], UP, "\\aleph_0")
+        ord_brace = BraceDesc(fin_powers[0], "\\omega", DOWN)
+        card_brace = BraceDesc(fin_powers[0], "\\aleph_0", UP)
 
         self.dither()
         self.play(ord_brace.creation_anim())

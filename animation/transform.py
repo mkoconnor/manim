@@ -141,6 +141,27 @@ class ApplyMethod(Transform):
         method.im_func(target, *args, **method_kwargs)
         Transform.__init__(self, method.im_self, target, **kwargs)
 
+class UnapplyMethod(Transform):
+    CONFIG = {
+        "submobject_mode" : "all_at_once"
+    }
+    def __init__(self, method, *args, **kwargs):
+        """
+        Method is a method of Mobject.  *args is for the method,
+        **kwargs is for the transform itself.
+
+        Relies on the fact that mobject methods return the mobject
+        """
+        if not inspect.ismethod(method):
+            raise Exception(
+            "Whoops, looks like you accidentally invoked " + \
+            "the method you want to animate"
+        )
+        assert(isinstance(method.im_self, Mobject))
+        method_kwargs = kwargs.get("method_kwargs", {})
+        target = method.im_self.deepcopy()
+        Transform.__init__(self, method.im_self, target, **kwargs)
+        method.im_func(self.starting_mobject, *args, **method_kwargs)
 
 class FadeOut(Transform):
     CONFIG = {

@@ -1,12 +1,14 @@
 from helpers import *
 
+import copy
 from mobject import Mobject
 from mobject.vectorized_mobject import VGroup, VMobject
 from mobject.svg_mobject import SVGMobject
-from mobject.tex_mobject import TextMobject, TexMobject
+from mobject.tex_mobject import TextMobject, TexMobject, Brace
 
 from animation import Animation
-from animation.simple_animations import Rotating
+from animation.simple_animations import Rotating, AnimationGroup
+from animation.transform import FadeIn, GrowFromCenter
 
 from topics.geometry import Circle, Line, Rectangle, Square, Arc, Polygon
 from topics.three_dimensions import Cube
@@ -432,3 +434,83 @@ class ThoughtBubble(Bubble):
     def make_green_screen(self):
         self.submobjects[-1].set_fill(GREEN_SCREEN, opacity = 1)
         return self
+
+class BraceDesc(VMobject):
+    CONFIG = {
+        "desc_constructor" : TexMobject,
+        "desc_scale" : 1,
+    }
+    def __init__(self, obj, text, brace_direction = DOWN, **kwargs):
+        VMobject.__init__(self, **kwargs)
+        self.brace_direction = brace_direction
+        if isinstance(obj, list): obj = VMobject(*obj)
+        self.brace = Brace(obj, brace_direction, **kwargs)
+
+        if isinstance(text, tuple) or isinstance(text, list):
+            self.desc = self.desc_constructor(*text, **kwargs)
+        else: self.desc = self.desc_constructor(str(text))
+        if self.desc_scale != 1: self.desc.scale(self.desc_scale)
+
+        self.brace.put_at_tip(self.desc)
+        self.submobjects = [self.brace, self.desc]
+
+    def creation_anim(self, desc_anim = FadeIn, brace_anim = GrowFromCenter):
+        return AnimationGroup(brace_anim(self.brace), desc_anim(self.desc))
+
+    def shift_brace(self, obj, **kwargs):
+        if isinstance(obj, list): obj = VMobject(*obj)
+        self.brace = Brace(obj, self.brace_direction, **kwargs)
+        self.brace.put_at_tip(self.desc)
+        self.submobjects[0] = self.brace
+        return self
+
+    def change_desc(self, *text, **kwargs):
+        self.desc = self.desc_constructor(*text, **kwargs)
+        if self.desc_scale != 1: self.desc.scale(self.desc_scale)
+
+        self.brace.put_at_tip(self.desc)
+        self.submobjects[1] = self.desc
+        return self
+
+    def change_brace_desc(self, obj, *text):
+        self.shift_brace(obj)
+        self.change_desc(*text)
+        return self
+
+    def copy(self):
+        copy_mobject = copy.copy(self)
+        copy_mobject.brace = self.brace.copy()
+        copy_mobject.desc = self.desc.copy()
+        copy_mobject.submobjects = [copy_mobject.brace, copy_mobject.desc]
+
+        return copy_mobject
+
+class BraceText(BraceDesc):
+    CONFIG = {
+        "desc_constructor" : TextMobject
+    }
+
+class Counter(Circle):
+    CONFIG = {
+        "stroke_color" : GREY,
+        "fill_color"   : DARK_GREY,
+        "fill_opacity" : 0.5,
+    }
+    def __init__(self, **kwargs):
+        Circle.__init__(self, **kwargs)
+        self.rotate(np.pi/2)
+        self.to_corner(UP+RIGHT, buff = 0.8)
+        
+    def count_from(self, start, scene):
+        scene.add(self)
+        for n in reversed(range(1,start+1)):
+            white = self.copy()
+            white.set_fill(opacity = 0)
+            white.highlight(WHITE)
+            number = TexMobject(str(n))
+            number.move_to(self)
+            number.scale_to_fit_height(self.get_height()/2)
+            scene.add(number)
+            scene.play(Uncreate(white))
+            scene.remove(number)
+        scene.remove(self)

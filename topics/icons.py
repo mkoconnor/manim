@@ -54,30 +54,6 @@ class TrianglePointer(VMobject):
 
         return self
 
-class Counter(Circle):
-    CONFIG = {
-        "stroke_color" : GREY,
-        "fill_color"   : DARK_GREY,
-        "fill_opacity" : 0.5,
-    }
-    def __init__(self, **kwargs):
-        Circle.__init__(self, **kwargs)
-        self.rotate(np.pi/2)
-        
-    def count_from(self, start, scene):
-        scene.add(self)
-        for n in reversed(range(1,start+1)):
-            white = self.copy()
-            white.set_fill(opacity = 0)
-            white.highlight(WHITE)
-            number = TexMobject(str(n))
-            number.move_to(self)
-            number.scale_to_fit_height(self.get_height()/2)
-            scene.add(number)
-            scene.play(Uncreate(white))
-            scene.remove(number)
-        scene.remove(self)
-
 class MirekOlsakLogo(VMobject):
 
     def __init__(self, camera):

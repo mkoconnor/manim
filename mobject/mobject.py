@@ -496,6 +496,17 @@ class Mobject(object):
                 result[dim] = max_point
         return result
 
+    def get_relative_point(self, direction):
+        result = np.zeros(self.dim)
+        for dim in range(self.dim):
+            min_point = self.reduce_across_dimension(np.min, np.min, dim)
+            max_point = self.reduce_across_dimension(np.max, np.max, dim)
+
+            result[dim] = (max_point+min_point)/2 \
+                          + (max_point-min_point)/2 * direction[dim]
+
+        return result
+
     def get_submobject_critical_point(self, direction):
         if len(self.split()) == 1:
             return self.get_critical_point(direction)

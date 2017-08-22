@@ -48,65 +48,82 @@ Outline
 . Or an infinite number of prisoners such that almost
 . all of them guess their hat correctly, it is likely to be strongly
 . connected to this discipline.
+.
+. To be honest, it is actually our main reason why we study
+. it. Because it is beautiful.
+:----------------------TwoSetTheoryRoles---------------------------
+. It provides to a mathematician a whole
+. amazing world just for their ideas. Sorry, nothing for practically
+. oriented people who want to see direct applications in real world. You
+. don't meet the infinity on a street.
+.
+. But then there is also another reason why the theory is important, it
+. is solid.
+. It turned out that intuitive thinking about infinity can easily lead
+. to direct contradictions like that a set is an element of itself if
+. and only if it isn't. So mathematicians developed a formal axiomatic
+. framework to deal with that. And it turned out that their solution is
+. so universal that it covers virtually any mathematical field.
+.
+. Therefore, set theory actually plays two roles in mathematics, the
+. theory of infinity and the foundations of mathematics.
+.
 
-To be honest, it is actually our main reason why we study
-it. Because it is beautiful. It provides to a mathematician a whole
-amazing world just for their ideas. Sorry, nothing for practically
-oriented people who want to see direct applications in real world. You
-don't meet the infinity on a street.
+:---------------------------ChapterList------------------------------
+. We start with
+. the intuitive theory of infinity in several chapters, then we describe
+. the problems and their solution by providing an axiomatic
+. framework. The series will be finished with some non-trivial tools of
+. set theory like the principle of maximality.
 
-But then there is also another reason why the theory is important, it
-is solid. It turned out that thinking about infinity can easily lead
-to direct contradictions. So mathematicians developed a formal
-framework to deal with that. And it turned out that their solution is
-so universal that it covers virtually any mathematical field.
+:--------------------------InfinityBasics-----------------------------
+. To begin with the theory of infinity, we have to clarify what infinity
+. means to us.
+. What is it besides just the symbol of rotated number
+. eight? Actually, we are not going to answer this question, we will not
+. use even the symbol of infinity in the series anyway. We will
+. investigate a bit different problem, what is infinite? Of course,
+. infinite is what is not finite. That answer was cheap. But finiteness
+. can be defined quite simply, finite set is such a set that the
+. number of its elements can be expressed by a natural number.
+. A set of five elements is finite.
+. A set of one hundrets elements is finite. But
+. the set of all natural numbers is too big to be measured by a natural
+. number, so it is infinite.
+.
+. Even an empty set is a finite set, that is why we consider zero as a
+. natural number, which may be unusual in other fields but it is very
+. natural in set theory.
+. 
+. According to this definition, the answer to our original question is
+. definitelly not just a large natural number. The point is that
+. infinite sets behave in unexpected ways and that is the area of the
+. study. Consider the following problem.
 
-Therefore, set theory actually plays two roles in mathematics, the
-theory of infinity and the foundations of mathematics. We start with
-the intuitive theory of infinity in several chapters, then we describe
-the problems and their solution by providing an axiomatic
-framework. The series will be finished with some non-trivial tools of
-set theory like the principle of maximality.
+:---------------------------GridColoring-------------------------------
+. We have a grid five by five and we are coloring it by
+. two colors, yellow and blue. If we color it in such a way that all
+. the rows are predominantly blue, it may happen that some columns are
+. predominantly yellow. But not all of them.
+If we fix the remaining columns that they are predominantly yellow, we
+break some of the rows.
 
-To begin with the theory of infinity, we have to clarify what infinity
-means to us. What is it besides just the symbol of rotated number
-eight? Actually, we are not going to answer this question, we will not
-use even the symbol of infinity in the series anyway. We will
-investigate a bit different problem, what is infinite? Of course,
-infinite is what is not finite, that answer was cheap. But finiteness
-can be defined quite simply, finite set is such a set that the
-number of its elements can be expressed by a natural number. A set of
-five elements is finite, a set of one hundrets elements is finite. But
-the set of all natural numbers is too big to be measured by a natural
-number, so it is infinite.
-
-Even an empty set is a finite set, that is why we consider zero as a
-natural number, which may be unusual in other fields but it is very
-usual in set theory.
-
-By this definition, infinity is definitelly not just a large
-number. The point is that infinite sets behave in unexpected ways and
-that is the area of the study. Consider the following problem. We have
-a grid five by five and we would like to color it by two colors,
-yellow and blue, so that every row is predominantly blue and every
-column is predominently yellow. Can you solve it?
-
-Well, it is impossible. We cannot fill the table in such a way that
+It is impossible to get all the rows mostly blue and all the columns
+mostly yellow. We cannot fill the table in such a way that
 there is more blue in it, and more yellow in it at the same time.
 
-But what if we pick an infinite
-grid? There is a colorization of the grid such that every row contains
+. But what if we pick an infinite
+. grid? There is a colorization of the grid such that every row contains
 just finite number of yellow squares and every column contain just a
 finite number of blue squares. We recommend you to pause the video and
-think about it for a while.
+think about it for a while. You can take your paper and pencil for help.
 ...
-[wait for 20 seconds]
+[wait for 10 seconds]
 ...
 There comes the solution. Do you see? Every row is mostly blue up to a
 finite number, every column is mostly yellow up to a finite number of
-blue squares. The obviously impossible task in the finite
-world became possible for infinite grid. And that is just the
-beginning.
+blue squares. The impossible task in the finite world became possible
+for infinite grid. And that is just the beginning.
 
 In the next chapter we will learn how to compare sizes of infinite
 sets. See you then.
