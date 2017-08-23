@@ -21,7 +21,7 @@ from eost.ordinal import *
 from topics.number_line import NumberLine
 from topics.common_scenes import OpeningTitle, OpeningQuote
 from topics.icons import MirekOlsakLogo
-from topics.objects import BraceText
+from topics.objects import BraceText, Counter
 import eost.deterministic
 
 class Chapter1OpeningTitle(OpeningTitle):
@@ -481,82 +481,222 @@ class InfinityBasics(Scene):
         self.play(Write(TextMobject("Not just a number...")))
         self.dither(3)
 
-class GridColoring(Scene):
+class TurnSquares(Transform):
+    CONFIG = {
+        "submobject_mode" : "lagged_start",
+        "rate_func"       : None,
+        "omit_unchanged"  : True,
+    }
+    def __init__(self, square_list, color_list, **kwargs):
 
-    def construct(self):
-
-        self.grid_size = 5
-        self.square_size = 0.8
-
-        inf_grid = self.make_infinite_grid()
-        self.add_foreground_mobjects(inf_grid[1])
-        squares = inf_grid[0]
-        self.dither()
-
-        colors = [rgb_to_color(square.fill_rgb) for square in squares]
-        squares.highlight(BLACK)
-        self.play(
-            self.turn_squares(squares, colors),
-            run_time = 3,
-        )
-        self.dither()
-
-        return
-
-        self.force_skipping()
-        
-        squares, border, lines = self.make_finite_grid()
-
-        self.add(squares)
-        self.play(ShowCreation(border))
-        self.play(ShowCreation(lines, submobject_mode = "lagged_start", run_time = 1.5))
-        self.add_foreground_mobjects(border, lines)
-        self.dither()
-
-        squares_flatten = list(it.chain(*squares))
-        self.color_list = [YELLOW]*(self.grid_size**2)
-        for i in range(0, self.grid_size**2, self.grid_size):
-            self.dominate(BLUE, range(i, i+self.grid_size))
-
-        h_arrows = VGroup(*[Arrow(ORIGIN, 2*RIGHT, color = BLUE)
-                            for _ in range(self.grid_size)])
-
-        for h_arrow, row in zip(h_arrows, squares): h_arrow.next_to(row, LEFT)
-
-        self.revert_to_original_skipping_status()
-        self.play(
-            self.turn_squares(squares_flatten, self.color_list),
-            FadeIn(h_arrows, submobject_mode = "lagged_start"),
-            run_time = 2,
-        )
-        self.dither()
-
-        return
-
-    def dominate(self, color, indices):
-        total_num = len(indices)
-        color_num = len(filter(lambda i: self.color_list[i] == color, indices))
-
-        while color_num*2 <= total_num:
-            i = random.choice(indices)
-            if self.color_list[i] == color: continue
-            color_num += 1
-            self.color_list[i] = color
-
-    def turn_squares(self, square_list, color_list):
+        digest_config(self, kwargs)
+        if self.omit_unchanged:
+            unchanged = [
+                (color_to_rgb(dest_color) == color_to_rgb(square.color)).all()
+                for square,dest_color in zip(square_list, color_list)
+            ]
+            square_list = [
+                square
+                for i, square in enumerate(square_list)
+                if not unchanged[i]
+            ]
+            color_list = [
+                color
+                for i, color in enumerate(color_list)
+                if not unchanged[i]
+            ]
 
         squares = VGroup(*square_list)
         squares_dest = squares.copy()
 
         for square, square_dest, color in zip(squares, squares_dest, color_list):
-            square.color = color
             square_dest.set_color(color)
 
         for square in squares:
             square.rotate_in_place(np.pi/2)
             square.stretch_in_place(-1, 0)
 
-        return Transform(squares, squares_dest, submobject_mode = "lagged_start")
+        Transform.__init__(self, squares, squares_dest)
+
+    def clean_up(self, surrounding_scene = None):
+        families = self.get_all_families_zipped()
+        for submob, start, end in families:
+            submob.color = end.color
+
+        Transform.clean_up(self, surrounding_scene)
+        if surrounding_scene is not None:
+            surrounding_scene.mobjects.remove(self.mobject)
+
+    def update_submobject(self, submob, start, end, alpha):
+        if alpha < 0.5:
+            start.set_fill(start.color)
+            end.set_fill(WHITE)
+        else:
+            start.set_fill(WHITE)
+            end.set_fill(end.color)
+
+        submob.interpolate(start, end, alpha, self.path_func)
+        return self
+
+def make_inf_grid_lines(square_size):
+
+    lines = []
+
+    x = square_size/2
+    while x < SPACE_WIDTH+0.5:
+        lines += [
+            Line(x*direction + SPACE_HEIGHT*UP, x*direction + SPACE_HEIGHT*DOWN)
+            for direction in [LEFT, RIGHT]
+        ]
+        x += square_size
+
+    y = square_size/2
+    while y < SPACE_HEIGHT+0.5:
+        lines += [
+            Line(y*direction + SPACE_WIDTH*LEFT, y*direction + SPACE_WIDTH*RIGHT)
+            for direction in [UP, DOWN]
+        ]
+        y += square_size
+
+    return VGroup(*lines)
+
+class FinGridColoring(Scene):
+
+    def construct(self):
+
+        self.grid_size = 5
+        self.square_size = 0.8
+
+        #self.force_skipping()
+        
+        self.squares, border, lines = self.make_finite_grid()
+
+        self.play(ShowCreation(border))
+        self.play(ShowCreation(lines, submobject_mode = "lagged_start", run_time = 1.5))
+        self.add_foreground_mobjects(border, lines)
+        self.dither()
+
+        self.colors = np.full([self.grid_size, self.grid_size],
+                              YELLOW, dtype = object)
+        for i in range(0, self.grid_size):
+            self.dominate(BLUE, self.row_indices([i]))
+
+        h_arrows = VGroup(*[Arrow(ORIGIN, 2*RIGHT, color = BLUE)
+                            for _ in range(self.grid_size)])
+        v_arrows = VGroup(*[Arrow(ORIGIN, 2*UP, color = YELLOW)
+                            for _ in range(self.grid_size)])
+        for h_arrow, row in zip(h_arrows, self.squares):
+            h_arrow.next_to(row[0], LEFT)
+        for v_arrow, square in zip(v_arrows, self.squares[-1]):
+            v_arrow.next_to(square, DOWN)
+
+        self.play(
+            self.turn_indices(self.row_indices(range(self.grid_size))),
+            FadeIn(h_arrows, submobject_mode = "lagged_start", rate_func = None),
+            run_time = 2,
+        )
+        self.dither()
+
+        satisfied_columns = [
+            i for i in range(self.grid_size)
+            if self.dominant(self.column_indices([i])) == YELLOW
+        ]
+        unsatisfied_columns = [
+            i for i in range(self.grid_size)
+            if self.dominant(self.column_indices([i])) != YELLOW
+        ]
+        satisfied_v_arrows = VGroup(*[
+            v_arrows[i] for i in satisfied_columns
+        ])
+        unsatisfied_v_arrows = VGroup(*[
+            v_arrows[i] for i in unsatisfied_columns
+        ])
+
+        self.play(FadeIn(satisfied_v_arrows))
+        self.dither()
+
+        for i in unsatisfied_columns:
+            self.dominate(YELLOW, self.column_indices([i]))
+
+        broken_rows = [
+            i for i in range(self.grid_size)
+            if self.dominant(self.row_indices([i])) != BLUE
+        ]
+        broken_h_arrows = VGroup(*[
+            h_arrows[i] for i in reversed(broken_rows)
+        ])
+
+        self.play(
+            self.turn_indices(self.column_indices(unsatisfied_columns)),
+            FadeIn(unsatisfied_v_arrows),
+            FadeOut(broken_h_arrows),
+            submobject_mode = "lagged_start",
+            run_time = 2,
+            rate_func = None,
+        )
+        self.dither(2)
+
+        inequality1 = VGroup(
+            self.squares[0,0].copy(),
+            TexMobject('>'),
+            self.squares[0,0].copy(),
+        )
+        #inequality1[1].scale(2)
+        inequality1.arrange_submobjects(buff = 0.25)
+        inequality2 = inequality1.copy()
+        inequality1[0].set_color(BLUE)
+        inequality1[2].set_color(YELLOW)
+        inequality2[0].set_color(YELLOW)
+        inequality2[2].set_color(BLUE)
+
+        inequalities = VGroup(inequality1, inequality2)
+        inequalities.arrange_submobjects(buff = 1.5)
+        inequalities.to_edge(UP)
+
+        self.play(FadeIn(inequality1))
+        self.dither()
+        self.play(FadeIn(inequality2))
+        self.dither()
+
+        h_arrows.remove(*broken_h_arrows)
+        inf_lines = make_inf_grid_lines(self.square_size)
+
+        self.revert_to_original_skipping_status()
+        self.play(
+            FadeOut(VGroup(inequalities, v_arrows, h_arrows)),
+            FadeOut(VGroup(*self.squares.flatten())),
+            FadeIn(inf_lines),
+        )
+        self.dither()
+
+    def turn_indices(self, indices):
+        indices = zip(*indices)
+        return TurnSquares(self.squares[indices], self.colors[indices])
+    
+    def row_indices(self, row_index_list):
+        return [(i,j) for i in row_index_list for j in range(self.grid_size)]
+    def column_indices(self, column_index_list):
+        return [(i,j) for j in column_index_list for i in reversed(range(self.grid_size))]
+
+    def dominate(self, color, indices):
+        total_num = len(indices)
+        color_num = len(filter(lambda i: self.colors[i] == color, indices))
+
+        while color_num*2 <= total_num:
+            i = random.choice(indices)
+            if self.colors[i] == color: continue
+            color_num += 1
+            self.colors[i] = color
+
+    def dominant(self, indices):
+        yellow_num = 0
+        blue_num = 0
+        for i in indices:
+            if self.colors[i] == YELLOW: yellow_num += 1
+            if self.colors[i] == BLUE: blue_num += 1
+
+        if yellow_num < blue_num: return BLUE
+        return YELLOW
 
     def make_finite_grid(self):
 
@@ -581,27 +721,95 @@ class GridColoring(Scene):
         squares.set_stroke(width = 0)
         squares.set_fill(opacity = 0.5)
 
-        return squares, border, VGroup(lines_h, lines_v)
+        # convert VGroup into np array
+        squares_np = np.empty([self.grid_size, self.grid_size], dtype = object)
+        squares_np[:,:] = squares
+        
+        return squares_np, border, VGroup(lines_h, lines_v)
+
+class InfGridColoring(Scene):
+
+    def construct(self):
+
+        #self.force_skipping()
+
+        self.square_size = 0.8
+
+        inf_grid = self.make_infinite_grid()
+        self.add_foreground_mobjects(inf_grid[1])
+        self.squares = inf_grid[0]
+        self.dither()
+
+        colors = [rgb_to_color(square.fill_rgb) for square in self.squares]
+        for square in self.squares: square.set_color(BLACK)
+
+        row = self.select_square_line(0)
+        row_colors = self.generate_colors(row, main_blue = True)
+
+        column = self.select_square_line(1)
+        column_colors = self.generate_colors(column, main_blue = False)
+
+        self.play(TurnSquares(row, row_colors))
+        self.dither()
+        self.play(TurnSquares(column, column_colors))
+        self.dither()
+
+        counter = Counter()
+        counter.count_from(5, self)
+        self.dither()
+
+        self.play(
+            TurnSquares(self.squares, colors),
+            run_time = 3,
+            rate_func = None,
+        )
+        self.dither()
+
+        self.revert_to_original_skipping_status()
+
+        row = self.select_square_line(0, -2)
+        self.play(row.set_fill, None, 1)
+        self.dither()
+        self.play(row.set_fill, None, 0.5)
+
+        column_index = -4
+        column = self.select_square_line(1, column_index)
+        self.play(column.set_fill, None, 1)
+
+        ori_size = self.square_size
+        self.square_size = 0.5
+        self.remove(inf_grid)
+
+        inf_grid = self.make_infinite_grid()
+        self.squares = inf_grid[0]
+        self.add_foreground_mobjects(inf_grid[1])
+        column = self.select_square_line(1, column_index)
+        column.set_fill(opacity = 1)
+
+        self.play(UnapplyMethod(inf_grid.scale, ori_size / self.square_size))
+        self.dither(5)
+
+    def select_square_line(self, dim, pos = 0):
+        squares = filter(lambda square: abs(square.get_center()[1-dim] / self.square_size
+                                            - pos) < 0.5,
+                         self.squares)
+        squares.sort(key = lambda square: square.get_center()[1-dim], reverse = (dim == 0))
+
+        return VGroup(*squares)
+
+    def generate_colors(self, squares, main_blue = True, minor_num = 3):
+        colors = [YELLOW, BLUE]
+        if main_blue: colors.reverse()
+        main_color, other_color = colors
+
+        colors = [main_color]*len(squares)
+        for _ in range(minor_num):
+            i = random.randint(len(colors)//2 - 4, len(colors)//2 + 3)
+            colors[i] = other_color
+
+        return colors
 
     def make_infinite_grid(self):
-
-        lines = []
-
-        x = self.square_size/2
-        while x < SPACE_WIDTH+0.5:
-            lines += [
-                Line(x*direction + SPACE_HEIGHT*UP, x*direction + SPACE_HEIGHT*DOWN)
-                for direction in [LEFT, RIGHT]
-            ]
-            x += self.square_size
-
-        y = self.square_size/2
-        while y < SPACE_HEIGHT+0.5:
-            lines += [
-                Line(y*direction + SPACE_WIDTH*LEFT, y*direction + SPACE_WIDTH*RIGHT)
-                for direction in [UP, DOWN]
-            ]
-            y += self.square_size
 
         dist = -0.5
         num = 1
@@ -627,4 +835,4 @@ class GridColoring(Scene):
             dist += self.square_size
             num += 2
 
-        return VGroup(VGroup(*squares), VGroup(*lines))
+        return VGroup(VGroup(*squares), make_inf_grid_lines(self.square_size))

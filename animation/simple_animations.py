@@ -388,14 +388,16 @@ class AnimationGroup(Animation):
         digest_config(self, kwargs, locals())
         sync_animation_run_times_and_rate_funcs(*sub_anims, **kwargs)
         self.run_time = max([a.run_time for a in sub_anims])
-        everything = Mobject(*[a.mobject for a in sub_anims])
-        Animation.__init__(self, everything, **kwargs)
+        self.everything = Mobject(*[a.mobject for a in sub_anims])
+        Animation.__init__(self, self.everything, **kwargs)
 
     def update_mobject(self, alpha):
         for anim in self.sub_anims:
             anim.update(alpha)
 
     def clean_up(self, surrounding_scene = None):
+        if surrounding_scene is not None:
+            surrounding_scene.mobjects.remove(self.everything)
         for anim in self.sub_anims:
             anim.clean_up(surrounding_scene = surrounding_scene)
 

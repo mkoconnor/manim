@@ -7,7 +7,7 @@ from mobject.svg_mobject import SVGMobject
 from mobject.tex_mobject import TextMobject, TexMobject, Brace
 
 from animation import Animation
-from animation.simple_animations import Rotating, AnimationGroup
+from animation.simple_animations import Rotating, AnimationGroup, Uncreate
 from animation.transform import FadeIn, GrowFromCenter
 
 from topics.geometry import Circle, Line, Rectangle, Square, Arc, Polygon
@@ -494,14 +494,18 @@ class Counter(Circle):
     CONFIG = {
         "stroke_color" : GREY,
         "fill_color"   : DARK_GREY,
-        "fill_opacity" : 0.5,
+        "fill_opacity" : 0.8,
     }
     def __init__(self, **kwargs):
         Circle.__init__(self, **kwargs)
         self.rotate(np.pi/2)
         self.to_corner(UP+RIGHT, buff = 0.8)
-        
+
     def count_from(self, start, scene):
+
+        ori_foreground = scene.foreground_mobjects
+        scene.foreground_mobjects = []
+
         scene.add(self)
         for n in reversed(range(1,start+1)):
             white = self.copy()
@@ -514,3 +518,5 @@ class Counter(Circle):
             scene.play(Uncreate(white))
             scene.remove(number)
         scene.remove(self)
+
+        scene.foreground_mobjects = ori_foreground

@@ -105,25 +105,25 @@ Outline
 . two colors, yellow and blue. If we color it in such a way that all
 . the rows are predominantly blue, it may happen that some columns are
 . predominantly yellow. But not all of them.
-If we fix the remaining columns that they are predominantly yellow, we
-break some of the rows.
-
-It is impossible to get all the rows mostly blue and all the columns
-mostly yellow. We cannot fill the table in such a way that
-there is more blue in it, and more yellow in it at the same time.
-
+. If we fix the remaining columns that they are predominantly yellow, we
+. break some of the rows.
+.
+. It is impossible to get all the rows mostly blue and all the columns
+. mostly yellow. We cannot fill the table in such a way that
+. there is more blue in it, and more yellow in it at the same time.
+.
 . But what if we pick an infinite
 . grid? There is a colorization of the grid such that every row contains
-just finite number of yellow squares and every column contain just a
-finite number of blue squares. We recommend you to pause the video and
-think about it for a while. You can take your paper and pencil for help.
-...
-[wait for 10 seconds]
-...
-There comes the solution. Do you see? Every row is mostly blue up to a
-finite number, every column is mostly yellow up to a finite number of
-blue squares. The impossible task in the finite world became possible
-for infinite grid. And that is just the beginning.
+. just finite number of yellow squares and every column contain just a
+. finite number of blue squares. We recommend you to pause the video and
+. think about it for a while. You can take your paper and pencil for help.
+. ...
+. [wait for 10 seconds]
+. ...
+. There comes the solution. Do you see? Every row is blue up to a
+finite number of squares and every column is yellow up to a finite
+number of blue squares. The impossible task in the finite world became
+possible for infinite grid. And that is just the beginning.
 
 In the next chapter we will learn how to compare sizes of infinite
 sets. See you then.
