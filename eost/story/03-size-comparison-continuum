@@ -20,7 +20,8 @@ Outline
 . current chapter is devoted primarily to this particular bigger size.
 .
 . First of all, an infinite sequence of zeros and ones is in a sense the
-. same thing as a subset of omega, the set of all natural numbers.
+. same thing as a subset of the set of all natural numbers. The set of
+. all natural numbers is called omega in set theory context.
 . Indeed, we can interpret the sequence as a mask.
 . Ones simply represents the naturals included in that subset and zeros
 . represents the omited numbers.

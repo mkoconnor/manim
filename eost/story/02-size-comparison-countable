@@ -53,97 +53,107 @@ Outline
 . we can write is like that,
 . :{$|A|=|B|$}
 . the size of $A$ equals the size of $B$.
+.
+. If, on the other hand, if there is no way how to match these sets together,
+. :{Finite number of pears, matching attempts}
+. and no matter how we try, we can just match the elements of the set
+. $B$ with a part of the set $A$, we say that the size $A$ is bigger
+. than $B$.
 
-If, on the other hand, if there is no way how to match these sets together,
-:{Finite number of pears, matching attempts}
-and no matter how we try, we can just match the elements of the set
-$B$ with a part of the set $A$, we say that the size $A$ is bigger
-than $B$.
+:---------------------- NaturalsSubsets --------------------------
+. But this definition leads us to several surprising observations. Take
+. the set of all natural numbers. And then take just the subset
+. consisted of all even numbers. Intuitively, the number of even
+. naturals should be less than the number of all naturals. After all, we
+. discarded an infinite number of odd naturals something like the half
+. of all numbers here. But there is a simple correspondence between
+. natural numbers and even numbers:
+. :{|natural numbers|=|even natural numbers|}
+. We can just match every number with its double, zero with zero, one
+. with two, two with four, three with six and so on. So the number of
+. all even numbers is the same as the set of all naturals. 
+.
+. It was not really important to take exactly natural numbers. If we
+. take squares of integers, we can match zero with zero, one with one,
+. two with four, and so on. Or if we take just prime numbers, we can
+. match then zero with two, one with three, two with five, and so on. If
+. we take any infinite subset of natural numbers, however sparse, the
+. size will still be the same.
 
-But this definition leads us to several surprising observations. Take
-the set of all natural numbers. And then take just the subset
-consisted of all even numbers. Intuitively, the number of even
-naturals should be less than the number of all naturals. After all, we
-discarded an infinite number of odd naturals something like the half
-of all numbers here. But there is a simple correspondence between
-natural numbers and even numbers:
-:{|natural numbers|=|even natural numbers|}
-We can just match every number with its double, zero with zero, one
-with two, two with four, three with six and so on. So the number of
-all even numbers is the same as the set of all naturals. 
-
-It was not really important to take exactly natural numbers. If we
-take squares of integers, we can match zero with zero, one with one,
-two with four, and so on. Or if we take just prime numbers, we can
-match then zero with two, one with three, two with five, and so on. If
-we take any infinite subset of natural numbers, however sparse, the
-size will still be the same.
-
-Let's introduce
-:{upbrace: finite sizes}
-some notation now. Sizes of finite sets are determined by natural
-numbers, zero, one, two and so on. In general, sizes are measured by
-so called cardinal numbers, or simply cardinals.
-Now, we have introduced an infinite cardinal number,
-it is called Aleph 0. The inventor of set theory, George cantor
-established aleph, the first letter of Hebrew alphabet for the notation.
-Perhaps he considered both latin and greek alphabets too
-mainstream...
-
-We already know that Aleph 0 is the least infinite
-size because every infinite part of it is still the same size. That's
-why there is the zero at the subscript. All
-:{downbrace: countable sizes}
-these sizes are called countable meaning that natural numbers are
-enough for counting its elements even though we may need all natural
-numbers. During the rest of this chapter we will mainly investigate
-the properties of the size aleph 0 and countability.
-
-We will show the notation on the example with even numbers. We already
-know that the set of even numbers can be matched with natural numbers,
-that means that the number of even numbers is aleph 0. Similarly, the
-set of odd numbers has the size aleph 0. So there are two sets of size
-aleph 0 which altogether gives again a set of size aleph 0, the set of
-all naturals.
-
-But for size comparison, the particular elements does not really
-matter. Just because we know that there are some sets of size aleph 0
-which altogether have again the size aleph 0, we can generalize this
-fact to whatsoever two sets with size aleph 0. They can be again our
-sets of apples and pears. Each of them has the size aleph 0 but
-altogether they still have the size aleph 0. So aleph 0 plus aleph 0
-is still the same size aleph 0. Alternatively speaking, the union of
-two countable sets is still countable. There is a meaningful
-example. The number of non-positive integers, zero, minus one, minus
-two and so on, is aleph 0. They are just natural numbers reflected by
-the point zero. And there are aleph 0 of natural numbers. So the
-number of all integers is still Aleph 0.
-
-Q:"Hey, what happened to the merged zero?"
-Technically, the size could be less than aleph zero because two zeros
-were merged to one
-A:"The size is still countable infinite."
-but there is just one infinite countable cardinal number, the
-Aleph 0. So the size is still the same in our case.
-
-All right, the set of all natural numbers, denoted by omega, can be
-divided into two sets of the same size, odd
-numbers and even numbers. We can go on and partition even numbers to
-numbers divisible by four and the others. All these three sets are
-infinite countable, thus of size aleph 0, so aleph 0 times three is
-still aleph 0. Let's continue and partition numbers divisible by 4 to
-those which are divisible by 8 and those which are not. Then partition
-the numbers divisible by 8 to those which are divisible by sixteen and
-the others. And so on.
-
-We end up with an infinite table of natural numbers. Every number
-occurs here exactly once with the exception of missing zero which has
-disappered somewhere in infinity. Nevertheless, the size of every row
-is aleph 0, there are aleph 0 rows. But all elements altogether are
-just natural numbers without zero, that is there are aleph 0 of
-them. That shows that aleph 0 times aleph 0 is still aleph zero. More
-generaly, the union of countable sets is still countable.
-
+:------------------------- NotationScene -----------------------------
+. Let's introduce
+. :{upbrace: finite sizes}
+. some notation now. Sizes of finite sets are determined by natural
+. numbers, zero, one, two and so on. In general, sizes are measured by
+. so called cardinal numbers, or simply cardinals.
+. Now, we have introduced an infinite cardinal number, the size of the
+. set of natural numbers.
+. it is called Aleph 0. The inventor of set theory, George Cantor
+. established aleph, the first letter of Hebrew alphabet for the notation.
+. Perhaps he considered both latin and greek alphabets too
+. mainstream...
+.
+. We already showed that Aleph 0 is the least infinite
+. size because every infinite part of it is still of the same
+. size. That's why there is the zero at the subscript.
+. All
+. :{downbrace: countable sizes}
+. these sizes are called "countable" meaning that natural numbers are
+. enough for counting its elements even though we may need all natural
+. numbers. During the rest of this chapter we will mainly investigate
+. the properties of the size aleph 0 and countability.
+.
+:-------------------- InftyPlusInfty -----------------------------------
+. We will show the notation on the example with even numbers. We already
+. know that the set of even numbers can be matched with natural numbers,
+. that means that the number of even numbers is aleph 0. Similarly, the
+. set of odd numbers has the size aleph 0. So there are two sets of size
+. aleph 0 which altogether gives again a set of size aleph 0, the set of
+. all naturals.
+.
+. But for size comparison, the particular elements does not really
+. matter. Just because we know that there are some sets of size aleph 0
+. which altogether have again the size aleph 0, we can generalize this
+. fact to whatsoever two sets with size aleph 0. They can be again our
+. sets of apples and pears. Each of them has the size aleph 0 but
+. altogether they still have the size aleph 0. So aleph 0 plus aleph 0
+. is still the same size aleph 0. Alternatively speaking, the union of
+. two countable sets is still countable. There is a meaningful
+. example.
+.
+:--------------------- IntegersScene --------------------------------
+. The number of non-positive integers, zero, minus one, minus
+. two and so on, is aleph 0. They are just natural numbers reflected by
+. the point zero. And there are aleph 0 of natural numbers. So the
+. number of all integers is still Aleph 0.
+. 
+. Q:"Hey, what happened to the merged zero?"
+. Technically, the size could be less than aleph zero because two zeros
+. were merged to one
+. A:"The size is still countable infinite."
+. but there is just one infinite countable cardinal number, the
+. Aleph 0. So the size is still the same in our case.
+.
+:--------------------- InfiniteTable -----------------------------
+. All right, the set of all natural numbers, can be
+. divided into two sets of the same size, odd
+. numbers and even numbers. We can go on and partition even numbers to
+. numbers divisible by four and the others. All these three sets are
+. infinite countable, thus of size aleph 0, so aleph 0 times three is
+. still aleph 0. Let's continue and partition numbers divisible by 4 to
+. those which are divisible by 8 and those which are not. Then partition
+. the numbers divisible by 8 to those which are divisible by sixteen and
+. the others. And so on.
+.
+. We end up with an infinite table of natural numbers. Every number
+. occurs here exactly once with the exception of missing zero which has
+. disappered somewhere in infinity. Nevertheless, the size of every row
+. is aleph 0, there are aleph 0 rows. But all elements altogether are
+. just natural numbers without zero, that is there are aleph 0 of
+. them. That shows that aleph 0 times aleph 0 is still aleph zero. More
+. generaly, the union of countable sets is still countable.
+. 
+:----------------- InfiniteTableFormula (TODO) ---------------------------
 In this case, we can even directly describe the matching. The numbers
 in a row with an index r, say 3, is filled by odd multiplies of 8, in
 general two to the power of r. That is there is the number 2 to the
@@ -153,6 +163,7 @@ element at the position i of the row r with the natural number given
 by our formula. To tune it into perfectness, we tweak the formula
 by shifting by one to the left so we cover even the missing zero.
 
+:---------------------- RationalsScene (TODO) ---------------------------
 Let's see this in practice. We already know that the size of all
 integers is aleph 0. Similarly, the set of all integers divided by two
 is of the same size. The same holds for integers divided by three,
@@ -169,7 +180,7 @@ cardinal number, so the size cannot be anything else.
 Q:"Are all sets countable?"
 Considering all this you could be under the impression that actually every set
 can be countable.
-A:"Of course not."
+A:"Of course not ;-)"
 But in that case, the notion of countability and aleph 0 would be
 quite useless, don't you think? In fact, there is a whole variety of
 uncountable cardinals and the aleph 0 is just the first of infinite
@@ -178,6 +189,7 @@ uncountable set is the set of all real numbers. While the line seems
 to be filled by rational numbers, the vast majority of it is in fact
 still missing.
 
+:-------------------- ZeroOneSequences (TODO) -----------------------------
 But real numbers are technical a bit so for now let's see another
 famous example: The number of all infinite sequences of zeros and ones
 is uncountable. Indeed, whenever we make an atempt of matching natural

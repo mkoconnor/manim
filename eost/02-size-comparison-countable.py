@@ -4,11 +4,13 @@ from topics.geometry import *
 from constants import *
 from mobject import Mobject, Group
 from topics.fruit import *
+from topics.objects import BraceDesc, BraceText
 from animation.simple_animations import *
 from animation.transform import *
 import helpers
 from eost.matching import get_matching, MatchingAnimations
 from eost.ordinal import *
+from topics.chat_bubbles import Conversation
 import eost.deterministic
 
 def permute(l):
@@ -434,47 +436,404 @@ class InfiniteFruitScene(Scene):
         self.play(Write(definition_remaining))
         self.dither()
         
-class Scene3(Scene):
+class NaturalsSubsets(Scene):
     def construct(self):
-        def number_tex(i):
-            mobj = TexMobject(str(i))
-            mobj.number = i
-            return mobj
-        numbers = Group(*(number_tex(i) for i in xrange(150)))
-        max_width = max(mobj.get_width() for mobj in numbers.submobjects)
-        numbers.arrange_submobjects().to_edge(LEFT)
-        numbers_text = TextMobject("Natural Numbers").to_edge(UP)
-        self.play(ShowCreation(numbers),Write(numbers_text))
-        def show_matching(pred,extra_anims):
-            pred_numbers = Group(*filter(lambda i: pred(i.number), numbers.submobjects)).copy()
-            self.play(Transform(pred_numbers,pred_numbers.copy().shift((0,-3,0))))
-            self.play(Transform(pred_numbers,pred_numbers.copy().arrange_submobjects().to_edge(LEFT)))
-            matching = get_matching(pred_numbers,numbers)
-            self.play(*([ShowCreation(matching)] + extra_anims()))
-            self.play(Uncreate(matching),Uncreate(pred_numbers))
+        self.numbers = Group(*(self.number_tex(i) for i in xrange(15)))
 
-        def cardinality_tex(number_type):
-            return TexMobject("|","\\text{Natural Numbers}","|=|","\\text{" + number_type + " Numbers}","|").to_edge(UP)
-        even_numbers=cardinality_tex("Even")
-        # Creating the transform animation already mutates numbers_text, so
-        # we have to wrap it in a closure.  There's probably some better way
-        # to do this
-        show_matching(
-            lambda n: n % 2 == 0,
-            extra_anims=lambda : [Transform(numbers_text,even_numbers)]
-        )
+        self.number_text = TextMobject("Natural Numbers").to_edge(UP)
+        self.play(ShowCreation(self.numbers),Write(self.number_text))
+
+        self.show_matching(lambda n: 2*n, "Even", gradual_creation = True)
         self.dither()
-        import math
-        show_matching(
-            lambda n: n == int(math.sqrt(n)) ** 2,
-            extra_anims=lambda:[Transform(numbers_text,cardinality_tex("Square"))]
-        )
+
+        self.show_matching(lambda n: n ** 2, "Square")
         self.dither()
+
         small_primes = [
             2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,
             71,73,79,83,89,97,101,103,107,109,113
         ]
-        show_matching(
-            lambda n: n in small_primes,
-            extra_anims=lambda:[Transform(numbers_text,cardinality_tex("Prime"))]
+        self.show_matching(small_primes, "Prime")
+
+    def number_pos(self, number, direction = UP):
+        return LEFT_SIDE + (1.3*number + 2)*RIGHT + direction
+
+    def number_tex(self, i):
+        mobj = TexMobject(str(i))
+        mobj.move_to(self.number_pos(i))
+        mobj.number = i
+        return mobj
+
+    def cardinality_tex(self, number_type):
+        result = TexMobject("|","\\text{Natural Numbers}","|=|","\\text{" + number_type + " Numbers}","|").to_edge(UP)
+        result[-2].set_color(RED)
+        return result
+
+    def show_matching(self, subset, set_description, gradual_creation = False):
+        if callable(subset):
+            subset = [subset(i) for i in range(len(self.numbers))]
+        subset = VGroup(*[self.number_tex(i) for i in subset])
+
+        # shift down
+        subset_dest = subset.copy()
+        for num in subset_dest: num.move_to(self.number_pos(num.number, DOWN))
+        self.play(Transform(subset, subset_dest))
+
+        # compactize
+        subset_dest = subset.copy()
+        subset_dest.highlight(RED)
+        for i, num in enumerate(subset_dest): num.move_to(self.number_pos(i, DOWN))
+        self.play(Transform(subset, subset_dest))
+
+        matching = get_matching(subset, self.numbers)
+        matching.stretch(-1, 1)
+        number_text_dest = self.cardinality_tex(set_description)
+        if gradual_creation:
+            for i in range(3):
+                self.play(ShowCreation(matching[i]))
+                self.dither()
+            self.play(ShowCreation(VGroup(*matching[i+1:])))
+            self.play(ReplacementTransform(self.number_text, number_text_dest))
+
+        else:
+            self.play(
+                ShowCreation(matching),
+                ReplacementTransform(self.number_text, number_text_dest),
+            )
+        self.number_text = number_text_dest
+        self.dither()
+        self.play(Uncreate(matching),Uncreate(subset))
+
+class NotationScene(Scene):
+
+    def construct(self):
+
+        self.prepare_overall_picture()
+
+        numbers = VGroup(*(TexMobject(str(i)) for i in xrange(15)))
+        for i, num in enumerate(numbers): num.move_to(i*RIGHT)
+        aleph0_brace = Brace(numbers, UP)
+        aleph0_brace.highlight(GREEN)
+        VGroup(aleph0_brace, numbers).shift(self.sizes[1].get_edge_center(DOWN) + 0.2*DOWN
+                                            - aleph0_brace.get_tip())
+
+
+        self.play(Write(self.title))
+        self.dither()
+        self.play(self.finite_brace.creation_anim())
+        self.play(Write(self.sizes[0]))
+        self.dither()
+        self.play(Write(self.subtitle))
+        self.dither()
+        self.play(self.infinite_brace.creation_anim())
+        self.play(FadeIn(numbers), GrowFromCenter(aleph0_brace))
+        self.dither()
+        self.play(ReplacementTransform(aleph0_brace.copy(), self.sizes[1]))
+        self.dither()
+
+        def number_pos(n):
+            return numbers[0].get_center() + n*(numbers[1].get_center() - numbers[0].get_center())
+
+        subset = VGroup(*(TexMobject(str(2*n)) for n in xrange(15)))
+        for n, mob in enumerate(subset): mob.move_to(number_pos(2*n))
+        subset2 = subset.copy()
+        subset3 = subset2.copy()
+        for n, mob in enumerate(subset3): mob.move_to(number_pos(n))
+        VGroup(subset2, subset3).shift(DOWN)
+        subset3.highlight(RED)
+
+        self.play(Transform(subset, subset2))
+        self.play(Transform(subset, subset3))
+        self.dither()
+        self.play(FocusOn2(self.sizes[1][1]))
+        self.dither()
+        self.play(FadeOut(VGroup(subset, numbers, aleph0_brace)))
+        self.play(self.countable_brace.creation_anim())
+        self.dither()
+
+    def prepare_overall_picture(self):
+        self.title = TextMobject("Notation").scale(1.3).to_edge(UP)
+        self.subtitle = TextMobject("Cardinal Numbers").next_to(self.title, DOWN, buff = 0.5)
+
+        self.sizes = TexMobject("0,1,2,\ldots", "\\aleph_0")
+        self.sizes.highlight(GREEN)
+        self.sizes.shift(DOWN)
+        sizes0_ori = self.sizes[0].copy()
+        self.sizes[0].shift(3*LEFT)
+        sizes1_behind = self.sizes[1].copy()
+        sizes1_behind.behind_edge(RIGHT)
+        sizes1_next = self.sizes[0].copy()
+        sizes1_next.next_to(
+            self.sizes[1],
+            buff = (self.sizes[1].get_edge_center(LEFT) - sizes0_ori.get_edge_center(RIGHT))[0],
+            coor_mask = X_MASK,
         )
+
+        self.finite_brace = BraceText(VGroup(self.sizes[0], sizes0_ori), "finite sizes", UP)
+        self.infinite_brace = BraceText(VGroup(self.sizes[1], sizes1_behind), "infinite sizes", UP)
+        self.countable_brace = BraceText(self.sizes, "countable sizes", DOWN)
+        self.uncountable_brace = BraceText(VGroup(sizes1_next, sizes1_behind), "uncountable sizes", DOWN)
+        self.uncountable_brace.desc.shift(0.5*LEFT)
+
+class InftyPlusInfty(Scene):
+
+    def construct(self):
+
+        #self.force_skipping()
+
+        self.make_numbers()
+        self.numbers.to_corner(UP+LEFT)
+
+        even, even_ori, even_spaced, even_arranged = self.make_subset(lambda n: 2*n, 2)
+        odd,  odd_ori,  odd_spaced,  odd_arranged  = self.make_subset(lambda n: 2*n+1, 3)
+
+        self.add(self.numbers)
+
+        self.play(Transform(even, even_spaced))
+        VGroup(even_ori, even_spaced, even_arranged).highlight(RED)
+        self.play(Transform(even, even_arranged))
+        self.dither()
+
+        self.play(Transform(odd, odd_spaced))
+        VGroup(odd_ori, odd_spaced, odd_arranged).highlight(YELLOW)
+        self.play(Transform(odd, odd_arranged))
+        self.dither()
+
+        brace = BraceDesc(odd, "\\aleph_0")
+        self.play(brace.creation_anim())
+        self.dither()
+
+        self.play(
+            Transform(even, even_spaced),
+            Transform(odd, odd_spaced),
+        )
+        self.play(
+            Transform(even, even_ori),
+            Transform(odd, odd_ori),
+        )
+        self.remove(self.numbers)
+
+        self.dither()
+        self.play(
+            Transform(even, even_spaced),
+            Transform(odd, odd_spaced),
+        )
+        self.play(
+            Transform(even, even_arranged),
+            Transform(odd, odd_arranged),
+        )
+        self.dither()
+
+        even_abstr = VGroup(*[Dot(num.get_center(), color = RED)    for num in even])
+        odd_abstr  = VGroup(*[Dot(num.get_center(), color = YELLOW) for num in odd])
+        self.play(
+            Transform(even, even_abstr),
+            Transform(odd, odd_abstr),
+        )
+        self.dither()
+
+        apples_shrinked, apples, apples_spaced, apples_in_set \
+            = self.make_fruit_set(Apple().scale(0.6),
+                                  even_arranged, even_spaced, even_ori)
+        pears_shrinked, pears, pears_spaced, pears_in_set \
+            = self.make_fruit_set(Pear().scale(0.6),
+                                  odd_arranged, odd_spaced, odd_ori)
+        self.play(
+            ReplacementTransform(apples_shrinked, apples),
+            ReplacementTransform(pears_shrinked, pears),
+        )
+        self.remove(even, odd)
+        self.dither()
+
+        self.play(
+            Transform(apples, apples_spaced),
+            Transform(pears, pears_spaced),
+        )
+        self.play(
+            Transform(apples, apples_in_set),
+            Transform(pears, pears_in_set),
+        )
+        self.dither()
+
+        sum_formula = TexMobject('\\aleph_0','+','\\aleph_0',"=\\aleph_0")
+        sum_formula[0].highlight(RED)
+        sum_formula[2].highlight(YELLOW)
+        sum_formula.shift(BOTTOM/2)
+        self.play(Write(sum_formula))
+        self.dither()
+
+    def make_numbers(self, num_num = 15):
+        self.numbers = VGroup(*(TexMobject(str(i)) for i in xrange(num_num)))
+        for i, num in enumerate(self.numbers): num.move_to(i*RIGHT)
+
+    def make_subset(self, subset, down_shift):
+        if callable(subset):
+            subset = [subset(n) for n in range(len(self.numbers))]
+        subset = VGroup(*[self.number_tex(n) for n in subset])
+        subset_ori = subset.copy()
+        subset_spaced = subset.copy()
+        subset_arranged = subset.copy()
+        for i, num in enumerate(subset_arranged): num.move_to(self.number_pos(i))
+        VGroup(subset_spaced, subset_arranged).shift(down_shift * DOWN)
+
+        return subset, subset_ori, subset_spaced, subset_arranged
+
+    def number_pos(self, n):
+        return self.numbers[0].get_center() + n*(self.numbers[1].get_center()
+                                                 - self.numbers[0].get_center())
+
+    def number_tex(self, n):
+        return TexMobject(str(n)).move_to(self.number_pos(n))
+
+    def make_fruit_set(self, fruit_example, num_arranged, num_spaced, num_ori):
+
+        fruits = VGroup(*[
+            fruit_example.copy().move_to(num.get_center())
+            for num in num_arranged
+        ])
+        shrinked = fruits.copy()
+        spaced = fruits.copy()
+        in_set = fruits.copy()
+
+        for fruit in shrinked:
+            fruit.scale_in_place(0)
+            fruit.highlight(num_arranged.fill_color)
+
+        for fruit, num in zip(spaced, num_spaced): fruit.move_to(num)
+        for fruit, num in zip(in_set, num_ori):    fruit.move_to(num)
+
+        return shrinked, fruits, spaced, in_set
+
+class IntegersScene(Scene):
+
+    def construct(self):
+
+        negatives = VGroup(*[
+            self.number_tex(-n) for n in range(9)
+        ])
+        positives = VGroup(*[
+            self.number_tex(n) for n in range(9)
+        ])
+        negatives.shift(UP)
+
+        neg_brace = BraceDesc(negatives, "\\aleph_0", UP)
+        pos_brace = BraceDesc(positives, "\\aleph_0", DOWN)
+
+        self.play(ShowCreation(negatives))
+        self.play(neg_brace.creation_anim())
+        self.dither()
+
+        self.play(ShowCreation(positives))
+        self.play(pos_brace.creation_anim())
+        self.dither()
+
+        self.play(
+            positives.shift, UP,
+            pos_brace.shift, UP,
+        )
+        self.remove(positives[0])
+        self.play(
+            FadeOut(pos_brace),
+            neg_brace.shift_brace, VGroup(negatives, negatives[-1].copy().move_to(positives[-1])),
+        )
+        self.dither()
+
+        conversation = Conversation(self)
+        conversation.add_bubble("Hey, what happened to the merged zero?")
+        self.dither()
+        conversation.add_bubble("The size is still countable infinite.")
+        self.dither()
+
+    def number_tex(self, n):
+        return TexMobject(str(n)).move_to(n*RIGHT)
+
+class InfiniteTable(InftyPlusInfty):
+
+    def construct(self):
+        #self.force_skipping()
+
+        self.cur_color = WHITE
+        self.number_mul = 1
+        self.make_numbers(num_num = 13)
+        self.numbers.to_corner(UP+LEFT)
+        self.numbers.shift(1.5*RIGHT)
+        self.add(self.numbers)
+
+        even, _, even_spaced, even_arranged = self.make_subset(lambda n: 2*n, 3)
+        odd,  _, odd_spaced,  odd_arranged  = self.make_subset(lambda n: 2*n+1, 2)
+
+        odd_arranged.highlight(YELLOW)
+        even_arranged.highlight(RED)
+
+        self.play(
+            Transform(even, even_spaced),
+            Transform(odd,  odd_spaced),
+        )
+        self.play(
+            Transform(even, even_arranged),
+            Transform(odd,  odd_arranged),
+        )
+        self.dither()
+
+        colors = color_gradient([YELLOW, GREEN, BLUE], 6)
+        ori_numbers = self.numbers
+        self.numbers = even
+        self.number_mul = 2
+        self.cur_color = RED
+
+        for index, color in enumerate(colors[1:]):
+            subodd, _, _, subodd_arranged \
+                = self.make_subset(lambda n: 2*n+1, 0)
+            subeven, _, subeven_spaced, subeven_arranged \
+                = self.make_subset(lambda n: 2*n, 1)
+            self.remove(self.numbers)
+            self.add(subodd, subeven)
+            subodd_arranged.highlight(color)
+
+            self.play(Transform(subeven, subeven_spaced))
+            if index < 2:
+                self.play(Transform(subeven, subeven_arranged))
+                self.dither()
+                self.play(Transform(subodd, subodd_arranged))
+                self.dither()
+            else:
+                self.play(
+                    Transform(subeven, subeven_arranged),
+                    Transform(subodd, subodd_arranged),
+                )
+
+            self.number_mul *= 2
+            self.numbers = subeven
+
+        self.revert_to_original_skipping_status()
+
+        missing_zero = ori_numbers[0].copy().highlight(RED)
+        self.play(Write(missing_zero))
+        self.remove(ori_numbers[0])
+        ori_numbers.remove(ori_numbers[0])
+        self.play(missing_zero.behind_edge, DOWN)
+        self.dither()
+
+        h_brace = BraceDesc(odd, "\\aleph_0", UP)
+        v_brace = BraceDesc(VGroup(odd, subeven), "\\aleph_0", LEFT)
+        v_brace.shift(0.2*LEFT)
+        self.play(
+            FadeOut(ori_numbers),
+            h_brace.creation_anim(),
+        )
+        self.dither()
+        self.play(v_brace.creation_anim())
+
+        self.dither()
+
+        prod_formula = TexMobject("\\aleph_0\\cdot\\aleph_0 = \\aleph_0")
+        prod_formula.to_corner(LEFT+UP)
+        self.play(Write(prod_formula))
+        self.dither()
+
+    def number_tex(self, n):
+        result = TexMobject(str(n*self.number_mul))
+        result.move_to(self.number_pos(n))
+        if n*self.number_mul >= 100: result.scale_in_place(0.7)
+        result.highlight(self.cur_color)
+        return result
