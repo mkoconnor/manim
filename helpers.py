@@ -564,6 +564,9 @@ def angle_of_vector(vector):
         return 0
     return np.angle(complex(*vector[:2]))
 
-
-
-
+def color_interpolate(color0, color1, alpha):
+    if alpha <= 0: return color0
+    if alpha >= 1: return color1
+    color0 = color_to_rgb(color0)
+    color1 = color_to_rgb(color1)
+    return rgb_to_color(interpolate(color0, color1, alpha))

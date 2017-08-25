@@ -13,7 +13,7 @@ Outline
 * finite sets of rationals are countable
 * uncountability: infinite sequences of 0,1
 
-:---- Scene1 -----
+:------------------- FiniteFruitScene ----------------------------------
 . Assume that we have some apples and some pears. And we would like to
 . figure out what is more. Well, that's an exercise for first year
 . pupils of elementary school, we just compute the number of apples,
@@ -32,26 +32,27 @@ Outline
 . pears is one extra apple. It is not surprising at all. At least until
 . we meet infinity...
 
-:---- Scene2 -----
-Let's have an infinite number of apples, each sitting at a natural
-number, and an infinite number of pears also each sitting on a natural
-number. There is a natural matching between apples and pears, so there
-should be the same number of them. But if we use another matching,
-connecting the pear at number 0 to the apple at number 1, the pear at
-number 1 to the apple at number 2, and so on, there is one extra
-apple. So there should be more apples than pears.
-
-And similarly, there can be one extra pear. How to manage it? The
-reasonable way how to untangle this is the following definition.
-:{"Definition"}
-Consider two sets, $A$ and $B$.
-:{Boxes around apples and pears}
-If there is any matching between $A$ and $B$ such that every element
-of $A$ and every element of $B$ is used exactly once, we say that
-these two sets have the same size. We write size by absolute value, so
-we can write is like that,
-:{$|A|=|B|$}
-the size of $A$ equals the size of $B$.
+:----------------- InfiniteFruitScene -----------------------------------
+. Let's have an infinite number of apples, each sitting at a natural
+. number, and an infinite number of pears also each sitting on a natural
+. number. There is a natural matching between apples and pears, so there
+. should be the same number of them. But if we use another matching,
+. connecting the pear at number 0 to the apple at number 1, the pear at
+. number 1 to the apple at number 2, and so on, there is one extra
+. apple. So there should be more apples than pears.
+.
+. And similarly, there can be one extra pear. How to manage it?
+. The
+. reasonable way how to untangle this is the following definition.
+. :{"Definition"}
+. Consider two sets, $A$ and $B$.
+. :{Boxes around apples and pears}
+. If there is any matching between $A$ and $B$ such that every element
+. of $A$ and every element of $B$ is used exactly once, we say that
+. these two sets have the same size. We write size by absolute value, so
+. we can write is like that,
+. :{$|A|=|B|$}
+. the size of $A$ equals the size of $B$.
 
 If, on the other hand, if there is no way how to match these sets together,
 :{Finite number of pears, matching attempts}

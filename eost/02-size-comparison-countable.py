@@ -8,6 +8,7 @@ from animation.simple_animations import *
 from animation.transform import *
 import helpers
 from eost.matching import get_matching, MatchingAnimations
+from eost.ordinal import *
 import eost.deterministic
 
 def permute(l):
@@ -93,7 +94,7 @@ class CountTransform():
             + [Transform(self.numbers[-1],central_number)]
         ))
 
-class Scene1(Scene):
+class FiniteFruitScene(Scene):
     def construct(self):
         apples = apple_pile().center()
         pears = pear_pile().center().next_to(apples,direction=DOWN)
@@ -138,11 +139,11 @@ class Scene1(Scene):
         for anims in matching.match_animations:
             self.play(anims)
         self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
-        self.emphasize(apples[-1])
+        self.play(FocusOn2(apples[-1], highlight_color = WHITE))
 
         buff = matching.buff
         matching = matching.matching
-        for _ in range(2):
+        for i in range(2):
             apples.submobjects.sort(key = lambda apple: apple.get_center()[0])
             apples_target = apples.copy()
             apples_target.arrange_submobjects(center = False, buff = buff)
@@ -157,43 +158,14 @@ class Scene1(Scene):
             # Show a different matching
             permuted_apples = permute(apples)
             permuted_pears = permute(pears)
+            if i == 1: permuted_apples[0], permuted_apples[-1] = permuted_apples[-1], permuted_apples[0]
             matching = get_matching(Group(*permuted_pears), Group(*permuted_apples))
             self.play(ShowCreation(matching))
             self.dither()
             self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
-            self.emphasize(permuted_apples[-1])
+            self.play(FocusOn2(permuted_apples[-1], highlight_color = WHITE))
 
-        self.play(Uncreate(matching))
         self.dither()
-
-    # Emphasize an apple mobj by making it slightly bigger and white
-    def emphasize(self,apple):
-        orig = apple.copy()
-        emphasized = Apple(color=WHITE)
-        emphasized.shift(orig.get_center() - emphasized.get_center())
-        emphasized.scale_in_place(1.1)
-        self.play(Transform(apple,emphasized))
-        self.play(Transform(apple,orig))
-
-class NumberLine(Mobject):
-    def __init__(self,mobj_creator,direction,n=10):
-        unnumbered_mobjs = []
-        numbered_mobjs = []
-
-        def make_number_mobj(n):
-            text = TextMobject(str(n))
-            buff = Rectangle(color=BLACK,height=1, width=1.9)
-            return Group(buff,text)
-
-        for i in xrange(n):
-            copy = mobj_creator(i)
-            unnumbered_mobjs.append(copy)
-            number_mobj = make_number_mobj(i)
-            number_mobj.next_to(copy,direction=direction)
-            numbered_mobjs.append(Group(copy,number_mobj))
-
-        Mobject.__init__(self, *numbered_mobjs)
-        self.arrange_submobjects()
 
 def number_submobjects(mobj,direction):
     zero = TexMobject("0")
@@ -204,138 +176,264 @@ def number_submobjects(mobj,direction):
         submobj.next_to(submobjs[-1])
         submobj.shift((mobj.submobjects[i].get_center()[0]-submobj.get_center()[0],0,0))
         submobjs.append(submobj)
-    dots = TexMobject("\\cdots").next_to(submobjs[-1])
-    submobjs.append(dots)
     return Group(*submobjs)
 
-def buffer_width(mobj,width):
-    buff = Rectangle(
-        height=mobj.get_height(),
-        width=width,
-        color=BLACK
-    )
-    buff.shift(mobj.get_center() - buff.get_center())
-    mobj.add_to_back(buff)
-    return mobj
-Mobject.buffer_width = buffer_width
-
-def left_justify(mobj):
-    mobj.shift((-SPACE_WIDTH*3/4 - mobj.get_critical_point(LEFT)[0],0,0))
-    return mobj
-Mobject.left_justify = left_justify
-
-class Scene2(Scene):
+class InfiniteFruitScene(Scene):
     def construct(self):
-        apples = Group(*(Apple() for _ in xrange(60))).arrange_submobjects().shift((0,1.5,0))
-        apples.left_justify
-        apple_numbers = number_submobjects(apples,direction=UP)
-        pear_width = apples.submobjects[0].get_width()
+        #self.force_skipping()
+
+        self.fruit_num = 101
+        apples = Group(*(Apple() for _ in xrange(self.fruit_num)))
+        apples.arrange_submobjects(buff = 0.5)
+        apples.to_edge(LEFT, buff = 2.5)
+
         pears = Group(*(
-            Pear().buffer_width(pear_width) for _ in xrange(60)
-        )).arrange_submobjects().shift((0,-1.5,0))
-        pears.left_justify
+            Pear() for _ in xrange(self.fruit_num)
+        ))
+        for apple, pear in zip(apples, pears):
+            pear.move_to(apple)
+
+        apples.shift(1.5*UP)
+        pears.shift(1.5*DOWN)
+
+        apple_numbers = number_submobjects(apples,direction=UP)
         pear_numbers = number_submobjects(pears,direction=DOWN)
+
         self.play(ShowCreation(apples),Write(apple_numbers))
         self.play(ShowCreation(pears),Write(pear_numbers))
         self.dither()
-        apples.save_state()
-        pears.save_state()
-        all=Group(apples,pears,apple_numbers,pear_numbers)
-        x0=all.get_critical_point(LEFT)[0]
-        def perspective_shift((x,y,z)):
-            camera_distance = 7.0
-            ratio = camera_distance / (camera_distance - (x0 - x))
-            return (x*ratio,y*ratio,0)
-        perspective_shifted = all.copy()
-        perspective_shifted.apply_function(perspective_shift)
-        all.save_state()
-        self.play(Transform(all,perspective_shifted))
-        matching = get_matching(
-            Group(*pears.submobjects[:-1]),
-            Group(*apples.submobjects[:-1]),
+        apples.submobjects.reverse()
+        pears.submobjects.reverse()
+        apple_numbers.submobjects.reverse()
+        pear_numbers.submobjects.reverse()
+
+        apples_ori = apples.copy()
+        pears_ori  = pears.copy()
+        apple_numbers_ori = apple_numbers.copy()
+        pear_numbers_ori  = pear_numbers.copy()
+
+        apples_persp = apples.copy()
+        pears_persp  = pears.copy()
+        apple_numbers_persp = apple_numbers.copy()
+        pear_numbers_persp  = pear_numbers.copy()
+
+        self.camera_distance = 12.0
+        self.camera_point = apples[-1].get_center() * X_MASK
+        vanishing_point = self.camera_point + self.camera_distance*RIGHT
+
+        self.darken(apples_persp)
+        self.darken(pears_persp)
+        self.darken(apple_numbers_persp)
+        self.darken(pear_numbers_persp)
+
+        # perspective shift of numbers
+        self.apply_perspective(apples_persp, objectwise = True)
+        self.apply_perspective(pears_persp,  objectwise = True)
+        self.apply_perspective(apple_numbers_persp, objectwise = False)
+        self.apply_perspective(pear_numbers_persp,  objectwise = False)
+
+        self.play(
+            ReplacementTransform(apples, apples_persp),
+            ReplacementTransform(pears,  pears_persp),
+            ReplacementTransform(apple_numbers, apple_numbers_persp),
+            ReplacementTransform(pear_numbers,  pear_numbers_persp),
         )
+        apples = apples_persp
+        pears  = pears_persp
+        apple_numbers = apple_numbers_persp
+        pear_numbers  = pear_numbers_persp
+
+        self.dither()
+
+        matching = make_ordinal_matching(
+            Ordinal(*apples[1:]),
+            Ordinal(*pears[1:]),
+        )
+        self.darken(matching)
         self.play(ShowCreation(matching))
         self.dither()
-        one_extra_apple = get_matching(
-            Group(*pears.submobjects[:-1]),
-            Group(*apples.submobjects[1:]),
-        )
-        self.play(Transform(matching,one_extra_apple))
-        self.dither()
-        one_extra_pear = get_matching(
-            Group(*pears.submobjects[1:]),
-            Group(*apples.submobjects[:-1]),
-        )
-        self.play(Transform(matching,one_extra_pear))
+        matching_straight = matching.copy()
+
+        # Extra apple
+        self.show_extra_fruit(apples, apples_ori, apple_numbers, apple_numbers_ori,
+                              matching, apples[:-1], pears[1:], matching_straight)
+
+        # Extra pear
+        self.show_extra_fruit(pears, pears_ori, pear_numbers, pear_numbers_ori,
+                              matching, apples[1:], pears[:-1], matching_straight)
+
+        self.play(Transform(matching, matching_straight))
+
+        definition = TextMobject("Definition:","$|A| = |B|$")
+        definition.to_edge(UP)
+        self.play(Write(definition[0]))
+
+        apple_box, apple_label = self.pack_into_box(apples, apple_numbers, UP, 'A', RED,
+                                                    matching, apples, pears)
         self.dither()
 
-        apple_def_box = SurroundingRectangle(apples, color=RED)
-        apple_label = TexMobject("A",fill_color=RED).next_to(apple_def_box,direction=LEFT)
-        self.play(
-            FadeOut(apple_numbers),
-            FadeOut(pear_numbers),
-            ShowCreation(apple_def_box),
-            Write(apple_label)
-        )
+        pear_box, pear_label = self.pack_into_box(pears, pear_numbers, DOWN, 'B', YELLOW,
+                                                  matching, apples, pears)
         self.dither()
-        pear_def_box = SurroundingRectangle(pears,color=YELLOW)
-        pear_label = TexMobject("B",fill_color=YELLOW).next_to(pear_def_box,direction=LEFT)
+
+        self.move_labels_to_definition(apple_label, pear_label, definition[1])
+
+        finite_pears = VGroup(*pears_ori[-3:])
+        finite_pears.move_to(pear_box)
+        pears_dest = VGroup(*[
+            pears[0].copy()
+            for _ in range(len(pears)-3)
+        ])
+        pears_dest.fade(0)
+        pears_dest.add(*finite_pears.submobjects)
+
         self.play(
-            Uncreate(apple_def_box),
-            ShowCreation(pear_def_box),
-            Write(pear_label)
+            Uncreate(matching),
+            FadeOut(definition[1]),
         )
+        self.play(
+            Transform(pears, pears_dest),
+        )
+        self.remove(pears)
+        self.add(finite_pears)
+        finite_pears.submobjects.reverse()
+        pears = finite_pears
+        self.revert_to_original_skipping_status()
         self.dither()
-        bijection = get_matching(
-            Group(*pears.submobjects[:-1]),
-            Group(*apples.submobjects[:-1]),
-        )
-        self.play(Uncreate(pear_def_box))
-        self.play(Transform(matching,bijection))
-        self.dither()
-        equality = TexMobject("\\lvert{}","A","{}\\rvert=\\lvert{}","B","{}\\rvert").next_to(apples,direction=UP)
-        apple_label_copy = apple_label.copy()
-        pear_label_copy = pear_label.copy()
-        def transform_to_equality(equality):
-            self.play(
-                Transform(apple_label,apple_label.copy().replace(equality.get_part_by_tex("A"))),
-                Transform(pear_label,pear_label.copy().replace(equality.get_part_by_tex("B"))),
-                Write(equality.get_parts_by_tex("vert"))
-            )
-        transform_to_equality(equality)
-        self.dither()
-        self.play(
-            Transform(apple_label,apple_label_copy),
-            Transform(pear_label,pear_label_copy),
-            Transform(apples,apples.saved_state),
-            Transform(pears,pears.saved_state),
-            Uncreate(equality.get_parts_by_tex("vert")),
-            Uncreate(matching)
-        )
-        self.play(
-            FadeOut(Group(*pears.submobjects[4:])),
-        )
-        pears.remove(*pears.submobjects[4:])
-        def center_x(mobj):
-            return mobj.copy().shift((-mobj.get_center()[0],0,0))
-        self.play(
-            Transform(pears,center_x(pears))
-        )
-        def attempt(*apple_indices):
+
+        def attempt(i0, i1, i2, remove = True):
+            apple_indices = i0, i1, i2
             matching = get_matching(
                 pears,
-                Group(*(apples.submobjects[i] for i in apple_indices))
+                Group(*(apples.submobjects[-1-i] for i in apple_indices))
             )
-            self.play(ShowCreation(matching))
-            self.play(Uncreate(matching))
+            self.play(ShowCreation(matching), submobject_mode = "all_at_once")
+            self.dither()
+            if remove: self.remove(matching)
+            else: return matching
 
-        attempt(0,1,2,3)
-        attempt(0,2,4,6)
-        attempt(1,3,0,6)
-        inequality = TexMobject("\\lvert{}","A","{}\\rvert>\\lvert{}","B","{}\\rvert").center().to_edge(UP)
-        transform_to_equality(inequality)
+        attempt(5,8,12)
+        attempt(0,10,19)
+        matching = attempt(7,1,0, remove = False)
+
+        def2 = TextMobject(":","$|A|>|B|$")
+        def2.shift(definition[0][-1].get_center() - def2[0].get_center())
+
+        self.move_labels_to_definition(apple_label, pear_label, def2[1])
         self.dither()
 
+    def perspective_ratio(self, point):
+        return self.camera_distance / (self.camera_distance + point[0])
+
+    def apply_perspective(self, mob, objectwise = True):
+        if isinstance(mob, list): mob = VGroup(*mob)
+
+        mob.shift(-self.camera_point)
+        if objectwise:
+            for submob in mob:
+                ratio = self.perspective_ratio(submob.get_center())
+                submob.scale(ratio)
+                submob.set_stroke(width = ratio*submob.stroke_width)
+        else:
+            def perspective_shift(point):
+                return point * self.perspective_ratio(point)
+            for submob in mob.family_members_with_points():
+                submob.points = np.apply_along_axis(perspective_shift, 1, submob.points)
+        mob.shift(self.camera_point)
+
+    def darken(self, row):
+        for i, el in enumerate(reversed(row)):
+            darkness = float(i)/(self.fruit_num-1)
+            #print i, darkness
+            el.fade(darkness)
+
+    def show_extra_fruit(self, fruits, fruits_ori, fruit_numbers, fruit_numbers_ori,
+                         matching, m1, m2, matching_straight):
+
+        matching_shifted = make_ordinal_matching(
+            Ordinal(*m1), Ordinal(*m2),
+        )
+        self.darken(matching_shifted)
+
+        self.play(Transform(matching, matching_shifted))
+        self.dither()
+        fruits_shifted = fruits_ori.copy()
+        fruit_numbers_shifted = fruit_numbers_ori.copy()
+
+        shift = fruits_shifted[-1].get_center() - fruits_shifted[-2].get_center()
+        extra_fruit = []
+
+        for row, objectwise in [(fruits_shifted, True), (fruit_numbers_shifted, False)]:
+            row.shift(shift)
+            extra_fruit += row[-1]
+            persp_row = row[:-1]
+            self.darken(persp_row)
+            self.apply_perspective(persp_row, objectwise)
+
+        extra_fruit = VGroup(*extra_fruit)
+        extra_fruit.center()
+        extra_fruit.to_edge(LEFT)
+
+        fruits.save_state()
+        fruit_numbers.save_state()
+        self.play(
+            Transform(fruits, fruits_shifted),
+            Transform(fruit_numbers, fruit_numbers_shifted),
+            Transform(matching, matching_straight),
+        )
+        self.play(FocusOn2(fruits[-1], highlight_color = WHITE))
+        self.dither()
+
+        self.play(
+            fruits.restore,
+            fruit_numbers.restore,
+            Transform(matching, matching_shifted),
+        )
+        self.dither()
+
+    def pack_into_box(self, fruits, numbers, shift_dir, set_name, color,
+                      matching, m1, m2):
+        fruits_dest = fruits.copy()
+        fruits_dest.shift(0.2*shift_dir)
+
+        if m1 == fruits: m1 = fruits_dest
+        if m2 == fruits: m2 = fruits_dest
+        matching_dest = make_ordinal_matching(
+            Ordinal(*m1[1:]),
+            Ordinal(*m2[1:]),
+        )
+        self.darken(matching_dest)
+
+        box = SurroundingRectangle(fruits_dest, color=color)
+        label = TexMobject(set_name)
+        label.set_color(color)
+        label.next_to(box,direction=LEFT, buff=0.5)
+        self.play(
+            FadeOut(numbers),
+            Transform(fruits, fruits_dest),
+            Transform(matching, matching_dest),
+            ShowCreation(box),
+            Write(label)
+        )
+        self.add_foreground_mobjects(box)
+
+        return box, label
+
+    def move_labels_to_definition(self, apple_label, pear_label, definition):
+        apple_label_dest = definition[1]
+        pear_label_dest = definition[-2]
+        apple_label_dest.set_color(RED)
+        pear_label_dest.set_color(YELLOW)
+        self.play(
+            ReplacementTransform(apple_label[0].copy(), apple_label_dest),
+            ReplacementTransform(pear_label[0].copy(), pear_label_dest),
+        )
+        definition_remaining = copy.copy(definition)
+        definition_remaining.submobjects = copy.copy(definition_remaining.submobjects)
+        definition_remaining.remove(apple_label_dest, pear_label_dest)
+        self.play(Write(definition_remaining))
+        self.dither()
+        
 class Scene3(Scene):
     def construct(self):
         def number_tex(i):
@@ -344,15 +442,13 @@ class Scene3(Scene):
             return mobj
         numbers = Group(*(number_tex(i) for i in xrange(150)))
         max_width = max(mobj.get_width() for mobj in numbers.submobjects)
-        for n in numbers.submobjects:
-            n.buffer_width(width=max_width + 0.1)
-        numbers.arrange_submobjects().left_justify().shift((0,1.5,0))
+        numbers.arrange_submobjects().to_edge(LEFT)
         numbers_text = TextMobject("Natural Numbers").to_edge(UP)
         self.play(ShowCreation(numbers),Write(numbers_text))
         def show_matching(pred,extra_anims):
             pred_numbers = Group(*filter(lambda i: pred(i.number), numbers.submobjects)).copy()
             self.play(Transform(pred_numbers,pred_numbers.copy().shift((0,-3,0))))
-            self.play(Transform(pred_numbers,pred_numbers.copy().arrange_submobjects().left_justify().shift((0,-1.5,0))))
+            self.play(Transform(pred_numbers,pred_numbers.copy().arrange_submobjects().to_edge(LEFT)))
             matching = get_matching(pred_numbers,numbers)
             self.play(*([ShowCreation(matching)] + extra_anims()))
             self.play(Uncreate(matching),Uncreate(pred_numbers))

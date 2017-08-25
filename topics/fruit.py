@@ -20,10 +20,13 @@ class Fruit(SVGMobject):
         self[1].set_color(LIGHT_BROWN)
         self.set_color(self.color)
 
-    def set_color(self, color):
-        self.color = color
+    def highlight(self, color):
         self[0].set_stroke(color = color)
-        self[0].set_fill(color = color_gradient((BLACK, color), 4)[1], opacity = 1)
+        self[0].set_fill(color = color_interpolate(color, BLACK, 0.75), opacity = 1)
+
+    def fade_to(self, color, alpha):
+        self.highlight(color_interpolate(self.color, BLACK, alpha))
+        self[1].fade_to(color, alpha)
 
 color_indices='ABCDE'
 

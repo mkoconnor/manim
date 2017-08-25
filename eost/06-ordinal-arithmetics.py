@@ -802,13 +802,6 @@ def power_color(power):
     if power == 0: return WHITE
     else: return [YELLOW, ORANGE, RED, PURPLE, BLUE, GREEN][(power-1) % 6]
 
-def color_interpolate(color0, color1, alpha):
-    if alpha <= 0: return color0
-    if alpha >= 1: return color1
-    color0 = color_to_rgb(color0)
-    color1 = color_to_rgb(color1)
-    return rgb_to_color(interpolate(color0, color1, alpha))
-
 def assign_ordinal_powers(ordinal, exponent):
     subpowers = extract_ordinal_subpowers(ordinal)
     for i,subord in reversed(list(enumerate(subpowers))):
