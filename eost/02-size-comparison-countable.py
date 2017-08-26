@@ -574,6 +574,11 @@ class NotationScene(Scene):
         self.countable_brace = BraceText(self.sizes, "countable sizes", DOWN)
         self.uncountable_brace = BraceText(VGroup(sizes1_next, sizes1_behind), "uncountable sizes", DOWN)
         self.uncountable_brace.desc.shift(0.5*LEFT)
+        self.overall_picture = VGroup(
+            self.sizes,
+            self.finite_brace, self.infinite_brace,
+            self.countable_brace, self.uncountable_brace,
+        )
 
 class InftyPlusInfty(Scene):
 
@@ -754,7 +759,7 @@ class InfiniteTable(InftyPlusInfty):
 
         self.cur_color = WHITE
         self.number_mul = 1
-        self.make_numbers(num_num = 13)
+        self.make_numbers(num_num = 14)
         self.numbers.to_corner(UP+LEFT)
         self.numbers.shift(1.5*RIGHT)
         self.add(self.numbers)
@@ -781,9 +786,12 @@ class InfiniteTable(InftyPlusInfty):
         self.number_mul = 2
         self.cur_color = RED
 
+        table = [odd]
+
         for index, color in enumerate(colors[1:]):
             subodd, _, _, subodd_arranged \
                 = self.make_subset(lambda n: 2*n+1, 0)
+            table += [subodd]
             subeven, _, subeven_spaced, subeven_arranged \
                 = self.make_subset(lambda n: 2*n, 1)
             self.remove(self.numbers)
@@ -805,17 +813,18 @@ class InfiniteTable(InftyPlusInfty):
             self.number_mul *= 2
             self.numbers = subeven
 
-        self.revert_to_original_skipping_status()
-
         missing_zero = ori_numbers[0].copy().highlight(RED)
         self.play(Write(missing_zero))
         self.remove(ori_numbers[0])
+        ori_numbers.save_state()
         ori_numbers.remove(ori_numbers[0])
         self.play(missing_zero.behind_edge, DOWN)
         self.dither()
 
         h_brace = BraceDesc(odd, "\\aleph_0", UP)
+        h_brace.desc.highlight(YELLOW)
         v_brace = BraceDesc(VGroup(odd, subeven), "\\aleph_0", LEFT)
+        v_brace.desc.highlight(BLUE)
         v_brace.shift(0.2*LEFT)
         self.play(
             FadeOut(ori_numbers),
@@ -826,9 +835,156 @@ class InfiniteTable(InftyPlusInfty):
 
         self.dither()
 
-        prod_formula = TexMobject("\\aleph_0\\cdot\\aleph_0 = \\aleph_0")
+        prod_formula = TexMobject("\\aleph_0","\\cdot","\\aleph_0"," = \\aleph_0")
+        prod_formula[0].highlight(BLUE)
+        prod_formula[2].highlight(YELLOW)
         prod_formula.to_corner(LEFT+UP)
-        self.play(Write(prod_formula))
+        self.play(
+            ReplacementTransform(v_brace.desc[0].copy(), prod_formula[0]),
+            ReplacementTransform(h_brace.desc[0].copy(), prod_formula[2]),
+        )
+        self.play(Write(VGroup(prod_formula[1], prod_formula[3])))
+        self.dither()
+
+        table_but_first_column = VGroup(*[VGroup(*row[1:]) for row in table])
+        self.play(
+            FadeOut(VGroup(h_brace, v_brace, prod_formula)),
+            table_but_first_column.set_fill, None, 0.4,
+        )
+
+        formula_r_ori = None
+        for i, row in enumerate(table[:4]):
+            formula_r = TexMobject("2^{"+str(i)+"}=")
+            formula_r.highlight(rgb_to_color(row[0].family_members_with_points()[0].fill_rgb))
+            formula_r.next_to(row[0], LEFT, buff = 0.3, aligned_edge = DOWN)
+
+            if formula_r_ori is None: self.play(Write(formula_r))
+            else: self.play(ReplacementTransform(formula_r_ori, formula_r))
+            self.dither()
+
+            formula_r_ori = formula_r
+
+        formula_r = TexMobject("2^r=")
+        formula_r.shift(formula_r_ori[0].get_center() - formula_r[0].get_center())
+        formula_r.highlight(BLUE)
+        formula_r[-1].set_fill(opacity = 0)
+        formula_r.to_edge(DOWN)
+        self.play(ReplacementTransform(formula_r_ori, formula_r))
+        self.dither()
+
+        self.play(table_but_first_column.set_fill, None, 1)
+        table_but_first_row = VGroup(*table[1:])
+        self.play(table_but_first_row.set_fill, None, 0.4)
+        self.dither()
+
+        formula_c = TexMobject("(2c+1)")
+        formula_c.to_edge(UP)
+        formula_c.highlight(YELLOW)
+        self.play(Write(formula_c))
+        self.dither()
+        self.play(table_but_first_row.set_fill, None, 1)
+
+        show_r = 3
+        show_c = 5
+
+        show_circ = Circle(radius = 0.45)
+        show_circ.highlight(GREEN)
+        show_circ.move_to(table[show_r][show_c])
+
+        show_r_circ = show_circ.copy()
+        show_r_circ.move_to(table[show_r][0], coor_mask = X_MASK)
+        show_r_circ.highlight(BLUE)
+
+        show_c_circ = show_circ.copy()
+        show_c_circ.move_to(table[0][show_c], coor_mask = Y_MASK)
+        show_c_circ.highlight(YELLOW)
+
+        self.play(ShowCreation(show_circ))
+        self.play(ShowCreation(show_c_circ))
+        self.play(ShowCreation(show_r_circ))
+        self.dither()
+
+        formula_prod = TexMobject("2^r",'\\cdot',"(2c+1)", "-1")
+        formula_prod.to_corner(UP+LEFT)
+        formula_prod[0].highlight(BLUE)
+        formula_prod[2].highlight(YELLOW)
+
+        self.play(
+            FadeIn(formula_prod[1]),
+            ReplacementTransform(formula_r.copy(), formula_prod[0]),
+            ReplacementTransform(formula_c.copy(), formula_prod[2]),
+        )
+        self.dither()
+        self.play(FadeOut(VGroup(formula_r, formula_c, show_circ, show_c_circ, show_r_circ)))
+        self.dither()
+
+        pairs_table = VGroup(*[
+            VGroup(*[
+                self.pair_tex(r, c, mob)
+                for c, mob in enumerate(row)
+            ])
+            for r, row in enumerate(table)
+        ])
+        table = VGroup(*table)
+
+        for row in table:
+            for num in row:
+                num.submobjects = [VGroup(digit) for digit in num.submobjects]
+
+        self.revert_to_original_skipping_status()
+        self.dither()
+        self.play(ReplacementTransform(table, pairs_table))
+        self.dither()
+
+        h_shift = RIGHT*(table[0][1].get_center() - table[0][0].get_center())
+        table = pairs_table
+        table_dest = table.copy()
+        for r, row in enumerate(table_dest):
+            for c, num in enumerate(row):
+                num.shift(h_shift * ((2**r)*(2*c+1)-1 -c))
+        self.play(Transform(table, table_dest))
+
+        table_dest = table.copy()
+        for row in table_dest:
+            for num in row: num.move_to(2*DOWN, coor_mask = Y_MASK)
+        self.play(Transform(table, table_dest))
+        self.dither()
+
+        pairs_row = VGroup(*it.chain(*table))
+        pairs_row.submobjects.sort(key = lambda mob: mob.get_center()[0])
+
+        ori_numbers.restore()
+        ori_numbers.shift(pairs_row[0].get_center() - ori_numbers[1].get_center())
+        ori_numbers.shift(2*UP)
+        self.add(ori_numbers)
+        matching = VGroup(*[
+            Line(num.get_edge_center(DOWN), pair.get_edge_center(UP), buff = 0.2)
+            for num, pair in zip(ori_numbers[1:], pairs_row)
+        ])
+        self.play(
+            ShowCreation(ori_numbers),
+            ShowCreation(matching),
+        )
+        self.dither()
+
+        matching.add(matching[-1].copy())
+        matching[-1].shift(h_shift)
+
+        general_pair = TexMobject("r,c")
+        general_pair[0].highlight(BLUE)
+        general_pair[2].highlight(YELLOW)
+        visible_formula_prod = VGroup(*formula_prod[:3])
+        general_pair.move_to(visible_formula_prod)
+        general_pair.shift(2*DOWN)
+        general_matching = Line(general_pair.get_edge_center(UP),
+                                visible_formula_prod.get_edge_center(DOWN),
+                                buff = 0.2)
+        self.play(FadeIn(general_pair))
+        self.play(ShowCreation(general_matching))
+        self.dither()
+
+        self.play(Write(formula_prod[-1]))
+        self.play(VGroup(matching, pairs_row).shift, -h_shift)
         self.dither()
 
     def number_tex(self, n):
@@ -837,3 +993,313 @@ class InfiniteTable(InftyPlusInfty):
         if n*self.number_mul >= 100: result.scale_in_place(0.7)
         result.highlight(self.cur_color)
         return result
+
+    def pair_tex(self, r, c, position):
+        result = TexMobject(str(r),'{,}',str(c))
+        result[0].highlight(BLUE)
+        result[2].highlight(YELLOW)
+        if c < 10: result.scale(0.8)
+        else: result.scale(0.7)
+        result.move_to(position)
+        return result
+
+class RationalsScene(NotationScene):
+
+    def construct(self):
+
+        self.h_space = 2
+        self.colors = color_gradient([YELLOW, GREEN, BLUE, DARK_BLUE, DARK_GRAY], 20)
+
+        numbers = self.make_numbers()
+        self.play(
+            ShowCreation(numbers[0]),
+            ShowCreation(numbers[1]),
+        )
+        brace = BraceDesc(numbers[0], "\\aleph_0", DOWN)
+        brace.next_to(numbers[1], DOWN, coor_mask = Y_MASK, buff = 0.3)
+        self.play(brace.creation_anim())
+
+        skip = False
+        denominator = 2
+        parts = []
+        while True:
+            parts.append(numbers[0].copy())
+            self.add(parts[-1])
+            self.play(VGroup(numbers, brace).shift, 0.9*DOWN)
+            self.remove(numbers)
+            if denominator == 6: break
+            numbers = self.make_numbers(denominator, numbers)
+            ori_numbers = self.make_numbers(denominator-1, numbers)
+            if skip:
+                offset = (len(ori_numbers[1])//2+1) %2
+                for label in ori_numbers[1][offset::2]:
+                    label.set_fill(opacity = 0)
+            if denominator == 4: skip = True
+            if skip:
+                offset = (len(numbers[1])//2+1) %2
+                for label in numbers[1][offset::2]:
+                    label.set_fill(opacity = 0)
+
+            self.play(ReplacementTransform(ori_numbers, numbers))
+            denominator += 1
+
+        self.dither()
+        self.remove(brace, numbers)
+
+        while denominator < len(self.colors)+1:
+            part = self.make_dots(denominator)
+            part.move_to(parts[-1])
+            part.shift(0.5*DOWN)
+            parts.append(part)
+            denominator += 1
+
+        parts.reverse()
+        parts = VGroup(*parts)
+        parts_dest = parts.copy()
+        for part in parts_dest: part.center()
+        self.play(Transform(parts, parts_dest), run_time = 2)
+        self.dither()
+
+        rationals = TexMobject('|',"\\text{Rational Numbers}","| = \\aleph_0")
+        rationals.shift(0.5*DOWN - rationals[1].get_edge_center(UP))
+        self.play(Write(rationals[1]))
+        self.dither()
+
+        dots7 = self.make_dots(7)
+        dots7.shift(2*DOWN)
+        center = len(dots7)//2
+        pi_dot = dots7[center+22]
+        pi_label = TexMobject("\\frac{22}{7}")
+        pi_label.next_to(pi_dot, DOWN)
+        self.play(Write(pi_label))
+        self.dither()
+        self.play(ShowCreation(dots7))
+        self.play(FocusOn2(pi_dot, scale = 3))
+        dots7.remove(pi_dot)
+        self.play(FadeOut(dots7))
+        self.play(VGroup(pi_dot, pi_label).shift, 2*UP)
+        self.dither()
+
+        self.play(FadeOut(VGroup(pi_dot, pi_label)))
+        self.play(Write(VGroup(rationals[0], rationals[2])))
+
+        conversation1 = Conversation(self)
+        conversation1.add_bubble("Are all sets countable?")
+        self.dither()
+        conversation2 = Conversation(self, start_answer = True)
+        conversation2.add_bubble("Of course not.")
+        self.dither()
+
+        self.prepare_overall_picture()
+        self.overall_picture.to_edge(UP, buff = 0.4)
+        self.overall_picture.remove(self.uncountable_brace)
+        self.play(FadeIn(self.overall_picture))
+        self.dither()
+        self.play(self.uncountable_brace.creation_anim())
+        self.dither()
+        real_size = TexMobject("|\\mathbb R|")
+        real_size.set_color(GREEN)
+        real_size.next_to(self.sizes, buff = 1)
+        self.play(Write(real_size))
+        self.dither()
+
+    def make_numbers(self, denominator = 1, template = None):
+        if template is not None:
+            min_num = len(template[0])//2
+        else: min_num = 0
+
+        dots = self.make_dots(denominator, min_num)
+        max_num = len(dots)//2
+        labels = []
+        for n, dot in zip(range(-max_num, max_num+1), dots):
+            if denominator == 1:
+                tex = str(n)
+            else:
+                tex = "\\textstyle\\frac{"+str(n)+"}{"+str(denominator)+"}"
+            label = TexMobject(tex)
+            label.next_to(dot, DOWN)
+            labels.append(label)
+
+        labels = VGroup(*labels)
+        labels.highlight(dots.color)
+        result = VGroup(dots, labels)
+        result.highlight(self.colors[denominator-1])
+        if template is not None:
+            dest_center = template[0][len(template[0])//2].get_center()
+            result.shift(dest_center)
+
+        return result
+
+    def make_dots(self, denominator = 1, min_num = 0):
+        
+        max_num = max(int(np.ceil((SPACE_WIDTH/self.h_space+1)*denominator)), min_num)
+        dots = []
+        for n in range(-max_num, max_num+1):
+            dot = Dot(float(n)/denominator * self.h_space*RIGHT)
+            dot.scale_in_place(4.0/(4.0+denominator-1))
+            dots.append(dot)
+        dots = VGroup(*dots)
+        dots.set_color(self.colors[denominator-1])
+        return dots
+
+class CantorDiagonal(Scene):
+
+    def construct(self):
+
+        self.zero = TexMobject('0')
+        self.one = TexMobject('1')
+        self.h_shift = 0.6*RIGHT
+        self.v_shift = 0.8*DOWN
+        self.diag_dir = self.h_shift + self.v_shift
+
+        self.sequences = VGroup(*[
+            self.make_seq()
+            for _ in range(3)
+        ])
+        for seq, color in zip(self.sequences, color_gradient([WHITE, DARK_GREY], 3)):
+            seq.set_color(color)
+        self.sequences.arrange_submobjects(DOWN)
+        self.sequences.to_edge(LEFT, buff = 3)
+        self.sequences[1].shift(2*RIGHT)
+        self.sequences[2].shift(RIGHT)
+
+        for seq in self.sequences:
+            self.play(ShowCreation(seq))
+
+        column = VGroup(*[
+            TexMobject(str(n)) for n in range(10)
+        ])
+        for i, num in enumerate(column):
+            num.move_to(i*self.v_shift)
+
+        column.to_corner(UP+LEFT)
+        column.shift(DOWN)
+        column.highlight(GREEN)
+
+        self.matching_l_buff = 0.2
+        self.matching_r_buff = 0.7
+        self.play(ShowCreation(column))
+        matching = []
+        for num in column:
+            start = num.get_edge_center(RIGHT)+self.matching_l_buff*RIGHT
+            end = copy.copy(start)
+            end[0] = -SPACE_WIDTH+2.5
+            matching.append(Line(start, end))
+
+        for line, seq in zip(matching, self.sequences):
+            seq_dest = seq.copy()
+            seq_dest.highlight(WHITE)
+            self.seq_to_match_line(seq_dest, line)
+            self.play(
+                Transform(seq, seq_dest),
+                ShowCreation(line),
+            )
+
+        for line in matching[3:]:
+            seq = self.make_seq()
+            self.seq_to_match_line(seq, line)
+            self.sequences.submobjects.append(seq)
+
+        self.play(
+            ShowCreation(VGroup(*matching[3:])),
+            ShowCreation(VGroup(*self.sequences[3:])),
+        )
+        self.dither()
+
+        missing_seq = self.apply_diag_argument()
+        self.dither()
+
+        attempt_indices = [2, 6, 3]
+        attempt = attempt_indices[0]
+
+        rect_ori = None
+        for attempt in attempt_indices:
+            rect = SurroundingRectangle(self.sequences[attempt], color = WHITE)
+            if rect_ori is None: self.play(FadeIn(rect))
+            else: self.play(ReplacementTransform(rect_ori, rect))
+            self.play(FocusOn2(missing_seq[attempt]))
+            self.dither()
+            rect_ori = rect
+
+        self.play(FadeOut(rect))
+        self.sequences.add_to_back(missing_seq)
+        sequences_dest = self.sequences.copy()
+        sequences_dest.highlight(WHITE)
+
+        for seq, line in zip(sequences_dest, matching):
+            self.seq_to_match_line(seq, line)
+        sequences_dest[-1].shift(DOWN)
+        self.play(Transform(self.sequences, sequences_dest))
+
+        missing_seq = self.apply_diag_argument(brief = True)
+        self.dither()
+
+        self.play(FadeOut(missing_seq))
+
+        title = TextMobject("Cantor's Diagonal Argument")
+        title.to_edge(UP)
+        self.play(Write(title))
+        self.dither()
+
+    def seq_to_match_line(self, seq, line):
+        seq.shift(line.get_end() - seq[0].get_center() + self.matching_r_buff*RIGHT)
+        
+    def random_digit(self):
+        return [self.zero, self.one][random.randint(0,1)].copy()
+
+    def make_seq(self, seq_len = 20):
+        
+        result = VGroup(*[
+            self.random_digit()
+            for i in range(seq_len)
+        ])
+        for i, digit in enumerate(result): digit.move_to(i*self.h_shift)
+        return result
+
+    def apply_diag_argument(self, brief = False):
+        
+        diag = []
+        out_of_diag = []
+        for i, seq in enumerate(self.sequences):
+            diag.append(seq[i])
+            out_of_diag += seq[:i]
+            out_of_diag += seq[i+1:]
+
+        diag_start = diag[0].get_center()
+        arrow = Arrow(diag_start - 2*self.diag_dir,
+                      diag_start - 0.5*self.diag_dir)
+
+        diag = VGroup(*diag)
+        out_of_diag = VGroup(*out_of_diag)
+        if not brief: self.play(ShowCreation(arrow))
+        self.play(
+            diag.highlight, YELLOW,
+            out_of_diag.highlight, DARK_GREY,
+        )
+        if not brief:
+            self.play(FadeOut(arrow))
+            self.dither()
+
+        while len(diag) < len(self.sequences[0]):
+            next_el = self.random_digit()
+            next_el.highlight(YELLOW)
+            next_el.move_to(diag[0])
+            next_el.shift(len(diag)*self.diag_dir)
+            diag.submobjects.append(next_el)
+        self.add(diag)
+
+        diag_extracted = diag.copy()
+        for num in diag_extracted:
+            num.to_edge(UP)
+
+        self.play(ReplacementTransform(diag.copy(), diag_extracted))
+        missing_seq = []
+        for num in diag_extracted:
+            inverted = TexMobject(str(1-int(num.tex_string)))
+            inverted.highlight(RED)
+            inverted.move_to(num)
+            missing_seq.append(inverted)
+        missing_seq = VGroup(*missing_seq)
+
+        self.play(ReplacementTransform(diag_extracted, missing_seq))
+        return missing_seq

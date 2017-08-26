@@ -35,7 +35,7 @@ class ChatBubble(VMobject):
         else: self.bubble.set_stroke(BLUE)
 
         self.text = TextMobject(text, alignment="\\raggedright\\hsize = 0.7\\hsize")
-        print(self.text.get_tex_string())
+        #print(self.text.get_tex_string())
         self.tip_h = self.bubble.points[12,1] - self.bubble.points[15,1]
         self.text.move_to(self.bubble.get_corner(LEFT+DOWN)+np.array([border,self.tip_h+border,0]), aligned_edge = LEFT+DOWN)
         size_shift = self.text.get_corner(UP+RIGHT) - self.bubble.get_corner(UP+RIGHT) + border

@@ -32,7 +32,7 @@ class Chapter3OpeningQuote(OpeningQuote):
 class SubsetsSeqs(Scene):
 
     def construct(self):
-        self.force_skipping()
+        #self.force_skipping()
 
         naturals = ('0', '1', '2')
         primes = ('2', '3', '5')
