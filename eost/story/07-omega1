@@ -8,6 +8,8 @@ Omega1
 * impossibility to visualize on reals
 * discussion on the continuum hypothesis
 
+:---------------- Chapter7Prerequisities ------------------
+
 For this chapter, you will need to understand the notion of
 countability and uncountability and basic properties of ordinal
 numbers and operations with them discussed in previous
@@ -23,12 +25,16 @@ return to the appropriate chapters. This chapter is going to be a bit
 tough but really cool. We are going to construct and investigate an
 uncountable ordinal.
 
+:-------------------- Supremum -------------------------
+
 Here we go.
 
 Let's take the set of all possible countable ordinals. That are omega,
 omega plus five, omega times three, omega to the power of three and
 much more. Then we take the supremum, that is another ordinal called
 omega one.
+
+: "Hey, in the previous chapter you said that taking all ordinals is forbidden."
 
 In chapter 5, we have mentioned that we are not allowed to
 take the set of all ordinals, so why is it possible to take the set of
@@ -40,12 +46,18 @@ set, there is in a sense just a limited number of possibilities how to
 reorder it. By taking all of these possibilities, we actually get all
 the countable ordinals except the finite ones.
 
+: -------------------- Omega1Visualization ---------------------------
+
 All right, what are properties of omega one, that is the supremum? It
 is certainly bigger, in the ordinal sense than any of the countable
-ordinals. So the supremum itself is uncountable, it is the least
-uncountable ordinal number.
+ordinals. So the supremum of all countable ordinals must be uncountable.
+It is the least uncountable ordinal number.
 
-Does it sound weird? Let's make an analogy with a more familiar
+Does it sound weird? 
+
+: -------------------- AnalogyOmega -------------------------------
+
+Let's make an analogy with a more familiar
 example, the finite ordinals. If we take all the finite ordinal
 numbers and make their supremum, we get the least infinite ordinal
 number, the omega, so it had to be a supremum of infinite amount of
@@ -55,14 +67,16 @@ uncountable amount of ordinals, otherwise the result were
 countable. This analogy can be extended a bit.
 
 Notice what are the indices of omega, that are natural numbers, the
-finite ordinal numbers. Similarly, the indices of omega one exactly
+finite ordinal numbers. Similarly, the indices of omega one are exactly
 the countable ordinals. So omega one itself is, in a sense, the set of
 all countable ordinals. The indexing meaning of an ordinal computes
 the number of preceding elements, so every element of omega one
-splits the set to a countable number of previous elements and an
+splits the set into a countable number of previous elements and an
 uncountable number of following elements. It is analogous to the
 fact that every natural number splits omega to a finite number of
 previous elements and an infinite number of succeeding elements.
+
+: ------------------- LeastInfinite ---------------------------
 
 In chapter 2, we showed that omega is the least infinite set. We can
 reformulate the argument into the language of ordinal numbers in the
@@ -76,6 +90,8 @@ have to be well-ordered as well, there cannot appear a decreasing
 sequence by discarding some elements. So we can apply this idea to
 omega one too.
 
+: ------------------- LeastUncountable ---------------------------
+
 Take a subset of omega one and align it to an initial segment of
 it. There are two possibilities. The order type of the subset is
 either less than omega one, that means that it is a countable ordinal,
@@ -83,6 +99,8 @@ or it get aligned to the whole omega 1, so its size is the same of
 omega 1. Because any subset of omega one is either countable, or of
 the same size, the size of omega one have to be the least uncountable,
 it is called aleph 1.
+
+: ------------------- ContinuumHypothesis -------------------------
 
 That casts a new light to the continuum hypothesis mentioned in
 chapter 3. Continuum hypothesis is a question whether the continuum,
@@ -98,8 +116,64 @@ between omega one and reals which cannot be proven to exist anyway."
 But as we have said, the question is proven to be unaswered forever,
 so let's go on.
 
-TODO:
+: ------------------ CountableSupremum --------------------
 
-supremum o countable ordinals is countable
-impossibility to visualise in reals
-long line
+Another analogy between omega and omega1 may the following
+one. Whenever we take a finite number of finite ordinals, their
+supremum is finite too, in fact it is the largest one. Since
+countable ordinals are indexing omega it can be
+reformulated in the sense that any finite subset of omega have its
+supremum in omega too.
+
+From chapter 2 we know that an union of countable number of countable
+sets is still countable. So the supremum of countable number of
+countable ordinals is still countable. But all countable ordinals are
+the indices of omega1, so, the supremum of any infinite increasing
+sequence in omega1 is still in omega1. Despite the similarity with
+omega, this behavior is the source of the most counterintuitive
+properties of omega1.
+
+: ------------------ RealEmbedding -----------------------
+
+For example, real numbers does not have this property. There is a
+an increasing sequence of real numbers, 1, 2, 3, 4, and so on which
+cannot be bounded from top by a real number. So we are kind of
+cheating when we are vizualizing omega1 as bars on line. It may seem
+that it is possible to choose an infinite sequence of elements of
+omega1 approaching its end. But it is not true. There is still an
+uncountable number of elements between the end of the sequence and the
+end of omega1.
+
+: -------------------- LongLine -------------------------
+
+At the and, let's show another interesting mathematical object called
+the long line. Let's start with the simple omega and replace each bar
+by a left-closed right-open interval. So the result looks again as a
+left-closed, right-open interval.
+
+The choice of including left point and excluding right point was
+important. We need exactly one endpoint excluded so the intervals fit
+together. And if we used left-open, right-closed interval we would end
+with an open interval since omega has no last element. But when we
+used left-closed, right-open interval, we got exactly the same result.
+
+Using the notion of ordinal arithmetics we could say that left-closed,
+right-open interval times omega is still left-closed, right-open
+interval. Well, the interval is not a well-ordered sequence, so it is
+not exactly ordinal arithmetics but it works the same.
+
+And this fact holds for any nonzero countable ordinal. We can composed
+the interval omega times two times. Or omega times omega times. The
+result is the left-closed, right open interval.
+
+But things become different composing it omega1-times. The initial
+segment is still the same. In fact any proper initial segment
+corresponds to an interval because any proper initial segment of
+omega1 corresponds to a countable ordinal. But the whole thing called
+long line is somehow longer. Every infinite increasing sequence in the
+long line has its supremum in the long line.
+
+By this example we have closed the part of our series concercing the
+intuitive theory of infinity. Next time we will investigate some
+paradoxes which has to be handled and introduce the formal world. See
+you then.
