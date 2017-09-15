@@ -32,13 +32,15 @@ class Chapter1OpeningTitle(OpeningTitle):
 class Chapter1OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "From his","paradise","that Cantor with us unfolded, we hold our breath in awe; knowing, we shall","not be expelled."
+            "Set theory has a dual role in mathematics. In pure mathematics, it is the place where questions about infinity are studied. Although this is a fascinating study of permanent interest, it does not account for the importance of set theory in applied areas. There the importance stems from the fact that set theory provides an incredibly versatile toolbox for building mathematical models of various phenomena."
         ],
-        "highlighted_quote_terms" : {
-            "paradise" : YELLOW,
-            "not be expelled" : GREEN,
+        "author" : "Jon Barwise, Lawrence Moss",
+        "fade_in_kwargs" : {
+            "submobject_mode" : "lagged_start",
+            "rate_func" : None,
+            "lag_factor" : 4,
+            "run_time" : 9,
         },
-        "author" : "David Hilbert"
     }
 
 class CantorScene(Scene):

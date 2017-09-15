@@ -79,8 +79,8 @@ Outline
 . omega. We want to find a missing subset in that matching.
 . 
 . Some numbers are matched with a set that contains it. For example the
-. set matched with zero contains zero, ot the set matched with four
-. contains four.  Other numbers are missing in their corresponding
+. set matched with zero contains zero, the set matched with three
+. contains three.  Other numbers are missing in their corresponding
 . subset: One is missing in the set matched with one, two is missing in
 . the set matched with two, and so on.
 .
@@ -178,7 +178,7 @@ Outline
 . matching assigning it the one-element set containing 5. That means
 . that we cannot use the appropriate red connection between the
 . singleton containing 5 and the real number zero point zero zero zero
-. zero zero zero one. So we have to take the green connection from that
+. zero zero one. So we have to take the green connection from that
 . real number again. By this procedure, we take an infinite journey from
 . a point not covered by the red matching by the steps which are
 . guaranteed to exist. That is green step from reals to subsets and red

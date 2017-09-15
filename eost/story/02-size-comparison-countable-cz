@@ -1,0 +1,207 @@
+Porovnávání množin, spočetno
+
+Quote: Nekonečno! Žádná jiná myšlenka nezapůsobila tak významně na mysl člověka; žádná jiná myšlenka tolik nepovzbudila jeho intelekt; přesto žádný jiný koncept nepotřebuje více objasnit. -- David Hilbert
+
+:------------------- FiniteFruitScene ----------------------------------
+Začneme s úkolem jak z první třidy. Dejme tomu, že máme nějaká
+jablíčka a nějaké hrušky, a zajímá nás, čeho je víc. A učili nás to
+udělat takto: Spočítáme počet jablek -- 1, 2, 3, 4, 5, spočítáme počet
+hrušek -- 1, 2, 3, 4, a protože je 5 víc než 4, máme víc jablek než
+hrušek.
+
+Ale zkusme se vrátit ještě za první třídu. Představme si, že neumíme
+počítat. Jak zjistit, čeho je víc? Inu, máme jestě jiný způsob,
+popárovat jablka s hruškami. Když sestavíme takové dvojičky, vyzbude
+nám jedno jablko, takže máme víc jablek než hrušek.
+
+A to není všechno, když jablka a hrušky přeuspořádáme a zkusíme jiné
+popárování, vyzbude zase jadno jablko. Tak ještě jednou. Zase jedno
+jablko navíc. No, není to šokující?
+
+No není. Prostě proto, že umíme počítat. Víme, že 5 jablek minus 4
+hrušky je jedno jablko navíc. Není na tom vůbec nic překvapivého. Tedy
+přinejmenšim než potkáme nekonečno...
+
+:----------------- InfiniteFruitScene -----------------------------------
+Dejme tomu, že máme nekonečně mnoho jablek, každé posazené u jednoho
+přirozeného čísla, a stejně tak nekonečně mnoho hrušek, každou
+posazenou u jednoho přirozeného čísla.
+
+Takže by jich mělo být stejně, že? A opravdu, můžeme přirozeně
+popárovat tyhle hrušky s jablky. Ale co když se rozhodneme pro jiné
+párování? Spojíme hrušku 0 s jablkem 1, hrušku 1 j jablkem 2 a tak dál.
+Najednou máme jedno jablko navíc, takže by mělo být víc jablek než
+hrušek.
+
+A podobně to můžeme zaonačit, aby to vypadalo, že máme víc hrušek než
+jablek. Co s tím? Rozumné řešení, jak se s tím vypořádat je
+následující definice.
+:{"Definice"}
+Uvažme dvě množiny, $A$ a $B$. Jakmile je jakkoli možné popárovat
+prvky množiny $A$ s prvky množiny $B$, tak že žádný nepřebývá, říkáme,
+že tyhle dvě množiny mají stejnou velikost. Velikost značíme
+absolutní hodnotou, a v kontextu nekonečných množin jí spíše
+nazýváme mohutností. Takže to můžeme přečíst: mohutnost $A$ se
+rovná mohutnost $B$.
+
+Teprve, když není šance ty dvě množiny popárovat a vždycky nám
+přebudou nějaké prvky množiny $A$, říkáme, že mohutnost $A$ je větší
+než mohutnost $B$.
+
+:---------------------- NaturalsSubsets --------------------------
+Tahle definice ale vede k několika překvapivým pozorování. Vezměme si
+množinu všech přirozených čísel. A pak jejich podmnožinu složenou ze
+všech sudých čísel. Intuitivné by ta podmnožina měla být dvakrát
+menší, když jsme všechna lichá čísla zahodili. Ale přesto můžeme
+popárovat sudá čísla se všemi přirozenými. Prostě spojíme každé
+přirozené číslo s jeho sudým dvojnásobkem. Nulu s nulou, jedničku s
+dvojkou, dvojku s čtyřkou a tak dál. 
+:{|přirozená čísla|=|sudá čísla|}
+Takže počet všech sudých čisel je stejný jako počet všech přirozených
+čisel.
+
+A bylo vlastně jedno, že jsme si vzali zrovna podmnožinu sudých
+čísel. Dopadne to stejně, když si vezmeme třeba množinu všech druhých
+mocnin. Nebo množinu všech prvočísel. Ať si vezmeme jakoukoli
+nekonečnou podmnožinu přirozených čísel, jakkoli řídkou, velikost bude
+stále stejná.
+
+:------------------------- NotationScene -----------------------------
+Teď si kolem toho zavedeme značení. Velikosti konečných množin se měří
+přirozenými čísly, nula, jedna, dva, a tak dál. Obecně se se mohutnosti
+množin měři tak zvanými kardinálními čísly, jednoduše kardinály. Před
+chvílí jsme si uvedli jednu nekonečnou mohutnost, mohutnost množiny
+přirozených čísel, ta se značí aleph 0. Zakladatel teorie množin,
+Georg Cantor pro tuto mohutnost zavedl symbol aleph, první písmeno
+hebrejské abecedy, snad proto, že se mu latinka a řecká abeceda zdály
+už příliš profláklé...
+
+Už jsme si ukázali, že Aleph 0 je nejmenší nekonečné kardinální číslo,
+protože každá nekonečná podmnožina bude mít stále mohutnost Aleph 0. To
+je důvod, proč má Aleph 0 v indexu tu nulu.
+
+Všechna tato kardinální čísla se nazývají "spočetná" v tom smyslu, že
+přirozená čisla postačují k počítání všech jejich prvků, i když na to
+můžeme vypotřebovat všechny.
+Ve zbytku této kapitoly se budeme primárně zabývat vlastnostmi tohoto
+kardinálního čísla.
+
+:-------------------- InftyPlusInfty -----------------------------------
+
+Značení si ještě jednou demonstrujeme na příkladu se sudými čísly. Už
+víme, že množina všech sudých čísel má mohutnost Aleph 0. Stejně tak
+množina všech lichých čisel má mohutnost Aleph 0.
+Takže máme dvě množiny mohutnosti Aleph 0, které dohromady dávají
+jednu množinu mohutnosti Aleph 0.
+
+Ale v porovnávání mohutností množin nehraje roli, jaké prvky tyhle
+množiny vlastně mají. Jen proto, že víme, že tu jsou nějaké dvě
+množiny mohutnosti Aleph 0, které dohromady mají mohutnost Aleph 0,
+tak dostáváme obecné pravidlo, že jakékoli dvě množiny mohutnosti
+Aleph 0 dají dohromady množinu mohutnosti Aleph 0. Můžou to být zase
+naše množiny jablek a hrušek. Každá z nich má mohutnost Aleph 0, a
+dohromady mají taky mohutnost Aleph 0. To se dá zapsat tak, že Aleph 0
+plus Aleph 0 je Aleph 0. Alternativně můžeme říci, že sjednocení dvou
+spočetných pnožin je stále spočetné.
+
+Tady je o něco praktičtější příklad.
+
+:--------------------- IntegersScene --------------------------------
+Počet všech nekladných celých čísel, nula, minus jedna, minus 2
+atd. je Aleph 0. Jsou to jen přirozená čisla překlopená kolem bodu
+0. A pak máme Aleph 0 přirozených čísel. Takže počet všech celých
+čisel je dohromady taky Aleph 0.
+
+Q:"A co ta sloučená nula?"
+Hypoteticky by ta velikost mohla být menší, protože dvě nuly splynuly do
+jedné. 
+A:"Mohutnost je stále nekonečná spočetná."
+Ale existuje jenom jedna nekonečná spočetná mohutnost, Aleph 0. Takže
+je výsledek v našem případě stále Aleph 0.
+
+:--------------------- InfiniteTable -----------------------------
+Už víme, že množinu všech přirozených čísel můžeme rozdělit na dvě
+množiny stejné mnohutnosti -- na lichá a sudá čísla. Můžeme však
+pokračovat a rozdělit sudá čísla podle dělitelnosti čtyřmi. Následně
+rozdělíme čísla dělitelná čtyřmi podle dělitelnosti osmi, a tak dál.
+
+Tím nakonec sestavíme nekonečnou tabulku přirozených čisel. Každé
+číslo se v této tabulce vyskytuje přesně jednou s výjimkou nuly, která
+zmizela někde v nekonečnu. Šířka každého řádku je přítom Aleph 0 a
+máme zde Aleph 0 řádků. To ukazuje, že i Aleph 0 krát Aleph 0 je
+Aleph 0. Obecněji můžeme říci, že sjednocení spočetně mnoha spočetných
+množin je stále spočetné.
+
+V tomhle případě můžeme dokonce popsat příslušné párování vcelku
+jednoduchým vzorečkem. Můžeme si všimnout, že čísla v prvním sloupečku
+jsou mocniny dvojky: Dva na nultou, dva na první, dva na druhou,
+obecně dva na r-tou, kde r je index řádku indexový od nuly.
+A podobně v prvním sloupci máme samá lichá čísla, takže je můžeme
+vyjádřit jako 2c+1, kde c je index sloupečku.
+Ba co víc, každé číslo v tabulce je součinem odpovídajících čísel
+v~prvním sloupci a řádku. Tahle vlastnost je docela kouzelná, můžete
+si zastavit video a rozmyslet si, proč tomu tak je.
+
+Takže, když na místo čísel zapíšeme jejich pozici v tabulce, a
+přesuspořádáme je zpátky do přímky, dostáváme párování mezi dvojicemi
+[r, c] a všemi přirozenými čísly s výjimou nuly dané vzorečkem
+2^r * (2c+1).
+
+Abychom to doladili k dokonalosti, zbývá párování posunout o jedna a
+pokrýt tak i tu chybějící nulu. Ne že by nalezení přesné ho vzorečku
+bylo nutné, ale mně připadá pěkné, že takový jednoduchý vzoreček pro
+převádění dvojic na čísla existuje, nemyslíte?
+
+:---------------------- RationalsScene -------------------------------
+
+Opět se na tuhle vlastnost podíváme na příkladu z běžné matematiky, Už
+víme, že mohutnost množiny celých čisel je Aleph 0. Podobně máme
+Aleph 0 celých čisel podělených dvěma, Aleph 0 celých čisel podělených
+třema, a tak dál.
+
+Když všechny tyto množiny sjednotíme, bude výsledná přímka docela
+plná. Zahrnuli jsme vlastně všechna racionální čísla. Každé číslo
+tvaru celé čislo děleno nenulové přirozené číslo se nacházelo v
+některém z řádků, takže je i ve výsledné množině. Takže i množina
+všech racionálních čísel má mohutnost Aleph 0. A stejně jako před tím
+by ta mohutnost mohla být hypoteticky menší, protože se některá čisla
+sloučila, ale i tak to musí být Aleph 0, protože žádná menší nekonečná
+mohutnost není.
+
+Q:"Takže jsou všechny množiny spočetné?"
+Všechny tyhle přiklady by mohly zanechat dojem, že je vlastně spočetné
+všechno.
+A:"Jesně, že ne ;-)"
+Ale pak by byla terminologie spočetnosti poněkud zbytečná, nemyslíte?
+Ve skutečnosti existuje celá řada nespočetných kardinálních čísel, a
+Aleph 0 je jenom první nekonečný kardinál, v žádném případě největší.
+
+Slavným příkladem nespočetné množiny je množina všech reálných
+čisel. I když přímka vypadá zcela zaplněna racionálními čísly, valná
+většina čísel v ní ve skutečnosti stále chybí.
+
+Ale reálná čísla jsou trochu technická, tak si teď ukážeme jiný slavný
+příklad.
+
+:-------------------- CantorDiagonal -----------------------------
+Počet všech nekonečných posloupností jedniček a nul je
+nespočetný. Vskutku, kdykoli se pokusíme popárovat přirozená čísla
+s takovými posloupnostmi, můžeme následujícím postupem najít
+posloupnost, kterou jsme opoměli. Podíváme se na cifry na
+úhlopříčce, tedy první cifra první posloupnosti, druhá cifra druhé
+posloupnosti a tak dál. A tuhle posloupnost invertujeme, tedy
+nahradíme nuly jedničkami a naopak. Taková posloupnost nemůže být
+v dosavadním seznamu, protože úhlopříčka blokuje úplně všechny řádky.
+
+A není to jediná chybějící posloupnost. To by nebyl až takový problém
+vzhledem k tomu, že Aleph 0 plus jedna je stále Aleph 0. Ale když tuto
+posloupnost přidáme, můžeme tímto postupem najít zase jinou chybějící
+posloupnost. Ve skutečnosti je chybějících posloupností valná většina,
+nespočetné množství.
+
+Ukázaný postup, jak najít chybějící posloupnost, se nazývá CantorUv
+diagonální argument, a v příští kapitole se na něj podíváme
+podrobněji. Stejně tak se můžete těšit na ty technické detaily
+související s mohutností reálných čisel spolu s dalšim nástrojem,
+který dělá porovnávání nekonečných množin přehlednějším --
+Cantor-Bernsteinovu větu. Nashle příště.

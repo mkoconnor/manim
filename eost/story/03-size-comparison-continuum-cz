@@ -1,0 +1,232 @@
+Porovnávání množin, kontinuum
+=============================
+
+Citát: Některá nekonečna jsou větši než jiná nekonečna. -- John Green
+
+:-------------------------RecapChapter2------------------------------
+V minulém díle jsme si ukázali několik množin mohutnosti Aleph 0,
+přirozená čisla, prvočísla, celá čísla, racionální čisla, a pak jednu
+větší množinu -- množinu všech nekonečných posloupností jedniček a
+nul. V tomto díle se budeme věnovat téhle konkrétní větši mohutnosti.
+
+Pro začátek je dobré si uvědomit, že nekonečná posloupnost jedniček a
+nul je v jistém smyslu totéž jako podmnožina množiny všech přirozených
+čísel. Množinu všech přirozených čisel budeme značit malým řeckým
+písmenkem omega, jak je v teorii množin zvykem.
+Posloupnost jedniček a nul můžeme interpretovat jako masku. Jedničky
+znamenají "vyber mě" a nuly znamenají "zahoď mě".
+A naopak, každou podmnožinu přirozených čísel můžeme zakódovat do
+takové masky tím, že napíšeme jedničky na pozice z dané množiny a nuly
+na zbytek.
+
+Více formálně bychom řekli, že tento překlad popisuje párování mezi
+nekonečnými binárními posloupnostmi a podmnožinami omega. Každá
+binární posloupnost je spárovaná s nějakou podmnožinou omega a naopak,
+takže jsme vlastně ukázali, že množina všech podmnožin omegy má
+stejnou mohutnost jako množina všech posloupností nul a jedniček.
+Tenhle popis párování prostřednictvím algoritmu je v teorii množin
+docela běžný. U nepředstavitelně velkých množin se to ani moc jinak
+dělat nedá.
+
+A stejně tak běžná v teorii množin je zmíněná operace, která vezme
+množinu a sestaví množinu všech jejích podmnožin.
+:-----------FinitePowerSetScene--------------
+Vezměme množinu X, sestávající se třeba z čísel 0,1,2 a uvažme všechny
+možné podmnožiny. To je prázdná množina, tři jednoprvkové podmnožiny,
+tři dvouprvkové podmnožiny a pak celá množina X.
+Tato operace se značí velkým kaligrafickým P jako "potenční
+množina". Výsledná množina se tedy značí Pé iX.
+
+Začali jsme s třemi prvky a potenční množina má 8 prvků, to je dva na
+třetí. To není náhoda. Můžeme si vybrat, jestli zahrnout číslo nula,
+máme dvě možnosti, ano nebo ne, podobně máme dvě možnosti, jestli
+vybrat číslo jedna a dvě možnosti, jestli vybrat čislo 2.
+Takže počet možností je dva krát dva krát dva, tedy dva na třetí.
+To platí samozřejmě obecně, když máme konečnou množinu o n prvcích,
+můžeme se u každého prvku rozhodnout, zda jej zahrnout, či ne, takže
+velikost potenční množiny bude 2 na n-tou.
+
+V konečném případě je tedy očividné, že potenční množina bude větší
+než množina původní. Dva na n-tou je mnohem víc než n, Jedna je míň
+než dva, čtyři je míň než šestnáct, dest je míň než tisíc dvacet
+čtyři.
+Z předchozího videa navíc víme, že potenční množina překoná i
+spočetnost, že potenční množina omega je větší než omega. Ale platí to
+ve vší obecnosti? Je potenční množina jakkoli velké množiny větši než
+původní množina?
+
+Kantorovu diagonálnímu argumentu je ve skutečnosti jedno s jakou
+množinou se potýká. Ale aby to bylo jasné, pojďme se na něj podívat z
+pohledu potenčních množin.
+
+:-----------CantorRevisited--------------
+Vezmeme potenční množinu nějaké množiny, třeba omega, a uvážime
+párování všech prvků omega, tedy přirozených čisel, s prvky potenční
+množiny. Chceme najít nějakou podmnožinu, kterou jsme v tomto párování
+vynachali.
+
+Některá čisla jsou spárovaná z množinami, které toto číslo obsahují,
+například množina nula obsahuje nulu, množina tři obsahuje trojku,
+jiná čísla v příslušných množinách chybí -- jednička není v množině
+jedna, dvojka není v množině dva, a tak dál.
+
+Teď vezmeme množinu všech těch chybějících čísel, označíme ji $M$.
+Ta nemohla být spárována s žádným čislem jako je nula, protože
+v množině $M$ nula chybí, zatímco množina spárovaná s nulou nulu
+obsahuje. A na druhou stranu nemohla být $M$ spárovaná s žádným
+chybějícím číslem jako je dvojka, protože se v $M$ dvojka nachází, ale
+ne v množině spojené s dvojkou.
+Ovšem, M je stále prvek potenční množiny, je to podmnožina omega, jen
+se jí povedlo vyhnout se tomu párování.
+
+Tahle myšlenka je vlastně stejná jako, když jsme si v předchozím díle
+řekli, že "úhlopříčka blokuje všechny možné pozice", jen to říkáme
+trochu jiným jazykem. Výhoda tentokrát je, že tentokrát nepotřebujeme
+být schopni si situaci nakreslit. Rozdělili jsme si prvky na zahrnuté
+a chybějící, a vzali jsme množinu všech chybějících. Tento argument
+funguje zcela obecně.
+
+Takže je potenční množina obecným nástrojem, jak vyrábět větší a větší
+množiny. Dokonce i pro konečné množiny to funguje, takže bychom mohli
+říci, že na základě Kantorova diagonálního argumentu je dva na n-tou
+větši než n. Ale to je poněkud trochu kanón na vrabce.
+
+V příští kapitole se podíváme na možnost vytváření obrovských množin
+pomocí tohoto nástroje, ale pro tentokrát si vystačíme s mohutností
+množiny P omega.
+:-----------------------SubsetToReal---------------------------------
+Další slavný příklad nespočetné množiny je totiž množina všech
+reálných čisel. Ve zbytku této kapitoly se podíváme na to, jak souvisí
+mohutnost reálné osy s mohutností P omega. Mohutnost reálné osy se 
+nazývá kontinuum a znači se značí malým hranatým céčkem,
+
+Důvod, proč je množina reálných čísel nespočetná je vlastně docela
+jednoduchý. Už víme, že podmnožina omegy může být zakódována
+nekonečnou posloupností jedniček a nul. A z takové posloupnosti můžeme
+snadno sestrojit reálné čislo tak, že před tuto posloupnost cifer
+desítkové soustavy napíšeme nulu a nesetinou čárku.
+Kdyby se nám náhodou povedlo očíslovat všechna reálná čisla
+přirozenými čísly, museli bychom pokrýt i všechna reálná čisla tohoto
+tvaru, a tím bychom vlastně dostali očíslování všech podmnožin omegy
+přirozenými čísly. To se nemohlo stát, protože P omega je nespočetná,
+takže i reálná osa je nespočetná.
+
+Takže to vypadá, že reálná osa je větši než P omega, popárovali jsme
+všechny podmnožiny, a ještě nám spousta reálných čisel zbylo.
+Ale abychom si byli jisti, musíme ověřit všechny možnosti, jak
+popárovat podmnožiny s reálnými čísly, jestli opravdu není možné
+pokrýt všechna reálná čísla.
+
+Jednou z možností, jak pokrýt všechna reálná, čisla je
+následující. Začneme tentokrát s reálným čislem, dejme tomu minus
+jedna a půl.
+
+:-------------------------RealToSubset-----------------------------
+
+Každé takové číslo můžeme popsat pomocí jeho zápisu v desítkové
+soustavě. To je konečná nebo nekonečná posloupnost symbolů z relativně
+malého seznamu. Máme deset číslic, desetinnou čárku a případné
+znaménko minus. Takové symboly zakódujeme pomocí čisel od nuly do
+jedenácti. Když bychom zabalili přeložené symboly do množiny už teď,
+přišli bychom o informaci, jak jsou jednotlivé symboly uspořádané,
+protože uspořádání v množině nehraje roli. Proto to opravíme malým
+trikem -- ke každému zakódovanému symbolu přidáme tolik stovek, jaká
+je jeho pozice v posloupnosti. Takže první zakódovaný symbol zůstane
+stejný, další se změní na sto jedna, další na dvěstě jedenáct a
+poslední na čtyřista pět.
+
+Tentýž postup funguje i v případě reálných čisel s nekonečným
+desetinným rozvojem. Jediný rozdíl spočívá v tom, že pak bude i
+výsledná množina nekonečná.
+
+Takže jsme teď popsali zelené párování reálných čisel a podmnožin
+omega, které pokrývá všechna reálná čísle, ale zas tentokrát nepokryje
+všechny podmnožiny. Například žádná z takto sestrojených množin nebude
+obsahovat čislo čtyřicet dva. Takže teď to vypadá, že reálná čisla
+jsou menší množina než P omega. Láká to říci, že jediné možné
+východisko je, že obě množiny mají stejnou velikost, že? Přece nemůžou
+být větší a menší současně.
+
+Ale tvrzení "mají stejnou velikost" je jen zkratka za existenci
+párování mezi těmito dvěmi množinami, které pokrývá obě
+množiny. Nemáme záruku, že ať si vymyslíme jakoukoli definici menších
+a větších množin, bude se chovat podle očekávaně. Už u spočetných
+množin jsme dostávali překvapivé výsledky. Naštěstí je pravda, že
+množina nemůže být současně menší a větší, jen si to zasluhuje
+obhájit.
+
+:----------------------CantorBernsteinScene------------------------
+Na jedné straně máme zelené párování, které pokrývá všechna reálná
+čisla, ale ne všechny podmnožiny omegy. A na druhé straně máme jiné
+červené párování pokrývající všechny podmnožiny omegy, ale ne všechna
+reálná čísla. Tahle dvě párování bychom rádi nějak nakombinovali do
+jednoho párování pokrývající každé reálné čislo i každou
+podmnožinu omegy přesně jednou.
+
+Problém dělají zejména ty prvky, které jsou propojeny jenom z těch
+dvou párování. Napřiklad reálné čislo pět, které není tvaru nula celá
+posloupnost nul a jedniček. Proto pro něj mušíme použít zelenou linku
+a spojit jej s jednoprvkovou množinou obsahující pětku. V tom okamžiku
+už nemůžeme použít červené spojení mezi touto množinou a číslem nula
+celá nula nula nula nula nula jedna. Takže z tohoto čísla musíme vzít
+zelené spojení. Takto projdeme nekonečnou procházku začínající na bodě
+nepokrytém červeným párováním podél kroků, které zaručeně existují,
+tedy zelené kroku z reálných čisel na množiny a červené z množin na
+reálná čisla. Na celé této procházce jsme donuceni zvolit zelené
+párování.
+
+Takové nekonečné cesty jsou vzájemně isolované, protože každý bod je
+spojený nanejvýš jednou červenou linkou a nanejvýš jednou zelenou
+linkou, a obě dvě tyto linky jsou již součástí jedné cesty.
+
+Podobně když začneme na bodě nepokrytém zeleným párováním, najdeme
+celou nekonečnou cestu, na které jsme donuceni použít červené
+párování. Pro každý nepokrytý zelený nebo červený bod máme
+odpovídající nekonečnou posloupnost vynucených spojů. Ve skutečnosti
+by takových posloupností mělo být nekonečně mnoho, ale důkaz je
+zcela stejný a nechceme mít zbytečně nepřehledný obrázek.
+
+Ale i poté, co vytáhneme všechny takové posloupnosti, nemusí být
+rozebráno všechno. Zbývá graf, ve kterém je každý červený i zelený bod
+pokrytý zelenou i červenou linkou.
+
+Může se jednat o cykly, nebo o posloupnosti nekonečné v obou
+směrech. Ať je tomu jakkoli, můžeme pro ně použít párování, které
+chceme, třeba to zelené.
+
+Takže důkaz probíhá následovně. Rozdělíme celý obrázek na tři typy
+komponent: Jednostranné posloupnosti začínající nahoře, jednostranné
+posloupnosti začínající dole, a zbytek, to jsou oboustranné
+posloupnosti a cykly. V prvním případě použijeme zelené hrany, v
+druhém červené hrany a ve třetím třeba zase zelené hrany. Když takto
+popárované komponenty poskládáme zpátky do sebe, dostáváme jedno
+párování pokrývající reálná čísla i podmnožiny.
+
+Obecně vzato jsme si předvedli důkaz tak zvané Cantor-Bernsteinovy
+věty, která přesně říká, že množina nemůže být současně menší a větší
+nez jiná. Přesto jsme si ještě neobjasnili všechny přirozené otázky
+týkající se porovnávání množin. 
+
+:------------------- RemainingQuestions --------------------------
+
+Konkrétně není stále jasné, jestli
+jsou každé dvě množiny porovnatelné, tedy jestli pro každou dvojici
+množin existuje párování, které pokrývá celou aspoň jednu z
+nich. Další přirozená otázka může být, zdali je kardinální čislo
+kontinuum měřící mohutnost reálných čísel, to nejmenší nekonečné.
+Odpověď na první otázku je pozitivní, chová se to tak, jak bychom
+čekali. Ospravedlnění ale vyžaduje hlubší proniknutí do teorie množin
+a ukážeme si jej proto ke konci této série v kapitole o Zornově
+lemmatu.
+
+Druhá otázka je zákeřná. Říká se jí Hypotéza kontinua a je to otevřený
+problém, tedy neví se, jak to doopravdy je. Ale není to jako jiné
+slavné otevřené problémy jako je Riemannova hypotéza, P-NP a
+podobně. V případě hypotézy kontinua je totiž dokázané, že bude
+otevřená navždy. Bohužel důkaz neřešitelnosti hypotézy kontinua je
+příliš složitý na celou tuhle sérii.
+
+:04----------------------FirstLimitStep------------------------
+
+V příští kapitole se podíváme na to, jak sestrojit obrovskou množinu
+pomocí transfinitní rekurze, nashle příště.

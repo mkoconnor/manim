@@ -1,0 +1,181 @@
+Ordinal arithmetics
+===================
+
+Citát: Želva si byla vědoma své pomalosti, ale bez ustání běžela.
+-- Ezop
+
+:-----------------------Chapter5Recap---------------------------------
+V minulé kapitole jsme si zavedli ordinální čísla coby typy dobře
+uspořádaných množin a vysvětlili jejich význam coby indexů. Tahle
+kapitola o ordinální aritmetice možná není až tolik esenciální.
+Ordinální sčítání a násobení jsou méně důležité operace než operace
+suprema a přičtení jedničky, z minulého dílu. Ale považujeme za
+užitečné si ordinály trochu lépe osvojit než se pustíme do ordinálu
+omega1, který je mnohem důležitější, ale současně mnohem méně
+představitelný.
+
+Ordinální sčítání jsme zmínili už v minulém díle, když jsme si
+ordinály nazývali omega plus jedna, omega plus dva, a tak dál.
+:------------------------------Addition-------------------------
+Když chceme sečíst dva ordinály, například omega a tři, tak je
+prostě umístíme za sebe. To je docela jednoduché a přirozené. Jenže
+skutečnost, že ordinály reprezentují uspořádání může i za jisté ne
+tolik přirozené chování ordinálního sčítání. Konkrétně, záleží na
+pořadí.
+
+Ordinál omega plus tři je opravdu o tři kroky delší než omega. Ale
+když je sečteme v opačném pořadí, tedy tři plus omega, vyjde nám jenom
+omega. Ty tři prvky se utopily v nekonečnu omegy.
+
+:---------------------------TurtlesRace------------------------------
+Tuhle skutečnost si můžeme vyobrazit i za pomocí indexového významu
+ordinálů. Uvažme dvě stejně rychlé želvy, Gordona a Steva, jak závodí
+na ordinálech. Gordon začne v bodě nula, ale Steve má tři kroky
+náskok. Po jednom kroku je Gordon na pozici jedna, zatímco Steve je na
+pozici tři plus jedna, tedy čtyři. Podobně po druhém kroku, třetím, a
+tak dál.
+
+Ale i když je Steve celou dobu tři kroky před Gordonem, oba dva míří
+ke stejnému limitnímu ordinálu, k omeze. Takže když nastane limitní
+krok, obě želvy přistanou najednou na bodě omega. Ve Stevově případě
+tomu můžeme rozumět jako tři plus omega, protože začal s náskokem tří
+kroků. Od této chvíle běží obě želvy společně, takže tři plus
+kterýkoli nekonečný ordinál alfa vyjde stále alfa.
+
+:--------------------------TurtlesRace2-------------------------------
+Naopak omega plus tři by odpovídalo následujícímu závodu. Obě želvy
+běží jedna vedle druhé omega kroků, a na konci udělá Steve ještě tři
+kroky navíc. Jasně že v takovém případě bude Steve napřed, ať doběhli
+na začátku kamkoli. Z předchozího závodu jsme mohli vyčíst, že tři
+plus alfa je alfa pro jakékoli nekonečné alfa, a teď vidíme, že na
+druhou stranu alfa plus tři je vždycky větší než tři.
+
+Ale co když se vrátíme k předchozí verzi a dáme Stevovi větší
+náskok. Asi si umíte představit, že náskok deseti kroků ho moc
+nevytrhne, ale co náskok omega?
+Když Gordon doběhne na omegu, Steve už je pryč
+:--------------------------TurtlesRace2-------------------------------
+na bodě omega plus omega. Označíme tento bod stručně jako omega krát
+dva. Když Gordon doběhne na omega krát dva, Steve je na omega plus
+tři. Zkuste si zastavit video a zamyslet se. Povede se Gordonovi
+dohnat Steva?
+
+... [wait for 10 seconds]
+
+Dobrá, podíváme se, jak to je. Když se zaměříme jenom na žluté rysky,
+tedy konečné násobky omegy. vlastně převedeme současný problém na ten
+předchozí.  Obě dvě želvy se potkají v supremu těchto konečných
+násobků omegy, které za nazývá, nepříliš překvapivě, omega krát omega.
+Takže odpověď zní, že Gordon dožene Steva na ordinálu omega krát
+omega. Tak se dostáváme k dalšímu této kapitoly, ordinálnímu násobení.
+
+:-----------------------Multiplication--------------------------------
+Vezmeme dva ordinály, třeba omegu a dvojku, a chceme sestrojit jejich
+součin. Takže vezmeme ten první jako základ, a nakopírujeme ho
+tolikrát, jak určuje ten druhý ordinál. To je totéž jako říct, že jsme
+každý bod druhého činitele, v tomto případě dvojky, nahradili kopií
+prvního činitele, v tomto případě omegy.
+
+A stejně jako předtím, na pořadí záleží. Je důležité, že jsme součin
+napsali jako omega krát dva, zkusme si, jak by to dopadlo obráceně.
+Když počítáme dva krát omega, nahradíme každý bod druhého činitele,
+tedy omegy, dvojkou. Stejně jako v případě sčítání, výsledek je zase
+jenom omega.
+
+:---------------------TurtleRabbitRace-------------------------------
+A znovu si tuhle situaci můžeme vyobrazit jako závod. Tentokrát bude
+želva závodit se zajícem. Zajíc je rychlejší než želva, když želva
+udělá krok, zajíc poskočí o dvě rysky. Je to tedy v tomhle případě
+nějaký líný zajíc, ale pořád rychlejší než želva.
+
+Oba začínají v bodě nula. Po jednom kroce je želva na bodě jedna,
+zajíc na bodě dva. Po třech krocích, želva je na bodě tři, zajíc na
+bodě šest. A závod pokračuje. Zajíc běží, běží dvakrát rychleji, ale
+vidíme, že se oba jen blíží ke stejnému limitnímu bodu omega, takže na
+bod omega dobíhají oba přesně současně. To přesně odpovídá faktu, že
+dva krát omega je omega.
+
+To už neplatí pro jakýkoli nekonečný ordinál alfa. Hned po příštím
+izolovaném kroku je zajíc zase před želvou. A je před ní opět do té
+doby než jej želva dohoní na dalším limitním ordinálu omega krát dva.
+Takže dva krát alfa se nerovná alfa pro všechny nekonečné ordinály,
+ale pro všechny limitní.
+
+Je to podobné jako se sčítáním. Může se stát, že výsledek nebude větší
+než druhý činitel, ale určitě bude větší než ten první, pokud teda
+nenásobíme jedničkou nebo nulou.
+
+Zkusme se teď na ten opačný součin podívat jako na závod. To odpovídá
+nějakému superhrdinovi,
+:------------------------AchilesScene-------------------------------
+dejme tomu Achileovi, jehož skoky jsou dlouhé omega. Začíná na bodě
+nula. Prvním skokem skočí na omega krát jedna. Dalším skokem skočí na
+omega krát dva. Jasně, že se Achiles dostane tím druhým skokem dál,
+tedy omega krát dva je víc než omega.
+
+:----------------------TurtleAchilesRace----------------------------
+Ale co když nasadíme želvu proti Achileovi? Má želva šanci jej opět
+dohnat? Existuje nějaký nenulový ordinál alfa takový, že omega krát
+alfa je pořád alfa? Zkusme to.
+
+Po jednom kroce je želva na bodě jedna, Achiles už je na omeze. Želva
+potřebuje dalších omega kroků, aby se taky dostala na omegu, ale
+Achiles je tou dobou už někde pryč v bodě omega krát omega, označíme
+si to stručně jako omega na druhou.
+A jedeme dál.
+Jelikož už je želva kdesi daleko vzadu, ukážeme si ji na samostatném
+řádku. Po dalších omega krocích je želva na omega krát dva, zatímco
+Achiles už je omega na druhou krát dva. Teď může být dobrý okamžik si
+pozastavit video a zamyslet se. Může u všech všudy želva dohonit
+Achilea?
+
+[wait for 10 seconds]
+
+:----------------------------ToSpiralScene-----------------------------
+Dobrá, podíváme se, jak to je, ale k tomu potřebujeme vidět celou
+situaci s trochu většího nadhledu.
+:--------------------------SpiralScene--------------------------------
+Po dalším kroku je želva na omegakrát dva plus jedna, zatímco Achiles
+už je na omega na druhou plus omega. Po dalších omega krocích je želva
+na omega krát tři, zatímco Achiles je na omega na druhou krát
+tři. Želva stále potřebuje omega na druhou kroků, ale se dostala na
+bod omega na druhou, ale Achiles je tou dobou už na omega na třetí.
+
+Achiles je stále jedno kolo před želvou. Když želva doběhne na omega
+na třetí, Achiles už je je na omega na čtvrtou. A závod
+poračuje. Nicméně už asi tušíte, jak to chodí. všechny tyhle konečné
+mocniny omegy mají svoje supremum, nazvaně, nepříliš překvapivě, omega
+na omega. Oba naši závodníci se jen současně blíží k tomuto supremu,
+takže to je ten bod, na kterém želva dohoní Achilea.
+
+Když se na ordinály díváme z pohledu typů dobře uspořádaných množin,
+reprezentuje ordinál omega na omega vyobrazenou spirálu jako celek. A
+dává smysl, že omega krát tato spirála je zase tato spirála, protože
+nahrazení každého prvku spirály omegou jenom odpovídá přiblížení celé
+spirály. 
+
+:--------------------------TransfinitePowers--------------------------
+Ordinální mocnění už do hloubky rozebírat nebudeme, jeho definice je
+více technická a ne příliš představitelná. Jen zmíníme, že naprosto
+dává smysl definovat mocniny omega transfinitní rekurzí. Limitní krok
+je supremum a izolovaný krok je násobení omegou zprava.
+
+Pořadí je důležité. Už víme, že omega krát omega na omega je stále
+omega, takže kdybychom násobili zleva, tak bychom se zasekli na tomhle
+ordinálu a nikam dál bychom se nedostali. Naopak násobení zprava
+zaručuje, že budeme vytvářet větší a větší ordinály.
+
+:-------------------------CountabilityScene--------------------------
+Na závěr této kapitoly spočteme mohutnost ordinálního čísla omega na
+omega. Mohutnost omega je Aleph 0. Mohutnost omega na druhou je
+Aleph 0 krát Aleph 0, to je pořád Aleph 0, jak víme z druhého dílu.
+Stejně tak mohutnost omega na třetí je Aleph 0 krát Aleph 0, tedy
+Aleph 0. A tak dál, každá konečná mocnina omegy je spočetná.
+
+A omega na omega není nic jiného než supremum těchto spočetných
+ordinálů. Supremum je něco jako sjednocení, takže i celé omega na
+omega je jenom spočený ordinál, přesněji ordinál mohutnosti Aleph 0.
+
+Zjevně není žádná legrace se dostat k nespočetným ordinálům. Ani
+ordinální mocnina tomu popravdě moc nepomáhá. Přesto se v dalším díle
+na nespočetný ordinál podíváme. Nashle příště.

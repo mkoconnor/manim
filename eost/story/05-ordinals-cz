@@ -1,0 +1,201 @@
+Je jenom jedno opravdové dobré uspořádání
+=========================================
+
+Citát: Všechno je to vlastně docela triviální. Co není triviální, je to pochopit. -- Luděk Zajíček
+
+:-------------------SimultaneousRecursion----------------------------
+V předchozí kapitole jsme se zabývali dobře uspořádanými množinami. To
+jsou takové množiny, že transfinitní rekurze je schopná přeběhnout
+přes všechny její prvky, i když dané množina nepokrývá celý svět
+transfinitní rekurze.
+Můžeme mluvit o tom, že některé dobře uspořádané množiny jsou delší
+než jiné. To znamená, že transfinitní rekurze na nich bude v jistém
+smyslu běžet déle. Na úvod tohoto dílu se blíže podíváme na tohle
+srovnání.
+
+Uvažme dvě dobře uspořádané množiny a spusťme na obou transfinitní
+rekurzi současně. Takže na obou množinách provedeme současně založíme
+základ rekurze, současně provedeme první limitní krok, druhý limitní
+krok, a tak dál.
+Zastavíme v okamžiku, kdy jedna z těchto množin je celá použita. Buď
+rekurze zaplnila druhou množinu a vlastní počáteční úsek té první,
+nebo naopak, první množina je celá proběhnuta a zbyly některé rysky té
+druhé, nebo transfinitní rekurze proběhne obě dvě celé množiny
+najednou.
+
+Tato současná rekurze nám dokonce dala něco víc, než jen výsledek. Pro
+každý zpracovaný prvek první množiny tu je odpovídající prvek druhé
+množiny. To znamená, že můžeme množiny proti sobě zarovnat tak, aby
+opravdu vypadaly stejně.
+
+Tento vzhled až na urovnání, který je vlastně totéž, co ona délka v
+transfinitní rekurzi, se měří tak zvanými ordinálními čísly, stručně
+ordinály.
+
+Tady je ještě jedna varianta, jak se na záležitost dívat.
+:---------------------OrdinalMatching---------------------------
+Když existuje párování mezi dvěmi dobře uspořádanými množinami A a B,
+které zachovává uspořádání, neboli se nekříží, říkáme, že jejich type
+je stejné ordinální číslo.
+:{type(A) = type(B)}
+Existence takového uspořádání je ekvivalentní tomu, že lze dané dvě
+množiny zarovnat pod sebe bez přehazování prvků.
+Když ale na druhou stranu můžeme takto popárovat množinu B jenom s
+vlastním počátečním úsekem množiny A, říkáme, že typ A je větší než
+typ B.
+. :{type(A) > type(B)}
+
+Možná si všímáte podobnosti s kardinálními čísly, která jsme probírali
+v kapitolách dva a tři. Tak se na to podívejme, je to podobné, ale
+přece dost odlišné.
+
+Říkáme, že množiny A a B mají stejnou mohutnost, když mezi nimi
+existuje perfektní párování. Tentokrát se ale nestaráme o uspořádání
+těchto prvků, můžeme množinu A přeuspořádat, a stále reprezentuje tu
+samou neuspořádanou množinu té samé mohutnosti.
+
+Uspořádání je v tuhle chvíli pro nás jen pomůcka, jak ji vyobrazit,
+nemusí nijak reprezentovat vnitřní strukturu dané množiny.
+
+Na druhou stranu, ordinály měří uspořádané množiny a nesou tak
+informaci o uspořádání. Takže abychom zachovali ordinální typ, můžeme
+s prvky trochu hýbat, ale nesmíme je prohazovat.
+
+:----------------FiniteOrInfinite----------------------------------
+V konečném případě to vychází nastejno. I když proházíme prvky konečné
+uspořádané množiny, ordinální typ se nezmění. Stále to je pět čárek v řadě.
+Takže konečná ordinální čísla pro nás jsou stejná jako konečná
+kardinální čísla, čili přirozená čísla. Ordinální typ téhle množiny je
+pět.
+
+Ale v nekonečném případě se můžeme vcelku snadno přeuspořádat dobře
+uspořádanou množinu a dostat dobře uspořádanou množinu jiného
+typu. Kardinalita je stále stejná, ale ordinální typ se změnil.
+To proto, že musíme vyskoušet všechna možná párování, abychom se
+ujistili, zda nemají dvě množiny stejnou mohutnost. To není nutné
+v případě ordinálního typu. Existuje jenom jedno možné uspořádání mezi
+množinou a počátečním úsekem, které respektuje uspořádání -- to, které
+vypadne se souběžné transfinitní rekurze.
+
+:--------------------ApplicationDifference-------------------------
+
+A dále jsou různé motivace za abstrakcí velikostí množin a ordinálních
+typů. Kardinální čísla jsme zavedli, abychom mohli studovat velikosti
+rozličných běžných množin jako jsou přirozená čísla, celá čísla,
+racionální čísla, reálná čísla, a tak dál. Ale účelem ordinálů není
+klasifikovat existující dobře uspořádané množiny. Spíše jde o to
+vytáhnout z dobře uspořádaných množin jejich podstatu. Chceme se
+zaměřit na to důležité -- to je samotné dobré uspořádání, ne jeho
+nosná množina.
+
+Takže od teď budeme používat ordinály namísto dobře uspořádaných
+množin. Budeme je kreslit úplně stejně a jejich význam bude prakticky
+stejný. Jen mějte na paměti, že to uspořádání je jediné důležité a že
+se ordinál nezmění, když mu trochu pošolícháme jeho rysky.
+
+:----------------------OrdinalByRecursion-----------------------------
+
+Teď zkusíme tak trochu cyklickou úvahu, sestrojíme ordinály pomocí
+transfinitní rekurze. Základ rekurze je prázdný ordinál
+nula. Reprezentujeme jej teď prázdnou svorkou. Je to trochu zvláštní
+dobře uspořádaná množina, ale technicky je vše v pořádku. Prázdná
+množina opravdu neobsahuje nekonečnou klesající posloupnost.
+
+Izolovaný krok spočívá v přidání jednoho prvku na konec předchozího
+ordinálu, tuto operaci nazýváme plus jedna. Takto vzniknou ordinály
+jedna, dva, tři, čtyři, a vůbec všechna přirozená čísla.
+
+Limitní krok pak bude tak zvané supremum všech předchozích
+hodnot. Abychom si jej mohli definovat, vrátíme se k myšlence
+zarovnávání ordinálů. Když máme dva různé ordinály, tak jeden z nich
+vlastnw reprezentuje jen počáteční úsek toho druhého. Supremum je
+operace, která ordinály takto zarovná, a následně je sloučí do
+jednoho. Takže supremum dvou ordinálů není až tolik zajímavé, výsledek
+je prostě ten větší ordinál.
+
+Jenže tato definice -- zarovnat doleva a sloučit, dává smysl pro
+nekonečné množství ordinálů. Takže v našem případě vezmeme přirozená
+čísla coby ordinály, zarovnáme je doleva, a sloučíme je. Pro
+reprezentaci výsledného ordinálu, byla zvolena množina přirozených
+čísel. Nazýváme jej tedy omega.
+
+Pak pokračujeme dalšími izolovanými kroky a dostáváme omega plus
+jedna, omega plus dva, omega plus tři, a tak dál. A v limitním kroku
+opět použijeme supremum, a dostaneme ordinál nazvaný, docela
+očekávaně, omega plus omega.
+Technicky bychom tedy měli vzít supremum všech ordinálů, i těch
+konečných, ale nezpůsobí to žádný rozdíl, a nevešly se nám na
+obrazovku.
+
+:----------------------OrdinalRoles---------------------------
+Není to něco, čím bychom mohli stavět obrovské ordinály, protože pro
+dlouhý výsledný ordinál potřebujeme v první řadě dlouhou dobře
+uspořádanou množinu, na které rekurze poběží. Ale jde o to, že se nám
+povedlo očíslovat prvky nosné dobře uspořádané množiny ordinálními
+čísly. Ordinály ve skutečnosti můžeme potkat ve dvou rolích -- buď
+reprezentují ordinální typy dobře uspořádaných množin, a nebo indexují
+její prvky.
+
+Na tuhle korespondenci můžeme nahlížet více způsoby. Z konstrukce
+vidíme, že například na pozici ordinálu omega plus tři dojdeme od
+prvního prvku přes omega izolovaných kroků plus tři. Takže tento
+indexový význam ordinálu počítá uspořádaný počet izolovaných kroků od
+první rysky.
+
+Alternativně můžeme každý tento izolovaný krok ztotožnit s jeho
+počátečním bodem. V tom okamžiku se na ordinál omega plus tři dííváme
+jako na počáteční úsek nosné množiny, a bod přiřazený danému ordinálu
+je následník tohoto počátečního úseku.
+
+To je trochu odlišné od řadových, čili ordinálních, číslovek
+v přirozeném jazyce. Může to být trochu matoucí. Když mluvíme
+přirozeným jazykem o čtvrtém prvku, myslíme tím, že vezmeme počáteční
+úsek o čtyřech prvcích, a vybereme si ten poslední. Jenže takový
+přístup v teorii množin nemůže fungovat. Některé počáteční úseky, jako
+třeba omega nemají poslední prvek. Proto je vhodnější ztotožnit
+počáteční úsek s jeho následníkem, který zaručeně existuje díky
+dobrému uspořádání, i když to na první pohled může působit
+nepřirozeně.
+
+Dobrá, ordinály můžeme vnímat ve dvou významech, buď coby typy dobře
+uspořádaných množin, nebo jako indexy. Ale čeho přesně indexy to jsou?
+Ukazuje se, že na tom moc nesejde. Každý ordinál lze vnímat jako index
+někde, v kterémkoli větším ordinálu. A když nás zajímá, jaký bude
+výsledek transfinitní rekurze třeba v bodě čtyři, je nám docela jedno,
+jak dlouhá bude celá množina, na které rekurze poběží. Výsledek bude
+vždycky čtyři izolované kroky od základu rekurze.
+
+Takže je lepší se na ordinály dívat jako na indexy univerzálním dobrém
+uspořádání. Ordinály tvoří svět transfinitní rekurze coby jeho
+jednotlivé body. Tenhle svět je neomezený, z jistých důvodů, které
+ještě budeme blíže rozebírat, si ani nemůžeme sestavit množinu všech
+ordinálů. To nám ale nebrání ve spuštění transfinitní rekurze, která
+proběhne všechny ordinály.
+
+Na konci videa se ještě podíváme, jak indexový pohled na ordinály
+:-------------------SupremumRecap----------------------------
+souvisí s operací suprema, kterou jsme si před chvílí ukazovali. To je
+ta operace, která vezme několik ordinálů, zarovná je doleva a sloučí
+je. Popravdě jsme ale zavedli supremum trochu nestandardním způsobem,
+protože jsme to tak zrovna potřebovali. Obvyklé zavedení suprema
+vypadá následovně:
+
+:---------------------SupremumReal-------------------------
+Vezmeme si podmnožinu reálných čísel, například uzavřený interval od
+minus dvou a půl do dvou a půl. Tahle množina má svoje maximum, bod
+dva a půl. Ale ne každá v reálných číslech množina má maximum. Třeba
+ten samý interval, ale otevřený, žádné maximum nemá, protože v ní bod
+dva a půl neleží. Ale je to skoro maximum, jenom je bohužel mimo tu
+množinu. Tak to nazveme supremum, jakousi náhradu za maximum.
+Přesná definice může vypadat takto. Když má množina maximum, je
+supremum ono maximum. Když žádné maximum nemá, je supremum první prvek
+následující za celou množinou.
+
+:-------------------SupremumIndices--------------------------
+A tahle definice platí i pro ordinály. Supremum množiny ordinálů, na
+které se díváme jako na indexy je buď ten největší index, pokud je k
+dispozici, nebo index následující těsně za celou množinou.
+
+:---------------Something from the next chapter-------------
+V dalším díle se podíváme na sčítání a násobení ordinálů, a zjistíme,
+jestli může želva dohonit Achila. Nashle příště.

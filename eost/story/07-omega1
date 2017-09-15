@@ -1,6 +1,8 @@
 Omega1
 ======
 
+Quote: "No one shall expel us from the Paradise that Cantor has created. (David Hilbert)"
+
 * is there an uncountable ordinal?
 * supremum of all countable ordinals
 * analogies to omega
@@ -10,8 +12,11 @@ Omega1
 
 :---------------- Chapter7Prerequisities ------------------
 
+:------------- 02.NotationSceneForChapter7 -----------------
 For this chapter, you will need to understand the notion of
-countability and uncountability and basic properties of ordinal
+countability and uncountability and
+
+basic properties of ordinal
 numbers and operations with them discussed in previous
 chapters. Namely, you need to know that a countable set remains
 countable when you add just a countable many elements to it or if you
@@ -49,9 +54,10 @@ the countable ordinals except the finite ones.
 : -------------------- Omega1Visualization ---------------------------
 
 All right, what are properties of omega one, that is the supremum? It
-is certainly bigger, in the ordinal sense than any of the countable
-ordinals. So the supremum of all countable ordinals must be uncountable.
-It is the least uncountable ordinal number.
+is certainly bigger, in the ordinal sense, than any of the countable
+ordinals. So omega1 is an ordinal but is it not a countable
+ordinal. Therefore it must be uncountable. It is the least uncountable
+ordinal number.
 
 Does it sound weird? 
 
@@ -174,6 +180,6 @@ long line is somehow longer. Every infinite increasing sequence in the
 long line has its supremum in the long line.
 
 By this example we have closed the part of our series concercing the
-intuitive theory of infinity. Next time we will investigate some
+naive theory of infinity. Next time we will investigate some
 paradoxes which has to be handled and introduce the formal world. See
 you then.

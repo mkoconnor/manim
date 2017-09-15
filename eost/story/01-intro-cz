@@ -1,0 +1,97 @@
+some quotes: http://www.maths.qmul.ac.uk/~pjc/comb/quotes.html
+
+Úvod
+====
+
+Citát: Teorie množin má v matematice dvojí roli. V čisté matematice se jedná o studium otázek týkajících se nekonečna. I když jde o fascinující téma, nevysvětluje to důležitost teorie množin v aplikovaných oborech. Ta spočívá ve faktu, že teorie množin poskytuje neuvěřitelně všestranné nástroje pro budování matematických modelů rozličných vlastností. (Jon Barwise, Lawrence Moss)
+
+:------------------------CantorScene-----------------------------------
+Ahoj, vítejte v esenci teorie množin. Vzhledem k tomu, že se k videu
+můžou dostat různí diváci, pojďme si napřed nastínit, o čem to celé
+bude.
+
+Teorie množin, která se někdy vtipně zkracuje jako TeMno, je
+matematický obor založený v devatenáctém století Georgem
+Cantorem. Jedná se o teorii studující nekonečno, či přesněji nekonečné
+množiny.
+:------------------------HotelScene-----------------------------
+Pokud jste slyšeli o nějakých hustých věcech s nekonečnem, jako že se
+pasažéři nekonečně mnoha nekonečných autobusů vejdou do do jediného
+hotelu s nekonečným počtem pokojů...
+:-----------------------PrisonersScene-----------------------------
+nebo že z nekonečného množství vězňů si skoro všichni dokáží správně
+tipnout klobouk, který mají na hlavě, jedná se přesně o legrácky velmi
+úzce spjaté s teorií množin.
+
+A popravdě, to je náš hlavní důvod, proč ji studovat, protože je
+krásná.
+:----------------------TwoSetTheoryRoles---------------------------
+Poskytuje matematikovi celý úžasný svět čistě pro jeho myšlenky. Nic
+moc pro prakticky orientované lidi, sorry. Nekonečno nepotkáte na
+ulici.
+
+Ale pak je ještě jeden důvod, proč je teorie množin důležitá, má pevné
+základy. Ukázalo se, že naivní přemýšlení o nekonečnu může vést
+k přímým rozporům jako že je jistá množina sama sobě prvkem právě
+tehdy když sama sobě prvkem není. Matematici proto museli vyvinout
+formální axiomatický rámec, aby se s těmito problémy vypořádali. A
+ukázalo se, že jejich řešení je natolik univerzální, že pokryje
+prakticky kterýkoli jiný matematický obor.
+
+Teorie množin tak vlastně hraje v matematice dvě role, teorii
+nekonečna a základy matematiky.
+
+:---------------------------ChapterList------------------------------
+V prvních sedmi kapitolách začneme s naivní teorií nekonečna. Pak se
+podíváme na zmíněné paradoxy a řešení prostřednictvím axiomů. Sérii
+zakončíme pár netriviálními nástroji teorie množin jako je Zornovo lemma.
+
+:--------------------------InfinityBasics-----------------------------
+Pro začátek teorie nekonečna si musíme ujasnit, co pro nás nekonečno
+znamená. Teda vedle toho, že je to symbol položené osmičky. A
+popravdě, tuhle otázku vlastně nezodpovíme. Odpovíme si na jinou
+otázku: co je nekonečné.
+Inu, nekonečné je samosebou to, co není konečné.
+Tahle odpověď byla poněkud laciná.
+Ale konečnost už můžeme popsat celkem jednoduše, Konečná množina je
+taková jejíž počet prvků můžeme vyjádřit přirozeným číslem. Množina
+sestávající se z pěti prvků je konečná. Množina o sto prvcích je stále
+konečná. Ale množina všech přirozených čísel je moc velká na to,
+abychom její velikost vyjádřili přirozeným číslem, je tedy nekonečná.
+
+I prázdná množina je konečná, proto považujeme nulu taky za přirozené
+číslo. To je v jiných oborech poněkud neobvyklé, ale v teorii množin
+se to ukazuje býti velmi přirozené.
+
+Na základě naší definice nekonečné množiny aspoň víme, co nekonečno
+rozhodně není. Není to jen velké přirozené čislo. Celé studium
+nekonečna spočívá v tom, že se nekonečno chová nečekaně oproti tomu,
+co jsme zvyklí z konečného světa. Zamysleme se nad následující úlohou.
+
+:---------------------------GridColoring-------------------------------
+Máme mřížku pět krát pět, a barvíme ji dvěma barvami -- žlutou a
+modrou. Když obarvíme každý řádek z větší části na modro, stále se
+může stát, že některé sloupečky budou více žluté než modré. Ale ne
+všechny. Když opravíme ostatní sloupečky, aby byly z větší části
+žluté, zase se nám pokazí některé modré řádky.
+
+Ono se opravdu nedá zařídit, aby ve všech řádcích převažoval modrá a
+ve všech sloupečcích žlutá. Jednoduše proto, že v tabulce nemůže být
+víc modrých políček než žlutých a současně víc žlutých políček než
+modrých.
+
+Ale co když si vezmeme nekonečnou mřížku? Je možné obarvit ji tak, aby
+každý řádek obsahoval pouze konečný počet žlutých čtverečků a každý
+sloupec jenom konečný počet modrých čtverečků. Doporučujeme si tady
+pozastavit video a zamyslet se nad tím. Můžete si na pomoc vzít tužku
+a papír,
+...
+[wait for 10 seconds]
+...
+Dobrá, tady je řešení. Je to vidět? Každý řádek je až na konečný počet
+čtverečků modrý, a každý sloupeček je až na konečný počet čtverečků
+žlutý. Neřešitelná úloha v konečném světě najednou s nekonečnem řešení
+má. A to je teprve začátek.
+
+V příštím díle se podíváme, jak se porovnávají velikosti nekonečných
+množin. Nashle příště.

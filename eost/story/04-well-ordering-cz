@@ -1,0 +1,172 @@
+Transfinitní rekurze a dobré uspořádání
+=======================================
+
+Citát:
+  Do nekonečna a ještě dál!
+  -- Buzz Rakeťák
+
+:-------PowerSetsScene-------
+V předchozích kapitolách jsme si ukázali, že když vezmeme množinu
+všech přirozených čísel, uvážíme všechny její podmnožiny a zabalíme je
+do nové množiny, dostaneme množinu ostře větší. Množinu všech
+přirozených čísel značíme malým řeckým písmenkem omega a operace
+uvážení všech podmnožin se nazývá potence a značí se velkým
+kaligrafickým P. Takže P omega je větší než omega. Zkusme teď
+sestrojit co největší množinu to půjde. Minule jsme si ukázali, že
+potence je univerzální nástroj pro vyrábění větších a větších množin,
+takže P P omega je ještě víc než P omega, P P P omega je ještě víc než
+P P omega,
+
+Pro jakékoli číslo n můžeme sestrojit n-krát iterovanou potenci
+omegy. Můžeme ji aplikovat sedmnáctkrát. Či dokonce
+gogoolplexkrát. Ale je to to nejlepší, čeho můžeme dosáhnout?
+
+Ne. Máme přeci k dispozici nekonečno. Můžeme vzít všechny tyhle
+množiny omega, P omega, P P omega, a tak dál najednou, 
+:--------FirstLimitStep-------
+a sjednotit je. Formálně bychom to zapsali takto -- sjednocení všech
+potencí aplikovaných i-krát na omegu, kde i probíhá přirozená čisla.
+Stručně označíme výsledné sjednocení jako U a jedná se o množinu ostře
+větší než všechny předchozí. Ale stále nemusíme končit. Můžeme vzít
+další potenci, a zase, a zase, a tak dál, a zase to sjednotit...
+
+Proces, který se nám tu rýsuje je jedním z klíčových konceptů teorie
+množin a nazývá se transfinitní rekurze.
+
+:------OrdinaryRecursion------
+
+Obyčejná rekurze bydlí na přirozených číslech. Definujeme tu věc, se
+kterou začínáme, v našem případě omega, tomu se říká základ rekurze. A
+potom definujeme rekurzivní krok, to je v našem případě potenční
+množina předchozího výsledku.
+
+Ale transfinitní rekurze umí jednu věc navíc. Může nějak nakombinovat
+výsledky sesbírané v předchozích krocích, i když nemáme k dispozici
+žádný bezprostředně předchozí. Máme tak dva druhy limitních kroků. Ten
+obyčejný se nazývá izolovaný krok a ten, který se použije v okamžiku,
+kdy nemáme žádného bezprostředního předchůdce se nazývá limitní. Takže
+v našem případě by izolovaný krok byla potence, a limitní krok je
+sjednocení všech předchozích prvků od začátku.
+
+Klíčová otázka ale nyní zní -- co je ta věc, na které bydlí
+transfinitní rekurze? S obyčejnou rekurzí je to jednoduché, ta žije na
+přirozených číslech, ale transfinitní? Ve skutečnosti je tahle otázka
+tak trochu záludná. Na jednu stranu, kdykoli spatříme ve transfinitní
+rekurzi opakující se vzorec, můžeme vzít limitní krok a překonat
+jej. Na druhou stranu se nedá říci, že by transfinitní rekurze
+fungovala na čemkoli, například na reálných číslech nedává moc smysl.
+
+Takže v této kapitole a několika následujících se zaměříme na svět
+transfinitní rekurze. Ostatně lepší pochopení toho, co všechno si
+v transfinitní rekurzi můžeme dovolit nám pomůže i konstruovat
+super-velké množiny, o které nám na začátku šlo.
+
+:---------RealsProblems-------
+Občas je dobré vyjít z toho, co nefunguje. Proč vlastně nefunguje
+transfinitní rekurze na kladných reálných číslech? Inu, přinejmenším
+potřebujeme mít, kde začít se základem rekurze. Jenže pro jakékoli
+reálné číslo, ať už je jakkoli malé, můžeme najít ještě menší. Tedy,
+aby transfinitní rekurze mohla fungovat, musí nosná množina obsahovat
+nejmenší prvek. To ještě není až takový problém, přidáme nulu a máme
+nejmenší prvek.
+
+Takže můžeme přiřadit omega k bodu nula na reálné ose. A... co teď? Ať
+přiřadíme P omega kterémukoli dalšímu bodu na reálné ose, nevyhnutelně
+přeskočíme nekonečné, ba dokonce nespočetné, množství reálných čísel
+mezi nulou a tím bodem. To je problém. Takže nejen, že množina musí
+obsahovat první prvek, ale současně musí s každým prvkem obsahovat jeho
+bezprostředního následníka.
+
+To nám zaručí, že můžeme používat izolované kroky. Ale co limitní
+krok?
+:------OmegaPlusZScene--------
+Vezměme si následující příklad. Jedna nekonečná rostoucí posloupnost a
+jedna oboustranně nekonečná posloupnost za ní. Tato množina má první
+prvek, takže máme kam přiřadit omegu. Každý prvek má následníka, takže
+máme, kam přiřadit P omega, P P omega, a tak dál. Ale... co teď?
+
+Teď bychom chtěli provést limitní krok, ale nemáme žádnou další rysku,
+ke které výsledek přiřadit. Opět, ať přiřadíme výsledné sjednocení ke
+kterékoli rysce, nevyhnutelně přeskočíme nekonečné množství
+předchozích prvků.
+
+Takže nestačí, aby měl každý prvek následníka. Potřebujeme, abychom
+našli následníka každému počátečnímu úseku. Kdykoli už máme nějaký
+počáteční úsek s přiřazenými hodnotami, musí být k dispozici další
+prvek.
+
+Tahle podmínka vlastně pokrývá i ty předchozí. Můžeme vnímat
+následníka jednoho prvku jako následníka příslušného počátečního
+úseku.
+A dokonce i prázdnou množinu můžeme vnímat jako speciální případ
+počátečního úseku. Následník prázdného počátečního úseku je pak přesně
+první prvek množiny, takže i základ rekurze je uspokojený touto podmínkou.
+
+:----------WellOrderingCondition-----
+Má to jen jeden háček, ve skutečnosti neexistuje žádná množina, která
+by tuto podmínku splňovala. Celou množinu totiž můžeme taky považovat
+za její počáteční úsek, a pak v ní pochopitelně žádného následníka
+nenajdeme.
+Takže si problém zjednoduššíme, a vystačíme si s množinami, které
+transfinitní rekurze celé proběhne, ale nebudeme po těchto množinách
+vyžadovat, aby pokryly celý svět transfinitní rekurze.
+
+Při tomhle zjednodušení už poslední prvek, pokud existuje, nemusí mít
+svého následníka. Prostě na něm rekurze skončí. Takže vyžadujeme, aby
+měly následníka všechny počáteční úseky, které nepokrývají celou
+množinu. Takovým počátečním úsekům budeme říkat vlastní.
+
+Množina, která splňuje tuto podmínku, se nazývá dobře uspořádanou
+množinou a jsou přesně ty, přes které může přeběhnout transfinitní
+rekurze. Takže když chceme pomocí transfinitní rekurze sestrojit
+velkou množinu, stačilo by sestrojit dostatečně dlouhou dobře
+uspořádanou množinu, na které transfinitní rekurze poběží.
+
+Ve zbytku tohoto dílu se podíváme na různé alternativní podmínky
+dobrého uspořádání.
+
+:------------ConditionTerminalScene------------
+
+První věc, místo na vlastní počáteční úseky se můžeme dívat na jejich
+doplňky, tedy na koncové úseky. V tomhle pohledu odpovídá vlastní
+počáteční úsek neprázdnému koncovému úseku a následník počátečního
+úseku je přesně první prvek odpovídajícího koncového úseku. Takže
+množina je dobře uspořádaná právě tehdy, když každý její neprázdný
+koncový úsek má svůj první prvek.
+
+:----------OmegaPlusZDecSeq-------------
+Další zajímavý pohled na věc je se ptát, co vlastně brání množinám,
+aby byly dobře uspořádané. Ukazuje se, že je to jediná věc --
+nekonečná klesající posloupnost.
+:--------------RealDecSeq---------------
+Vskutku. Kdykoli jsme schopni v množině najít nekonečnou klesající
+posloupnost, rozdělí nám tato množinu na vlastní počáteční úsek a
+neprázdný koncový úsek zakrytý touto posloupností, který nemá první
+prvek.
+
+A naopak, jakýkoli neprázdný koncový úsek, který nemá první prvek
+poskytuje dostatek prostoru pro nekonečnou klesající
+posloupnost. Absence prvního prvku zaručuje, že se v něm klesající
+posloupnost nemá jak zaseknout.
+
+:------------ConditionsRecap------------
+Takže máme několik podmínek, jak určit, jestli je množina dobře
+uspořádaná, tedy jestli na ní můžeme spustit transfinitní rekurzi.
+Jedna možnost je projít všechny vlastní počáteční úseky, a ověřit, že
+mají všechny svého následníka.
+To je jinými slovy totéž, jako projít všechny neprázdné koncové úseky
+a ověřit, že mají všechny svůj první prvek.
+
+A třetí varianta, jak určit, zda je množina dobře uspořádaná, je
+ověřit, že se v dané množině nenachází žádná nekonečná klesající
+posloupnost.
+
+Když si ale sami vyhledáte definici dobrého uspořádání, pravděpodobně
+najdete následující: Ne jen každý koncový úsek, ale úplně každá
+neprázdná podmnožina musí mít nejmenší prvek.
+Tak si můžete sami rozmyslet, že význam je pořád stejný, není to až
+tak těžké.
+
+:-------ordinal-test.OrdinalAsIndex---------
+V dalším díle se podíváme na ordinální čísla a naučíme se s dobře
+uspořádanými množinami indexovat prvky. Nashle příště.
