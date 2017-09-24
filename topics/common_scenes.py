@@ -12,7 +12,8 @@ from topics.icons import MirekOlsakLogo
 
 class OpeningTitle(Scene):
     CONFIG = {
-        "series_str" : "Essence of Set Theory",
+        "series_str"  : "Essence of Set Theory",
+        "dither_time" : 3,
     }
     def construct(self):
         logo = MirekOlsakLogo(self.camera)
@@ -23,7 +24,7 @@ class OpeningTitle(Scene):
         
         self.play(Write(chapter_title))
         self.play(ShowCreation(logo))
-        self.dither(5)
+        self.dither(self.dither_time)
         self.play(FadeOut(VGroup(series_title, chapter_title, logo)))
 
 class OpeningQuote(Scene):

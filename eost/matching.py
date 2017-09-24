@@ -1,4 +1,3 @@
-from mobject import Group
 from topics.geometry import Line
 from constants import *
 from animation.simple_animations import *
@@ -13,7 +12,7 @@ def line(from_,to):
     )
 
 def get_matching(source,target):
-    return Group(*(
+    return VGroup(*(
         line(x,y) for (x,y) in
         zip(source.submobjects,target.submobjects)
     ))
@@ -22,10 +21,10 @@ class MatchingAnimations:
     def __init__(self,source,target):
         matching_line = Line(0.5*DOWN, 0.5*UP)
         def matched_objects(source,target):
-            matched = Group(source.copy(),matching_line.copy(),target.copy())
+            matched = VGroup(source.copy(),matching_line.copy(),target.copy())
             matched.arrange_submobjects(direction=DOWN)
             return matched
-        final_mobj = Group(*(
+        final_mobj = VGroup(*(
             matched_objects(s,t)
             for (s,t) in zip(source.submobjects,target.submobjects)
         ))

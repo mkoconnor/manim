@@ -41,7 +41,7 @@ NO_SCENE_MESSAGE = """
 
 def get_configuration(sys_argv):
    try:
-      opts, args = getopt.getopt(sys_argv[1:], 'hlmpwsqao:')
+      opts, args = getopt.getopt(sys_argv[1:], 'hlmpwsqQao:')
    except getopt.GetoptError as err:
       print str(err)
       sys.exit(2)
@@ -55,6 +55,7 @@ def get_configuration(sys_argv):
       "save_frames"     : False,
       "save_image"      : False,
       "quiet"           : False,
+      "ignore_waits"    : False,
       "write_all"       : False,
       "mute_sounds"     : False,
       "output_name"     : None,
@@ -66,6 +67,8 @@ def get_configuration(sys_argv):
       if opt in ['-l', '-p']:
          config["camera_config"] = LOW_QUALITY_CAMERA_CONFIG
          config["frame_duration"] = LOW_QUALITY_FRAME_DURATION
+      if opt == '-Q':
+         config["ignore_waits"] = True
       if opt == '-p':
          config["preview"] = True
          config["mute_sounds"] = True
@@ -180,6 +183,7 @@ def main():
          "frame_duration",
          "skip_animations",
          "write_to_movie",
+         "ignore_waits",
          "save_frames",
          "output_directory",
       ]

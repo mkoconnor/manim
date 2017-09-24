@@ -26,6 +26,7 @@ class Scene(object):
         "frame_duration"   : LOW_QUALITY_FRAME_DURATION,
         "construct_args"   : [],
         "skip_animations"  : False,
+        "ignore_waits"     : False,
         "write_to_movie"   : False,
         "save_frames"      : False,
         "output_directory" : MOVIE_DIR,
@@ -41,6 +42,7 @@ class Scene(object):
         self.shared_locals = {}
         if self.name is None:
             self.name = self.__class__.__name__
+        self.current_scene_time = 0
 
         self.setup()
         if self.write_to_movie:
@@ -346,7 +348,7 @@ class Scene(object):
         return []
 
     def dither(self, duration = DEFAULT_DITHER_TIME):
-        if self.skip_animations:
+        if self.ignore_waits or self.skip_animations:
             return self
         self.update_frame()
         self.add_frames(*[self.get_frame()]*int(duration / self.frame_duration))
@@ -363,6 +365,7 @@ class Scene(object):
         return self
 
     def add_frames(self, *frames):
+        self.current_scene_time += len(frames)*self.frame_duration
         if self.write_to_movie:
             for frame in frames:
                 self.writing_process.stdin.write(frame.tostring())
@@ -436,27 +439,10 @@ class Scene(object):
         self.writing_process.stdin.close()
         self.writing_process.wait()
 
+    def wait_to(self, time, assert_positive = True):
+        if self.ignore_waits: return
+        time -= self.current_scene_time
+        if assert_positive: assert(time >= 0)
+        elif time < 0: return
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        self.dither(time)
