@@ -10,82 +10,79 @@ Quote: "No one shall expel us from the Paradise that Cantor has created. (David 
 * impossibility to visualize on reals
 * discussion on the continuum hypothesis
 
-:---------------- Chapter7Prerequisities ------------------
-
-:------------- 02.NotationSceneForChapter7 -----------------
-For this chapter, you will need to understand the notion of
-countability and uncountability and
-
-basic properties of ordinal
-numbers and operations with them discussed in previous
-chapters. Namely, you need to know that a countable set remains
-countable when you add just a countable many elements to it or if you
-take an union of countable many countable sets, understand the
-transition between ordinals as order types of well-ordered sets and
-ordinals as indeces into well ordered sets, and comprehend the
-supremum of an arbitrary set of ordinals.
-
-So if you don't feel well in any of these topics, we recomend you to
-return to the appropriate chapters. This chapter is going to be a bit
-tough but really cool. We are going to construct and investigate an
-uncountable ordinal.
+:--------------- CardinalsOrdinalsRecap -----------------
+. For this chapter, you will need to understand the notion of
+. countability and uncountability and
+. basic properties of ordinal
+. numbers and operations with them discussed in previous
+. chapters.
+. Namely, you need to know that a countable set remains
+. countable when you add just a countable many elements to it or if you
+. take an union of countable many countable sets, understand the
+. transition between ordinals as order types of well-ordered sets and
+. ordinals as indeces into well ordered sets and
+:------------------- SupremumRecap ----------------------
+. comprehend the supremum of an arbitrary set of ordinals.
+. 
+. So if you don't feel well in any of these topics, we recomend you to
+. return to the appropriate chapters. This chapter is going to be a bit
+. tough but really cool. We are going to construct and investigate an
+. uncountable ordinal.
 
 :-------------------- Supremum -------------------------
+.
+. Here we go.
+. 
+. Let's take the set of all possible countable ordinals. That are omega,
+. omega plus five, omega times three, omega to the power of three and
+. much more. Now we take the supremum. We align all of them to the
+. left and merge them. The result is another ordinal number called
+. omega one.
+. 
+. : "You've said in chapter 5 that taking all ordinals is forbidden."
+. : "We are using just the countable ones."
+.
+. In chapter 5, we have mentioned that we are not allowed to
+. take the set of all ordinals, so why is it possible to take the set of
+. all countable ordinals? We will discuss the reason in more detail
+. later in the series after we will have established axioms and other
+. formal stuff. In the meantime let's explain an intuitive reason. We
+. can take all natural numbers, that is omega. Since omega is just a set, 
 
-Here we go.
-
-Let's take the set of all possible countable ordinals. That are omega,
-omega plus five, omega times three, omega to the power of three and
-much more. Then we take the supremum, that is another ordinal called
-omega one.
-
-: "Hey, in the previous chapter you said that taking all ordinals is forbidden."
-
-In chapter 5, we have mentioned that we are not allowed to
-take the set of all ordinals, so why is it possible to take the set of
-all countable ordinals? We will discuss the reason in more detail
-later in the series after we will have established axioms and other
-formal stuff. In the meantime let's explain an intuitive reason. We
-can take all natural numbers, that is omega. And since omega is just a
-set, there is in a sense just a limited number of possibilities how to
-reorder it. By taking all of these possibilities, we actually get all
-the countable ordinals except the finite ones.
-
-: -------------------- Omega1Visualization ---------------------------
-
-All right, what are properties of omega one, that is the supremum? It
-is certainly bigger, in the ordinal sense, than any of the countable
-ordinals. So omega1 is an ordinal but is it not a countable
-ordinal. Therefore it must be uncountable. It is the least uncountable
-ordinal number.
-
-Does it sound weird? 
+:------------------- Reorderings ------------------------------------
+.
+. there is in a sense just a limited number of possibilities how to
+. reorder it. By taking all of these possibilities, we actually get all
+. the countable ordinals except the finite ones.
+.
+: -------------------- Omega1Intro ---------------------------
+.
+. All right, what are properties of omega one, that is the supremum? It
+. is certainly bigger, in the ordinal sense, than any of the countable
+. ordinals which. We can see a countable ordinal as an index of omega1
+. or as its proper initial segment.
+.
+. So omega1 is an ordinal but it is not a countable
+. ordinal. Therefore it must be uncountable. It is actually the least
+. uncountable ordinal number. So even the appropriate terminal segment
+. have to be uncountable.
+. 
+. Does it sound weird? 
+. Let's make an analogy with a more familiar
+. example, the finite ordinals.
 
 : -------------------- AnalogyOmega -------------------------------
-
-Let's make an analogy with a more familiar
-example, the finite ordinals. If we take all the finite ordinal
-numbers and make their supremum, we get the least infinite ordinal
-number, the omega, so it had to be a supremum of infinite amount of
-ordinal numbers. Similarly, if we take the supremum of all countable
-ordinals, we get the first uncountable ordinals so we had to merge an
-uncountable amount of ordinals, otherwise the result were
-countable. This analogy can be extended a bit.
-
-Notice what are the indices of omega, that are natural numbers, the
-finite ordinal numbers. Similarly, the indices of omega one are exactly
-the countable ordinals. So omega one itself is, in a sense, the set of
-all countable ordinals. The indexing meaning of an ordinal computes
-the number of preceding elements, so every element of omega one
-splits the set into a countable number of previous elements and an
-uncountable number of following elements. It is analogous to the
-fact that every natural number splits omega to a finite number of
-previous elements and an infinite number of succeeding elements.
+.
+. If we take all the finite ordinal
+. numbers and make their supremum, we get an ordinal which is longer
+. than any finite ordinal. Any element of omega, that is a finite
+. ordinal, divides omega into a finite initial segment and an infinite
+. terminal segment. This analogy can be extended a bit.
 
 : ------------------- LeastInfinite ---------------------------
 
 In chapter 2, we showed that omega is the least infinite set. We can
-reformulate the argument into the language of ordinal numbers in the
+reformulate the reasoning into the language of ordinal numbers in the
 following way. Whenever we take a subset of omega and align it to an
 initial segment of omega, just two possibilities can happen. Either the
 subset forms a less ordinal, it is finite then, or it fills the whole
