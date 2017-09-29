@@ -261,3 +261,12 @@ def make_ordinal_matching(o1, o2):
             make_ordinal_matching(sub_o1, sub_o2)
             for sub_o1, sub_o2 in zip(o1, o2)
     ])
+
+def make_half_ordinal(ordinal, trunc_down = True):
+    for line in ordinal.family_members_with_points():
+        if trunc_down: start = line.get_start()
+        else: start = line.get_end()
+        end = line.get_center()
+        line.set_points_as_corners([start, end])
+    return ordinal
+

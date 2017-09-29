@@ -181,14 +181,6 @@ def make_matching(o1, o2):
 
     self.matching = VGroup(*matching)
 
-def make_half_ordinal(ordinal, trunc_down = True):
-    for line in ordinal.family_members_with_points():
-        if trunc_down: start = line.get_start()
-        else: start = line.get_end()
-        end = line.get_center()
-        line.set_points_as_corners([start, end])
-    return ordinal
-
 def one_apple_ord(**kwargs):
     return OrdinalObj(Apple().scale(0.6), pos = DOWN, **kwargs)
 

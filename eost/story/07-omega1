@@ -78,105 +78,140 @@ Quote: "No one shall expel us from the Paradise that Cantor has created. (David 
 . than any finite ordinal. Any element of omega, that is a finite
 . ordinal, divides omega into a finite initial segment and an infinite
 . terminal segment. This analogy can be extended a bit.
+. In chapter 2, we showed that omega is the least infinite set. We can
+. reformulate the reasoning into the language of ordinal numbers in the
+. following way.
 
 : ------------------- LeastInfinite ---------------------------
-
-In chapter 2, we showed that omega is the least infinite set. We can
-reformulate the reasoning into the language of ordinal numbers in the
-following way. Whenever we take a subset of omega and align it to an
-initial segment of omega, just two possibilities can happen. Either the
-subset forms a less ordinal, it is finite then, or it fills the whole
-omega again. The idea of alligning to an initial segment is a general
-concept of ordinals which we have shown in chapter five, it is
-the comparison of ordinal length. Any subset of a well-ordered set
-have to be well-ordered as well, there cannot appear a decreasing
-sequence by discarding some elements. So we can apply this idea to
-omega one too.
+.
+. Whenever we take a subset of omega and align it to an
+. initial segment of omega, just two possibilities can happen. Either the
+. subset forms a strictly less ordinal, it is finite then, or it fills
+. the whole omega again. The idea of alligning to an initial segment is
+. a general concept of ordinals which we have shown in chapter five, it
+. is the comparison of ordinal length. Any subset of a well-ordered set
+. have to be well-ordered as well, there cannot appear a decreasing
+. sequence by discarding some elements. So we can apply this idea to
+. omega one too.
 
 : ------------------- LeastUncountable ---------------------------
-
-Take a subset of omega one and align it to an initial segment of
-it. There are two possibilities. The order type of the subset is
-either less than omega one, that means that it is a countable ordinal,
-or it get aligned to the whole omega 1, so its size is the same of
-omega 1. Because any subset of omega one is either countable, or of
-the same size, the size of omega one have to be the least uncountable,
-it is called aleph 1.
-
+.
+. Take a subset of omega one and align it to an initial segment of
+. it. There are two possibilities. The order type of the subset is
+. either less than omega one, that means that it is a countable ordinal,
+. or it get aligned to the whole omega 1, so its size is the same of
+. omega 1. Because any subset of omega one is either countable, or of
+. the same size, the size of omega one have to be the least uncountable,
+. it is called aleph 1.
+.
+. That casts a new light to the continuum hypothesis mentioned in
+. chapter 3.
+.
 : ------------------- ContinuumHypothesis -------------------------
+.
+. Continuum hypothesis is the question whether the continuum,
+. that is the size of real line, is the least uncountable cardinal
+. number. It is a question which is proven to be unanswerable.
+. 
+. Until we knew omega one, the natural answer is "Why not?" "Why
+. should be here a weird set somewhere between reals and omega which
+. cannot be proven to exist anyway." But now, we have the
+. cardinality. The set of the least uncountable cardinality is in front
+. of us, it is omega one. So the continuum hypothesis transformed into a
+. question whether there the sizes of omega one and real line is the
+. same. And the natural answer is now "Why?" "Why should be there a
+. weird matching between omega one and reals which cannot be proven to
+. exist anyway." But as we have said, the question is proven to be
+. unaswered forever, so let's go on.
 
-That casts a new light to the continuum hypothesis mentioned in
-chapter 3. Continuum hypothesis is a question whether the continuum,
-that is the size of real line, is the least uncountable cardinal
-number. Until we knew omega one, the natural answer is "Why not?" "Why
-should be here a weird set somewhere between reals and omega which
-cannot be proven to exist anyway." But now, we have the set. The set
-of the least uncountable cardinality is in front of us, it is omega
-one. So the continuum hypothesis transformed into a question whether
-there the sizes of omega one and real line is the same. And the
-natural answer is now "Why?" "Why should be there a weird matching
-between omega one and reals which cannot be proven to exist anyway."
-But as we have said, the question is proven to be unaswered forever,
-so let's go on.
+:------------------ UnboundedOmega --------------------
+.
+. We return to the finite and infinite subsets of omega. We can tell
+. when a subset gets aligned to the whole omega. It is in that cases
+. when the subset does not stop before the end of omega, no matter how
+. sparse such set can be. More formally, it is aligned to omega if it
+. has some elements in every nonempty terminal segment of omega. Such
+. sets are called unbounded.
+. 
+. ...
+. 
+. Indeed, if the subset is aligned just to a propper beginning of omega,
+. there are just a finite number of points in it, so there is the last
+. one. And behind that point remains the vast majority of omega.
+. The case of omega1 is similar.
 
-: ------------------ CountableSupremum --------------------
+:------------------- UnboundedOmega1 --------------------
+.
+. If a subset got aligned to just a proper initial segment of omega1, it
+. was just a countable subset. Well, not every countable subset has a
+. maximum but every set of ordinals have its supremum. And since the
+. union of countably many countable sets is still a countable set, the
+. supremum of countable many countable ordinals is a countable
+. ordinal. So it points inside omega1. Behind that point there is
+. the vast majority of omega1 which remained untouched by the subset.
+. 
+. Despite the similarity with omega, this behavior omega1 is the source
+. of its most counterintuitive properties. It says that every
+. infinite increasing sequence in omega1 is bounded because its supremum
+. still lies in omega1. We are actually cheating when we are
+. vizualizing
+. omega1 like a points in real line. It is easy to construct an
+. increasing sequence in an interval which is approaching the endpoind
+. of the interval. But omega1 still has allways an uncountable part behind.
+.
+. At the end of the chapter, we will see another interesting mathematical
+. object based on this property, the long line.
+.
+: -------------------- IntervalMul -------------------------
+.
+. Let's start with two
+. intervals closed on one end and open on the other. If we join them, we
+. get again an interval of the same type.
+.
+. It does not depend yet whether we started with left-closed right-open
+. interval, or with the other one. But a difference appears when we join
+. them omega times. Since omega does not have the last element, the
+. merged intervals does not contain the right endpoint either. So if we
+. still want the interval of the same type, we have to start with the
+. left-closed right open interval.
+.
+. And we can continue. Add another such interval, and next,
+and so on. In fact, the left-closed, right-open interval times any
+countable ordinal results in a left-closed right-open interval.
 
-Another analogy between omega and omega1 may the following
-one. Whenever we take a finite number of finite ordinals, their
-supremum is finite too, in fact it is the largest one. Since
-countable ordinals are indexing omega it can be
-reformulated in the sense that any finite subset of omega have its
-supremum in omega too.
+"Shouldn't the result be longer than the first factor?"
+If you remember previous chapter, we mentioned that the product of two
+ordinal numbers is greater than the first one.
+"Interval is not well-ordered."
+But the multiplication here is not exactly ordinal arithmetics. It is
+based on the same definition but it can have even weirder
+properties. Namely if the interval does not get changed if we multiply
+it by any countable ordinal number.
 
-From chapter 2 we know that an union of countable number of countable
-sets is still countable. So the supremum of countable number of
-countable ordinals is still countable. But all countable ordinals are
-the indices of omega1, so, the supremum of any infinite increasing
-sequence in omega1 is still in omega1. Despite the similarity with
-omega, this behavior is the source of the most counterintuitive
-properties of omega1.
+:---------------------- LongLine --------------------------------
+.
+. But it become different when composed omega1-times. Such a thing --
+. interval copied omega1-times is called the long line.
+. Initial segments are still the same. Any proper initial segment of the
+. product looks like an ordinary interval in real numbers because any
+. proper initial segment of omega1 is a countable ordinal. But the whole
+. thing is somehow longer. Unlike real numbers, every
+. infinite increasing sequence in the long line has its supremum in the
+. long line. So even though it resembles the real line pretty much, the
+. long line somehow managed to be even longer.
+. 
+. By this example we have closed the part of our series concercing the
+. naive theory of infinity.
 
-: ------------------ RealEmbedding -----------------------
+:-------------------- NextChapter -----------------------------
 
-For example, real numbers does not have this property. There is a
-an increasing sequence of real numbers, 1, 2, 3, 4, and so on which
-cannot be bounded from top by a real number. So we are kind of
-cheating when we are vizualizing omega1 as bars on line. It may seem
-that it is possible to choose an infinite sequence of elements of
-omega1 approaching its end. But it is not true. There is still an
-uncountable number of elements between the end of the sequence and the
-end of omega1.
-
-: -------------------- LongLine -------------------------
-
-At the and, let's show another interesting mathematical object called
-the long line. Let's start with the simple omega and replace each bar
-by a left-closed right-open interval. So the result looks again as a
-left-closed, right-open interval.
-
-The choice of including left point and excluding right point was
-important. We need exactly one endpoint excluded so the intervals fit
-together. And if we used left-open, right-closed interval we would end
-with an open interval since omega has no last element. But when we
-used left-closed, right-open interval, we got exactly the same result.
-
-Using the notion of ordinal arithmetics we could say that left-closed,
-right-open interval times omega is still left-closed, right-open
-interval. Well, the interval is not a well-ordered sequence, so it is
-not exactly ordinal arithmetics but it works the same.
-
-And this fact holds for any nonzero countable ordinal. We can composed
-the interval omega times two times. Or omega times omega times. The
-result is the left-closed, right open interval.
-
-But things become different composing it omega1-times. The initial
-segment is still the same. In fact any proper initial segment
-corresponds to an interval because any proper initial segment of
-omega1 corresponds to a countable ordinal. But the whole thing called
-long line is somehow longer. Every infinite increasing sequence in the
-long line has its supremum in the long line.
-
-By this example we have closed the part of our series concercing the
-naive theory of infinity. Next time we will investigate some
+Next time we will investigate some
 paradoxes which has to be handled and introduce the formal world. See
 you then.
+
+: "Is there a set of all sets?"
+: "Sure, why shouldn't be?"
+: "What about the set of all sets not containing themselves?"
+: "Just discard some elements of the previous one?"
+: "Does such a set contain itself?"
+: "Oops..."
