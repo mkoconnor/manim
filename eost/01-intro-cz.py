@@ -29,7 +29,7 @@ class Chapter1OpeningTitle(OpeningTitle):
     CONFIG = {
         "series_str"  : "Esence teorie množin",
         "chapter_str" : "Kapitola 1\\\\ Úvod",
-        "dither_time" : 3,
+        "dither_time" : 1,
     }
 
 class Chapter1OpeningQuote(OpeningQuote):
@@ -42,7 +42,7 @@ class Chapter1OpeningQuote(OpeningQuote):
             "submobject_mode" : "lagged_start",
             "rate_func" : None,
             "lag_factor" : 4,
-            "run_time" : 9,
+            "run_time" : 7,
         },
     }
 

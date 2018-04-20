@@ -1,6 +1,10 @@
 Formal recursion
 ================
 
+Quote: If you already know what recursion is, just remember the answer. Otherwise, find someone who is standing closer to Douglas Hofstadter than you are; then ask him or her what recursion is.
+
+-- Andrew Plotkin
+
 * this will be pretty technical but
   * it is good to see how the theory of infinity and the foundation of mathematics are connected
   * it can help to avoid a feeling that the next chapter is just a hand-waving
@@ -48,7 +52,7 @@ So we have constructed an infinite decreasing sequence in the terminal segment.
 
 But infinite proofs are not allowed. Even though we are investigating
 an infinite world, we need to use just finite number of steps for proving it.
-:{"You cannot use infinite number in steps in a proof?"}
+:{"You cannot use infinite number in steps in a proof."}
 :{"What? I am doing it all the time!"}
 :{"It can be avoided by clever operations with infinite structures."}
 You may be surprised by this. Take the proof of Cantor's theorem

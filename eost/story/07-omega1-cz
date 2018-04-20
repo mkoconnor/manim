@@ -1,0 +1,219 @@
+Omega1
+======
+
+Quote: "Nikdo nás nebude moci vyhnat z ráje, který pro nás vytvořil Cantor. (David Hilbert)"
+
+* is there an uncountable ordinal?
+* supremum of all countable ordinals
+* analogies to omega
+* no sequence of length $\omega$ can reach it -- the root of paradoxical behavior
+* impossibility to visualize on reals
+* discussion on the continuum hypothesis
+
+:--------------- CardinalsOrdinalsRecap -----------------
+V téhle kapitole budeme potřebovat pracovat jak s mohutnostmi, tak
+s ordinálními čísly. Zejména budeme používat terminologii spočetno
+probírané v druhé kapitole a jeho vlastnosti jako že množina zůstane
+spočetná, když k ní přidáme jenom spočetně dalších prvků, případně
+když sjednotíme spočetně mnoho spočetných množin.
+
+Z ordinálů budeme používat oba významy probírané v kapitole 5 -- coby
+typy dobře uspořádaných množin a coby indexy jejich prvků.
+Dalším klíčovým nástrojem taktéž z páté kapitoly bude
+:------------------- SupremumRecap ----------------------
+supremum  libovolné množiny ordinálů.
+
+Takže pokud si potřebujete některé z těchto pojmů připomenout,
+doporučujeme se vrátit ke zmíněným kapitolám dva a pět. Téma této
+kapitole bude možná o něco těžší, ale na druhou stranu věru zajímavé.
+Sestrojíme si a prozkoumáme jedno nespočetné ordinální číslo.
+
+:-------------------- Supremum -------------------------
+
+Jdeme na to.
+
+Uvažme všechny možná spočetná ordinální čísla. To je omega, omega plus
+pět, omega krát tři, omega na třetí, a spousta dalších. Následně
+sestrojíme supremum všech těchto ordinálů, tedy zarovnáme je doleva, a
+sloučíme.
+
+: "Ale podle kapitoly 5 si nemůžeme vzít všechny ordinály."
+: "To ne, ale všechny spočetné můžeme."
+
+V kapitole ř jsme zmínili, že není povolené sestrojit množinu všech
+ordinálních čísel. Tak proč bychom měli mít možnost si vzít všechny
+spočetné? Vzhledem k tomu, že zatím nemáme axiomy, musíme si vystačit
+s trochu vágním vysvětlením. Začneme s omegou, množinou přirozených
+čísel. Vzhledem k tomu, že omega je "jenom" množina,
+
+:------------------- Reorderings ------------------------------------
+
+máme v jistém smyslu jenom omezený počet možností, jak ji
+přeuspořádat. Když uvážíme všechny takové dobré přeuspořádání omegy,
+dostaneme všechny spočetné ordinály s výjimkou těch konečných.
+
+: -------------------- Omega1Intro ---------------------------
+
+Dobrá, máme supremum všech spočetných množin, nazveme jej omega1. Jaké
+jsou její vlastnosti? Každý spočetný ordinál odpovídá jenom jejímu
+vlastnímu počátečnímu úseku, takže má omega1 delší ordinální délku
+nežli všechny spočetné ordinály.
+
+Ale protože omega jednička je sama o sobě ordinálem, není možné, aby
+byla sama spočetná. Omega1 je tedy spočetná, a je to popravdě nejmenší
+nespočetný ordinál, který je indexovaný spočetnými ordinály. Každý
+spočetný ordinál dělí omega jednočku na spočetně mnoho menších prvků a
+nespočetně mnoho větších.
+
+Zní to zvláštně?
+Podívejme se na analogický případ, který nám již je dobře známý, na
+konečné ordinály.
+
+: -------------------- AnalogyOmega -------------------------------
+
+Když vezmeme množinu všech konečných ordinálů a sestrojíme jejich
+supremum, dostaneme ordinál omega, který je delší než všechny konečné
+ordinály, takže je sám o sobě nekonečný. Prvky omegy odpovídají
+konečným ordinálním číslům a každý takový prvek dělí omegu na koenčně
+mnoho menších prvků a nekonečně mnoho větších.
+
+A podobnost tu nekončí. V druhé kapitole jsme si ukázali, že omega je
+nejmenší nespočetná množina. Příslušný argument by v řeči ordinálních
+čísel mohl znít následovně.
+
+: ------------------- LeastInfinite ---------------------------
+
+Kdykoli uvážíme podmnožinu omegy a zarovnáme ji doleva s omegou, můžou
+nastat dva případy. Buď daná množina odpovídá počátečnímu úseku omegy,
+tedy je konečná, nebo bude vypadat zase jako omega. Z toho vyplývá, že
+nemůže existovat nekonečná mohutnost ostře menší než omega.
+
+Ale tohle se dá formulovat obecně, každá podmnožina dobře uspořádané
+množiny je dobře uspořádaná. Tím, že z množiny vyhodíme některé prvky
+se v ní nemůže objevit nekonečná klesající posloupnost.
+Můžeme tedy tuto myšlenky směle použít i na omega jedničku.
+
+: ------------------- LeastUncountable ---------------------------
+
+Uvážíme podmnožinu omega jedničky a zarovnáme ji s omega jedničkou
+doleva. Můžou nastat dvě varianty. Ordinální typ této množiny může být
+menší než omega1, v tom případě se jedná o spočetnou množinu, nebo
+může být opět roven omega1, a pak má daná podmnožina stejnou mohutnost
+jako omega1. Protože je každá podmnožina omega jedničky buďto spočetná
+nebo stejná mohutnosti, musí mít omega jednička tu nejmenší
+nespočetnou mohutnost. Tato mohutnost se nazývá aleph 1.
+
+To vrhá nové světlo na hypotézu kontinua, kterou jsme zmínili ve třetí
+kapitole.
+: ------------------- ContinuumHypothesis -------------------------
+
+Hypotéze kontinua je otázka, zdali je kontinuum, tedy mohutnost reálné
+osy, nejmenším nespočetným kardinálním číslem. Je dokázáno, že se nedá
+tato hypotéza nedá dokázat ani vyvrátit.
+
+Než jsme znali omega jedničku, je přirozená odpověď na hypotézu
+kontinua: Proč ne? Proč by měla existovat nějaká zvláštní mohutnost
+mezi alehp nulou a kontinuem.
+Ale teď tu mohutnost máme přímo před sebou -- je to mohutnost omega
+jedničky. Takže se hypotéza kontinua vlastně ptá, jestli je
+mohutnost reálné osy stejná jako mohutnost omega jedničky. A přirozená
+odpověď by nyní spíše byla: "Proč?" "Proč by mělo existovat nějaké
+divné párování mezi reálnými čísly a omega jedničkou, když se
+existence takového párování stejně nedá dokázat."
+Ale jak již bylo řečeno, na hypotézu kontinua správná odpověď není,
+tak se zas posuneme dál.
+
+:------------------ UnboundedOmega --------------------
+
+Vrátíme se ke konečným a nekonečným podmnožinám omegy. Můžeme poznat i
+jinak, že se podmnožina omegy zarovná s celou omegou. Je to v těch
+případech, kdy je tato množina neomezená, to znamená, že se nezastaví
+někde před koncem omegy. Formálně bychom mohli říci, že protíná každý
+neprázdný koncový úsek. Takové množiny musí být nekonečné.
+
+...
+
+Opravdu, když se totiž množina zarovná s počátečním úsekem a je tedy
+konečná, můžeme v ní najít její poslední prvek. A za tímhle prvkem
+zbývá valná část omegy, která by zůstala naší podmnožinou netknuta.
+S omega jedničkou je to podobné.
+
+:------------------- UnboundedOmega1 --------------------
+
+Když se množina zarovná s vlastním počátečním úsekem omega jedničky,
+jedná se o spočetnou množinu. Ne každá spočetná podmnožina má maximum,
+ale každá množina ordinálů má suprremum. A protože spočetné sjednocení
+spočetných množin je stále spočetné, bude i toto supremum spočetné, a
+bude tedy ukazovat dovnitř omega jedničky. Za tímto bodem je valná
+většina omega jedničky, ve které není žádný prvek naší podmnožiny.
+
+I když je to podobné chování omegy, může tahle skutečnost za mnoho
+neintuitivních vlastností omega jedničky. Vlastně to znamená, že každá
+nekonečná rostoucí posloupnost prvků omega jedničky je omezená,
+protože i její supremum stále leží v omega jedničce. Takže vlastně
+tak trochu podvádíme, když si omega jedničku vyobrazujeme jako jiné
+ordinály jako body na reálné ose. V intervalu reálných čísel snadno
+sestrojíme rostoucí posloupnost, která se blíží ke krajnímu bodu
+tohoto intervalu. Omega jedna ale bude vždycky mít za takovou
+posloupností nespočetně mnoho dalších prvků.
+
+Na konci této kapitoly se podíváme na další zajímavý matematický
+objekt založený na omega jedničce -- na dlouhou přímku.
+
+: -------------------- IntervalMul -------------------------
+
+Začneme s dvěma polo-otevřenými intervaly reálných čísel, vlevo bod
+je, což značíme plnou tečkou a vpravo není, což značíme prázdnou
+tečkou. Když dáme takové intervaly za sebe, spojí se v jeden
+polo-otevřený interval stejného typu. Zatím moc nezávisí na tom,
+jestli si bereme tyhle intervaly nebo obrácené -- zprava uzavřené a
+zleva otevřené. Ale jakmile jich déme za sebe omega, rozdíl se vyjeví.
+
+Omega nemá největší prvek, takže ani napojené intervaly nebudou mít
+největší prvek. Takže jestli stále chceme, aby byl výsledek stejného
+typu, musíme zvolit tu původní verzi -- zleva uzavřené, zprava
+otevřené intervaly.
+
+A s nimi můžeme pokračovat. Napojíme další interval, a ještě jeden,
+... a tak dál. Popravdě ať pronásobíme takový interval kterýmkoli
+spočetným ordinálem, výsledkem bude zas ten samý interval.
+
+:"Neměl by být výsledek delší než první činitel?"
+V předchozí kapitole o ordinální aritmetice jsme si říkali, že když
+násobíme dva ordinály, bude výsledke větší než te vnitřní, v tomto
+případě by šlo o ten interval.
+:"Intervaly nejsou dobře uspořádané."
+Ale to, co teď děláme není přesně ordinální násobení. Je to sice
+defakto totéž, ale interval není ordinál, obsahuje nekonečnou
+klesající posloupnost. V takovém případě se může násobení uspořádání
+chovat o něco divočeji. V tomto případě, ať vynásobíme polouzavřený
+interval kterýmkoli spočetným ordinálem, výsledek se nezmění.
+
+:---------------------- LongLine --------------------------------
+
+Ale když pronásobíme takový interval omega jedničkou, dopadne to
+jinak. Tento součin interval krát omega jedna se nazývá dlouhá přímka.
+í úseky jsou stále stejné. Každý vlastní počáteční úsek vypadá jako
+obyčejný interval v reálných číslech prostě proto, že vlastní
+počáteční úseky omega jedničky jsou spočetné ordinály.
+
+Ale narozdíl od reálných čísel, v dlouhé přímce neexistuje nekonečná
+rostoucí posloupnost, která by dosáhla až na její konec. Každá
+rostoucí posloupnost zde má svoje supremum, stále v dlouhé
+přímce. Takže i když to celé vypadá jako obyčejná reálná polopřímka,
+je dlouhá přímka tak nějak delší.
+
+Tímhle příkladem jsme zakončili část esence teorie množin týkající se
+naivní teorie nekonečna.
+
+:-------------------- NextChapter -----------------------------
+
+V příštím díle se podíváme na paradoxy naivní teorie množin a uvedeme
+si formální svět, pomocí kterého se s nimi vypořádáme. Nashle příště.
+
+: "Existuje množina všech množin?"
+: "Jasně, proč by neměla?"
+: "A co množina všech množin, které neobsahují samy sebe?"
+: "Tak z té první některé vyhodíme?"
+: "Obsahuje taková množina samu sebe?"
+: "Jejda..."

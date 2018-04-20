@@ -83,6 +83,7 @@ for folder in [FILE_DIR, IMAGE_DIR, GIF_DIR, MOVIE_DIR, TEX_DIR,
 TEX_TEXT_TO_REPLACE = "YourTextHere"
 TEMPLATE_TEX_FILE  = os.path.join(THIS_DIR, "template.tex")
 TEMPLATE_TEXT_FILE = os.path.join(THIS_DIR, "text_template.tex")
+TEMPLATE_VERBATIM_FILE = os.path.join(THIS_DIR, "verbatim_template.tex")
 
 
 LOGO_PATH = os.path.join(IMAGE_DIR, "logo.png")
