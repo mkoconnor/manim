@@ -1,0 +1,156 @@
+A world full of paradoxes
+=========================
+
+Quote:
+  Není náhoda, že se všichni slavní logici zbláznili.
+  -- Pavel Paták
+
+V předchozím díle jsme si ukázali, jak sestrojit nejmenší nespočetné
+ordinální čislo, omega1. Analogickým postupem bychom mohli pokračovat,
+sjednotit všechny ordinály mohutnosti omega1, a dostat tak ještě větši
+ordinál -- omega2, potom omega3, omega4, atd. Supremum, jako obvykle
+označime omega_omega a pokračujeme transfinitní rekurzí po
+ordinálech. Takto dosáhneme nejenom na omega_(omega+1),
+omega_(omega*omega), ale dokonce omega_omega1. V tomto limitním kroku
+sjednocujeme nespočetně předchozích výsledků. A můžeme pokračovat:
+omega_omega_omega1, a tak dál. Svět ordinálních čísel je bezbřehý, ale
+všechno toto odpovídá korektním matematickým konstrukcím.
+
+Mohli jste si ale všimnout, že jsem se v předchozích dílech zdráhal
+jednoduše vzít všechny ordinály a sjednotit je. Docela rychle bychom
+se dostali do sporu. Jakmile bychom k tomu velkému sjednocení přidali
+jedničku, dostali bychom nové ordinální čislo, které by bylo nutně
+delší než úplně všechna ordinální čísla. To nedává smysl. 
+:{Cesare Burali-Forti paradox}
+Tento problém se nazývá po matematiku Cesare Burali-Fortim, a byl
+první známkou, že je s naivní teorií množin něco v nepořádku.
+S~množinou všech ordinálů jsou problémy.
+Přesto, k vysvětlení takového paradoxu potřebujeme pět videí téhle
+série, nebylo by na skladu něco jednoduššího? 
+
+Proč jsme vlastně s ordinály začali? Snažili jsme se sestrojit množinu
+velké mohutnosti. Začali jsme s množinou všech přirozených čisel, pak
+jsme vzali všechny podmnožiny, to značíme kaligrafickým P. Pak všechny
+podmnožiny té množiny podmnožin, a tak dál. Ale v podstatě od prvního
+kroku už máme co do činění jenom s nějakými množinami. Tak si vezmeme
+množinu M všech množin, a ta bude největši ze všech. Jenže ve třetím
+díle jsme si ukázali, že potence M musí být ostře větší než M
+samotná. Potence M obsahuje pouze množiny, tak jam může být větší než
+množina M, která je obsahuje všechny?
+
+Ještě přimočařejší paradox získáme, když si připomeneme, jak jsme
+ukázali, že je P(M) větši než M. Pro každý prvek M jsme si vzali
+odpovídající množinu, v tomto připadě prvek samotný, a sestrojili jsme
+množinu všech prvků, které ve své odpovídající množině chybí. V našem
+případě si tedy ponecháme jen ty množiny, které nejsou svými vlastními
+prvky. To zní docela přirozeně, množiny obsahující samy sebe jsou
+stejnak nějak podivné. Máme tedy množinu A všech takových množin,
+které neobsahují samy sebe. Taková množina A má přesto zásadní
+problém. Už víte jaký? Zkuste si zastavit video a rozmyslet si to.
+
+...
+
+Je to problém, jestli A obsahuje sama sebe, či nikoli. Kdyby sama sebe
+obsahovala, tak bychom A při samotné konstrukci do A
+nedali. Takže sama sebe neobsahuje a do množiny A patří. Zkrátka A
+leži v A právě tehdy, když tam neleží. To jsou paradoxy...
+
+Zejména je vidět, že jsme na obdržení takových paradoxů nepotřebovali
+hlubokou teorii mohutností množin či dokonce dobrých uspořádání a
+ordinálních čisel. Tato teorie pomohla problém obnažit, ale
+problematická je sama o sobě myšlenka, že bychom uvážit množinu vsech
+množin splňující jisté vlastnosti.
+
+Je to vlastně záležitost jisté kruhové konstrukce. Chceme sestrojit
+množinu všech množin jisté vlastnosti. Abychom to udělali, musíme vzít
+v úvahu všechny, na světě, včetně té, kterou právě hledáme. Někdy se
+ale může stát, že nemůžeme přesně vědět, jak vypadají všechny množiny
+naší vlastnosti dříve než máme naši množinu sestrojenou. Nemůžeme
+sestrojit množinu, protože nemáme všechny množiny, a nemáme všechny
+množiny, protože nemáme tu naši.
+
+Ten samý problém vlastně nastává i u množiny všech ordinálů nebo
+množiny všech množin. Nemůžeme mít množinu všech ordinálů dřive než
+máme všechny ordinály, a nemáme všechny ordinály dřive než máme
+množinu všech ordinálů. Dalo by se říci, že taková kruhová definice je
+podstata problému, ale jak z něj ven?
+
+"Co takové kruhové definice prostě zakázat?"
+
+Někdy se vágně říká, že je zakázáno uvážit množinu všeh ordinálů, nebo
+množinu všech množin. Ale systémový problém nemůžeme vyřešit
+nahodilými zákazy. Kdybychom jednoduše řekli: "nesmíte uvážit množinu
+všech ordinálů, množinu všech množin a množinu všech množin
+neobsahující samu sebe", rychle by někdo našel další paradox třeba
+za použití všech jednoprvkových množin.
+
+Fungoval by obecný zákaz strkání množin do množin. Dokud pracujeme
+jenom s množinami bodů v rovině, či množinami přirozených čísel,
+komplikace nenastanou. Opravdu, problém do jisté míry je v tom, že
+jsme do množin začali dávat nejenom obyčejné matematické objekty, ale
+i množiny samotné. Na druhou stranu, množiny množin potřebujeme
+na řadě míst teorie nekonečna, ať už u vytváření větších množin pomocí
+Cantorova principu, nebo pro budování ordinálních čísel, zejména
+nespočetné omega jedničky.
+
+Co ve skutečnosti potřebujeme, je systém pravidel, jak lze s množinami
+korektně pracovat, a za jakých okolností můzeme dávat množiny do
+množin. Systém pravidel o tom, co je povoleno, nikoli co je
+zakázáno. Tento formální přístup k teorii množin vychází ze tří
+základních myšlenek a pak sadě axiomů. Ve zbytku videa si přiblížíme
+alespoň ty základní myšlenky.
+
+"Každý matematický objekt je množina."
+
+Každý matematický objekt je množina. Napadá vás spousta jiných
+matematických objektů, jako je reálné číslo, uspořádaná n-tice, graf?
+To všechno je ve formální teorii množin kódováno nějakou množinou. Je
+to zvláštní myšlenka, ale jde tu zejména o to, že základy matematiky
+by měly být pokud možno jednoduché. Takže pokud opravdu lze cokoli
+zakódovat pomocí množin, proč se při stavění základů párat s jinými
+objekty? Jak sestavit další objekty se vyřeší dodatečně.
+
+Druhá myšlenka zní ještě divněji, ale je nutná, abychom se vyhnuli
+zmíněným paradoxům: Ne každá množina matematickych objektů je množina.
+
+"Ne každá množina matematickych objektů je množina."
+
+To si zasluhuje vysvětlení. Teorie množin hovoří o celém světě
+matematických objektů, kterým říká množiny. Tato teorie se snaží seč
+může, aby množiny skutečně svým chováním působily jako množiny. Pokud
+si vyberete nějakou skupinu objektů, velmi často bude existovat další
+objekt ve světě teorie množin, množina, který bude přesně tyto objekty
+obsahovat. Ale občas to kvůli zmíněným paradoxům prostě nejde. Takže i
+když si můžete představit všechny objekty teorie množin, všechny ty
+její takzvané množiny, nenajdete ve světě teorie množin objekt,
+množinu, který by všechny objekty teorie množin opravdu obsahoval.
+
+Protože už za množiny označujeme samotné objekty, a nechceme mít
+v~jazyce chaos, označují se obecné skupiny objektů, jako třídy. Třída
+je tedy nějaký soubor množin, tedy objektů, vymezený určitým
+pravidlem, například třida všech jednoprvkových množin, či třida všech
+ordinálů. Pokud máme třídu sestávající se z malého množství objektů,
+například pouze konečného, spočetného, a tak podobně, bude se typicky
+jednat i o množinu, tedy bude existovat samotný matematický objekt,
+který naší třídě odpovídá. Teorie množin se přesto snaží, abychom
+příliš nemuseli její vnitřní svět opouštět. Práce uvnitř teorie množin
+je bezpečná, co se týče paradoxů. mimo něj si člověk musí dávat
+setsakramentsky pozor.
+
+"Jediný vztah mezi množinami spočívá v relaci "býti prvkem"."
+
+A coby třetí bod máme jediný vztah, který mezi sebou množiny mají --
+může být jedna prvkem druhé. To je krom samotných objektů, kterým
+říkáme množiny, to jediné, co se ve světě teorie množin opravdu
+nachází. Že je množina A prvkem množiny B můžeme zakreslit pomocí
+šipky z A do B. Takže celý svět teorie množin je ve své podstatě jenom
+obří orientovaný graf splňující jistá pravidla. Z toho také vyplývá
+známá poučka, že se prvky množin jsou neuspořádané a nemůžou opakovat
+-- pomocí otázky náležení by uspořádání ani násobnost nebylo možné
+vyjádřit. Můžeme se ptát jestli X leží v A, a jestli B leží v A. Ale
+z~toho nelze vyčíst, v jakém pořadí tam leží, připadně kolikrát.
+
+Jak přesně vypadají samotná pravidla teorie množin, tedy axiomy, je na
+delší povídání, takže to necháme na další díl. Řekneme tam si třeba, že
+musí existovat prázdná množina, ale že může být jenom jedna. Nashle
+příště.

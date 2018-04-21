@@ -1,0 +1,202 @@
+What are cardinal numbers good for
+==================================
+
+Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -- Aristoteles
+
+* how to formally measure the cardinality?
+* use specific ordinals -- weird but working
+* ``cardinal numbers are more than just an amount''
+* recursion on a cardinal
+  * simple example: alternative solution to the grid coloring from chapter~\ref{intro}
+  * example: there is a set of points in the plane having 3-element intersection with every circle
+  * why ordinary recursion on ordinals fails?
+
+V druhé kapitole jsme si zavedli kardinální čísla.
+V páté kapitole jsme si zavedli ordinální čísla.
+V jedenácté kapitole jsme si ukázali, co ordinální čisla formálně znamenají.
+Teď si konečně ukážeme, co formálně znamenají kardinály.
+Tedy, jaká že množina je třeba kontinuum.
+
+Kontinuum by mělo zastupovat všechny množiny které mají mohutnost stejnou jako reálná čisla.
+
+Jeden nápad by mohl být uvážit prostě všechny množiny mohutnosti
+kontinua, a zabalit je do množiny. To ale nemůžeme udělat. Axiomy to
+neumožňují, a naopak by existence takové množiny vedla ke sporu
+v podobě Russelova paradoxu,
+
+Přistoupit k tomu tedy tím druhým způsobem -- vybereme si
+reprezentanta. Ale kterého?
+Je množina reálných čisel dobrým reprezentantem této mohutnosti?
+Nebo potenční množina množiny přirozených čísel?
+Ani jedna volba není dost obecná. Chtěli bychom ideálně je univerzální
+postup, když nám někdo dá nějakou množinu, jak najít reprezentanta této
+množiny.
+Podobně jako když nám někdo dá obecnou dobře uspořádanou množinu,
+můžeme transfinitní rekurzí postavit odpovídající ordinál.
+
+I když to může znít podivně, matematici se pro rozhodli pro kardinální
+čísla využít opět ordinální čísla. Z principu dobrého uspořádání
+víme, že můžeme reálnou přímku přeuspořádat na něco dobře
+uspořádaného, když tomu najdeme ordinální typ, našli jsme ordinál
+mohutnosti kontinua.
+
+:{"A to je ta kardinalita?"}
+:{"Skoro, ale musíme si vybrat konkrétní ordinál."}
+
+Takže kardinalita obecné množiny bude jednoduše reprezentována
+ordinálem dané mohutnosti. Ještě je ale třeba si vybrat, kterým
+ordinálem. Víme, že už třeba ordinálů mohutnosti Aleph 0 je víc,
+dokonce nespočetně mnoho, a s dalšimi kardinalitami to je
+stejné. Využijeme proto dobrého uspořádání na ordinálech a vybereme si
+tedy ten ordináľ, který je nejmenší možný.
+
+Takže Aleph_0 je formálně stejná množina jako omega. Aleph_1 je stejná
+množina jako omega_1. A i všechna dalši kardinální čísla jsou ve
+skutečnosti jen vybraná ordinální čisla, která jsou nejmenší svojí
+mohutnosti.
+
+Ale kardinály nejsou dobré jenom pro formalitu. Ordinály, které jsou
+nejmenší od své mohutnosti se můžou hodit v transfinitní
+rekurzi. Ukážeme si to napřed na spočetném příkladu.
+
+V prvním díle jsme řešili otázku, jak obarvit všechna políčka
+nekonečné mřížky, aby byly všechny řádky až na konečně mnoho políček
+modré, a všechny sloupce až na konečně políček žluté. Ukázali jsme si
+tehdy jednoduché explicitní řešení, ale k výsledku se lze dobrat také
+přímočarým postupným procesem.
+
+Uvážime všechny řádky a sloupce, těch je jenom spočetně mnoho, takže
+si je můžeme uspořádat do nekonečné posloupnosti délky omega. Následně
+si budeme brát po jednom řádky nebo sloupce z naši posloupnosti, a
+obarvíme jejich nevybarvená políčka na správnou barvu. Takže sloupec
+nula obarvíme celý na žluto, řádek nula celý na modro, až na již
+vybarvené prostřední políčko, sloupec 1 na žluto, až na již vybarvené
+prostřední políčko, a tak dál. Tak každému řádku i sloupci zajistíme,
+že bude mít správnou barvu až na konečně mnoho políček, z minulých
+kroků.
+
+V tomto postupu je klíčové, že jsme měli posloupnost dlouhou
+kardinální čislo, tedy omega. Kdybychom zvolili posloupnost dlouhou
+omega krát dva, začali s řádky, a až potom prošli sloupce, postup by
+nefungoval. Jednoduše bychom tímto postupem napřed obarvili celou
+tabulku na modro, a ve sloupcích už by nezbylo, co barvit. Jednoduše
+proto, že najednou máme nekonečno předchozích kroků. Když jsme ale
+použili kardinál, měli jsme vždy pouze konečně mnoho předchozích
+kroků, a mohli jsme tak v celém procesu udržovat dostatečně málo
+obarvenou tabulku.
+
+U barvení tabulky to vypadá jako trivialita, ale podobnou myšlenku
+můžeme aplikovat i u větších kardinálů. Uvažme následující
+úlohu. Chceme sestrojit podmnožinu bodů roviny takovou, že každá
+kružnice prochází přesně třemi body z této množiny. Taková množina
+musí mít na jednu stranu body prakticky všude, protože můžeme udělat
+naší kružničku jakkoli malou, a na druhou stranu musí být dostatečně
+provzdušněná, aby i velké kružnice procházely vždy jenom třema body.
+
+Danou množinu sestrojíme transfinitním procesem, kde v každém kroku
+uspokojíme jednu kružnici. Kolik máme kružnic? Rovina je kartézský
+součin R krát R, tedy bodů je v ní kontinuum krát kontinuum, to je
+kontinuum. Je pravda, že jsme si zatím ukázali jenom, že aleph 0 krát
+aleph 0 je aleph nula, ale popravdě to platí pro všechny nekonečné
+kardinály. Proč tomu tak je, si ukážeme na závěr této kapitoly.
+
+Takže bodů v rovině je kontinuum. Každá kružnice je určená svým
+středem, a poloměrem, což je reálné čislo. možných poloměrů je teda
+taky kontinuum, takže máme i kontinuum možných kružnic. Uspořádáme si
+je tedy do posloupnosti dlouhé kontinuum, coby kardinální čislo, a
+transfinitní rekurzí s výběrem budeme přidávat body do naší množiny
+tak, abychom vždycky uspokojili příslušnou kružnici.
+
+Takže si vezmeme první kružnici, a vybereme pro ni tři body. Následně
+druhou kružnici, na tu opět dáme tři body, jen je musíme dát mimo tu
+první kružnici. U třetí kružnice musíme být ještě o něco
+opatrnějši, ale už to je v podstatě obecný případ. V každém kroku
+rekurze totiž přidáváním bodů můžeme zajistit, že budou na příslušné
+kružnici aspoň tři body, ale musíme si současně hlídat, že na žádnou
+jinou kružnici nedáme více než tři body. To se týká jak těch již
+prošlých kružnic, na kterých už určitě tři body jsou, tak
+potenciálních dalších. Jak tedy můžeme opatrně přidat bod?
+Dejme tomu, že jsme v kroku n. Protože je kontinuum kardinál, je
+mohutnost n menši než kontinuum. V každém kroku jsme přidali nanejvýš
+3 body, 3n je pořád míň než kontinuum. A když chceme přidat nový bod,
+nesmíme ho přidat na žádnou kružnici, na které už tři body jsou. Každá
+trojice bodů, která neleži na přímce přesně určuje jednu kružnici,
+takže můžeme počet kružnic shora odhadnout jako počet bodů na třetí.
+Nakonec každá taková zakázaná kružnice protíná naší vybranou kružnici
+v nanejvýš dvou bodech, takže máme nanejvýš dvakrát 3n na třetí
+zakázaných bodů.
+To je pořád méně než kontinuum, ale an kružnici máme kontinuum
+bodů. Když jsme zakázali méně  než kontinuum bodů, pořád nám kontinuum
+bodů zbylo. Tak jeden z nich vybereme, a ten můžeme bezpečně přidat do
+naši množiny.
+Obnovíme množinu zakázaných kružnic a zakázaných bodů, a zopakujeme
+proces ještě dvakrát, abychom na naši kružnici dostali přesně tři
+body.
+A tímhle procesem uspokojíme každou kružnici, takže ve výsledné
+množině budou na každé kružnici ležet přesně tři body.
+A aby se to povedlo, bylo důležité, že rekurze běžela na kardinálu,
+takže jsme měli v každém kroku zaručeno méně než kontinuum zakázaných
+bodů.
+Působivé, není liž pravda? S transfinitní rekurzí s výběrem, a na
+kardinálu se najednou nespočetno jeví o dost krotčí, než jak nezkrotně
+mohlo vypadat ze začátku.
+
+Na závěr nejen tohoto dílu, ale celé série si ukážeme, proč pro
+libovolný nekonečný ordinál kappa platí, že kappa krát kappa je kappa.
+V případě kontinua se to dá udělat i přímočaře a bez teorie, to si
+když tak rozmyslete sami. My si tu ukážeme, jak se to dokáže obecně.
+
+Začneme s alternativním důkazem, proč je aleph 0 krát aleph 0 rovno
+aleph 0. Budeme si rekurzivně brát prvky kartézského součinu omega
+krát omega, a budeme chtít, aby se výsledek vešel do posloupnosti
+dlouhé omega. To můžeme zajistit následujícím pravidlem: Do tabulky si
+nakreslíme všechny čtverce s jedním rohem vlevo nahoře, a v každém
+kroku rekurze sebereme prvek z co nejmenšiho možného čtverce to jde.
+To znamená, že napřed sebereme prvek nula, nula, pak v libovolném
+pořadí prvky nula jedna, jedna nula, a jedna jedna, a tak dál.
+Proč nám to akorát vyjde do posloupnosti dlouhé omega?
+Rozhodně to nemůže být kratši, protože je omega ten nejkratší ordinál
+mohutnosti aleph 0, a kartézský součin nemůže mít menší mohutnost.
+
+Na druhou stranu, každý čtverec má konečnou šířku n, takže obsahuje
+jenom n na druhou, tedy konečně mnoho bodů. To znamená, že se proces
+nemohl skončit v žádném konkrétním čtverci, a musel projít všechny
+čtverce.
+
+Teď můžeme analogicky dokázat, že Aleph 1 krát Aleph 1 je
+Aleph 1. Sestrojíme posloupnost dlouhou omega 1, do které budeme
+skládat prvky kartézského součinu omega 1 na druhou.
+Opět se budeme řídit pravidlem, že v každém kroku pereme prvek z co
+nejmenšiho čtverce to jde. Teď už sice čtverec omega nemůžeme projít
+tak pěkně z jedné strany na druhou, protože je třeba ctít dobré
+uspořádání, ale můžeme jej projít všelijak jinak. Třeba napřed dolní
+strana dobrava, pak pravá dolů. Nebo jakkoli jinak, dokud to bude
+dobře uspořádané.
+
+Opět jsme uvnitř posloupnosti dlouhé omega1 museli projít všechny
+čtverce, protože jinak bychom museli zůstat uvnitř některého ze
+čtverců o spočetné straně. Ale takový čtverec má současně spočetně
+mnoho bodů, takže s ním určitě neprojdeme celou omega jedničku.
+
+Takže jsme z toho, že se aleph0 krát aleph0 rovná aleph0 dokázali, že
+se aleph1 krát aleph1 rovná aleph1. A stejně pokračujeme transfinitní
+indukcí na kardinálech, což, jak už víte, je totéž jako si pro spor
+vzít ten nejmenší kardinál kappa, pro který to neplatí, a ukázat, že
+to pro něj ve skutečnosti platí.
+
+Takže v obecném případě předpokládáme, že to platí pro všechny
+kardinály menší než kappa, a postavíme takovou posloupnost dlouhou
+kappa, Opět postupně procházíme čtverce. Musíme projít všechny
+čtverce, protože každý čtverec je má šiřku menší než kappa, takže
+obsahuje méně než kappa bodů, tady využíváme indukční předpoklad.
+
+Proto je kappa na druhou rovno kappa, takže tento vzoreček platí pro
+všechna nekonečná kardinální čísla.
+
+A to je ode mne z této série všechno. Na závěr bych rád poděkoval
+svému bráchovi Radku Olšákovi za úvodní piano znělku, Grantu
+Sandersonovi za působivý animační nástroj, a Matfyzu za to, že mi na
+druhou polovinu videí finančně přispěl. A samozřejmě díky vám divákům,
+že jste to se mnou vydrželi, i když jsem někdy dělal nudné technické
+věci, nebo naopak šílené nepochopitelné věci, a ... mějte se
+nekonečně!

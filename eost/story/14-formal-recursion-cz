@@ -1,0 +1,172 @@
+Formal recursion
+================
+
+Quote: Pokud už víte, co znamená rekurze, držte si to v paměti. V opačném případě najděte někoho, kdo stojí blíže k Douglasu Hofstadterovi a zeptejte se jej, co je to rekurze.
+-- Andrew Plotkin
+
+Tahle kapitola bude docela technická.
+A je pravda, že nemusíte znát vnitřnosti rekurze k tomu, abyste ji mohli používat.
+:{examples animations}
+Proto jsme si také transfinitní rekurze zavedli na příkladech místo toho, abychom ji analyzovali na formální úrovni.
+Ale na druhou stranu je porozumění formální stránce rekurze poměrně základní součást teorie množin.
+:{Connection between "Teorie nekonečna" and "Základy matematiky"}
+Jedná se o onen most mezi dvěma rolemi teorie množin -- teorií nekonečna a základy matematiky.
+:{chapter list}
+A v následujících kapitolách se navíc chystám použít transfinitní rekurzi na trochu pokročilejší úrovni.
+Takže i když myslím, že následující kapitoly můžete pochopit i bez znalosti formální rekurze,
+měla by tato kapitola napomoci vysvětlení, že je to formálně podložené,
+a že to není jen nějaké mávání rukama.
+
+Celá kapitola bude o podrobnějším rozboru jednoho jednoduchého důkazu
+z čtvrté kapitoly. Kdykoli má uspořádaná množina neprázdný koncový
+úsek bez prvního prvku,
+:{brace: "Nemá nejmenši prvek"}
+musí v ní existovat nekonečná klesající posloupnost.
+
+Samotný důkaz je docela přímočarý. Začneme s kterýmkoli prvkem tohoto
+koncového úseku. Ten nemůže být nejmenší, takže můžeme jít pod něj, a
+ještě jednou, a znova, a tak dál,
+až sestrojíme celou nekonečnou klesající posloupnost v tomto koncovém
+úseku.
+
+:{"Nemůžeš mít důkaz s nekonečně kroky."}
+Zádrhel je v tom, že důkazy nesmí být nekonečné. I když žijeme v
+nekonečném světě teorie množin, vždycky si musíme vystačit s konečně
+kroky k tomu, abychom něco dokázali.
+:{"Cože? Vždyť to děláme pořád!"}
+:{"Dá se tomu vyhnout chytrými souhrnnými operacemi s nekonečnými strukturami."}
+Možná to je překvapivé, ale podívejme se například na důkaz Cantorovy
+věty. To je ta věta z druhé kapitoly, která říká, že ať jakkoli
+přiřadíte přirozeným číslům nekonečné posloupnosti nul a jedniček,
+vždycky nějakou posloupnost vynecháte.
+
+Důkaz vypadá následovně. Podíváme se na prvky na úhlopříčce, to je
+jeden krok. Z těchto prvků postavíme posloupnost, to je druhý krok, a
+nakonec tuto posloupnost překlopíme, to je třetí krok. Na tři kroky
+jsme sestrojili posloupnost, která není přiřazená k žádnému
+přirozenému číslu.
+
+Fajn, to nebylo tak těžké. Ale jak bychom mohli do souhrnných kroků
+přeložit postupnou konstrukci klesající posloupnosti? Jak se vypořádat
+s faktem, že se jedná o postupný proces? Musíme být o něco mazanější.
+
+:{"Nápověda: Použij indukci místo rekurze."}
+Místo rekurze použijeme indukci. Když máme
+klesající posloupnost s nula kroky, existuje i posloupnost s jedním
+krokem. Když existuje posloupnost s jedním krokem, existuje i
+posloupnost s dvěma kroky, a tak dál. Obecně platí, že když existuje
+posloupnost o n krocích, můžeme ji rozšířit, na posloupnost o n+1
+krocích. Na základě indukce z toho odvodíme, že existuje klesající
+posloupnost jakékoli přirozené délky.
+:{"No to jsme si pomohli. Vždyť je indukce skoro totéž co rekurze."}
+To sice stále vypadá jako nekonečný důkaz. V prvním je z délky 0 na
+délku 1, druhý krok je z délky jedna na délku dva, a tak dál.
+:{Indukce je jen důkaz sporem.}
+Ale ve skutečnosti je možné jakýkoli důkaz matematickou indukcí
+formulovat jako důkaz sporem. V prvním kroku se zeptáme každého
+přirozeného čísla, jestli existuje klesající posloupnost dané délky.
+:{"Milá čísla, existuje klesající posloupnost vaší délky?"}
+To je jedna operace, konkrétně axiom vydělení.
+Některá čisla odpoví pozitivně.
+:{Green ticks}
+Nula odpoví ano, jednička odpoví ano, sedmička odpoví ano...
+Ale je možné, aby některé číslo odpovědělo "ne"?
+Stači vyvrátit tuhle absurdní variantu.
+Pokud některé čislo odpovědělo "ne", můžeme najít nejmenší čislo s
+touto odpovědí.
+:{nejmenší}
+To je proto, že přirozená čisla jsou dobře uspořádaná. A to je vlastně
+důvod, proč je klasická definice dobrého uspořádání tvaru, že každá
+neprázdná podmnožina musí obsahovat nejmenší prvek. Taková definice se
+pro účely indukce hodí nejvíc. Ale ve skutečnosti by nám v tomhle
+případě stačila i verze s koncovým úsekem, protože jakmile některé
+číslo odpoví "ne", znamená to, že neexistuje tak dlouhá klesající
+posloupnost. A potom nemůže existovat ani žádná delší, takže budou
+odpovědi "ne" stejnak tvořit koncový úsek.
+
+Tak dejme tomu, že n+1 je nejmenší čislo, které řeklo "ne".
+To znamená, že čislo n muselo odpovědět "ano". Ale jakmile máme
+klesající posloupnost délky n, můžeme ji jednoduše rozšířit na
+klesající posloupnost délky n+1, takže toto čislo muselo lhát.
+Teda... v našem dokonalém matematickém světě čisla nelžou. Ve
+skutečnosti dostáváme spor s počátečním předpokladem, že některé číslo
+odpovědělo "ne".
+
+To znamená, že všechna čisla odpověděla "ano", a proto máme klesající
+posloupnost jakékoli přirozené délky.
+
+:{Hotovo?}
+:{V žádném případě, jsme teprve v půlce.}
+Teď to může vypadat, že už jsme vyhráli, a máme nekonečnou klesající
+posloupnost, ale není tomu tak. Použití indukce namísto rekurze nebylo
+zadarmo. Chybí nám něco na způsob limitního kroku.
+
+Z indukce jsme vyvodili, že máme klesající posloupnost každé konečné
+délky. Dokonce můžeme použít axiom výběru a najednou si pro každou
+délku vybrat jednu takovou posloupnost. Jenže takové posloupnosti
+nemusí být kompatibilní, tak je nemůžeme jednoduše sloučit do jedné.
+
+To je docela zásadní problém: Jenom to, že máme libovolně dlouhou
+konečnou klesající posloupnsot ještě vůbec neznamená, že musí
+existovat nekonečna. Pro příklad si představme ordinál omega plus
+jedna. V něm najdeme klesající posloupnost délky jedna, či délky 5,
+nebo jakékoli jiné konečné délky. Ale protože je to ordinál, nenajdeme
+v něm žádnou nekonečnou klesající posloupnost.
+Takže jsme naším neopatrným použitím indukce zahodili tolik informace,
+že nemůžeme důkaz dokončit.
+
+Nebylo by ale fér shazovat vinu jenom na indukci. Problém, do kterého
+jsme se dostali má sice na svědomí neopatrné použití indukce, ale
+současně nejednoznačnost. Vytvořené posloupnosti můžou nenavazovat
+jenom proto, že máme v každém kroku spoustu možností, kam jít dolů.
+Kdybychom měli předepsaná pravidla jako: začni na čisle 4, a v každém
+kroku skoč ne poloviční hodnotu, všechny ty konečné posloupnosti už
+budou navazovat. Každá posloupnost začíná na čisla 4, pokračuje na
+dvojku, jedničku, jednu polovinu, a tak dál. V takovém případě není
+problém tyto posloupnosti sjednotit a dostat nekonečnou klesající
+posloupnost.
+
+Tahle myšlenka skutečně vede k cíli. Jen je třeba zařidit, aby byl
+proces nekonečného sestupu jednoznačný i když máme před sebou zcela
+obecnou uspořádanou množinu. Trik spočívá v použití axiomu výběru,
+nikoli po indukci, nikoli v průběhu indukce, ale ještě před jejím
+spuštěním.
+Pro každý bod máme hromadu možností, kam pokračovat níž. Je spousta
+variant, kam jít dolů z tohoto bodu, stejně tak z tohoto bodu, a tak
+dál. Můžeme si ale představit úplně všechny body a úplně všechny možné
+kroky dolů z každého z nich, Pomocí axiomu výběru si teď pro každý bod
+vybereme jenom jednu šipku, a zařadíme si ji do našich pravidel P.
+
+Teď na základě těchto pravidel spustíme indukci. Z každého bodu
+pokračujeme přesně tou jednou šipkou, kterou máme v pravidlech P. Sice
+nám pravidla vyrobil axiom výběru, a ne nějaký předepsaný vzoreček,
+ale na tom nesejde. Výsledné klesající posloupnosti jsou teď určeny
+jednoznačně, takže jsou navzájem kompatibilní. Můžeme je tak sjednotit
+a sestrojit kýženou nekonečnou klesající posloupnost. A to je ono,
+takhle vypadá formální důkaz. Teda, aspoň tak vypadají zobrazitelné
+hlavní myšlenky z formálního důkazu.
+
+Ale jak to bylo trochu technické a s pár slepými uličkami, tak si to
+zopakujme. Když chceme sestrojit posloupnost rekurzí, můžeme indukcí
+dokázat, že existuje posloupnost každé konečné délky. To je vlastně
+důkaz sporem s tím, že potřebujeme, aby indukce probíhala na dobře
+uspořádané množině. V našem případě se jednalo o množinu přirozených
+čisel, ale kdybychom měli definovaný limitní krok, mohli bychom klidně
+sestrojit posloupnost i na většich ordinálech. To proto, že jediný
+požadavek, který na indukci máme je následující -- kdyby indukce
+selhala v jistém okamžiku, můzeme najít to první místo, kde
+selhala. To vede ke sporu, a vyvodíme, že indukce neselhala nikde.
+
+Pro limitní kroky ale potřebujeme jednoznačnost konstruované
+posloupnosti. Toho dosáhneme tím, že ještě před spuštěním indukce
+použijeme axiom výběru, a rozhodneme se s ním, co konkrétně dělat ve
+všech možných situacích. Celému tomuto nástroji se říká transfinitní
+rekurze s výběrem. Matematici jej typicky používají bez toho, aby se
+příliš starali o vnitřek, jelikož je její používání přirozenější než
+formální význam. Hodí se ale vědět, že transfinitní rekurze nestojí na
+vodě.
+
+V další kapitole uvidíme tento nástroj v praxi. Konečně se nám povede
+dokázat, že každým dvěma množinám můžeme porovnat jejich mohutnost, a
+odvodíme si základní věty teorie množin jako Zornovo lemma a princip
+dobrého uspořádání. Nashle příště.

@@ -1,0 +1,183 @@
+Reálná čisla coby Dedekindovy řezy
+==================================
+
+Čísla jsou svobodným výtvorem lidského ducha. (Richard Dedekind)
+
+Když jsem nastupoval na matfyz, spolužák mi dal následující úlohu.
+Když uvážíme potenční množinu, tedy množinu všech podmnožin, nějaké
+množiny, můžeme si výsledek představit jako částečně uspořádanou
+množinu.
+
+Řekneme, že jeden prvek potenční množiny je menší než jiný, když je jednoduše jeho podmnožinou.
+Může se samozřejmě stát, že jeden prvek není podmnožinou druhého, ani naopak,
+v takovém případě jsou tyto prvky zkrátka neporovnatelné. Ani jeden není mětši ani menší než druhý.
+Nás ale budou zajímat tak zvané řetězce. To jsou takové podmnožiny potenční množiny, ve kterých
+jsou každé dva prvky navzájem porovnatelné.
+
+Když začneme s konečnou n-prvkovou množinou, bude největši možná délka řetězce n+1.
+A úloha zní -- jak velká může být mohutnost řetězce v P omega, tedy
+řetězce v potenční množině všech přirozených čisel.
+Celá P omega je nespočetná, ale můžeme najít v P omega nespočetný řetězec?
+Tak jsme měli na chvíli o zábavu postaráno a ukázalo se že,
+možná trochu překvapivě, lze opravdu sestrojit nespočetný řetězec,
+dokonce řetězec mohutnosti kontinua.
+Nicméně až po nějaké době jsem zjistil, že něco jako nespočetný
+řetězec v P omega se v matematice naprosto běžně vyskytuje.
+Říká se mu reálná přímka.
+
+Nu dobrá, ale pěkně popořádku, jak sestrojit reálnou přímku, když jsme
+si doposud formálně zavedli jenom přirozená čísla?
+Budeme chtít postupně rozšiřovat reálná čísla tak, abychom se nejenom
+dostávali k novým číslům, ale současně tak, aby se na nových číslech
+daly šikovně definovat základní aritmetické operace jako sčítání a
+násobení.
+
+Sčítání a násobení na přirozených čislech už máme, sčítání odpovídá
+mohutnosti sjednocení, před kterým si nějak obarvíme prvky, aby se nám
+neslily, a násobení odpovídá mohutnosti kartézského součinu.
+
+Docela jednoduše můžeme rozšiřit přirozená čisla na celá. Vytvoříme si
+dvě kopie přirozených čisel, třeba tak, že si je zabalíme jednou do
+uspořádané dvojice s nulou a podruhé s jedničkou. Dvojici nula jedna
+zahodíme, a čísla s jedničkou budeme chápat jako záporná.
+Definice sčítání a násobení je pak trochu technická, ale přímočará na
+základě standardních pouček jako minus krát minus je plus, minus plus
+minus je minus, a podobně.
+
+Z celých čisel můžeme poustoupit k číslům racionálním, tedy zlomkům.
+Obecný zlomek a děleno b zakódujeme jako uspořádanou dvojici celých
+čisel a,b, kde b nesmí být nula.
+Když chceme definovat násobení a sčítání, můžeme opět použít klasické
+středoškolské vzorečky.
+Jenom se musíme vypořádat s drobným zádrhelem. Více zlomků může
+odpovídat stejnému racionálnímu čislu. Jako třeba minus tři šestiny je
+totéž jako dvě minus čtvrtiny.
+To se stane tehdy, pokud můžeme pomocí krácení a rozšířování jednoho
+zlomku dostat druhý.
+
+V teorii množin je uspořádaná dvojice minus tři, šest jiná než
+uspořádaná dvojice dva minus čtyři. Ale mělo by to odpovídat jednomu
+zlomku. Prirozené řešení této drobné obtíže by mohlo být následující
+-- racionální čísla nebudou všechny dvojice, ale jenom dvojice v
+základním tvaru, kde základní tvar je ten s co nejmenším kladným
+jmenovatelem. Takže dvojice dva minus čtyři racionálním číslem není,
+teprve až dvojice minus jedna, dva. Pro takto zavedené zlomky musíme
+náležitě upravit algoritmus sčítání z násobení -- po každé operaci je
+třeba zlomky zkrátit.
+
+Tohle řešení je možná přirozené, ale není to, které matematici
+považují za nejelegantnější. Vybírání se základního tvaru může působit
+trochu svévolně, Proč bychom měli chtít kladný zrovna jmenovatel? A
+proč vůbec musíme mít zlomky pokrácené? Ukážeme si tedy na příkladu
+zlomků ještě jednu základní matematickou metodu -- faktorizaci.
+
+Máme hromadu zlomků které mají stejnou hodnotu. minus jedna polovina,
+dvě minus čtvrtiny, minus tři šestiny. Ale místo toho, abychom si
+vybírali jednoho reprezentanta, jednoduše si vezmeme úplně všechny a
+zabalíme je do jedné množiny. Tuhle množinu teprve prohlásíme za ono
+racionální číslo. Tím že v množině nezáleži na pořadí, je jedno se
+kterou reprezentací jsme začali. Takže je takový zápis racionálního
+čisla úplně stejně jednoznačný jako když vyžadujeme základní
+tvar. Jenom je trochu víc fér vůči ostatním reprezentacím.
+
+Jak definujeme násobení a krát b? Vezmeme kteréhokoli reprezentanta
+'a', kteréhokoli reprezentanta 'b', vynásobíme po složkách, a
+sestrojíme kolem výsledku opět všechny možné reprezentace.
+Jak definujeme sčítání a plus b? Tady můžeme být ještě trochu
+trikovější. Podíváme se do obou množin, a najdeme nějaké reprezentanty
+se stejným jmenovatelem. Pak už jen sečteme čitatele.
+Takže i sčítání zlomků se dá formálně definovat klasicky se společným
+jmenovatelem, bez zbytečných vzorečků...
+
+"A nejsou teď přirozená čísla jiná?"
+
+Ještě než postoupíme k reálným číslům, povšimněme si, že naše
+konstrukce nebyly úplně přesně rozšiřování původní struktury. Začali
+jsme s přirozenými čisly, ale místo abychom je jenom doplnili o
+záporná, vytvořili jsme vedle strukturu celých čísel, ve které máme
+čísla odpovídající těm přirozeným,
+
+Ještě zřetejnějši je to u racionálních čisel. Místo abychom celá čisla
+doplnili o nová racionální, postavili jsme novou strukturu, do které
+celá čisla tak nějak přirozeně patří. A formálně vzato je trojka v
+přirozených čislech, tedy množina nula jedna, dva, jiná než trojka v
+celých čislech, tedy uspořádaná dvojice tři nula, a ta je jiná než
+trojka v racionálních čislech, kde je to množina všech dvojic
+s podílem tři.
+
+Ale s tímhle problémem si matematici moc hlavu nelámou, a běžně
+chápou přirozená čisla uvnitř celých ta uvnitř racionálních a ta
+uvnitř reálných. Holt je někdy přilišná formalita na škodu.
+
+Konečně jdeme na konstrukci samotných reálných čisel. Tedy ve
+skutečnosti existuje konstrukcí více, my si ukážeme tu pomocí
+Dedekindových řezů.
+
+I když přímka vypadá zaplněná racionálními čisly, stále je v jistém
+smyslu děravá. Můžeme se podívat třeba na známé iracionální číslo
+odmocnina ze dvou mezi racionálními čísly.
+Racionální čísla se dokáží odmocnině ze dvou těsně přiblížit z obou
+stran. Čím menší volíme jmenovatel, tím těsněji. Jenom se na ni nikdy
+přesně nestrefí. Každé iracionální čislo tak dělí racionální body na dvě
+půlky -- na ty větši, a na ty menší.
+
+Trik je v tom, že takové rozdělení naopak jednoznačně určuje ono
+reálné čislo. To proto, že ať si vezmeme jakkoli blízká reálná čísla,
+vždycky můžeme volit jmenovatel tak, aby rozestupy mezi racionálními
+čisly s tímto jmenovatelem byly menší než rozdíl těch reálných
+čísel. Takže najdeme racionální čislo, které je větši než jedno z těch
+reálných čisel a menší než druhé.
+
+Když chceme takové rozdělení racionální přímka popsat jako množinu,
+jednoduše si vezmeme třeba množinu těch menších čisel.
+
+"To je zase definice kruhem... ne?"
+
+Pozorný divák si zajisté všimnul, že jsme možná popsali formální
+reprezentaci reálného čisla, ale nikoli co to je samotné reálné
+čislo. Definice reálného čisla by neměla začínat slovy "vezměme si
+reálné čislo". Takže tahle představa všech menších racionálních čisel
+ve skutečnosti slouží jako motivace, a obecné reálné čislo je
+definováno následovně.
+
+Je to taková podmnožina racionální přímky, která s každým racionálním
+čislem obsahuje všechny menší,
+"* s každým prvkem všechny menší",
+Není to prázdná množina ani množina všech racionálních čisel
+"* není prázdná, ani celé Q"
+A poslední technický předpoklad -- nemá největší prvek.
+"* nemá nejmenší prvek"
+Tímto předpokladem řešíme situaci, když je ono reálné čislo současně
+racionální, tak můžeme být na vážkách, zda toto racionální množiny
+zařadit nebo ne. Tento předpoklad říká, že jej nezařadíme.
+
+S takto zavedenými reálnými čísly se dobře definuje sčítání. Chceme
+sečíst dvě množiny racionálních čisel? Tak zkrátka sečteme každý prvek
+s každým, a výsledek bude zase reálné čislo odpovídající součtu.
+
+Násobení můzeme definovat podobně, ale je třeba si dát pozor na to, že
+součin záporných čísel je kladný. Takže si tu ukážeme jenom součin dvou
+kladných čisel. Vezmeme si pouze ta kladná racionální čisla z obou
+množin.
+Vynásobíme každé s každým, a do výsledku opět vrátíme záporná čisla.
+
+A pak je ještě jedna operace, která se s reálnými čisly coby
+dedekindovými řezy definuje jedna báseň -- supremum. To je ta operace,
+která vezme množinu reálných čisel, když má tato množina maximum,
+vrátí maximum, a když ne, vrátí takové skoro maximum. To nejbližší
+číslo hned za onou množinou.
+
+Když se totiž na reálná čisla díváme jako na množiny těch menších
+racionálních čisel, je situace analogická tomu, když se na ordinály
+díváme jako na množiny menších ordinálů. Supremum pak není nic jiného
+než jednoduché sjednocení všech těchto množin.
+
+A jaká je souvislost s úvodní úlohou o nespočetných řetězcích? Inu,
+reálná čisla jsou nespočetným řetězcem v potenční množině racionálních
+čisel. To sice není přesně omega, ale té úloze je docela jedno, jak si
+prvky té základní množiny pojmenujeme. Hlavní je, že omega i Q mají
+stejnou mohutnost -- aleph 0.
+
+To je k formálním reálným číslům vše. V dalšim díle se podíváme na
+zoubek jednomu trochu kontroverznímu axiomu -- axiomu výběru.
+Nashle příště.

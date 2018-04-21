@@ -1,0 +1,98 @@
+Formalní čísla
+==============
+
+Quote: Úlohu jsem vyřešil po dvoutýdením soustředění se na prázdnou množinou. -- nejmenovaný řešitel
+
+* first idea of naturals: $0 = \{\}, 1 = \{\{\}\}, 2 = \{\{\{\}\}\}$
+* problems:
+  * they are one-element sets, it is difficult to count with it
+  * we cannot generalize it to ordinals, what $\omega$ or $\omega+1$ should be?
+* standard construction
+  * "Argh! I cannot imagine it!"
+  * "You don't have to do it in this way"
+  * $5 = \{0,1,2,3,4\}$ is sufficient expansion, programming
+  * 5 as a graph
+  * extra feature: it is implementing the natural correspondence
+    between ordinals as types of well ordered sets and ordinals as indices to them
+    explained in chapter~\ref{ordinals}
+  * supremum is realy union
+* existence of omega1
+* what about cardinals? wait for chapter~\ref{cardinals}
+
+V základech teorie množin máme pouze množiny.
+Prázdnou množinu.
+Množinu obsahující prázdnou množinu.
+Ale zatím vlastně nemáme ani přirozená čisla.
+Jako je nula,
+nebo jedna.
+Jako všechno v teorii množin, i čísla budou muset být množiny,
+jen si musíme ujasnit, jaké.
+
+Tak třeba nulu je docela přirozené reprezentovat prázdnou množinou.
+Jednička by pak mohla být množina obsahující nulu.
+Dvojka množina obsahující jedničku, a tak dál.
+Takhle bychom to sice možná zavést mohli, ale není to šikovné z několika důvodů.
+Zaprvé se tento postup těžko zobecňuje na ordinály.
+Jak bychom takto chtěli reprezentovat třeba omegu? Nebo omega plus jedna?
+Sice si můžeme nakreslit nekonečnou posloupnost do sebe zanořených obdélníčků,
+ale jednak to odporuje axiomu fundovanosti, a omega plus jedna už
+v jazyce teorie množin nedává vůbec žádný smysl.
+A další nevýhoda takto zanořených přirozených čisel je, že přirozená
+čísla bychom rádi používali k měření velikosti konečných množin.
+Ideálně pomocí párování s daným přirozeným čislem.
+Jenže takto zavedené přirozené číslo je kromě nuly vždycky
+jednoprvková množina.
+Praktičtější bude, když bude mít každé přirozené čislo tolik prvků,
+kolik je ono samo.
+
+Takže se přirozená čisla správně konstruují takto.
+Nula je prázdná množina.
+Jednička množina obsahující prázdnou množinu, zatím je to stejné.
+Ale dvojka by měla být dvouprvková množina. Doposud jsme sestrojici
+dvě množiny -- nulu a jedničku. Tak bude dvojka obsahovat nulu a
+jedničku.
+Trojka bude množina obsahující nulu, jedničku a dvojku...
+A tak dál.
+>"Ááá, to se nedá představit"
+>"Nemusíš si to představovat takhle."
+
+Taková definice přirozených čísel je z řady důvodů šikovná, ale
+prakticky žádný matematik si přirozená čisla nepředstavuje jako
+hromadu do sebe zanořených množin.
+Co se ale může hodit je jedna expanze -- představit si někdy přirozené
+číslo jako množinu všech těch menších.
+Tohle video je naprogramované v programovacím jazyce Python.
+V tomto programovacím jazyce často narazíte na funkci range.
+To je funkce, která dostane přirozené číslo, a vrátí seznam menších
+přirozených čísel. Může se hodit, když chcete projít všechna čisla od
+nul po n-1.
+V teorii množin "range" není potřeba, protože můžeme každé číslo rovnou
+považovat za příslušný seznam.
+
+Když jsme si rekurzivně zavedly přirozená čísla jako množinu všech
+předchozích, můžeme tuto definici snadno rozšířit na ordinály. Ordinál
+omega bude množina všech přirozených čisel, omega plus jedna bude
+množina všech přirozených čisel s omegou k tomu a tak dál.
+V páté kapitole jsme si zavedli dvě role ordinálních čísel -- buď coby
+reprezentant dobře uspořádané množiny, nebo coby index do nějakého
+většího ordinálu.
+
+S takto formálně zavedenými ordinály je všechno mnohem prozaičtější.
+Nemusíme říkat, že ordinály menší než ordinál alfa jakoby ukazují do
+ordinálu alfa. Ony to jsou z definice přímo jeho prvky.
+A nemusíme říkat, že ordinál je abstrakcí dobře uspořádaných množin.
+Je to zcela konkrétní reprezentant dobře uspořádaných množin -- je to
+množina všech menších ordinálů.
+A nemusíme říkat, že ordinální supremum je něco jako sjednocení.
+Ono je to skutečné sjednocení, přesně to, které nám poskytuje axiom
+sjednocení.
+
+TODO: Proč má každá dobře uspořádaná množina reprezenanta?
+
+Další varianta, jak se na přirozená a ordinální čisla dívat je skrze
+to, jak vypadají v grafu všech množin. V osmé kapitole jsme si svět
+teorie množin zavedli jako obrovský orientovaný graf, kde mezi
+některými vrcholy -- množinami -- vedou šipky značící, který objekt je
+prvek které množiny.
+
+TODO
