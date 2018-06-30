@@ -1511,8 +1511,8 @@ class RealDecSeq(Scene):
             if x-next_x < pixel_size: break
 
             jumps.append(
-                StepCurve(start = (end_x+x)*RIGHT + self.line_y*UP+buff,
-                          end = (end_x+next_x)*RIGHT + self.line_y*UP+buff,
+                StepCurve(start = (end_x+x)*RIGHT + (self.line_y+buff)*UP,
+                          end = (end_x+next_x)*RIGHT + (self.line_y+buff)*UP,
                           stroke_width = t)
             )
             x = next_x

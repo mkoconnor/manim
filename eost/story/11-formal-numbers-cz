@@ -80,19 +80,95 @@ většího ordinálu.
 S takto formálně zavedenými ordinály je všechno mnohem prozaičtější.
 Nemusíme říkat, že ordinály menší než ordinál alfa jakoby ukazují do
 ordinálu alfa. Ony to jsou z definice přímo jeho prvky.
+Nemusíme říkat, že ordinální supremum je něco jako sjednocení.
+Ono je to skutečné sjednocení, přesně to, které nám poskytuje axiom
+sjednocení.
 A nemusíme říkat, že ordinál je abstrakcí dobře uspořádaných množin.
 Je to zcela konkrétní reprezentant dobře uspořádaných množin -- je to
 množina všech menších ordinálů.
-A nemusíme říkat, že ordinální supremum je něco jako sjednocení.
-Ono je to skutečné sjednocení, přesně to, které nám poskytuje axiom
-sjednocení.
 
-TODO: Proč má každá dobře uspořádaná množina reprezenanta?
+Samotné uspořádání na ordinálu je přitom určené tím nejzákladnějším,
+co jazyk teorie množin poskytuje -- relací náležení. To že je
+ordinál a menší než b se jednoduše pozná tak, že a je prvkem b.
+Takže ještě jedna varianta, jak si ordinály představovat, je se na
+svět podívat jako na obrovský orientovaný graf, kde vrcholy
+reprezentují množiny, a šipky vedou z množiny do jejich prvků. V tomto
+vrcholu můžeme najít nulu -- ta nikam neukazuje -- dále jedničku -- ta
+ukazuje jenom na nulu, a tak dál. Takhle pokračují přirozená čisla, i
+ordinální čisla.
 
-Další varianta, jak se na přirozená a ordinální čisla dívat je skrze
-to, jak vypadají v grafu všech množin. V osmé kapitole jsme si svět
-teorie množin zavedli jako obrovský orientovaný graf, kde mezi
-některými vrcholy -- množinami -- vedou šipky značící, který objekt je
-prvek které množiny.
+Obecně tak můžeme definovat ordinální čislo jako takovou množinu,
+která je dobře uspořádaná touto relací náležení, a její prvky
+neobsahují nic navíc. To znamená, že prvky ordinálu musí ukazovat
+pouze dovnitř tohoto ordinálu, a ne mimo.
 
-TODO
+Ve zbytku kapitoly se podíváme na formální konstrukci dvou důležitých
+ordinálů, konkrétně omega, a omega1.
+
+V deváté kapitole o axiomech jsme si zjednodušeně řekli, že axiom
+nekonečna říká, že existuje množina všech přirozených čisel. V takovém
+případě bychom měli konstrukci omegy danou axiomem, ale není to úplně
+přesné. Je to malinko složitější, patrně proto, že matematici mají
+radši kratší axiomy a delší důkazy. Přesná formulace axiomu nekonečna
+tedy zní: Existuje množina M, která
+obsahuje prázdnou množinu,
+a s každým prvkem x této množiny v M leži i x sjednoceno
+s jednoprvkovou množinou obsahující x.
+Co to znamená?
+Tahle podivná operace na ordinálech funguje jako přičítání
+jedničky. Dejme tomu, že je v naší množině trojka. Vezmeme teda
+trojku, to je množina 0, 1, 2, a dále jednoprvkovou množinu obsahující
+trojku. Když tyhle dvě množiny sjednotíme, dostaneme množinu
+0, 1, 2, 3, tedy čtyřku.
+Když je v množině nula, a s každým přirozeným číslem v ní je to další
+přirozené čislo, musí už v M být všechna přirozená čisla.
+Ale axiom nám nezaručuje, že v M není nic navíc.
+Takový axiom splňuje třeba i ordinál omega krát dva. A navíc ani nic
+nezaručuje, že prvky množiny M musí být jenom ordinály,
+
+Naštěstí máme axiom vydělení, kterým můžeme všechny ty zbytečné prvky
+vyhodit, a nechat si jenom přirozená čisla. Ale... jak vlastně popsat
+přirozená čisla? Už umíme popsat ordinály, to jsou množiny dobře
+uspořádané pomocí náležení, jejichž prvky neobsahují nic navic.
+Zbývá nějakým pravidlem určit, který ordinál je vlastně přirozeným
+číslem.
+Pochopitelně, přirozená čisla jsou ty konečné ordinály, ale pokud
+současně definujeme konečnost jako velikost vyjádřitelnou přirozenym
+čislem, dostáváme se do kruhu.
+Takhle to tedy nejde, je třeba nějakou lépe testvatelnou vlastnost
+konečných ordinálů. Za naší cestu teorií množin jsme takových
+vlastností naštěstí potkali habaděj. Jmenuji jednu, přirozené čislo je
+takový ordinál, že každý jeho počáteční úsek má největší prvek.
+
+Takže z množiny M dané axiomem nekonečna vydělíme axiomem vydělení
+pouze takové ordinály, ve kterých má každý počáteční úsek největší
+prvek, a získáváme omegu -- nejmenší nekonečný ordinál.
+
+Teď si ještě jednou projdeme konstrukci omega jedničky se sedmé
+kapitoly. V sedmé kapitole jsme to nemohli udělat pořádně, když jsme
+ještě neměli axiomy.
+
+Takže začneme s množinou přírozených čisel.
+A sestrojíme potenční množiny kartézského součinu omega krát omega.
+Každý prvek této potenční množiny je množina dvojic přirozených čísel,
+to můžeme nakreslit jako množinu šipek mezi přirozenymi čisly.
+
+Ze všech těchto množin šipek vydělíme pouze ty, které reprezentují
+nějaké uspořádání, jak jsme si to ukazovali v desáté kapitole o
+skalárním součinu. To znamená, že neobsahují cykly, a přitom mezi
+každými dvěma prvky vede aspoň jedna šipka. V takovém případě nám
+šipky říkají, jak tyto prvky uspořádat zleva doprava.
+
+Ze všech těchto uspořádání si navíc necháme pouze dobrá uspořádání,
+tedy taková, že každý koncový úsek má nejmenší prvek.
+Ke každé dobře uspořádané množině můžeme najít odpovídající ordinální
+čislo. 
+
+To je vlastně předpis, jak proměnit určitou podmnožinu kartézského
+součinu omega na druhou na ordinální číslo. Axiomem nahrazení můžeme
+toto udělat pro všechny možná uspořádání omegy, a dostat tak množinu
+všech ordinálů mohutnosti aleph0. Konečně axiomem sjednocení dostáváme
+jejich supremum, tedy samotný ordinál omega1.
+
+V dalším díle se pokusíme demystifikovat proslulý axiom výběru. Nashle
+příště.

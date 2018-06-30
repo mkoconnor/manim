@@ -1343,7 +1343,7 @@ class CantorDiagonal(Scene):
         title = TextMobject("Cantorův diagonální argument")
         title.to_edge(UP)
         self.play(Write(title))
-        self.wait_to()
+        #self.wait_to()
 
     def seq_to_match_line(self, seq, line):
         seq.shift(line.get_end() - seq[0].get_center() + self.matching_r_buff*RIGHT)
@@ -1360,7 +1360,7 @@ class CantorDiagonal(Scene):
         for i, digit in enumerate(result): digit.move_to(i*self.h_shift)
         return result
 
-    def apply_diag_argument(self, brief = False):
+    def apply_diag_argument(self, brief = False, times = [26, 29]):
         
         diag = []
         out_of_diag = []
@@ -1382,7 +1382,7 @@ class CantorDiagonal(Scene):
         )
         if not brief:
             self.play(FadeOut(arrow))
-            self.wait_to(26)
+            self.wait_to(times[0])
 
         while len(diag) < len(self.sequences[0]):
             next_el = self.random_digit()
@@ -1405,6 +1405,6 @@ class CantorDiagonal(Scene):
             missing_seq.append(inverted)
         missing_seq = VGroup(*missing_seq)
 
-        if not brief: self.wait_to(29)
+        if not brief: self.wait_to(times[1])
         self.play(ReplacementTransform(diag_extracted, missing_seq))
         return missing_seq

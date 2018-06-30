@@ -125,7 +125,7 @@ class OrdinalObj(Ordinal):
         scale = size*(self.x1 - self.x0) / desc.get_width()
         if scale < 1: desc.scale(scale)
         else: scale = 1
-        desc.next_to(self, direction = direction, buff = buff*scale, **kwargs)
+        return desc.next_to(self, direction = direction, buff = buff*scale, **kwargs)
 
 class OrdinalOne(OrdinalObj):
     def __init__(self, **kwargs):

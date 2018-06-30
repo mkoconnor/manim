@@ -16,6 +16,7 @@ HELP_MESSAGE = """
    Usage: 
    python extract_scene.py <module> [<scene name>]
 
+   -Q ignore waits
    -p preview in low quality
    -s show and save picture of last frame
    -w write result to file [this is default if nothing else is stated]

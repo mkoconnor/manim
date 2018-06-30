@@ -66,7 +66,7 @@ class Conversation:
         self.dialog = VGroup()
         self.next_answer = start_answer
 
-    def add_bubble(self, text, answer_bubble = False):
+    def add_bubble_anim(self, text):
         bubble = ChatBubble(text, self.next_answer)
         self.next_answer = not self.next_answer
 
@@ -84,6 +84,12 @@ class Conversation:
             bubble_rel_pos = (bubble_rate - 1) * height / shift + 1
             return np.exp(bubble_rel_pos-1)
 
-        self.scene.play(Transform(self.dialog, dialog_target, rate_func = stretch_rate_func(dialog_rate_func)),
-                        Transform(bubble, bubble_target, rate_func = rush_from))
+        odialog = VGroup(self.dialog.submobjects)
         self.dialog.add(bubble)
+        return AnimationGroup(
+            Transform(odialog, dialog_target, rate_func = stretch_rate_func(dialog_rate_func)),
+            Transform(bubble, bubble_target, rate_func = rush_from),
+        )
+
+    def add_bubble(self, text):
+        self.scene.play(self.add_bubble_anim(text))
