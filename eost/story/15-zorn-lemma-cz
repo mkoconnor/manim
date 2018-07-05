@@ -16,82 +16,88 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 * The well ordering principle
   * other reason why every two sets are comparable
 
-V minulé kapitole jsme se podívali, proč rekurze s výběrem funguje
-z~formálního hlediska. Ukázali jsme si to sice na příkladu klasické
-rekurze na celých čislech, ale z formálního hlediska není mezi
-obyčejnou a transfinitní rekurzí příliš velký rozdíl, protože se opírá
-o to, že v každé podmnožině indexů najdeme nejmenší prvek.
-V téhle kapitole si předvedeme, jak se transfinitní rekurze s výběrem
-dá použít.
+:-------------------------ReminderScene---------------------------
+.
+. V minulé kapitole jsme se podívali, proč rekurze s výběrem funguje
+. z~formálního hlediska. Ukázali jsme si to sice na příkladu klasické
+. rekurze na přirozených čislech, ale z formálního hlediska není mezi
+. obyčejnou a transfinitní rekurzí příliš velký rozdíl, protože se opírá
+. o to, že v každé podmnožině indexů najdeme nejmenší prvek.
+. V téhle kapitole si předvedeme, jak se transfinitní rekurze s výběrem
+. dá použít.
+.
+:-------------------------IntroExample----------------------------
+.
+. Už ve třetí kapitole jsme naťukli otázku, zda jsou libovolné dvě
+. množiny porovnatelné.
+. Tedy, když si vezmeme množinu A a množinu B, tak zda vždycky najdeme
+. párování, které pokrývá celou aspoň jednu z těch dvou množin.
+. U některých dvojic množin to vůbec není jasné, například reálná přímka
+. a omega dva.
+. 
+. Omega dva je nepředstavitelně dlouhý ordinál, o kterém víme jen to, že jeho
+. mohutnost aleph 2 je třetí nejmenší mezi nekonečnými mohutnostmi, a reálná
+. čísla mají mohutnost alespoň aleph 1.
+. Dokonce se o vztahu mohutností reálných čisel a
+. omega 2 nedá nic dokázat. Možná jsou stejně velké, možná jsou reálná
+. čisla větší, možná menší. To se nikdy nezjistí. Přesto se dá ukázat,
+. že tyto množiny je možné porovnat, i když nikdy doopravdy nezjistíme
+. výsledek.
+.
+. V třetí kapitole jsme ještě neměli k dispozici nástroje, abychom
+. takovou porovnatelnost obecných množin mohli dokázat. Teď už je
+. máme. Jdeme na to.
+.
+:----------------------MatchingConstruction-----------------------
+.
+. Základní myšlenka je prostá. Transfinitní rekurzí postupně přidáváme
+. jakékoli hrany do našeho párování tak dlouho, dokud to
+. jde. Přidáváme je přitom 
+. transfinitně, takže se nezastavujeme ani když jich máme nekonečno.
+. Když už žádnou hranu
+. přidat nejde, znamená to, že jsme jednu z množin vyčerpali, a
+. množina A je tak menší než B nebo stejně velká.
+.
+:{A co když ani $A$ ani $B$ nikdy nevyčerpáme?}
+.
+. Je jasné, že když se náš rekurzivní proces zastaví, a nemůžeme už
+. žádnou další hranu přídat, našli jsme párování, které pokrývá aspoň
+. jednu z množin. K dokončení důkazu musíme ukázat, že jinak to ani být
+. nemůže.
+. Pro spor tedy předpokládejme, že jsme prošli všechna ordinální čísla,
+. a každému ordinálnímu číslu jsme přiřadili nějakou novou hranu
+. částečného párování.
+. Na to se dá naopak dívat tak, že se nám povedlo některým hranám
+. přiřadit postupně všechna ordinální čísla.
+. Tyto hrany tvoří množinu, je to jenom podmnožina kartézského
+. součinu A krát B. Takže z axiomu nahrazení musí i všechny ordinály tvořit
+. množinu.
+. A to je spor, jak jsme si už ukazovali v osmé kapitole, množina všech
+. ordinálů nemůže existovat.
+. Tím jsme tedy dokázali, že se proces zastaví, a že existuje párování,
+. které pokrývá aspoň jednu z množin A, B.
+.
+. Ve zbytku kapitoly půjde stále o tutéž myšlenku, tedy že se
+. transfinitní rekurze na množině s výběrem musí někde zastavit.
+. Jenom zkusíme naši situaci ještě trochu zobecnit.
+.
+:--------------------------ZornLemma-------------------------------------
 
-Už ve třetí kapitole jsme naťukli otázku, zda jsou libovolné dvě
-množiny porovnatelné, tedy zda mezi nimi existuje párování, které
-pokrývá celou aspoň jednu z nich. U některých dvojic množin to vůbec
-není jasné, například reálná přímka a omega dva. Omega dva je
-nepředstavitelně dlouhý ordinál, o kterém víme jen to, že jeho
-mohutnost je třetí nejmenší mezi nekonečnými mohutnostmi, a reálná
-čísla jsou nespočetná. Dokonce se o vztahu mohutností reálných čisel a
-omega 2 nedá nic dokázat. Možná jsou stejně velké, možná jsou reálná
-čisla větší, možná menší. To se nikdy nezjistí. Přesto se dá ukázat,
-že tyto množiny je možné porovnat, i když nikdy doopravdy nejsistíme
-výsledek.
-
-V třetí kapitole jsme ještě neměli k dispozici nástroje, abychom tuto
-porovnatelnost mohli dokázat. Teď už je máme. Jdeme na to.
-
-Základní myšlenka je prostá. Postupně přidáváme jakékoli hrany do
-našeho párování tak dlouho, dokud to jde. Když už to nejde, znamená
-to, že jsme jednu z množin vyčerpali.
-
-To znamená, že si v duchu předchozí kapitoly pro každé neúplné
-párování axiomem výběru určíme jednu hranu, kterou do párování můžeme
-přidat. Následně spustíme proces transfinitní rekurze daný předpisem:
-podívej se, jakou množinu hran už jsi použil v předchozích krocích, a
-pokračuj tou hranou, kterou předepsal axiom výběru.
-
-Je jasné, že pokud se tento proces zastaví, našli jsme párování, které
-pokrývá aspoň jednu z množin.
-Takže k dokončení důkazu musíme vyvrátit připad, že se proces
-nezastavil. Představme si tedy, že jsme každému ordinálnímu číslu
-přiřadili nějakou hranu, a přesto jsme ani jednu z množin nevyčerpali.
-Na to se dá naopak dívat tak, že se nám povedlo nějaké podmnožině
-kartézského součinu přiřadit všechny ordinály.
-Protože naše podmnožina kartézského součinu je množina, musí
-z axiomu nahrazení existovat i množina všech ordinálů -- máme předpis,
-jak přeložit hranu na ordinál.
-Ale množina všech ordinálů nemůže existovat -- musel by to totiž být
-současně ordinál, který tím pádem musí obsahovat sám sebe, což nemůže
-nastat ani u obecných množin z axiomu fundovanosti, a u ordinálů už
-tuplem.
-
-Tím jsme tedy dokázali, že se proces zastaví, a že existuje párování,
-které pokrývá aspoň jednu z množin A, B.
-
-A pokud se vám nelíbí, jak jsme použili axiom nahrazení, vězte, že se
-axiom nahrazení se v tomto důkazu dá obejít. Jen se tím důkaz stane
-techničtější, tak to tu ukazovat nebudeme. Myšlenka spočívá v tom, že
-místo všech ordinálů uvážíme jenom ty, které odpovídají dobře
-uspořádané podmnožině hran.
-
-Ve zbytku kapitoly půjde stále o tutéž myšlenku, tedy že se
-transfinitní rekurze na množině musí někde zastavit. Jen se podíváme
-na obecnějši případy.
-
-Jedna varianta, jak náš důkaz zobecnit spočívá v tom, že se na množinu
+Jedna varianta, jak důkaz zobecnit spočívá v tom, že se na množinu
 všech částečných párování budeme dívat jako na částečně uspořádanou
-množinu. Jedno párování je menší než jiné, pokud se jedná o nadmnožinu
+množinu. Jedno párování je větší než jiné, pokud se jedná o nadmnožinu
 hran. Když postupně vytváříme větši a větši párování, vlastně v tomto
 částečném uspořádání šplháme nahoru, a chceme transfinitní rekurzí
 došplhat až k nějakému maximálnímu prvku, tedy takovému, který už nad
-sebou nic nemá.
+sebou nic nemá, a pokrývá tak .
 
-Pochopitelně, že ne každá částečně uspořádaná množina má maximální
+Pochopitelně, ne každá částečně uspořádaná množina má maximální
 prvek, vždyť ani třeba taková přirozená čisla jej nemají. Naše
 částečně uspořádaná množina musí umožňovat provádět limitní kroky. To
-se obvykle zajistí následující podmínkou:
-Každý řetězec, to je část částečně uspořádané množiny, kde jsou každé
-dva prvky porovnatelné, je shora omezený, tedy najdeme prvek takový,
-že celý řetězec je neostře pod tímto prvkem.
+se zajistí následující podmínkou:
+Každý řetězec, to je takový kousek částečně uspořádané množiny,
+ve kterém jsou každé dva prvky porovnatelné, je shora omezený, tedy
+najdeme prvek takový, že celý řetězec je neostře pod tímto prvkem.
 
 Takto jsme dostali obecné tvrzení, kterému se říká Zornovo
 lemma. Zornovo lemma zní: Kdykoli máme neprázdnou částečně uspořádanou
@@ -116,6 +122,8 @@ rekurze. V okamžiku, kdy člověk zná transfinitní rekurzi s výběrem, je
 typicky jedno, jestli formuluje svůj důkaz přes Zornovo lemma, nebo přes
 rekurzi. A já považuji rekurzi typicky za o něco názornější, nicméně
 proti gustu, žádný dišputát.
+
+TODO: Zornovo lemma -> axiom výběru
 
 Další obecné tvrzení z obecného soudku se nazývá princip dobrého
 uspořádání. To říká, že jakkoli velkou množinu, třeba reálná čísla,
