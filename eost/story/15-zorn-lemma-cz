@@ -82,72 +82,161 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . Jenom zkusíme naši situaci ještě trochu zobecnit.
 .
 :--------------------------ZornLemma-------------------------------------
+.
+. Napřed si to zobecnění vyobrazíme na konkrétním případu, kde jsou obě
+. porovnávené množiny konečné, třeba tříprvkové.
+. Na těch pak můžeme uvážit různá částečná párování.
+. A na částečných párováních pak zavedeme klasické částečné uspořádání:
+. Jedno párování je větší než jiné, když je příslušná množina hran
+. nadmnožinou. Takto můžeme uvážit celou částečně uspořádanou množinu
+. úplně všech částečných párování.
+. Tato částečně uspořádaná množina má
+. jeden minimální prvek, prázdné párování, a vícero maximálních, to jsou
+. takové prvky, které už nad sebou nemají žádný další prvek.
+.
+. Maximální prvky přesně odpovídají párováním, kam už nejde nic přidat,
+. takže je alespoň jedna z těch dvou množin vyčerpaná, v našem případě
+. teda máme perfektní párování, takže jsou vyčerpané obě, ale obecně by
+. stačila jedna.
+. Takže když chceme dokázat, že existuje párování pokrývající alespoň
+. jednu množinu, vlastně chceme dokázat, že existuje maximální prvek
+. naší částečně uspořádané množiny.
+.
+. Když je ta částečně uspořádaná množina konečná, najdeme maximální
+. prvek přímočaře.
+. Začneme třeba na prázdném párování, a dokud nejsme na
+. maximálním prvku, můžeme jít dál nahoru, tedy přidávat hrany.
+. Nakonec už žádnou hranu přidat nemůžeme, neboli jsme dorazili do
+. maximálního prvku.
+. A to je obecný postup, jak najít maximální prvek v jakékoli
+. neprázdné konečné částečně uspořádané množině
+. Vůbec se nemusí jednat o množinu párování, stačí, když je konečná.
+. Jakmile ale uvážíme nekonečnou částečně uspořádanou množinu, můžeme
+. jít stále vzhůru, a najednou
+. k žádnému maximálnímu prvku dojít nemusíme. Abychom maximální prvek našli,
+. potřebujeme být schopni pokračovat limitním krokem.
+.
+. Otázka tedy zní, jakou jednoduchou podmínku po částečně uspořádané
+. množině požadovat, aby už nějaký maximální prvek určitě obsahovala.
+:{"Každý řetězec má horní mez."}
+. Řešení s kterým přichází Zornovo lemma je následující: K tomu aby
+. částečně uspořádaná množina měla maximální prvek stačí, aby
+. měl každý řetězec horní mez. Trochu si to rozklíčujeme.
+. Řetězci jsme se zabývali ve dvanácté
+. kapitole o reálných číslech, a jsou to takové podmnožiny v částečném
+. uspořádání, ve kterých jsou každé dva prvky porovnatelné. Můžeme si je
+. představovat jako svislé čáry v celé částečně uspořádané bramboře.
+.
+. Horní mez řetězce pak je takový prvek, který schová celý řetězec pod
+. sebe. Může to být třeba maximum nebo supremum daného řetěcze, nebo i
+. třeba něco většiho.
+.
+. Jakmile máme splněnu tuto podmínku, máme zaručeno, že můžeme
+. pokračovat nahoru i v limitním kroku, a takto můžeme stoupat
+. transfinitní rekurzí s výběrem po ordinálních číslech. Nemůžeme
+. ale vyčerpat všechny ordinály, protože se ordinály nevejdou do
+. množiny, takže nakonec nutně dojdeme na maximální prvek.
+.
+. Tohle tvrzení, že kdykoli má každý řetězec horní
+. mez, najdeme v částečně uspořádané množině maximální prvek, se nazývá
+. Zornovo lemma. Teď jsme si ukázali, proč Zornovo lemma obecně
+. platí.
+. Ještě se vrátíme k našemu konkrétnímu případu částečných
+. párování. Dokážeme ještě jednou, že jsou každé dvě množiny
+. porovnatelné, tentokrát pomocí Zornova lemmatu.
+. Párování, které pokrývá alespoň jednu z množin je přesně
+. maximální prvek v množině všech částečných párování, takže jeho
+. existence přímo plyne z Zornova lemmatu, když ověříme, že má každý
+. řetězec částečných párování horní mez.
+.
+. To je ale přímočaré. Kdykoli si vezmeme dvě částečná párování, tak
+. jsou kompatibilní v tom smyslu, že jejich sjednocení je pořád částečné
+. párování.
+. Abychom našli horní mez celého řetězce, stači tedy sjednotit všechny
+. částečná párování v řetězci.
+. Kdybychom chtěli obhájit to, že bude výsledek stále částečné párování,
+. můžeme to udělat takto: Pro spor předpokládejme, že výsledné
+. sjednocení není částečné párování. To znamená, že v něm máme dvě různé
+. hrany, které se potkávají v jednom vrcholu.
+. Když se obě vyskytly ve sjednocení, musí obě pocházet z nějakých bodů
+. v řetězci. Jenže to by už sjednocení dvou prvků v řetězci nebylo
+. částečné párování. A to je spor, v řetězci totiž je sjednocení
+. jakýchkoli dvou prvků to větší částečné párování.
+. Tím jsme ověřili podmínku, a máme hotovo.
+.
+. A vlastně skoro každé použití vypadá zhruba takhle.
+. Obecně uvážíme množinu všech částečných řešení našeho
+. problému tak, že hledaná řešení jsou maximální prvky.
+. Podmínku na řetězce pak ověříme tak, že si uvědomíme, že
+. sjednocení konečně mnoha částečných řešení je stále částečné řešení, a
+. z toho odvodíme, že je částečným řešením i sjednocení celého řetězce.
+. Z Zornova lemmatu tak odvodíme existenci hledaného maximálního prvku.
+. 
+:{V čem je to jednodušší než přímo použít rekurzi?}
+. 
+. Jistě, dalo by se říci, že ten první důkaz za použití rekurze byl
+. jednodušší, přehlednější, přímočařejší. A je do značné míry pravda, že
+. jakýkoli důkaz Zornovým lemmatem se dá přeformulovat jako důkaz
+. transfinitní indukcí s výběrem.
+. 
+:{Není třeba znát teorii množin.}
+. 
+. Ale Zornovo lemma je užitečné pro ty, kteří se nechtějí zabývat
+. detaily teorie množin. Abyste vysvětlili, co říká Zornovo lemma, stačí
+. vysvětlit částečná uspořádání a řetězce. Nemusíte vysvětlovat, co jsou
+. dobrá uspořádání, transfinitní rekurze, ordinály, či rozdíl mezi
+. množinou a třídou. A tak matematika funguje. Jeden matematik pomocí
+. jedné teorie odvodí nástroj, který danou teorii navenek nepotřebuje a
+. poskytne jej ostatním.
+. Další matematici pak ten nástroj můžou použít pro svoje teorie aniž by
+. se museli starat o teorii množin.
+. 
+. (báze vektorového prostoru prostoru, netriviální ultrafiltr, kostra grafu).
+. 
+. Bohužel tak ale Zornovo lemma slouží předevšim jako nástroj pro
+. pokročilejší matematické teorie, takže se mi jeho použítí těžko
+. demonstruje na jednoduchých přikladech. Můžeme si ale ukázat ještě
+. jeden příklad použití Zornova lemmatu -- jak z Zornova lemmatu
+. zpětně odvodit axiom výběru.
+.
+Pojedeme podle schématu typického použití. Máme množinu disjuntkních
+řádků, a chceme z každého řádku vybrat jeden prvek. Uvážíme tedy
+množinu všech částečných výběrů, tedy takových množin, které každý
+řádek protínají v jednom nebo žádném bodě. Ověřime podmínku na
+řetězce. V řetězci na sebe jednotlivé částečné výběry navazují, takže
+je můžeme sjednotit, a dostat opět částečný výběr.
+Z Zornova lemmatu dostaneme maximální prvek, což znamená, že už danou
+množinu nemůžeme doplnit o žádný prvek z žádného řádku. Proto je
+v každém řádku nějaký prvek vybraný, a axiom výběru je dokázaný.
 
-Jedna varianta, jak důkaz zobecnit spočívá v tom, že se na množinu
-všech částečných párování budeme dívat jako na částečně uspořádanou
-množinu. Jedno párování je větší než jiné, pokud se jedná o nadmnožinu
-hran. Když postupně vytváříme větši a větši párování, vlastně v tomto
-částečném uspořádání šplháme nahoru, a chceme transfinitní rekurzí
-došplhat až k nějakému maximálnímu prvku, tedy takovému, který už nad
-sebou nic nemá, a pokrývá tak .
+Zornovo lemma se tak někdy nazývá ekvivalentem axiomu výběru, ale je
+to trochu zavádějící v tom, o jak složitá tvrzení se jedná. Přesnější
+by bylo říci, že k důkazu Zornova lemmatu je potřeba axiom výběru, a
+že se jedná o natolik silný nástroj, že shodou okolností dokáže axiom
+výběru zpětně dokázat. Na závěr kapitoly si ukážeme ještě jeden slavný
+ekvivalent axiomu výběru: Princip dobrého uspořádání.
 
-Pochopitelně, ne každá částečně uspořádaná množina má maximální
-prvek, vždyť ani třeba taková přirozená čisla jej nemají. Naše
-částečně uspořádaná množina musí umožňovat provádět limitní kroky. To
-se zajistí následující podmínkou:
-Každý řetězec, to je takový kousek částečně uspořádané množiny,
-ve kterém jsou každé dva prvky porovnatelné, je shora omezený, tedy
-najdeme prvek takový, že celý řetězec je neostře pod tímto prvkem.
+Ten říká, že v každé množině můžeme uspořádat prvky tak, aby tvořila
+dobře uspořádanou množinu. Třeba reálná čisla nejsou dobře uspořádaná,
+ale mohli bychom je přeuspořádat tak, aby dobře uspořádaná byla.
+To na první pohled může vypadat absurdně, ale důkaz je stejně
+přímočarý jako ten porovnatelnosti libovolných dvou množin.
 
-Takto jsme dostali obecné tvrzení, kterému se říká Zornovo
-lemma. Zornovo lemma zní: Kdykoli máme neprázdnou částečně uspořádanou
-množinu takovou, že každý její řetězec je shora omezený, najdeme v
-této množině maximální prvek.
+Zkrátka si transfinitní rekurzí s výběrem postupně budeme brát prvky,
+a skládat je na ordinály. Nemůžeme přitom použit všechny ordinály,
+protože se všechny ordinály nevejdou do množiny. Z toho plyne, že nám
+došla množina reálných čisel, a protože jsme ji přeuspořádali na
+ordinální čisla, je teď dobře uspořádaná.
 
-V našem případě částečných párování dvou množin je podmínka na horní
-mez řetězců zajištěna pomocí sjednocení -- kdykoli sjednotíme řetězec
-částečných párování, stále se bude jednat o částečné párování. I když
-při obecném sjednocení částečných párování by párování vyjít nemuselo,
-to, že máme řetězec zajišťuje, že jsou příslušná párování
-kompatibilní.
+Z pohledu tohoto důkazu snad vypadá důkaz principu dobrého uspořádání
+jako trivialita, ale samotný princip dobrého uspořádání je docela
+silné tvrzení. Je možné z něj přímočaře odvodit jak to, že jsou každé
+dvě množiny porovnatelné, tak axiom výběru. Myslím, že ale bude lepši
+nechat tyhle otázky jako cvičení. Snad jenom napovím, že pro důkaz
+porovnatelnosti se hodí začátek páté kapitoly, a pro důkaz axiomu
+výběru ten popis dobrého uspořádání, který říká, že každá neprázdná
+podmnožina má nejmenši prvek.
 
-A sjednocení je popravdě zdaleka nejčastější způsob, jak podmínku
-Zornova lemmatu ověřit, ať už dokazujete třeba existenci báze
-lineárního prostoru, nebo ultrafiltru, všechno je to na jedno brdo.
-
-Ale abych se ale přiznal, mně připadá Zornovo lemma zejména jako
-způsob, jak předat výsledek teorie množin mimo teorii množin, aniž by
-bylo nutné vysvětlovat, co to znamená dobré uspořádání a transfinitní
-rekurze. V okamžiku, kdy člověk zná transfinitní rekurzi s výběrem, je
-typicky jedno, jestli formuluje svůj důkaz přes Zornovo lemma, nebo přes
-rekurzi. A já považuji rekurzi typicky za o něco názornější, nicméně
-proti gustu, žádný dišputát.
-
-TODO: Zornovo lemma -> axiom výběru
-
-Další obecné tvrzení z obecného soudku se nazývá princip dobrého
-uspořádání. To říká, že jakkoli velkou množinu, třeba reálná čísla,
-můžeme přeuspořádat, aby bylo toto uspořádání dobré, tedy tak, že
-každá neprázdná koncová množina má následníka.
-
-A důkaz je opět v podobném duchu jako u předchozích
-tvrzení. Transfinitní rekurzí postupně bereme různé prvky naší
-množiny, dokud to jde. Víme, že se tenhle proces musí někde zastavit,
-protože jinak bychom mohli axiomem nahrazení sestrojit množinu všech
-ordinálů. A protože ordinály jsou dobře uspořádané, tak jsme si právě
-naší množinu dobře uspořádali.
-
-Tato dvě tvrzení -- Zornovo lemma a princip dobrého uspořádání se
-často označují za ekvivalenty axiomu výběru. To znamená, že jsme pro
-jejich důkaz potřebovali použít axiom výběru, a naopak je možné
-z Zornova lemmatu nebo principu dobrého uspořádání zpětně dokázat
-samotný axiom výběru. Přesto je stavení axiomu výběru na roveň těmto
-dvěma větám je trochu zavádějící. Abychom dokázalo Zornovo lemma a
-princip dobrého uspořádání, potřebovali jsme vybudovat teorii okolo
-ordinálů a transfinitní rekurze s výběrem, zatímco opačný důkaz axiomu
-výběru z těchto vět je docela přímočarý. Takže si to tu neukážeme,
-zkuste si to sami, je to pěkné cvičení na probírané pojmy.
-
-V dalším díle použijeme princip dobrého uspořádání, definujeme si, co
-formálně znamená mohutnost, a ukážeme si, jak lze dělat rekurzi s
-výběrem ještě o něco chytřeji. Nashle příště.
+V dalším díle použijeme princip dobrého uspořádání na něco ještě
+jiného. Definujeme si, co formálně znamená mohutnost, a ukážeme si,
+jak lze dělat rekurzi s výběrem ještě o něco chytřeji. Nashle příště.
