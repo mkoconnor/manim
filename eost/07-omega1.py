@@ -298,7 +298,7 @@ class GradientLine(Line):
     def generate_points(self):
         points = [
             interpolate(self.start, self.end, alpha)
-            for alpha in np.linspace(0, 1, self.segment_num)
+            for alpha in np.linspace(0, 1, self.segment_num+1)
         ]
         for p1, p2 in zip(points, points[1:]):
             self.add(Line(p1, p2, **self.init_kwargs))

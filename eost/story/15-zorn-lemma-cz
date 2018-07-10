@@ -81,7 +81,7 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . transfinitní rekurze na množině s výběrem musí někde zastavit.
 . Jenom zkusíme naši situaci ještě trochu zobecnit.
 .
-:--------------------------ZornLemma-------------------------------------
+:--------------------------MatchingPoset-------------------------------------
 .
 . Napřed si to zobecnění vyobrazíme na konkrétním případu, kde jsou obě
 . porovnávené množiny konečné, třeba tříprvkové.
@@ -142,7 +142,11 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . Zornovo lemma. Teď jsme si ukázali, proč Zornovo lemma obecně
 . platí.
 . Ještě se vrátíme k našemu konkrétnímu případu částečných
-. párování. Dokážeme ještě jednou, že jsou každé dvě množiny
+. párování.
+.
+:------------------ZornLemmaExample1-------------------------
+.
+. Dokážeme ještě jednou, že jsou každé dvě množiny
 . porovnatelné, tentokrát pomocí Zornova lemmatu.
 . Párování, které pokrývá alespoň jednu z množin je přesně
 . maximální prvek v množině všech částečných párování, takže jeho
@@ -165,6 +169,9 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . Tím jsme ověřili podmínku, a máme hotovo.
 .
 . A vlastně skoro každé použití vypadá zhruba takhle.
+.
+:-------------------ZornLemmaGeneralUsage----------------------
+.
 . Obecně uvážíme množinu všech částečných řešení našeho
 . problému tak, že hledaná řešení jsou maximální prvky.
 . Podmínku na řetězce pak ověříme tak, že si uvědomíme, že
@@ -185,7 +192,11 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . detaily teorie množin. Abyste vysvětlili, co říká Zornovo lemma, stačí
 . vysvětlit částečná uspořádání a řetězce. Nemusíte vysvětlovat, co jsou
 . dobrá uspořádání, transfinitní rekurze, ordinály, či rozdíl mezi
-. množinou a třídou. A tak matematika funguje. Jeden matematik pomocí
+. množinou a třídou. A tak matematika funguje.
+.
+:---------------------HowMathWorks-------------------------
+.
+. Jeden matematik pomocí
 . jedné teorie odvodí nástroj, který danou teorii navenek nepotřebuje a
 . poskytne jej ostatním.
 . Další matematici pak ten nástroj můžou použít pro svoje teorie aniž by
@@ -199,44 +210,60 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . jeden příklad použití Zornova lemmatu -- jak z Zornova lemmatu
 . zpětně odvodit axiom výběru.
 .
-Pojedeme podle schématu typického použití. Máme množinu disjuntkních
-řádků, a chceme z každého řádku vybrat jeden prvek. Uvážíme tedy
-množinu všech částečných výběrů, tedy takových množin, které každý
-řádek protínají v jednom nebo žádném bodě. Ověřime podmínku na
-řetězce. V řetězci na sebe jednotlivé částečné výběry navazují, takže
-je můžeme sjednotit, a dostat opět částečný výběr.
-Z Zornova lemmatu dostaneme maximální prvek, což znamená, že už danou
-množinu nemůžeme doplnit o žádný prvek z žádného řádku. Proto je
-v každém řádku nějaký prvek vybraný, a axiom výběru je dokázaný.
-
-Zornovo lemma se tak někdy nazývá ekvivalentem axiomu výběru, ale je
-to trochu zavádějící v tom, o jak složitá tvrzení se jedná. Přesnější
-by bylo říci, že k důkazu Zornova lemmatu je potřeba axiom výběru, a
-že se jedná o natolik silný nástroj, že shodou okolností dokáže axiom
-výběru zpětně dokázat. Na závěr kapitoly si ukážeme ještě jeden slavný
-ekvivalent axiomu výběru: Princip dobrého uspořádání.
-
-Ten říká, že v každé množině můžeme uspořádat prvky tak, aby tvořila
-dobře uspořádanou množinu. Třeba reálná čisla nejsou dobře uspořádaná,
-ale mohli bychom je přeuspořádat tak, aby dobře uspořádaná byla.
-To na první pohled může vypadat absurdně, ale důkaz je stejně
-přímočarý jako ten porovnatelnosti libovolných dvou množin.
-
-Zkrátka si transfinitní rekurzí s výběrem postupně budeme brát prvky,
-a skládat je na ordinály. Nemůžeme přitom použit všechny ordinály,
-protože se všechny ordinály nevejdou do množiny. Z toho plyne, že nám
-došla množina reálných čisel, a protože jsme ji přeuspořádali na
-ordinální čisla, je teď dobře uspořádaná.
-
-Z pohledu tohoto důkazu snad vypadá důkaz principu dobrého uspořádání
-jako trivialita, ale samotný princip dobrého uspořádání je docela
-silné tvrzení. Je možné z něj přímočaře odvodit jak to, že jsou každé
-dvě množiny porovnatelné, tak axiom výběru. Myslím, že ale bude lepši
-nechat tyhle otázky jako cvičení. Snad jenom napovím, že pro důkaz
-porovnatelnosti se hodí začátek páté kapitoly, a pro důkaz axiomu
-výběru ten popis dobrého uspořádání, který říká, že každá neprázdná
-podmnožina má nejmenši prvek.
-
-V dalším díle použijeme princip dobrého uspořádání na něco ještě
-jiného. Definujeme si, co formálně znamená mohutnost, a ukážeme si,
-jak lze dělat rekurzi s výběrem ještě o něco chytřeji. Nashle příště.
+:--------------------ZornLemmaToAC-----------------------
+.
+. Axiom výběru říká, že když máme množinu neprázdných disjunktních
+. množin, ty si tady nakreslíme jako řádky, tak můžeme z každého řádku
+. najednou vybrat jeden prvek, a výsledek zabalit do množiny. Jinými
+. slovy existuje množina, která protíná každý řádek v přesně v jednom bodě.
+. Axiom výběru dokážeme z Zornova lemmatu opět typickým způsobem.
+. Uvážíme částečně uspořádanou množinu všech částečných výběrů -- tedy
+. takových množin, které protínají každý řádek v žádném nebo jednom
+. bodě. Maximální prvky jsou pak je přesně to, co hledáme -- částečné
+. výběry, které nejdou rozšířit, a tak musí protnout každý řádek
+. přesně jednou.
+.
+. K dokázání axiomu výběru tak stačí ověřit podmínku na řetězce.
+. A argument je opět klasický -- v řetězci na sebe jednotlivé prvky
+. navazují, takže stačí vzít sjednocení celého řetězce a máme horní
+. mez. Tím jsme ověřili podmínku na řetězce, z Zornova lemmatu tak
+. vyplývá existence maximálního prvky, a axiom výběru je dokázaný.
+.
+:--------------------WellOrderingPrinciple-----------------------
+.
+. Zornovo lemma se tak někdy nazývá ekvivalentem axiomu výběru, ale je
+. to trochu zavádějící v tom, o jak složitá tvrzení se jedná. Přesnější
+. by bylo říci, že k důkazu Zornova lemmatu je potřeba axiom výběru, a
+. že se jedná o natolik silný nástroj, že dokáže axiom výběru shodou
+. okolností zpětně dokázat. Vedle Zornova lemmatu se často zmiňuje ještě
+. jeden ekvivalent axiomu výběru: Princip dobrého uspořádání. V závěru
+. této kapitoly se na něj ještě trochu podíváme.
+.
+. Princip dobrého uspořádání říká, že v každé množině můžeme uspořádat
+. prvky tak, aby tvořila dobře uspořádanou množinu. Třeba reálná čisla
+. nejsou dobře uspořádaná, ale mohli bychom je přeuspořádat tak, aby
+. dobře uspořádaná byla. To na první pohled může vypadat absurdně,
+. vždyť je reálných čísel nespočetně, a kdoví kolik přesně. Ale důkaz
+. je stejně přímočarý jako ten první důkaz porovnatelnosti libovolných
+. dvou množin.
+.
+. Uvážime třídu všech ordinálních čisel, a transfinitní rekurzí
+. s výběrem na ně budeme postupně pokládat reálná čisla.
+. Nemůžou se nám přitom vyčerpat všechny ordinály,
+. protože není možné všechny ordinály pokrýt množinou. Z toho plyne,
+. že nám časem dojdou reálná čisla časem. A protože jsme je
+. přeuspořádali na ordinální čisla, máme na nich teď dobré uspořádání.
+.
+. Z pohledu tohoto důkazu snad vypadá důkaz principu dobrého uspořádání
+. jako trivialita, ale samotný princip dobrého uspořádání je docela
+. silné tvrzení.
+. Je možné z něj přímočaře odvodit jak to, že jsou každé
+. dvě množiny porovnatelné, tak axiom výběru. Myslím, že ale bude lepši
+. nechat tyhle otázky jako cvičení. Snad jenom napovím, že pro důkaz
+. porovnatelnosti postačuje pátá kapitola, a pro důkaz axiomu se hodí
+. výběru ten popis dobrého uspořádání, který říká, že každá neprázdná
+. podmnožina má nejmenši prvek.
+.
+. V dalším díle použijeme princip dobrého uspořádání na něco ještě
+. jiného. Definujeme si, co formálně znamená mohutnost, a ukážeme si,
+. jak lze dělat rekurzi s výběrem ještě o něco chytřeji. Nashle příště.

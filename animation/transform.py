@@ -83,6 +83,12 @@ class MoveToTarget(Transform):
             raise Exception("MoveToTarget called on mobject without attribute 'target' ")
         Transform.__init__(self, mobject, mobject.target, **kwargs)
 
+class MoveFromSaved(Transform):
+    def __init__(self, mobject, **kwargs):
+        target = mobject.copy()
+        mobject.restore()
+        Transform.__init__(self, mobject, target, **kwargs)
+
 class CyclicReplace(Transform):
     CONFIG = {
         "path_arc" : np.pi/2
