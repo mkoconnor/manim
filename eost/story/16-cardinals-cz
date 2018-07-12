@@ -14,21 +14,24 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
 V druhé kapitole jsme si zavedli kardinální čísla.
 V páté kapitole jsme si zavedli ordinální čísla.
 V jedenácté kapitole jsme si ukázali, co ordinální čisla formálně znamenají.
-Teď si konečně ukážeme, co formálně znamenají kardinály.
+A teprve teď si konečně ukážeme, co formálně znamenají kardinály.
 Tedy, jaká že množina je třeba kontinuum.
 
-Kontinuum by mělo zastupovat všechny množiny které mají mohutnost stejnou jako reálná čisla.
+Kontinuum by mělo zastupovat všechny množiny které mají mohutnost
+stejnou jako reálná čisla, nebo třeba potenční množinu omegy.
 
 Jeden nápad by mohl být uvážit prostě všechny množiny mohutnosti
 kontinua, a zabalit je do množiny. To ale nemůžeme udělat. Axiomy to
 neumožňují, a naopak by existence takové množiny vedla ke sporu
 v podobě Russelova paradoxu,
 
-Přistoupit k tomu tedy tím druhým způsobem -- vybereme si
-reprezentanta. Ale kterého?
+Musíme to tedy udělat jinak, vybereme si reprezentanta.
+Ale kterého?
 Je množina reálných čisel dobrým reprezentantem této mohutnosti?
 Nebo potenční množina množiny přirozených čísel?
-Ani jedna volba není dost obecná. Chtěli bychom ideálně je univerzální
+Ani jedna volba není dost obecná na to, abychom ji mohli použit pro
+jakoukoli mohutnost.
+Chtěli bychom ideálně je univerzální
 postup, když nám někdo dá nějakou množinu, jak najít reprezentanta této
 množiny.
 Podobně jako když nám někdo dá obecnou dobře uspořádanou množinu,
@@ -46,9 +49,12 @@ mohutnosti kontinua.
 Takže kardinalita obecné množiny bude jednoduše reprezentována
 ordinálem dané mohutnosti. Ještě je ale třeba si vybrat, kterým
 ordinálem. Víme, že už třeba ordinálů mohutnosti Aleph 0 je víc,
-dokonce nespočetně mnoho, a s dalšimi kardinalitami to je
-stejné. Využijeme proto dobrého uspořádání na ordinálech a vybereme si
-tedy ten ordináľ, který je nejmenší možný.
+dokonce nespočetně mnoho. Jsou to všechny od omegy, až po omega
+jedničku nevčetně. S dalšimi kardinalitami to je
+stejné.
+Protože jsou ale ordinály dobře uspořádané, mají všechny tyhle
+intervaly svůj první prvek. A ten formálně označíme za danou
+mohutnost.
 
 Takže Aleph_0 je formálně stejná množina jako omega. Aleph_1 je stejná
 množina jako omega_1. A i všechna dalši kardinální čísla jsou ve

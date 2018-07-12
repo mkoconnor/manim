@@ -187,6 +187,36 @@ class DashedLine(Line):
         else:
             return self.end
 
+class GradientLine(Line):
+    CONFIG = {
+        "segment_num" : 200
+    }
+    def __init__(self, start, end, *colors, **kwargs):
+        self.init_kwargs = kwargs
+        Line.__init__(self, start, end, **kwargs)
+        self.gradient_highlight(*colors)
+
+    def generate_points(self):
+        points = [
+            interpolate(self.start, self.end, alpha)
+            for alpha in np.linspace(0, 1, self.segment_num+1)
+        ]
+        for p1, p2 in zip(points, points[1:]):
+            self.add(Line(p1, p2, **self.init_kwargs))
+
+        return self
+
+    def get_start(self):
+        if len(self) > 0:
+            return self[0].points[0]
+        else:
+            return self.start
+
+    def get_end(self):
+        if len(self) > 0:
+            return self[-1].points[-1]
+        else:
+            return self.end
 
 class Arrow(Line):
     CONFIG = {

@@ -270,3 +270,40 @@ def make_half_ordinal(ordinal, trunc_down = True):
         line.set_points_as_corners([start, end])
     return ordinal
 
+class LongOrdinal(VMobject):
+    CONFIG = {
+        "x0" : -4,
+        "x1" : 4,
+        "line_start" : 0.25,
+        "ordinal_end" : 0.5,
+        "ordinal_q" : (0.9, 0.7, 0.8),
+        "ordinal_color" : WHITE,
+        "gradient" : (BLACK, WHITE),
+        "height" : 1,
+    }
+    def __init__(self, **kwargs):
+        VMobject.__init__(self, **kwargs)
+        start_p = self.x0*RIGHT
+        end_p = self.x1*RIGHT
+        line_start_p = interpolate(start_p, end_p, self.line_start)
+        line = GradientLine(line_start_p, end_p, *self.gradient)
+        ordinal = LimitOrdinal(
+            lambda **kwargs: OrdinalOmega(**kwargs),
+            q = self.ordinal_q,
+            x0 = self.x0,
+            x1 = interpolate(self.x0, self.x1, self.ordinal_end),
+            height = self.height,
+        )
+        ordinal.highlight(self.ordinal_color)
+        self.add(line, ordinal)
+
+class Omega1(LongOrdinal):
+    pass
+
+class OrdinalClass(LongOrdinal):
+    CONFIG = {
+        "gradient" : (BLACK, WHITE, BLACK),
+        "x0" : -5,
+        "x1" : 5,
+        "height" : 0.5,
+    }
