@@ -277,8 +277,8 @@ class LongOrdinal(VMobject):
         "line_start" : 0.25,
         "ordinal_end" : 0.5,
         "ordinal_q" : (0.9, 0.7, 0.8),
-        "ordinal_color" : WHITE,
-        "gradient" : (BLACK, WHITE),
+        "color" : WHITE,
+        "gradient" : (BLACK, "default"),
         "height" : 1,
     }
     def __init__(self, **kwargs):
@@ -286,7 +286,11 @@ class LongOrdinal(VMobject):
         start_p = self.x0*RIGHT
         end_p = self.x1*RIGHT
         line_start_p = interpolate(start_p, end_p, self.line_start)
-        line = GradientLine(line_start_p, end_p, *self.gradient)
+        gradient = [
+            (self.color if color is "default" else color)
+            for color in self.gradient
+        ]
+        line = GradientLine(line_start_p, end_p, *gradient)
         ordinal = LimitOrdinal(
             lambda **kwargs: OrdinalOmega(**kwargs),
             q = self.ordinal_q,
@@ -294,7 +298,7 @@ class LongOrdinal(VMobject):
             x1 = interpolate(self.x0, self.x1, self.ordinal_end),
             height = self.height,
         )
-        ordinal.highlight(self.ordinal_color)
+        ordinal.highlight(self.color)
         self.add(line, ordinal)
 
 class Omega1(LongOrdinal):
@@ -302,7 +306,7 @@ class Omega1(LongOrdinal):
 
 class OrdinalClass(LongOrdinal):
     CONFIG = {
-        "gradient" : (BLACK, WHITE, BLACK),
+        "gradient" : (BLACK, "default", BLACK),
         "x0" : -5,
         "x1" : 5,
         "height" : 0.5,

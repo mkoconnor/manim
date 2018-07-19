@@ -11,112 +11,182 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
   * example: there is a set of points in the plane having 3-element intersection with every circle
   * why ordinary recursion on ordinals fails?
 
-V druhé kapitole jsme si zavedli kardinální čísla.
-V páté kapitole jsme si zavedli ordinální čísla.
-V jedenácté kapitole jsme si ukázali, co ordinální čisla formálně znamenají.
-A teprve teď si konečně ukážeme, co formálně znamenají kardinály.
-Tedy, jaká že množina je třeba kontinuum.
-
-Kontinuum by mělo zastupovat všechny množiny které mají mohutnost
-stejnou jako reálná čisla, nebo třeba potenční množinu omegy.
-
-Jeden nápad by mohl být uvážit prostě všechny množiny mohutnosti
-kontinua, a zabalit je do množiny. To ale nemůžeme udělat. Axiomy to
-neumožňují, a naopak by existence takové množiny vedla ke sporu
-v podobě Russelova paradoxu,
-
-Musíme to tedy udělat jinak, vybereme si reprezentanta.
-Ale kterého?
-Je množina reálných čisel dobrým reprezentantem této mohutnosti?
-Nebo potenční množina množiny přirozených čísel?
-Ani jedna volba není dost obecná na to, abychom ji mohli použit pro
-jakoukoli mohutnost.
-Chtěli bychom ideálně je univerzální
-postup, když nám někdo dá nějakou množinu, jak najít reprezentanta této
-množiny.
-Podobně jako když nám někdo dá obecnou dobře uspořádanou množinu,
-můžeme transfinitní rekurzí postavit odpovídající ordinál.
-
-I když to může znít podivně, matematici se pro rozhodli pro kardinální
-čísla využít opět ordinální čísla. Z principu dobrého uspořádání
-víme, že můžeme reálnou přímku přeuspořádat na něco dobře
-uspořádaného, když tomu najdeme ordinální typ, našli jsme ordinál
-mohutnosti kontinua.
-
+:----------------------------SeriesIntro-----------------------------
+.
+. Na začátku esence teorie množin jsme si představili kardinální čísla.
+. Aleph0 coby velikost množiny přirozených čísel, kontinuum coby
+. velikost množiny reálných čísel, a tak dál.
+.
+. Následně jsme se věnovali ordinálním číslům -- typům dobře
+. uspořádaných množin.
+.
+. Ale až v jedenácté kapitole jsme si ukázali, co ordinální čisla
+. formálně znamenají.
+.
+. A teprve teď, v poslední kapitole si konečně ukážeme, co formálně
+. znamenají kardinály. Ve formální teorii množin by měl každý objekt
+. odpovídat nějaké množině. Tak jaká množina by měla reprezentovat třeba
+. kardinální číslo kontinuum?
+.
+:------------------------ContinuumQuestion------------------------
+.
+. Kontinuum by mělo zastupovat všechny množiny které mají mohutnost
+. stejnou jako reálná čisla, nebo třeba potenční množinu omegy.
+. 
+. Jeden nápad by mohl být uvážit prostě všechny množiny mohutnosti
+. kontinua, a zabalit je do množiny. To ale nemůžeme udělat. Axiomy to
+. neumožňují, a naopak by existence takové množiny vedla ke sporu
+. v podobě Russelova paradoxu,
+.
+. Musíme to tedy udělat jinak, vybereme si reprezentanta.
+. Ale kterého?
+. Je množina reálných čisel dobrým reprezentantem této mohutnosti?
+. Nebo potenční množina množiny přirozených čísel?
+. Ani jedna volba není dost obecná na to, abychom ji mohli použit pro
+. jakoukoli mohutnost.
+. Chtěli bychom ideálně je univerzální
+. postup, když nám někdo dá nějakou množinu, jak najít reprezentanta této
+. množiny.
+.
+. I když to může znít podivně, matematici se pro rozhodli pro kardinální
+. čísla využít opět ordinální čísla. Z principu dobrého uspořádání
+. víme, že můžeme reálnou přímku přeuspořádat na něco dobře
+. uspořádaného. Takže existuje ordinál, který má mohutnost kontinuum.
+.
 :{"A to je ta kardinalita?"}
 :{"Skoro, ale musíme si vybrat konkrétní ordinál."}
+. 
+. Kardinalita obecné množiny tedy bude jednoduše reprezentována
+. ordinálem dané mohutnosti. Ještě je ale třeba si vybrat, kterým
+. ordinálem. Ordinálů pevné mohutnosti totiž typicky existuje víc.
+.
+:------------------------CardinalDefinition------------------------
+.
+. už třeba když se podíváme na mohutnost Aleph_0, tak tuto mohutnost má
+. třeba ordinál omega, ten se mezi všemi ordinály můžeme nakreslit zde.
+. Stejnou mohutnost má ale třeba taky ordinál omega krát tři, ten je
+. tady.
+. Obecně mají mohutnost Aleph nula všechny ordinály počínaje omegou až po
+. omega jedničku, která už je ale nespočetná.
+. 
+. S dalšimi kardinalitami to je stejné.
+. Když se podíváme na všechny ordinály mohutnosti kontinua,
+. tak ve třídě všech ordinálů tvoří určitý interval.
+. A my si tu teď kreslíme všechny ordinály tak trochu jako reálnou
+. přímku, ale to vůbec není reálná přímka, je to něco dobře
+. uspořádaného. To znamená, že náš interval má zaručeně první prvek.
+. A to bude ten on, formálně označíme jako kontinuum
+. ten nejmenší ordinál mohutnosti kontinua, a stejně tak pro všechny
+. ostatní kardinality.
+.
+. Takže Aleph_0 je z formálního hlediska jenom jiný název pro ordinál
+. jako omega. Aleph_1 je omega_1, a tak dál.
+. 
+. Ale tento pohled na kardinály není dobrý jenom pro
+. formalitu. Ordinály, které jsou nejmenší od své mohutnosti se můžou
+. hodit v transfinitní rekurzi. Ukážeme si to napřed na spočetném
+. příkladu.
+.
+:-------------------------GridIntro------------------------------
+.
+. V prvním díle jsme řešili otázku, jak obarvit všechna políčka
+. nekonečné mřížky, aby byly všechny řádky až na konečně mnoho políček
+. modré, a všechny sloupce až na konečně políček žluté. Ukázali jsme si
+. tehdy jednoduché explicitní řešení, ale k výsledku se lze dobrat také
+. přímočarým postupným procesem.
+.
+:------------------------GridCollect------------------------------
+.
+. Sloupce by měly být skoro celé žluté, a řádky by měly být skoro celé
+. modré.
+. Uvážíme dohromady všechny tyhle požadavky,
+. Jako každou množina, i množinu všech těchto požadavků můžeme dobře
+. uspořádat,
+. Ale pro naše účely je třeba si uspořádat na kardinál, tedy na
+. přirozená čisla.
+.
+:-----------------------OmegaGridColoring----------------------------
+.
+. Teď budeme naše požadavky po jednom uspokojovat.
+. Tenhle sloupec má být žlutý, tak ho celý nabarvíme na žluto.
+. Tenhle řádek má být až na konečně mnoho políček modrý, tak ho s
+. výjimkou toho jednoho žlutého políčka nabarvíme na modro,
+. Další sloupec nabarvíme až na jedno políčko na žluto,
+. další řádek až na dvě políčka na modro,
+. A tak postupujeme dál, dokuz nemáme obarvenou celou mřížku.
+.
+. A je důležité, že jsme si požadavky uspořádali na kardinál.
 
-Takže kardinalita obecné množiny bude jednoduše reprezentována
-ordinálem dané mohutnosti. Ještě je ale třeba si vybrat, kterým
-ordinálem. Víme, že už třeba ordinálů mohutnosti Aleph 0 je víc,
-dokonce nespočetně mnoho. Jsou to všechny od omegy, až po omega
-jedničku nevčetně. S dalšimi kardinalitami to je
-stejné.
-Protože jsou ale ordinály dobře uspořádané, mají všechny tyhle
-intervaly svůj první prvek. A ten formálně označíme za danou
-mohutnost.
+:----------------------Omega4GridColoring--------------------------
+.
+. Stejný barvící postup by dával smysl i transfinitně, s obecným
+. ordinálem, ale už by nevedl ke kýženému výsledku.
+. Najednou už obarvením doposud prázdných políček nezajistíme, aby byl
+. daný řádek až na konečně políček modrý, protože nám tam překáží
+. nekonečně žlutých políček.
+. A ta tam jsou proto, že jsme před tím prošli nekonečně mnoho kroků.
+. Zato před tím jsme měli zaručeno, že za sebou máme v každém kroku
+. jenom konečně mnoho kroků, a proto obarvení neobarvených políček
+. uspokojilo příslušný řádek.
+.
+. A podobné úvahy je možné dělat s obecnými ordinály.
 
-Takže Aleph_0 je formálně stejná množina jako omega. Aleph_1 je stejná
-množina jako omega_1. A i všechna dalši kardinální čísla jsou ve
-skutečnosti jen vybraná ordinální čisla, která jsou nejmenší svojí
-mohutnosti.
+:----------------------CardinalsFeature---------------------------
+.
+. Když postupně procházíme omegu, alias kardinál aleph_0, můžeme
+. využít toho, že za sebou máme 
+. v každém kroku méně než omega kroků.
+. Podobně, když procházíme kardinál kontinuum, můžeme využít, že za
+. sebou v každém kroku máme méně než kontinuum kroků.
+. Konkrétní využití této myšlenky si ukážeme na následujícím příkladě.
 
-Ale kardinály nejsou dobré jenom pro formalitu. Ordinály, které jsou
-nejmenší od své mohutnosti se můžou hodit v transfinitní
-rekurzi. Ukážeme si to napřed na spočetném příkladu.
+:----------------------WeirdSetIntro---------------------------
 
-V prvním díle jsme řešili otázku, jak obarvit všechna políčka
-nekonečné mřížky, aby byly všechny řádky až na konečně mnoho políček
-modré, a všechny sloupce až na konečně políček žluté. Ukázali jsme si
-tehdy jednoduché explicitní řešení, ale k výsledku se lze dobrat také
-přímočarým postupným procesem.
-
-Uvážime všechny řádky a sloupce, těch je jenom spočetně mnoho, takže
-si je můžeme uspořádat do nekonečné posloupnosti délky omega. Následně
-si budeme brát po jednom řádky nebo sloupce z naši posloupnosti, a
-obarvíme jejich nevybarvená políčka na správnou barvu. Takže sloupec
-nula obarvíme celý na žluto, řádek nula celý na modro, až na již
-vybarvené prostřední políčko, sloupec 1 na žluto, až na již vybarvené
-prostřední políčko, a tak dál. Tak každému řádku i sloupci zajistíme,
-že bude mít správnou barvu až na konečně mnoho políček, z minulých
-kroků.
-
-V tomto postupu je klíčové, že jsme měli posloupnost dlouhou
-kardinální čislo, tedy omega. Kdybychom zvolili posloupnost dlouhou
-omega krát dva, začali s řádky, a až potom prošli sloupce, postup by
-nefungoval. Jednoduše bychom tímto postupem napřed obarvili celou
-tabulku na modro, a ve sloupcích už by nezbylo, co barvit. Jednoduše
-proto, že najednou máme nekonečno předchozích kroků. Když jsme ale
-použili kardinál, měli jsme vždy pouze konečně mnoho předchozích
-kroků, a mohli jsme tak v celém procesu udržovat dostatečně málo
-obarvenou tabulku.
-
-U barvení tabulky to vypadá jako trivialita, ale podobnou myšlenku
-můžeme aplikovat i u větších kardinálů. Uvažme následující
-úlohu. Chceme sestrojit podmnožinu bodů roviny takovou, že každá
-kružnice prochází přesně třemi body z této množiny. Taková množina
+Chceme sestrojit takovou podmnožinu bodů roviny, aby každá
+kružnice procházela přesně třemi body z této množiny. Taková množina
 musí mít na jednu stranu body prakticky všude, protože můžeme udělat
-naší kružničku jakkoli malou, a na druhou stranu musí být dostatečně
-provzdušněná, aby i velké kružnice procházely vždy jenom třema body.
+naší kružničku jakkoli malou, na jakémkoli místě,
+a na druhou stranu musí být dostatečně provzdušněná, aby i velké
+kružnice procházely vždy jenom třemi body.
 
-Danou množinu sestrojíme transfinitním procesem, kde v každém kroku
+Pro důkaz budeme potřebovat ještě vědět jeden pomocný fakt, že
+kontinuum krát kontinuum má stále mohutnost kontinua.
+
+:---------------------ContinuumSquare---------------------
+
+V druhém díle jsme si ukázali, že aleph_0 krát aleph_0 má mohutnost
+aleph_0. To se dělá tak, že dvojici přirozených čisel r,c přiřadíme
+číslo 2^r*(2c+1) - 1, které danou dvojici jednoznačně kóduje.
+V připadě kontinua, které měří třeba nekonečné posloupnosti nul a
+jedniček stači vzít dvě nekonečné posloupnosti na vstupu,
+a této dvojici přiřadit posloupnost, ve které danou dvojici jednoduše
+zazipujeme do sebe.
+Takže dvojic posloupností je stejné množství jako posloupností
+samotných, tedy kontinuum krát kontinuum je kontinuum.
+Analogické tvrzení dokonce platí pro všechny kardinály, proč si
+ukážeme na konci dílu.
+Teď zpátky k naší úloze.
+
+:-------------------------WeirdSetConstruction------------------------
+
+Chceme množinu, která protíná každou kružnici v přesně třech bodech.
+Sestrojíme ji transfinitním procesem, kde v každém kroku
 uspokojíme jednu kružnici. Kolik máme kružnic? Rovina je kartézský
-součin R krát R, tedy bodů je v ní kontinuum krát kontinuum, to je
-kontinuum. Je pravda, že jsme si zatím ukázali jenom, že aleph 0 krát
-aleph 0 je aleph nula, ale popravdě to platí pro všechny nekonečné
-kardinály. Proč tomu tak je, si ukážeme na závěr této kapitoly.
+součin R krát R, tedy bodů je v ní kontinuum.
 
-Takže bodů v rovině je kontinuum. Každá kružnice je určená svým
-středem, a poloměrem, což je reálné čislo. možných poloměrů je teda
-taky kontinuum, takže máme i kontinuum možných kružnic. Uspořádáme si
-je tedy do posloupnosti dlouhé kontinuum, coby kardinální čislo, a
-transfinitní rekurzí s výběrem budeme přidávat body do naší množiny
-tak, abychom vždycky uspokojili příslušnou kružnici.
+Každá kružnice je určená svým středem, a poloměrem, což je reálné
+čislo. možných poloměrů je taky kontinuum, takže máme i kontinuum
+možných kružnic. Uspořádáme si
+tedy všechny kružnice v rovině do posloupnosti dlouhé kontinuum, coby
+kardinální čislo, a transfinitní rekurzí s výběrem budeme přidávat
+body do naší množiny tak, abychom vždycky uspokojili příslušnou
+kružnici.
 
-Takže si vezmeme první kružnici, a vybereme pro ni tři body. Následně
-druhou kružnici, na tu opět dáme tři body, jen je musíme dát mimo tu
-první kružnici. U třetí kružnice musíme být ještě o něco
-opatrnějši, ale už to je v podstatě obecný případ. V každém kroku
+Vezmeme první kružnici, a vybereme pro ni tři body. Následně
+druhou kružnici, na tu taky dáme postupně tři body.
+Jen musíme být o něco opatrnějši, ale už to je v podstatě obecný
+případ.
+V každém kroku
 rekurze totiž přidáváním bodů můžeme zajistit, že budou na příslušné
 kružnici aspoň tři body, ale musíme si současně hlídat, že na žádnou
 jinou kružnici nedáme více než tři body. To se týká jak těch již
