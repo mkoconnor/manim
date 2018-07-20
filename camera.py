@@ -93,7 +93,7 @@ class Camera(object):
         if len(vmobjects) == 0:
             return
         #More efficient to bundle together in one "canvas"
-        image = Image.fromarray(self.pixel_array, mode = "RGB")        
+        image = Image.fromarray(self.pixel_array, mode = "RGB")
         canvas = aggdraw.Draw(image)
         for vmobject in vmobjects:
             self.display_vectorized(vmobject, canvas)

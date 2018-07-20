@@ -141,10 +141,11 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
 . Konkrétní využití této myšlenky si ukážeme na následujícím příkladě.
 
 :----------------------WeirdSetIntro---------------------------
-
-Chceme sestrojit takovou podmnožinu bodů roviny, aby každá
-kružnice procházela přesně třemi body z této množiny. Taková množina
-musí mít na jednu stranu body prakticky všude, protože můžeme udělat
+.
+. Chceme sestrojit takovou podmnožinu bodů roviny, aby každá
+. kružnice procházela přesně třemi body z této množiny. To není jen
+. tak. Taková množina musí mít na jednu stranu body prakticky všude,
+protože můžeme udělat
 naší kružničku jakkoli malou, na jakémkoli místě,
 a na druhou stranu musí být dostatečně provzdušněná, aby i velké
 kružnice procházely vždy jenom třemi body.
