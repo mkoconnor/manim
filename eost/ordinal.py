@@ -301,6 +301,18 @@ class LongOrdinal(VMobject):
         ordinal.highlight(self.color)
         self.add(line, ordinal)
 
+    def creation_anim(self):
+        return AnimationGroup(
+            ShowCreation(
+                self.submobjects[0],
+                rate_func = squish_rate_func(smooth, self.line_start, 1),
+            ),
+            ShowCreation(
+                self.submobjects[1],
+                rate_func = squish_rate_func(smooth, 0, 0.75),
+            ),
+        )
+
 class Omega1(LongOrdinal):
     pass
 

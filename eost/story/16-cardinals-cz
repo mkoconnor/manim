@@ -140,88 +140,132 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
 . sebou v každém kroku máme méně než kontinuum kroků.
 . Konkrétní využití této myšlenky si ukážeme na následujícím příkladě.
 
-:----------------------WeirdSetIntro---------------------------
+:----------------------MagicSetIntro---------------------------
 .
 . Chceme sestrojit takovou podmnožinu bodů roviny, aby každá
 . kružnice procházela přesně třemi body z této množiny. To není jen
 . tak. Taková množina musí mít na jednu stranu body prakticky všude,
-protože můžeme udělat
-naší kružničku jakkoli malou, na jakémkoli místě,
-a na druhou stranu musí být dostatečně provzdušněná, aby i velké
-kružnice procházely vždy jenom třemi body.
-
-Pro důkaz budeme potřebovat ještě vědět jeden pomocný fakt, že
-kontinuum krát kontinuum má stále mohutnost kontinua.
-
+. protože můžeme udělat
+. naší kružničku jakkoli malou, na jakémkoli místě,
+. a na druhou stranu musí být dostatečně provzdušněná, aby i velké
+. kružnice procházely vždy jenom třemi body.
+.
+. Pro konstrukci takové množiny, budeme potřebovat ještě jeden
+. pomocný fakt.
+.
 :---------------------ContinuumSquare---------------------
+.
+. V druhém díle jsme si ukázali, že aleph_0 krát aleph_0 má mohutnost
+. aleph_0. To se ukázalo tak, že jsme obecné dvojici přirozených čisel
+. r,c přiřadili číslo 2^r*(2c+1) - 1, které danou dvojici jednoznačně
+. kóduje.
+. Je přirozené se ptát, jestli to samé platí i pro další
+. kardinály. Rozhodně to neplatí pro konečné kardinály větší než jedna,
+. dva krát dva není dva, ale co pro nekonečné kardinály?
+. Třeba v případě kontinua. Kontinuum počítá třeba nekonečné
+. posloupnosti nul a jedniček, takže si vezmeme dvojici takových
+. posloupností, a chtěli bychom ji zakódovat do jedné.
+. A ukazuje se, že je to ještě jednodušší, stačí tyhle dvě posloupnosti
+. vnořit do sebe.
+. 
+. Takové tvrzení, že kartézský součin množiny samy se sebou
+. má stále stejnou mohutnost, platí dokonce pro všechny nekonečné
+. množiny.
+. My to konkrétně použijeme k tomu, že když je nějaká množina A menší než
+. kontinuum, tak i množina všech dvojic z A je menší než kontinuum.
+. A ne nutně dvojic, opakovaným použitím snadno dostáváme, že i
+. třeba množina všech trojic z A je menší než kontinuum.
+. Důkaz tohoto obecného tvrzení je ale trochu techničtější, takže se
+. vrátíme k naší úloze, a tohle odložíme na konec kapitoly.
 
-V druhém díle jsme si ukázali, že aleph_0 krát aleph_0 má mohutnost
-aleph_0. To se dělá tak, že dvojici přirozených čisel r,c přiřadíme
-číslo 2^r*(2c+1) - 1, které danou dvojici jednoznačně kóduje.
-V připadě kontinua, které měří třeba nekonečné posloupnosti nul a
-jedniček stači vzít dvě nekonečné posloupnosti na vstupu,
-a této dvojici přiřadit posloupnost, ve které danou dvojici jednoduše
-zazipujeme do sebe.
-Takže dvojic posloupností je stejné množství jako posloupností
-samotných, tedy kontinuum krát kontinuum je kontinuum.
-Analogické tvrzení dokonce platí pro všechny kardinály, proč si
-ukážeme na konci dílu.
-Teď zpátky k naší úloze.
+:----------------------MagicSetIntro (recap picture) ----------------------
+.
+. Chceme množinu, která protíná každou kružnici v přesně třech bodech.
 
-:-------------------------WeirdSetConstruction------------------------
+:-----------------------CirclesCardinality----------------------
+.
+. Sestrojíme ji transfinitním procesem, kde v každém kroku
+. uspokojíme jednu kružnici. Kolik máme kružnic?
+. Každá kružnice v rovině je určená svým poloměrem -- kladné reálné
+. číslo -- a středem -- ten je daný dvěma reálnými souřadnicemi.
+. Dohromady tak je kružnice určena třemi reálnými čísly, takže počet
+. kružnic je kontinuum krát kontinuum krát kontinuum.
+. To už víme, že je stejně jako jenom kontinuum, takže si všechny
+. kružnice uspořádáme na kardinální číslo kontinuum -- nejmenší ordinál
+. mohutnosti kontinua.
+. Tyto kružnice teď budeme po jedné uspokojovat.
 
-Chceme množinu, která protíná každou kružnici v přesně třech bodech.
-Sestrojíme ji transfinitním procesem, kde v každém kroku
-uspokojíme jednu kružnici. Kolik máme kružnic? Rovina je kartézský
-součin R krát R, tedy bodů je v ní kontinuum.
+:-----------------------MagicSetConstruction----------------------
+.
+. Vezmeme první kružnici, a jakkoli na ni umístíme tři body.
+. U druhé kružnice už musíme být opatrnější.
+. Bod nesmíme umístit na průsečík s první kružnicí. Kdybychom to
+. udělali, měla by na už první kružnice na sobě 4 body, a my chceme, aby
+. měla každá jenom tři.
+. Průsečíky si proto označíme červeně, že tam bod umístit nesmíme.
+. Můžeme ale první bod umístít kamkoli s výjimkou těchto dvou průsečíků.
+. Jen se teď situace ještě trochu zkomplikuje.
+. Pro každou trojici z už zanesených bodů existuje nějaká kružnice,
+. která danou trojicí prochází. Tyhle kružnice už jsou plné, nesmíme na
+. ně dát žádný další bod, takže nám vyřadí další body z modré
+. kružnice, na kterou chceme dát celkem tři body. Vyřadí ale naštěstí
+. jenom konečně mnoho bodů, takže máme stále nekonečně mnoho možností,
+. kam umístit druhý bod.
+. To vytvoří další už naplněné kružnic, a zablokuje
+. dalších konečně mnoho pozic na naší kružnici, ale stále máme dost
+. místa na třetí bod. Opět vzniknou naplněné kružnice, ale druhou
+. kružnici máme vyřešenou, a můžeme jít na další.
+. 
+. Při postupném probírání všech kružnic se nám může stát, že potkáme
+. nějakou, která už na sobě nějaké body má, takže nám zbývá méně
+. práce. Někdy narazíme i na takové kružnice, které už na sobě mají tři
+. body, ale nikdy víc, protože si při konstrukci pečlivě hlídáme, aby se
+. na žádné kružnici s třemi body neobjevil čtvrtý.
+.
+. Je ale potřeba mít jistotu, že mimo zakázané body máme vždycky
+. prostor, kam umístit bod nový. U druhé nebo třetí kružnice můžeme
+. jednoduše říct, že zakázaných bodů je jenom konečně mnoho, ale to
+. tento argument v transfinitní rekurzi brzy přestane platit. Je tedy
+. třeba o něco sofistikovanějši argument s mohutnostmi.
+.
+:------------------MagicSetCardinality------------------------
+.
+. Využijeme toho, že procházíme kardinál, takže máme za sebou v každém
+. kroku méně než kontinuum projitých kružnic.
+. V každém kroku jsme přidali nejvýše tři body, takže i počet bodů je po
+. celou dobu ostře menši než kontinuum.
+. Každá kružnice s třemi body, ať už taková, kterou jsme prošli, nebo kterou
+. jsme naplnili mimoděk, je svou trojicí bodů jednoznačně určená.
+. Protože vybraných bodů je méně než kontinuum, je i všech možných
+. trojic bodů méně než kontinuum, tady používáme nejsilnější formu
+. pomocného tvrzení, takže i všech kružnic, na které se už nějak dostaly
+. tři body, je méně než kontinuum.
+.
+. V aktuálním kroku chceme dát bod na jednu pevnou kružnici,
+. a každá naplněná kružnice nám ji protne v nanejvýš dvou
+. bodech. Naplněných kružnic je méně než kontinuum, takže i zakázaných
+. bodů je méně než kontinuum.
+. Celá kružnice se skládá z kontinua mnoho bodů, takže v každém
+. kroku najdeme bod, který můžeme doplnit.
+.
+. Tím jsme ověřili, že se náš postup přidávání bodů nezasekne. Celý
+. argument přitom stojí na tom, že jsme kružnice poskládali na
+. kardinální čislo, a máme za sebou v každém okamžiku méně než kontinuum
+. kroků.
+.
+:---------------------MagicSetEffect---------------------------
+.
+. Transfinitní rekurze s výběrem pak vykoná své, uspokojí každou
+. kružnici a dá nám požadovanou množinu. Působivé, není liž pravda?
+. S transfinitní rekurzí s výběrem, a na kardinálu se najednou
+. nespočetno jeví o dost krotčí, než jak neuchopitelně mohlo vypadat
+. ze začátku.
+.
+:--------------------CardinalSquare-------------------------------
 
-Každá kružnice je určená svým středem, a poloměrem, což je reálné
-čislo. možných poloměrů je taky kontinuum, takže máme i kontinuum
-možných kružnic. Uspořádáme si
-tedy všechny kružnice v rovině do posloupnosti dlouhé kontinuum, coby
-kardinální čislo, a transfinitní rekurzí s výběrem budeme přidávat
-body do naší množiny tak, abychom vždycky uspokojili příslušnou
-kružnici.
-
-Vezmeme první kružnici, a vybereme pro ni tři body. Následně
-druhou kružnici, na tu taky dáme postupně tři body.
-Jen musíme být o něco opatrnějši, ale už to je v podstatě obecný
-případ.
-V každém kroku
-rekurze totiž přidáváním bodů můžeme zajistit, že budou na příslušné
-kružnici aspoň tři body, ale musíme si současně hlídat, že na žádnou
-jinou kružnici nedáme více než tři body. To se týká jak těch již
-prošlých kružnic, na kterých už určitě tři body jsou, tak
-potenciálních dalších. Jak tedy můžeme opatrně přidat bod?
-Dejme tomu, že jsme v kroku n. Protože je kontinuum kardinál, je
-mohutnost n menši než kontinuum. V každém kroku jsme přidali nanejvýš
-3 body, 3n je pořád míň než kontinuum. A když chceme přidat nový bod,
-nesmíme ho přidat na žádnou kružnici, na které už tři body jsou. Každá
-trojice bodů, která neleži na přímce přesně určuje jednu kružnici,
-takže můžeme počet kružnic shora odhadnout jako počet bodů na třetí.
-Nakonec každá taková zakázaná kružnice protíná naší vybranou kružnici
-v nanejvýš dvou bodech, takže máme nanejvýš dvakrát 3n na třetí
-zakázaných bodů.
-To je pořád méně než kontinuum, ale an kružnici máme kontinuum
-bodů. Když jsme zakázali méně  než kontinuum bodů, pořád nám kontinuum
-bodů zbylo. Tak jeden z nich vybereme, a ten můžeme bezpečně přidat do
-naši množiny.
-Obnovíme množinu zakázaných kružnic a zakázaných bodů, a zopakujeme
-proces ještě dvakrát, abychom na naši kružnici dostali přesně tři
-body.
-A tímhle procesem uspokojíme každou kružnici, takže ve výsledné
-množině budou na každé kružnici ležet přesně tři body.
-A aby se to povedlo, bylo důležité, že rekurze běžela na kardinálu,
-takže jsme měli v každém kroku zaručeno méně než kontinuum zakázaných
-bodů.
-Působivé, není liž pravda? S transfinitní rekurzí s výběrem, a na
-kardinálu se najednou nespočetno jeví o dost krotčí, než jak nezkrotně
-mohlo vypadat ze začátku.
-
-Na závěr nejen tohoto dílu, ale celé série si ukážeme, proč pro
-libovolný nekonečný ordinál kappa platí, že kappa krát kappa je kappa.
-V případě kontinua se to dá udělat i přímočaře a bez teorie, to si
-když tak rozmyslete sami. My si tu ukážeme, jak se to dokáže obecně.
+Na závěr nejen tohoto dílu, ale celé série si dokážeme slíbené
+tvrzení, proč pro libovolný nekonečný ordinál kappa platí, že kappa
+krát kappa je kappa.
 
 Začneme s alternativním důkazem, proč je aleph 0 krát aleph 0 rovno
 aleph 0. Budeme si rekurzivně brát prvky kartézského součinu omega
@@ -272,8 +316,8 @@ všechna nekonečná kardinální čísla.
 
 Co bych rád abyste si z téhle série odnesli?
 Z prvních dílů o teorii nekonečna to, že nekonečno je zajímavé a
-nádherné, ale taky záludné a překvapivé oproti tomu, co jsme zvyklí z
-konečného světa.
+nádherné, ale taky záludné a překvapivé oproti tomu, co jsme zvyklí
+z konečného světa.
 Z následujících dílů o základech matematiky to, že se prakticky celá
 matematika dá formálně vybudovat jenom z několika málo axiomů a
 množin, které se nějak navzájem obsahují.
