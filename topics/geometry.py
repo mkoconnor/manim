@@ -335,6 +335,12 @@ class Polygon(VMobject):
     def get_vertices(self):
         return self.get_anchors_and_handles()[0]
 
+class PolyLine(Polygon):
+    CONFIG = {
+        "mark_paths_closed" : False,
+        "close_new_points" : False,
+    }
+
 class RegularPolygon(Polygon):
     CONFIG = {
         "start_angle" : 0

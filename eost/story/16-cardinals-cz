@@ -80,8 +80,10 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
 . ostatní kardinality.
 .
 . Takže Aleph_0 je z formálního hlediska jenom jiný název pro ordinál
-. jako omega. Aleph_1 je omega_1, a tak dál.
-. 
+. jako omega. Aleph_1 je omega_1, a tak dál. Rozdíl mezi symbolem
+. aleph a omega tak formálně není žádný, Nicméně Aleph tak nějak dává
+. najevo, že nám jde o mohutnost, zatímco u omegy nám jde o ordinál.
+.
 . Ale tento pohled na kardinály není dobrý jenom pro
 . formalitu. Ordinály, které jsou nejmenší od své mohutnosti se můžou
 . hodit v transfinitní rekurzi. Ukážeme si to napřed na spočetném
@@ -261,76 +263,101 @@ Quote: Ukazuje se, že nekonečno je přesný opak toho, co se o něm říká. -
 . nespočetno jeví o dost krotčí, než jak neuchopitelně mohlo vypadat
 . ze začátku.
 .
-:--------------------CardinalSquare-------------------------------
+:--------------------Aleph0Square-------------------------------
+.
+. Na závěr nejen tohoto dílu, ale celé série si dokážeme slíbené
+. tvrzení, že pro libovolný nekonečný ordinál kappa platí, že kappa
+. krát kappa je kappa. Kappa je řecké písmenko, které se obvykle používá
+. pro značení kardinálů.
+.
+. Začneme s alternativním důkazem, proč je aleph 0 krát aleph 0 rovno
+. aleph 0, který pak bude možno rozšířit na další kardinály.
+. Máme kartézský součin aleph0 krát aleph0, a chtěli bychom jej
+. očíslovat přirozenými čísly.
+. Kartézský součin aleph0 krát aleph0 si rozdělíme na postupně se
+. rozšířující čtverce, a při procházení prvků nebude ani tak důležité
+. přesné pořadí jako to, že vždy sbíráme prvky z co nejmenšího čtverce
+. to jde. To znamená, že začneme ve čtverci 1 krát 1. Pak dosbíráme
+. čtverec dva krát dva, a pokračujeme dál dalšími čtverci podle našeho
+. pravidla, tedy vždy vysbíráme ten nejmenší čtverec, který ještě není
+. celý probraný.
+.
+. Každý zelený čtverec má konečnou stranu, takže má i konečně mnoho bodů
+. uvnitř. Z toho plyne, že nám přirozená čísla nedojdou uvnitř žádného
+. čtverce, a očíslujeme tak celý kartézský součin. Teď to snad vypadá,
+. že zdůrazňuji nepodstatný detail, ale stejně to funguje i třeba v
+. případě aleph1 krát aleph1 je aleph1. 
+.
+:--------------------Aleph1Square-------------------------------
 
-Na závěr nejen tohoto dílu, ale celé série si dokážeme slíbené
-tvrzení, proč pro libovolný nekonečný ordinál kappa platí, že kappa
-krát kappa je kappa.
+Stejně jako před tím si v kartészkém součinu aleph1 krát aleph1
+. představíme čtverce, a budeme je postupně vyplňovat prvky kardinálu
+. aleph0 alias omega jedničky.
+. Napřed tedy projdeme čtverec omega krát omega v omega krocích.
+. Dál můžeme pokračovat třeba takto dalšími omega a jedním krokem.
+. Teď teda nemůžeme jít doleva jako před tím, protože bychom ztratili
+. dobré uspořádání. Směrem doleva to nemá první prvek. Ale nevadí,
+. nějak se to dobře uspořádat určitě dá, třeba takto v dalších omega
+. krocích. Tak jsme završili omegatý čtverec a můžeme stejným způsobem
+. pokračovat dál. Už v tom žádná dalši zrada není.
+.
+. Každý částečný čtverec má spočetnou stranu, takže obsahuje spočetně
+. mnoho prvků. Proto nám omega jednička nemůže dojít v žádném čtverci,
+. a očíslujeme s ní celou omega1 krát omega1. Takže mohutnost aleph1
+. krát aleph1 se rovná aleph1.
+. A to je vlastně obecný argument. Jenom si ještě musíme uvědomit dvě
+. věci.
 
-Začneme s alternativním důkazem, proč je aleph 0 krát aleph 0 rovno
-aleph 0. Budeme si rekurzivně brát prvky kartézského součinu omega
-krát omega, a budeme chtít, aby se výsledek vešel do posloupnosti
-dlouhé omega. To můžeme zajistit následujícím pravidlem: Do tabulky si
-nakreslíme všechny čtverce s jedním rohem vlevo nahoře, a v každém
-kroku rekurze sebereme prvek z co nejmenšiho možného čtverce to jde.
-To znamená, že napřed sebereme prvek nula, nula, pak v libovolném
-pořadí prvky nula jedna, jedna nula, a jedna jedna, a tak dál.
-Proč nám to akorát vyjde do posloupnosti dlouhé omega?
-Rozhodně to nemůže být kratši, protože je omega ten nejkratší ordinál
-mohutnosti aleph 0, a kartézský součin nemůže mít menší mohutnost.
+:-------------------CardinalSquare-------------------------------
+.
+. Zaprvé, kardinální čisla jsou jenom nějaká podtřída všech ordinálních
+. čísel.
+. Z toho plyne, že jsou dobře uspořádaná, a můžeme o nich
+. vlastnost kappa krát kappa se rovná kappa dokazovat postupně indukcí.
+. Takže když to dokazujeme pro nějaké kappa, můžeme předpokládat, že pro
+. všechny menší kardinály už to platí.
+.
+. A za druhé, žádný nekonečný kardinál nemá poslední prvek. Jednoduše
+. proto, že takový prvek bychom mohli přesunout na začátek a schovat do
+. první omega, tím dostaneme menší ordinál stejné mohutnosti. A protože
+. kardinál má být nejmenši ordinál své mohutnosti, tohle s ním udělat
+. nejde.
+. 
+. Z toho plyne, že každý bod v kappa krát kappa se nachází v nějakém
+. menším čtverci.
+. Protože kappa je kardinál, má strana toho čtverce nějakou menší
+. mohutnost než kappa. O této mohutnosti už jsme tvrzení dokázali, takže
+. i počet všech bodů v tomto čtverci je menší než kappa.
+. Takže nám při procházení čtverců indexující kardinál kappa
+. nedojde, a mohutnost kappa krát kappa se rovná kappa.
 
-Na druhou stranu, každý čtverec má konečnou šířku n, takže obsahuje
-jenom n na druhou, tedy konečně mnoho bodů. To znamená, že se proces
-nemohl skončit v žádném konkrétním čtverci, a musel projít všechny
-čtverce.
+. Tím jsme završili důkaz pomocného tvrzení, a tedy i existenci
+. množiny, která protíná každou kružnici přesně třikrát.
 
-Teď můžeme analogicky dokázat, že Aleph 1 krát Aleph 1 je
-Aleph 1. Sestrojíme posloupnost dlouhou omega 1, do které budeme
-skládat prvky kartézského součinu omega 1 na druhou.
-Opět se budeme řídit pravidlem, že v každém kroku pereme prvek z co
-nejmenšiho čtverce to jde. Teď už sice čtverec omega nemůžeme projít
-tak pěkně z jedné strany na druhou, protože je třeba ctít dobré
-uspořádání, ale můžeme jej projít všelijak jinak. Třeba napřed dolní
-strana dobrava, pak pravá dolů. Nebo jakkoli jinak, dokud to bude
-dobře uspořádané.
-
-Opět jsme uvnitř posloupnosti dlouhé omega1 museli projít všechny
-čtverce, protože jinak bychom museli zůstat uvnitř některého ze
-čtverců o spočetné straně. Ale takový čtverec má současně spočetně
-mnoho bodů, takže s ním určitě neprojdeme celou omega jedničku.
-
-Takže jsme z toho, že se aleph0 krát aleph0 rovná aleph0 dokázali, že
-se aleph1 krát aleph1 rovná aleph1. A stejně pokračujeme transfinitní
-indukcí na kardinálech, což, jak už víte, je totéž jako si pro spor
-vzít ten nejmenší kardinál kappa, pro který to neplatí, a ukázat, že
-to pro něj ve skutečnosti platí.
-
-Takže v obecném případě předpokládáme, že to platí pro všechny
-kardinály menší než kappa, a postavíme takovou posloupnost dlouhou
-kappa, Opět postupně procházíme čtverce. Musíme projít všechny
-čtverce, protože každý čtverec je má šiřku menší než kappa, takže
-obsahuje méně než kappa bodů, tady využíváme indukční předpoklad.
-
-Proto je kappa na druhou rovno kappa, takže tento vzoreček platí pro
-všechna nekonečná kardinální čísla.
-
-Co bych rád abyste si z téhle série odnesli?
-Z prvních dílů o teorii nekonečna to, že nekonečno je zajímavé a
-nádherné, ale taky záludné a překvapivé oproti tomu, co jsme zvyklí
-z konečného světa.
-Z následujících dílů o základech matematiky to, že se prakticky celá
-matematika dá formálně vybudovat jenom z několika málo axiomů a
-množin, které se nějak navzájem obsahují.
-A závěrečné dva díly měly demonstrovat, že tahle teorie taky něco
-dokáže. Že je nekonečno vlastně mnohem krotší, než se zprvu mohlo
-zdát. Že ačkoli jsme si na začátku série dokázali, že reálná čísla
-jsou nespočetná, takže je nejde jen tak projít po jednom, tak jsme si
-je v posledním díle vlastně tak nějak po jednom prošli, a nebyl s tím
-žádný velký problém.
-
-A to je ode mne z této série všechno. Na závěr bych rád poděkoval
-svému bráchovi Radku Olšákovi za úvodní piano znělku a Grantu
-Sandersonovi za působivý animační nástroj. A samozřejmě díky vám
-divákům, že jste to se mnou vydrželi, i když jsem někdy dělal nudné
-technické věci, nebo naopak šílené nepochopitelné věci, a ... mějte se
-nekonečně!
+:----------------------Takeovers-----------------------
+.
+. Co bych rád abyste si z téhle série odnesli?
+. Z prvních dílů o teorii nekonečna to, že nekonečno je zajímavé a
+. nádherné, ale taky záludné a překvapivé oproti tomu, co jsme zvyklí
+. z konečného světa.
+. Z následujících dílů o základech matematiky to, že se prakticky celá
+. matematika dá formálně vybudovat jenom z několika málo axiomů a
+. množin, které se nějak navzájem obsahují.
+. A závěrečné dva díly měly demonstrovat, že tahle teorie taky něco
+. dokáže. Že je nekonečno vlastně o dost krotší, než se zprvu mohlo
+. zdát. Že ačkoli jsme si na začátku série dokázali, že reálná čísla
+. jsou nespočetná, takže je nejde jen tak projít po jednom, tak jsme si
+. je v posledním díle vlastně tak nějak po jednom prošli, a nebyl s tím
+. žádný velký problém.
+.
+. A to je ode mne z této série všechno.
+.
+:-------------------------Thanks-------------------------
+.
+. Na závěr bych rád poděkoval
+. svému bráchovi Radku Olšákovi za úvodní piano znělku a Grantu
+. Sandersonovi alias 3Blue1Brownovi za působivý animační nástroj. A
+. samozřejmě díky vám
+. divákům, že jste to se mnou vydrželi, i když jsem někdy dělal nudné
+. technické věci, nebo naopak šílené nepochopitelné věci, a ... mějte se
+. nekonečně!
