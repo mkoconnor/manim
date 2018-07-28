@@ -34,69 +34,60 @@ Outline
   * that would not be possible if infinity were just a large finite number
 
 :------------------------CantorScene-----------------------------------
-. Hello, welcome to the essence of set theory. Since the video can be
-. watched by a diverse population, let's clarify at first what is all
-. this going to be about.
-.
-. Set theory is a mathematical discipline founded by Georg Cantor in the
-. nineteenth century.
-. The theory studies the infinity. Or rather infinite sets to be
-. precise.
+. Hello, and welcome to essence of set theory.
 :------------------------HotelScene-----------------------------
-. If you've heard about some cool stuff with infinity like an
-. infinite number of buses of infinite amount of people fitting into a
-. single hotel having just infinite number of rooms...
+. If you've heard about some cool stuff with infinity, like how an
+. infinite number of buses with an infinite amount of people can fit into
+. a single hotel with an infinite number of rooms...
 :-----------------------PrisonersScene-----------------------------
-. Or an infinite number of prisoners such that almost
-. all of them guess their hat correctly, it is likely to be strongly
-. connected to this discipline.
+. Or how an infinite number of prisoners wearing colored hats can coordinate
+. so that almost all of them can guess their own hat color correctly,
+. it is likely to be strongly connected to set theory.
+:------------------------CantorScene-----------------------------------
+. Set theory is a mathematical discipline founded by Georg Cantor in the
+. nineteenth century. At its core, set theory is the study of infinity: or
+. rather, infinite sets, to be precise.
 .
-. To be honest, it is actually our main reason why we study
-. it. Because it is beautiful.
+. To be honest, understanding infinity is actually the main reason why we study
+. set theory. To a mathematician, infinity is beautiful.
 :----------------------TwoSetTheoryRoles---------------------------
-. It provides to a mathematician a whole
-. amazing world just for their ideas. Sorry, nothing for practically
-. oriented people who want to see direct applications in real world. You
-. don't meet the infinity on a street.
+. It provides to a mathematician a whole amazing world just for their ideas.
+. Of course, that means if you're a practically
+. oriented person who wants to see direct applications in the real world, sorry. You
+. don't meet infinity walking down the street.
 .
-. But then there is also another reason why the theory is important, it
-. is solid.
-. It turned out that intuitive thinking about infinity can easily lead
-. to direct contradictions like that a set is an element of itself if
-. and only if it isn't. So mathematicians developed a formal axiomatic
+. But there is also another reason why set theory is important: it gives a solid
+. framework for mathematics in general. Following your intuition about infinity
+. can easily lead to paradoxes, so mathematicians developed a formal axiomatic
 . framework to deal with that. And it turned out that their solution is
 . so universal that it covers virtually any mathematical field.
 .
-. Therefore, set theory actually plays two roles in mathematics, the
-. theory of infinity and the foundations of mathematics.
+. Therefore, set theory actually plays two roles in mathematics, not only is it the
+. theory of infinity, but it's also the very foundations of mathematics.
 .
 
 :---------------------------ChapterList------------------------------
-. We start with
-. the intuitive theory of infinity in several chapters, then we describe
-. the problems and their solution by providing an axiomatic
-. framework. The series will be finished with some non-trivial tools of
-. set theory like the principle of maximality.
+. In the first few videos, we'll start with some intuition for infinity.
+. Then we'll explain the problems with that intuition and solve it by
+. introducing a framework in terms of a few axioms. Then we'll finish with
+. some more advanced tools of set theory like the principle of maximality.
 
 :--------------------------InfinityBasics-----------------------------
-. To begin with the theory of infinity, we have to clarify what infinity
-. means to us.
-. What is it besides just the symbol of rotated number
-. eight? Actually, we are not going to answer this question, we will not
-. use even the symbol of infinity in the series anyway. We will
-. investigate a bit different problem, what is infinite? Of course,
-. infinite is what is not finite. That answer was cheap. But finiteness
-. can be defined quite simply, finite set is such a set that the
-. number of its elements can be expressed by a natural number.
-. A set of five elements is finite.
-. A set of one hundrets elements is finite. But
-. the set of all natural numbers is too big to be measured by a natural
-. number, so it is infinite.
+. To begin thinking about infinity, we have to define it. What do
+. we mean by a rotated number eight? Actually, that question is too vague
+. for us to answer. We won't even use the infinity symbol in this series.
+. Instead, we'll try to define "infinite size". So what's something infinitely big?
+. Of course, there's a cheap answer: something infinitely big is something not
+. finitely big. But "finitely big" is easy to define: a finitely big set is just
+. a set where the number of elements in that set can be expressed as a natural number.
+. A set of five elements is finite. A set of one million elements is finite too. But
+. the set of all natural numbers is too big to be measured by a finite natural number.
+. So the set of all natural numbers is infinitely big.
 .
-. Even an empty set is a finite set, that is why we consider zero as a
-. natural number, which may be unusual in other fields but it is very
-. natural in set theory.
-. 
+. Even an empty set is a finite set: it has zero elements. That's why we
+. consider zero as a natural number, which may be unusual in other fields
+. but it is very natural in set theory.
+.
 . According to this definition, the answer to our original question is
 . definitelly not just a large natural number. The point is that
 . infinite sets behave in unexpected ways and that is the area of the
