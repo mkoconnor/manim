@@ -1,4 +1,4 @@
-A world full of paradoxes
+Paradoxy a koncept řešení
 =========================
 
 Quote:
@@ -6,20 +6,23 @@ Quote:
   -- Pavel Paták
 
 V předchozím díle jsme si ukázali, jak sestrojit nejmenší nespočetné
-ordinální čislo, omega1. Analogickým postupem bychom mohli pokračovat,
+ordinální čislo, omega1 -- tak, že jsme sjednotili všechny spočetná ordinální čísla.
+Analogickým postupem bychom mohli pokračovat,
 sjednotit všechny ordinály mohutnosti omega1, a dostat tak ještě větši
 ordinál -- omega2, potom omega3, omega4, atd. Supremum, jako obvykle
 označime omega_omega a pokračujeme transfinitní rekurzí po
 ordinálech. Takto dosáhneme nejenom na omega_(omega+1),
 omega_(omega*omega), ale dokonce omega_omega1. V tomto limitním kroku
-sjednocujeme nespočetně předchozích výsledků. A můžeme pokračovat:
+sjednocujeme nespočetně mnoho předchozích výsledků. A můžeme pokračovat:
 omega_omega_omega1, a tak dál. Svět ordinálních čísel je bezbřehý, ale
 všechno toto odpovídá korektním matematickým konstrukcím.
+
+:{"A co sjednotit všechny ordinály?"}
 
 Mohli jste si ale všimnout, že jsem se v předchozích dílech zdráhal
 jednoduše vzít všechny ordinály a sjednotit je. Docela rychle bychom
 se dostali do sporu. Jakmile bychom k tomu velkému sjednocení přidali
-jedničku, dostali bychom nové ordinální čislo, které by bylo nutně
+jeden další prvek, dostali bychom nové ordinální čislo, které by bylo nutně
 delší než úplně všechna ordinální čísla. To nedává smysl. 
 :{Cesare Burali-Forti paradox}
 Tento problém se nazývá po matematiku Cesare Burali-Fortim, a byl
@@ -31,35 +34,60 @@ série, nebylo by na skladu něco jednoduššího?
 Proč jsme vlastně s ordinály začali? Snažili jsme se sestrojit množinu
 velké mohutnosti. Začali jsme s množinou všech přirozených čisel, pak
 jsme vzali všechny podmnožiny, to značíme kaligrafickým P. Pak všechny
-podmnožiny té množiny podmnožin, a tak dál. Ale v podstatě od prvního
-kroku už máme co do činění jenom s nějakými množinami. Tak si vezmeme
-množinu M všech množin, a ta bude největši ze všech. Jenže ve třetím
-díle jsme si ukázali, že potence M musí být ostře větší než M
-samotná. Potence M obsahuje pouze množiny, tak jam může být větší než
-množina M, která je obsahuje všechny?
+podmnožiny té množiny podmnožin, a v limitním kroku jsme sjednotili
+všechny doposud sestrojené množiny.
 
-Ještě přimočařejší paradox získáme, když si připomeneme, jak jsme
-ukázali, že je P(M) větši než M. Pro každý prvek M jsme si vzali
-odpovídající množinu, v tomto připadě prvek samotný, a sestrojili jsme
-množinu všech prvků, které ve své odpovídající množině chybí. V našem
-případě si tedy ponecháme jen ty množiny, které nejsou svými vlastními
-prvky. To zní docela přirozeně, množiny obsahující samy sebe jsou
-stejnak nějak podivné. Máme tedy množinu A všech takových množin,
-které neobsahují samy sebe. Taková množina A má přesto zásadní
-problém. Už víte jaký? Zkuste si zastavit video a rozmyslet si to.
+Ale tak proč si nevzít rovnou množiny všech mohutností, a sjednotit
+je? Tím dostaneme množinu A největši mohutnosti.
+Ale potenční množina množiny A musí být větší než A samotná, dostáváme
+spor.
 
-...
+Ještě si můžeme všimnout jednoho zjednodušení -- potenční množina
+obsahuje pouze množiny. Takže nemusíme všechny množina ni sjednocovat,
+stačí je zabalit do množiny. Tím dostaneme B, které ale musí obsahovat
+i všechny podmnožiny B, a to je spor s tím, že potenční množina je
+větší než B.
 
-Je to problém, jestli A obsahuje sama sebe, či nikoli. Kdyby sama sebe
-obsahovala, tak bychom A při samotné konstrukci do A
-nedali. Takže sama sebe neobsahuje a do množiny A patří. Zkrátka A
-leži v A právě tehdy, když tam neleží. To jsou paradoxy...
+Jak že jsme to vlastně dokazovali, že potenční množina musí být větší?
+Třeba je něco špatně na tom důkaze.
+Inu vezmeme si prvek x množiny B, a podíváme se, jestli odpovídající
+množina v potenční množině obsahuje prvek x. Uvážíme množinu všech
+těch prvků, které neleži v odpovídající podmnožině. Takto sestrojená
+množina pak nemůže odpovídat
+žádnému prvku, ani tomu, který v příslušné množině neleží, protože by
+v ní prvek x chyběl, ani tomu, který v ní leží, protože by v ní
+přebýval.
+Když je ale B množina všech množin, měla by být potenční množina B
+její součástí.
+To znamená, že se neptáme, jestli podmnožina odpovídající prvku x
+obsahuje prvek x, ale přímo, jestli množina x obsahuje sama sebe.
+Spor pak vytváří množina všech těch množin, které samy sebe
+neobsahují. Tak jsme si odvodili patrně ten nejjednodušší paradox
+pojmenovaný po matematiku Bertrandu Russellovi. Ve stručnosti vypadá
+následovně.
+
+Prvně se zeptáme, zda existuje množina všech množin, a intuitivně by
+existovat měla. Množiny přece jsou kolekce různých věcí, tak proč ne
+množin? Zjišťujeme, že taková množina je trochu divná, protože
+obsahuje sama sebe, tak se rozhodneme z ní tyhle divné prvky vyházet.
+Tedy zúžíme se na množinu jenom těch množin, které samy sebe
+neobsahují.
+A dostáváme spor. Jakmile by tato množina X neobsahovala sama sebe,
+museli bychom do X dát, a naopak kdyby se obsahovala, nesměli bychom
+ji do X dát. Takže se množina X obsahuje právě tehdy, když se
+neobsahuje. To jsou paradoxy...
 
 Zejména je vidět, že jsme na obdržení takových paradoxů nepotřebovali
-hlubokou teorii mohutností množin či dokonce dobrých uspořádání a
+teorii mohutností množin či dokonce dobrých uspořádání a
 ordinálních čisel. Tato teorie pomohla problém obnažit, ale
-problematická je sama o sobě myšlenka, že bychom uvážit množinu vsech
-množin splňující jisté vlastnosti.
+problematická je myšlenka množin sama o sobě.
+
+Jak teď z problému ven? Co přesně za něj může?
+
+TODO: Množiny do množin -> vytvoříme svět, třídy
+TODO: Nemůžeme si vzít všechny.
+
+................
 
 Je to vlastně záležitost jisté kruhové konstrukce. Chceme sestrojit
 množinu všech množin jisté vlastnosti. Abychom to udělali, musíme vzít
