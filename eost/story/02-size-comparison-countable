@@ -14,68 +14,91 @@ Outline
 * uncountability: infinite sequences of 0,1
 
 :------------------- FiniteFruitScene ----------------------------------
-. Assume that we have some apples and some pears. And we would like to
-. figure out what is more. Well, that's an exercise for first year
-. pupils of elementary school, we just compute the number of apples,
-. then the number of pears and since 5 is more than 4, there are more
-. apples than pears.
+. Let's say we have a few apples and a few pears, and we'd like to know
+. which fruit we have more of. If we're not dealing with infinity, this is
+. a problem for elementary school students: all you need to do is count up
+. the number of apples and the number of pears, and since 5 is bigger than 4,
+. there are more apples than pears.
 .
-. But let's go before elementary school, imagine that you cannot
-. count. How could you determine what is more? There is another option:
-. matching pears with apples. We see that when we make such pairs, there
-. is one extra apple, so there are more apples than pears. 
+. But what if you're not in elementary school yet and you don't know how to
+. count up to big numbers like four? Well, it's easy to count to one, so if you
+. match up pairs of one apple and one pear, and keep doing that until you can't
+. make any more pears, you can see that there's one extra apple left. So if
+. you don't know how to count to big numbers, by pairing up you know that
+. there's more apples than pears.
 .
-. And even if we reorder apples or pears and try an absolutely different matching
-. the result is still the same. There is one more apple. Isn't that surprising?
+. And even if we reorder the fruits, or try a different pairing, we still know
+. that there's one more apple. Isn't that great?
 .
-. Well, it isn't because we can count. We know that 5 apples minus 4
-. pears is one extra apple. It is not surprising at all. At least until
-. we meet infinity...
+. Well, it isn't great, because we can count. Five and four are small numbers,
+. so 5 apples minus 4 pears means there will always be one extra apple,
+. no matter how you match up the pairs. At least, until we meet infinity...
 
 :----------------- InfiniteFruitScene -----------------------------------
-. Let's have an infinite number of apples, each sitting at a natural
-. number, and an infinite number of pears also each sitting on a natural
-. number. There is a natural matching between apples and pears, so there
-. should be the same number of them. But if we use another matching,
-. connecting the pear at number 0 to the apple at number 1, the pear at
+. Let's say we have an infinite number of apples and an infinite number of pears.
+. How do we know which fruit we have more of? You can't just count to infinity
+. one by one because it would take an infinite amount of time. But pairing up
+. apples and pears is still possible with an infinite number of them: all we
+. need to do is to give a formula for which apples and which pears to pair up.
+. For example, we can say that apple number 1 pairs to pear number 1, and apple
+. number two pairs to pear number two, and so on, and we're left with zero unpaired fruits. So by
+. using pairs, we can still define "equal size" for infinite sets.
+.
+. But with infinity, you don't know that every possible way to match
+. fruits will give the same result. For example, if we connect the pear at
+. number 0 to the apple at number 1, the pear at
 . number 1 to the apple at number 2, and so on, there is one extra
-. apple. So there should be more apples than pears.
+. apple at position zero that isn't paired. So if we choose this pairing, we'd
+. think that there's more apples than pears.
 .
-. And similarly, there can be one extra pear. How to manage it?
-. The
-. reasonable way how to untangle this is the following definition.
+. And similarly, if we reverse the pairing, we can find another one that leaves
+. one extra pear. That's why infinity minus infinity is
+. undefined: depending on how you match up pairs, you can define it as any
+. number of extra fruits you want.
+
+. So how should we choose a pairing? We can clearly tell
+. what the best pairing should be: it's a pairing the fewest unpaired things.
+. If we can reach zero unpaired things, the two sets are the same size. So
+. let's use that to redefine "equal size" for infinite sets:
+
 . :{"Definition"}
-. Consider two sets, $A$ and $B$.
+. Let's say we have two sets, $A$ and $B$.
 . :{Boxes around apples and pears}
-. If there is any matching between $A$ and $B$ such that every element
+. If there is any pairing between $A$ and $B$ such that every element
 . of $A$ and every element of $B$ is used exactly once, we say that
-. these two sets have the same size. We write size by absolute value, so
-. we can write is like that,
+. these two sets have the same size, even if that size is infinite.
+
+. By the way, we write the size of a set the same way that that we
+. write absolute value, so when you see
 . :{$|A|=|B|$}
-. the size of $A$ equals the size of $B$.
+. it means the size of $A$ equals the size of $B$.
 .
-. If, on the other hand, if there is no way how to match these sets together,
+. If, on the other hand, it's impossible to pair up these sets together,
 . :{Finite number of pears, matching attempts}
-. and no matter how we try, we can just match the elements of the set
-. $B$ with a part of the set $A$, we say that the size $A$ is bigger
-. than $B$.
+. and no matter how we try, we can't just match the elements of the set
+. $B$ with a part of the set $A$, we say that the size of $A$ is bigger
+. than the size of $B$. This might seem boring, but proving that making pairs
+. is impossible can be a useful way to prove one set is bigger than another.
 
 :---------------------- NaturalsSubsets --------------------------
 . But this definition leads us to several surprising observations. Take
-. the set of all natural numbers. And then take just the subset
-. consisted of all even numbers. Intuitively, the number of even
-. naturals should be less than the number of all naturals. After all, we
-. discarded an infinite number of odd naturals something like the half
-. of all numbers here. But there is a simple correspondence between
-. natural numbers and even numbers:
+. the set of all natural numbers, and think about the set containing
+. all even numbers, which is a subset of the natural numbers. Intuitively,
+. there are less even numbers than both even and odd numbers combined.
+. After all, to make the even numbers from the natural numbers, you have
+. to discard all the odd ones. But there's an easy way to pair up the
+. two sets such that no numbers are left over.
 . :{|natural numbers|=|even natural numbers|}
-. We can just match every number with its double, zero with zero, one
-. with two, two with four, three with six and so on. So the number of
-. all even numbers is the same as the set of all naturals. 
+. We can just match every number with twice that number: one
+. with two, two with four, three with six, and so on. No numbers are left out,
+. because if there was such a number, you could just multiply or divide by two
+. to find the other number in the pair. So, somewhat unintuitively, there's the
+. same amount of even numbers as there are natural numbers.
 .
-. It was not really important to take exactly natural numbers. If we
-. take squares of integers, we can match zero with zero, one with one,
-. two with four, and so on. Or if we take just prime numbers, we can
+. In the same way, you can prove that many subsets of the integers have
+. the same number if items as the integers themselves. For example, we can
+. look at square numbers by matching one with one, two with four, three with
+. nine, and so on. Or if we take just prime numbers, we can
 . match then zero with two, one with three, two with five, and so on. If
 . we take any infinite subset of natural numbers, however sparse, the
 . size will still be the same.
@@ -126,7 +149,7 @@ Outline
 . two and so on, is aleph 0. They are just natural numbers reflected by
 . the point zero. And there are aleph 0 of natural numbers. So the
 . number of all integers is still Aleph 0.
-. 
+.
 . Q:"Hey, what happened to the merged zero?"
 . Technically, the size could be less than aleph zero because two zeros
 . were merged to one
@@ -152,7 +175,7 @@ Outline
 . just natural numbers without zero, that is there are aleph 0 of
 . them. That shows that aleph 0 times aleph 0 is still aleph zero. More
 . generaly, the union of countable sets is still countable.
-. 
+.
 . In this case, we can even directly describe the matching.
 . You may noticed that there are powers of two at the first column, two
 . to the power of zero, one, two, in general two to the power of 'r' where
