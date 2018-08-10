@@ -64,16 +64,17 @@ Quote: Axiom výběru zjevně platí, princip dobrého uspořádání zjevně ne
 . žádnou další hranu přídat, našli jsme párování, které pokrývá aspoň
 . jednu z množin. K dokončení důkazu musíme ukázat, že jinak to ani být
 . nemůže.
-. Pro spor tedy předpokládejme, že jsme prošli všechna ordinální čísla,
-. a každému ordinálnímu číslu jsme přiřadili nějakou novou hranu
+. Pro spor tedy předpokládejme, že jsme prošli všechna ordinální čísla.
+. Třídu všech ordinálů značíme tímto sumbolem Ó eN.
+. Každému ordinálnímu číslu jsme přiřadili nějakou novou hranu
 . částečného párování.
 . Na to se dá naopak dívat tak, že se nám povedlo některým hranám
 . přiřadit postupně všechna ordinální čísla.
 . Tyto hrany tvoří množinu, je to jenom podmnožina kartézského
 . součinu A krát B. Takže z axiomu nahrazení musí i všechny ordinály tvořit
 . množinu.
-. A to je spor, jak jsme si už ukazovali v osmé kapitole, množina všech
-. ordinálů nemůže existovat.
+. A to je spor, jak jsme si už ukazovali v osmé kapitole s paradoxy, množina
+. všech ordinálů existovat nemůže.
 . Tím jsme tedy dokázali, že se proces zastaví, a že existuje párování,
 . které pokrývá aspoň jednu z množin A, B.
 .

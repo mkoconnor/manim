@@ -120,7 +120,7 @@ tudíž podíváme v jedenácté kapitole o formálních číslech.
 
 Dále v našem postupu vytváření velké množíny potřebujeme sestrojit
 potenční množiny. A to je přesně další axiom.
-:{"6) Axiom potence: Od každé množiny existuje potenční množina."}
+:{"6) Axiom potenční množiny: Od každé množiny existuje potenční množina."}
 Axiom potence říká, že kdykoli máme množinu X, jakkoli velkou, musí
 existovat další množina P X, která obsahuje přesně všechny podmnožiny
 množiny X.

@@ -313,6 +313,11 @@ class LongOrdinal(VMobject):
             ),
         )
 
+    @property
+    def line(self): return self.submobjects[0]
+    @property
+    def bars(self): return self.submobjects[1]
+
 class Omega1(LongOrdinal):
     pass
 
