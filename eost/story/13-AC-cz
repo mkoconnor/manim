@@ -1,0 +1,192 @@
+The controversial axiom
+=======================
+
+Quote: Axiom výběru potřebujeme k tomu, abychom si z nekonečně mnoho párů ponožek mohli vzít nekonečně mnoho ponožek, ale ne nekonečně mnoho párů. -- Bertrand Russell
+
+* The axiom of choice, do not confuse with the axiom of selection
+* statement: for any set of non-empty disjoint sets, we can find a set intersecting each of them in exactly one element
+  * explanation: we can do infinite number of non-predescribed choices at one time
+  * if they are predescribed, axiom of replacement suffices
+  * if there is just a finite number of them, we can construct the selection set in a usual way
+* ordinary usage: Union of countable sets? Haine's theorem? (just one of them)
+* paradoxical usage: Prisoners? Non-measurable set? (just one of them)
+* axiom of choice is a forgotten axiom, the opposite to the axiom of regularity
+
+Pamatujete si axiomy teorie množin?
+
+Pro základní manipulaci s množinami potřebujeme axiom vydělení, který
+umožňuje přejít od množiny k její podmnožině dané určitým pravidlem, a
+axiom extenzionality, který zaručuje, že množinu jednoznačně určují
+její prvky, nemůžeme najít dvě různé množiny se stejnými prvky.
+
+Dále tu jsou axiomy, které potřebujeme pro konstrukci velké
+množiny. Potřebujeme axiom nekonečna, abychom měli množinu
+přirozených čísel se kterou začneme. Dále pokračujeme axiomem potence
+a stavíme potenční množiny. Dále potřebujeme axiom nahrazení, abychom
+to mohli výsledky zabalit do jedné množiny, a nakonec axiom
+sjednocení, abychom vysypali obsah do jedné množiny větši než všechny
+ty předchozí.
+
+A pak tu jsou dva o něco pokročilejší axiomy. Axiom fundovanosti říká,
+že neexistují divné množiny. Ten není příliš důležitý, a prakticky
+celou teorii množin můžeme vybudovat bez něj.
+A axiom výběru, o kterém bude tento díl. Ten můžeme formulovat třeba takto:
+Kdykoli máme množinu disjunktních, tedy nepřekrývajících
+se, a neprázdných množin, můžeme si z každé této množiny vzít přesně
+jeden prvek, a výsledek zabalit do nové množiny.
+
+Vágní, ale výstižná definice axiomu výběru přitom zní:
+"Lze provést nekonečně mnoho nahodilých výběrů najednou."
+Proč nekonečně mnoho? A proč nahodilých? Ne proto, že by snad takové
+podmínky v axiomu výběru skutečně byly, ale proto, že v opačném
+případě axiom výběru nepotřebujeme.
+
+Tak třeba, když máme těch množin jenom konečně mnoho, můžeme si
+z každé zvlášť vzít jeden prvek. Na to, abychom si z neprázdné množiny
+vzali prvek nepotřebujeme žádný axiom, to je definice neprázdné
+množiny. A když chceme zabalit konečně mnoho prvků do množiny, stačí
+nám na to axiom dvojice a sjednocení, jak jsme si ukazovali v deváté
+kapitole o axiomech.
+
+Jakmile ale chceme provést výběrů nekonečně mnoho, axiomy dvojice a
+sjednocení už nebudou na vytvoření nekonečné množiny stačit.
+Musíme tedy použít nějaké souhrnné operace, které nám poskytují axiomy
+vydělení nebo nahrazení.
+
+Jedna varianta je napřed použít axiom sjednocení, a pak si axiomem
+vydělení vybrat tu správnou množinu, která z každého řádku bere přesně
+jeden prvek.
+A nebo můžeme přimočařeji použít axiom nahrazení. Definujeme předpis,
+který z každé množiny bere jeden prvek, a výsledky zabalíme do množiny
+pomocí axiomu sjednocení.
+Úskalí tohoto přístupu je v tom, že jak vydělení, tak nahrazení
+potřebuje předpis.
+Když třeba vybíráme z dvouprvkových množin obsahující reálná čísla,
+můžeme použít třeba předpis: Každé takové množině přiřaď ten její
+menší prvek. Takový předpis můžeme poskutnout axiomu nahrazení, a
+axiom výběru nepotřebujeme.
+
+Problém, a tedy potřeba axiomu výběru, se tak týká jenom situací, kdy
+máme množin nekonečně mnoho, a nemáme žádný jasný předpis, jak daný
+výběr uskutečnit. Proto jde o nekonečně mnoho nahodilých výběrů
+najednou.
+
+Ale jak se to může stát? Ukážeme si dvě taková použití axiomu
+výběru. Jedno takové pohádkové, a jedno ze skutečné matematiky:
+vězně hádající klobouky, a neměřitelnou množinu.
+Začneme s pohádkou.
+
+Úloh o vězních, kteří mají na hlavách klobouky, a snaží se uhodnout
+barvu svého klobouku, je v matematice celá řada. Ve většině takových
+úloh je vězňů konečně mnoho, a využívají ke svému úsudku chování
+ostatních vězňů. Náš případ se v tomto bude odlišný, ale pohádka bude
+na úlohy s vězni docela standardní,
+
+Tyranský král dal uvěznit nekonečně mnoho věznů, a teď je chce dát
+popravit. Ještě před popravou pro ně ale vymyslel takovou hříčku, aby
+je trochu víc vystresoval, a vyvolal v nich dojem, že si za to můžou
+sami. Ráno popravou je postaví do řady tak, že každý vězeň uvidí
+nekonečně mnoho vězňů před sebou, a neuvidí konečně mnoho vězňů za
+sebou. Každý vězeň také ví, kolikátý stojí v řadě.
+
+Každý vězeň dostane na hlavu černý nebo bílý klobouk.
+A každý vězeň si pak tipne barvu svého klobouku.
+Když se splete jenom konečně vězňů, král je pustí.
+Jakmile se ale zmýlí nekonečně mnoho vězňů, král nechá všechny bez
+milosti popravit. Cha cha cha.
+
+To vypadá dost beznadějně, nezdá se vám? Když nemají o svém klobouku
+žádnou informaci, tak má každý šanci jedna polovina, že se strefí, a
+nakonec se splete zhruba každý druhý vězeň.
+
+Ale protože bude poprava až následující den, mají vězni v cele ještě
+čas si domluvit strategii.
+Hned se začaly objevovat první nápady, které fungují v konkrétních
+situacích.
+Například, když před sebou vidíte samé černé klobouky, tipněte si
+černou. Sice se možná nestrefíte, ale všichni před vámi už se podle
+této strategie zaručeně strefí, a tak se splete nanejvýš konečně mnoho
+z nás.
+Abychom ale našli strategii, která bude připravená na jakékoli
+rozložení klobouků, si musíme představit všechny možné posloupnosti
+klobouků.
+
+Tyhle posloupnosti rozdělíme do skupinek tak, že se
+uvnitř každé skupinky každé dvě posloupnosti liši jenom na konečně
+mnoha pozicích. Jeden přiklad takové skupinky jsou ty posloupnosti,
+které mají libovolný konečný začátek, ale na konci mají samé černé
+klobouky.
+Jiný příklad takové skupinky jsou posloupnosti, které mají libovolný
+začátek, ale na konci už mají na všech sudých pozicích černé klobouky,
+a na lichých bílé.
+Trik je v tom, že i když vězni nebudou vidět celou posloupnost
+klobouků, poznají do které skupinky taková posloupnost patří, protože
+těch konečně mnoho pozic, které vězeň nevidí, skupinku stejně
+neovlivní. Takže i když vězni nevidí svůj klobouk a nemůžou spolu
+komunikovat, ta správná skupinka bude jejich sdílená znalost.
+
+Ať si teď z dané skupinky vyberou kteroukoli posloupnost, bude se tato
+posloupnost lišit od skutečnosti jenom na konečně mnoha místech.
+Každému vězni tak stačí říct příslušnou barvu, a splete se jich jenom
+konečně mnoho.
+Ale jak se dohoodnou na tom reprezentantovi, když při zkoušce mezi
+sebou nemůžou komunikovat? Musí se dohodnout předem. Už před zkouškou
+se musí pro každou skupinku posloupností lišících se jenom konečnými
+obměnami, dohodnout na jednom reprezentantovi.
+Bohužel neexistuje žádný předpis, kterým bychom mohli takového
+reprezentanta obecně popsat. Tak co asi uděláme?
+No to byste nečekali, použijeme axiom výběru.
+To je přesně ten nástroj, který může z každé skupinky vytáhnout jeden
+prvek a výsledek zabalit do množiny. Na této množině se vězni dohodnou
+jako na součásti strategie.
+Jako jo, vypadá to trochu jako podvod mít coby součást strategie
+nespočetnou množinu reprezentantů, ale ve světě, kde žije nekonečně
+mnoho vězňů si tito vězni přece zvládnou zapamatovat nespočetně mnoho
+posloupností, co na tom taky může být těžkého?
+
+Takže s touto strategií si všichni vězni všimnou, ve které skupince se
+nachází výsledná posloupnost, všichni si uvědomí, kterého
+reprezentanta této posloupnosti přiřadili, a v důsledku splete jenom
+konečně mnoho vězňů v barvě svého klobouku.
+
+A tak axiom výběru zachránil nekonečně mnoho lidských životů a všichni
+vězni se pak vrátili ke svým rodinám a žili šťastně až do smrti. Pokud
+se chcete z této pohádky dozvědět o něco víc, můžu vás odkázat na
+video Mathologera -- death with infinity (?)
+
+Teď bych se totiž radši podíval ještě na jiný příklad, který má blíž k
+reálné matematice.
+
+V matematice se tak nějak počítá s tím, že geometrické objekty mají
+obsah. Trojúhelníku spočteme obsah jako základna krát výška děleno
+dvěma, kruhu jako pí r na druhou. Matematici si jednou mysleli, že by
+mohli nějaký obsah přířadit jakékoli množině bodů.
+A když se snažíte vymyslet takové zobecnění obsahu pro jakékoli
+množiny, je rozumné začít ne v rovině, ale jenom nednoduše na přímce.
+Takovému obsahu na přímce budeme říkat míra.
+Například tedy míra intervalu je totéž, co jeho délka.
+Míra sjednocení dvou disjunktních intervalů je jejich součet, a tak
+podobně.
+Dále by měla míra splňovat následující přirozené vlastnosti.
+Zaprvé. Když do množiny přidáme nové body, její míra by se měla zvětšit nebo
+zůstat stejná.
+Zadruhé, když množinu posuneme o nějaké reálné čislo doprava nebo
+doleva, její míra by měla zůstat stejná.
+A zatřetí, totéž by mělo platit, když množinu rozdělíme na spočetně
+mnoho kousků, každý z nich posuneme tak, aby se stále nepřekrývaly, a
+výsledek opět spojíme.
+Bohužel, míra s takovými vlastnostmi nemůže existovat.
+Pomocí axiomu výběru dokážeme sestrojit množinu,
+která je podmnožinou intervalu od nuly do dvou, tedy její míra by
+neměla být větši než dva,
+a přitom ji dokážeme rozdělit na spočetně mnoho částí,
+tyto části různě rozposouvat,
+a výsledkem vyplnit celou reálnou přímku.
+Jdeme na to.
+
+TODO
+
+:{Za to může ta podmínka se spočetným rozdělením.}
+:{Ne tak docela, viz Banach-Tarskiho paradox.}
+
+TODO
