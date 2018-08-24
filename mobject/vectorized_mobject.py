@@ -1,4 +1,5 @@
 import re
+import inspect
 
 from .mobject import Mobject
 
@@ -377,12 +378,14 @@ class VMobject(Mobject):
 class VGroup(VMobject):
     def __init__(self, *args, **kwargs):
         
-        if len(args) == 1 and isinstance(args[0], (tuple, list)):
+        if len(args) == 1 and not isinstance(args[0], Mobject):
             args = args[0]
 
         packed_args = []
         for arg in args:
-            if isinstance(arg, (tuple, list)):
+            if inspect.isgenerator(arg):
+                packed_args.append(VGroup(list(arg)))
+            elif isinstance(arg, (tuple, list)):
                 packed_args.append(VGroup(arg))
             else: packed_args.append(arg)
 

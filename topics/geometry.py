@@ -187,6 +187,25 @@ class DashedLine(Line):
         else:
             return self.end
 
+class DashedMobject(VMobject):
+    CONFIG = {
+        "dashes_num" : 15,
+        "spacing"    : 0.5,
+        "color"      : WHITE
+    }
+    def __init__(self, mob, **kwargs):
+        digest_locals(self)
+        VMobject.__init__(self, **kwargs)
+
+        segment_len = (1-float(self.spacing)) / self.dashes_num
+
+        for i in range(self.dashes_num):
+            a = float(i) / self.dashes_num
+            b = a + segment_len
+            dash = VMobject(color = self.color)
+            dash.pointwise_become_partial(mob, a, b)
+            self.submobjects.append(dash)
+
 class GradientLine(Line):
     CONFIG = {
         "segment_num" : 200

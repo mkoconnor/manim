@@ -3,178 +3,324 @@ A new beginning
 
 Quote: Na počátku bylo slovo, a to slovo bylo od Matematika, a to slovo bylo: \uv{množina}.
 
-V minulém díle jsme si řekli, že se na celý svět teorie množin můžeme
-dívat jako na jistý obří orientovaný graf -- tedy spousta objektů, to
-jsou množiny, které někdy splňují, že jeden objekt je prvkem jiného.
+:------------------------ReminderScene---------------------
+.
+. V minulém díle jsme se chtěli vyhnout paradoxům, a proto jsme zavedli
+. formální svět množin.
+. V něm žijí množiny obsahující některé další množiny, ale nemáme
+. zaručeno, že bychom mohli jakoukoli třídu množin zabalit do množiny,
+. například třída všech množin žádné množině neodpovídá.
+. Na celý svět formální teorie množin se taky můžeme dívat jako na obří
+. orientovaný graf, kde šipky ukazují, do kterých množin prvky patří.
+. Někdy tak budeme říkat objektům světa teorie množin množiny, někdy
+. prvky, ale formálně se jedná o to samé. Jediný rozdíl je v tom, v jaké
+. roli se na dané objekty díváme.
+.
+. Axiomy teorie množin zaručí, že chování tohoto světa skutečně
+. převážně odpovídá tomu, co bychom od množin čekali. Bude to několik
+. základních přepokladů, které pro množiny budeme mít, a ze kterých
+. vyplyne všechno ostatní. V tomto díle si tuhle základní sadu axiomů
+. představíme, a tak trochu odvodíme.
 
-Axiomatika teorie množin zaručí, že chování tohoto světa skutečně
-převážně odpovídá tomu, co bychom od množin čekali. Bude to několik
-základních přepokladů, které pro množiny budeme mít, a ze kterých
-vyplynou všechny ostatní. V tomto díle si tuhle základní sadu axiomů
-odvodíme.
-
-Abychom měli od čeho se odrazit, potřebujeme alespoň prázdnou
-množinu. To je jednoduše množina, která nic neobsahuje, tedy v našem
-znázornění z ní nevedou žádné šipky.
+:--------------------FirstAxioms--------------------------
+.
 :{"0) Axiom existence: Existuje prázdná množina"}
-A to je i první axiom teorie
-množin -- Axiom existence říká, že existuje prázdná množina.
-
-Sám axiom existence ale už neříká nic o tom, kolik takových prázdných
-množin bude. Hypoteticky bychom mohli mít modrou prázdnou množinu, a
-červenou prázdnou množinu, mezi kterými by bylo možné
-rozlišovat. Takhle by se ale množiny neměly chovat, zabrání tomu druhý
-axiom teorie množin, axiom extensionality.
+. První, nebo spíš nultý axiom nám dává aspoň něco, od čeho se můžeme
+. odrazit -- prázdnou množinu. Jinak bychom si mohli třeba myslet, že ve světě
+. teorie množin nic není.
+. Prázdná množina je jednoduše množina, která nic neobsahuje, tedy
+. v grafovém znázornění do ní nevedou žádné šipky. Obráceně ale
+. z prázdné množiny šipky mohou vést, prázdná množina může být prvkem
+. jiných množin.
+.
+. Sám axiom existence ale už neříká nic o tom, kolik takových prázdných
+. množin bude. Hypoteticky bychom mohli mít modrou prázdnou množinu, a
+. červenou prázdnou množinu, mezi kterými by bylo možné
+. rozlišovat. Takhle by se ale množiny podle matematiků chovat neměly.
+.Zabrání tomu druhý axiom teorie množin, axiom extensionality.
 :{"1) Axiom extensionality: Množina je určena pouze svými prvky"}
-To je obecný princip, že
-množina není určena ničím jiným než svými prvky. Tedy sice neplatí, že
-každá třída množin odpovídá nějaké množině, ale když už ano, pak je
-taková množina pouze jedna. Jednoduše proto, že prvky množiny vnímáme
-jako tu jedinou informaci, která množinu určuje. Nemůže se stát, aby
-dvě různé množiny, měly přesně stejné prvky. Když už nám někde
-vyjdou dvě množiny se stejnými prvky, znamená to, že se jedná o jednu
-a tutéž množinu. Proto také můžeme mít pouze jednu prázdnou množinu.
+. To je obecný princip, že
+. množina není určena ničím jiným než svými prvky. Zkrátka prvky množiny
+. vnímáme jako tu jedinou informaci, která množinu určuje a nemůže se
+. stát, aby dvě různé množiny, měly přesně stejné prvky. Když už nám
+. někde vyjdou dvě množiny se stejnými prvky, tedy v grafovém pojetí na
+. ně ukazují přesně stejné prvky, znamená to, že se jedná o
+. jednu a tutéž množinu.
+. Ještě poznámka stranou, teď to může vypadat, že ty tři
+. bílé prvky porušují axiom extenzionality, ale to proto, že svět teorie
+. množin nekreslíme celý, a ty bílé prvky zase obsahují něco dalšího,
+. čím je můžeme zase rozlišit. Konec poznámky.
+. 
+. Představili jsme si první dva axiomy teorie množin. Dál se zamyslíme
+. nad tím, jak bychom si představovali budování množin.
+.
+. Například takovýmto axiomem: každá konečná třída je množina. To
+. znamená, že kdykoli si vezmeme
+. konečnou třídu prvků, můžeme je zabalit do množiny. Tedy existuje
+. další prvek světa teorie množin, do kterého ukazují přesně určené
+. prvky.
+. Tohle v teorii množin opravdu platí, a mohl by to být i axiom.
+. Ale matematici mají rádi axiomy co možná nejzákladnější.
+. Takže než aby řekli, že konečný počet prvků vždycky můžeme zabalit do
+. množiny, raději poskytnou nástroje, kterými to můžeme udělat.
+. 
+. Například takto:
 
-Tohle jsou dva první teorie množin. Teď se zamyslíme nad tím, jak
-bychom si představovali budování množin. V teorii množin platí, že
-kdykoli si vezmeme konečný počet prvků, najdeme množinu, která
-obsahuje přesně tyto prvky. To bychom mohli prohlásit za axiom, ale ve
-skutečnosti je to až důsledek několika jiných axiomů. Napřiklad
-následujících.
+:---------------------SingletonsAndUnions----------------------------
+.
+. Jeden axiom řekne, že kdykoli máme ve světě teorie množin nějaký
+. prvek, můžeme sestrojit jednoprvkovou množinu obsahující přesně tento
+. jeden prvek.
+. "Jednoprvkové množiny."
+. A druhý axiom zaručí, že existují sjednocení dvojic.
+. "Sjednocení dvojic."
+. Tedy kdykoli máme dvě množiny, tak existuje i
+. jejich sjednocení, to jest množina obsahující všechny prvky obou množin.
+.
+. Pomocí takových dvou axiomů můžeme sestrojit jakoukoli konečnou
+. množinu prvků. Vezmeme si konečné množství prvků, které chceme zabalit
+. do jedné množiny. Každý z těchto prvků
+. napřed zabalíme zvlášť pomocí operace s jednoprvkovými množínami. A
+. následně můžeme pomocí sjednocení dvojic sjednotit napřed první dvě
+. jednoprvkové množiny, potom výsledek sjednotit s třetí, výsledek toho
+. s čtvrtou, a připadně dál, je li třeba. Nakonec dostaneme, co jsme
+. předtím chtěli -- danou konečnou množinu obsahující vybrané prvky, a
+. dosáhli jsme toho pomocí poměrně elementárních operací -- vytvoření
+. jednoprvkové množiny a sjednocení dvojice.
+.
+. Matematici ale šli v hledání podstaty ještě dál. Ani jeden z těchto
+. axiomů stále není skutečný axiom teorie množin.
 
-Jeden axiom řekne, že kdykoli máme nějaký prvek, můžeme sestrojit
-jednoprvkovou množinu obsahující přesně tento jeden prvek.
-"Jednoprvkové množiny."
-A druhý axiom zaručí, že kdykoli máme dvě množiny, tak existuje i
-jejich sjednocení, tedy množina obsahující všechny prvky obou množin.
-"Sjednocení dvojic."
-Poznamenejme, že jelikož v samotném jazyce teorie množin nedává smysl,
-aby nějaká množina obsahovala nějaký prvek vícekrát, bude sjednocení
-obsahovat pouze jednou i prvky vyskytující se v obou množinách.
+:---------------------PairsAndUnions----------------------------
 
-Pomocí takových dvou axiomů můžeme sestrojit jakoukoli konečnou
-množinu prvků. Uvažme konečné množství prvků, každý z těchto prvků
-můžeme zabalit do množiny pomocí axiomu o jednoprvkových množínách. A
-následně můžeme pomocí sjednocení dvojic sjednotit napřed první dvě
-jednoprvkové množiny, potom výsledek sjednotit s třetí, výsledek toho
-s čtvrtou, a tak dál. Nakonec dostaneme, co jsme chtěli -- danou
-konečnou množinu obsahující vybrané prvky, a dosáhli jsme toho pomocí
-elementárnějších operací -- vytvoření jednoprvkové množiny a
-sjednocení dvojice.
-
-Matematici ale šli v hledání podstaty ještě dál, ani jeden z těchto
-axiomů stále není skutečný axiom teorie množin. Sjednocení dvou množin
-je stále považováno jako spojení dvou operací. Napřed vytvoříme
-neuspořádanou dvojici, množinu, která obsahuje přesně naše dvě
-dvojici, a následně provedeme sjednocení na této vzniklé dvojici.
+. Sjednocení dvou množin
+. je stále považováno jako spojení dvou operací.
+. Napřed použijeme axiom dvojice.
 
 :{"2) Axiom dvojice: Pro dané dva prvky existuje množina obsahující přesně je."}
-Ve skutečnosti tedy používáme axiom dvojice, který pro libovolné dvě
-množiny zaručí existenci množiny obsahující přesně tyto množiny.
-:{"3) Axiom sjednocení: Existuje sjednocení všech prvků dané množiny."}
-a dále axiom sjednocení, který obecně dostane množinu několika množin,
-a všechny tyto prvky na druhé úrovni sloučí do jedné množiny.
+. Ten říká, že kdykoli si vezmeme dva prvky, tedy množiny, můžeme je
+. zabalit do nové dvouprvkové množiny. Je to podobné, jak ty
+. jednoprvkové množiny.
 
-Mimochodem, axiom dvojice lze zneužít i pro vyrábění jednoprvkových
-množin. V podmínce axiomu dvojice není, že dva zadané prvky musí být
-různé, a protože množiny nemohou jeden prvek obsahovat dvakrát, je
-výsledkem axiomu dvojice jednoduše množina obsahující tento prvek.
-To je důvod proč nepotřebujeme zvláštní axiom pro jednoprvkové
-množiny.
+. A až potom použijeme axiom sjednocení, který obecně nesjednocuje
+. dvojici množin, ale všechny množiny uvnitř určité množiny.
+:{"3) Axiom sjednocení: Existuje sjednocení všech prvků dané množiny."}
+. To se dá představit tak, že axiom sjednocení umaže ty vnitřní
+. hranice.
+. Tím vznikne přesně sjednocení původních dvou množin.
+
+. A proč nepotřebujeme axiom na jednoprvkové množiny?
+. I na ně totiž můžeme tak trochu zneužít axiom dvojice.
+. V podmínce axiomu dvojice není, že ty dva zadané prvky 'x' a 'y' musí
+. být různé. Takže když si za obojí dosadíme jeden prvek 'x', dostaneme
+. množinu obsahující x, x a nic víc. Množina ale nemá jak prvek x
+. obsahovat dvakrát. Z formálního hlediska to říká, že do výsledné
+. množiny vede šipka jenom z 'x', a z ničeho jiného. Ale 'x' je ve
+. skutečnosti jenom jeden prvek, takže výsledná množina je prostě
+. jednoprvková množina obsahující x.
+. Možná jsem to teď řekl trochu překomplikovaně. Pointa je, že z
+. principu toho, jak se na množiny díváme nedává smysl, aby množina
+. obsahovala prvek vícekrát. Což neznamená, že bychom na něco takového
+. nemohli ani pomyslet, ale nerozlišíme to od skutečnosti, kdy jej
+. obsahuje jenom jednou.
+. Tímhle pozorováním jsme završili axiomy, které nám umožní poskládat
+. jakoukoli konečnou množinu, a jdeme na další.
+
+:---------------------AxiomOfSelection----------------------------
 
 :{"4) Axiom vydělení: Z množiny vydělit podmnožinu jakýmkoli pravidlem."}
-Posledním axiomem týkající se základních konstrukcí je axiom
-vydělení. Tento axiom říká, že kdykoli máme nějakou množinu A, a
-pak nějaké pravidlo v jazyce teorie množin, třeba jednoprvkové
-množiny, můžeme vzít tu podmnožinu množiny A vymezenou tímto
-pravidlem. Nemůžeme si tedy obecně vzít jakoukoli množinu množin
-splňující dané pravidlo, problémy jsme viděli v minulé kapitole, ale
-můžeme si pomocí pravidla vzít podmnožinu jakékoli množiny.
+. Posledním axiomem týkající se základních konstrukcí je axiom
+. vydělení. Tento axiom říká, že kdykoli máme nějakou množinu A, a
+. pak nějaké pravidlo v jazyce teorie množin, třeba, že si vybereme
+. jenom lichá čisla, můžeme se pro každý prvek podívat, zda splňuje dané
+. pravidlo, a sestrojit podmnožinu množiny A vymezenou tímto
+. pravidlem. Už víe, že kdybychom nezačínali s množinou A, nemohli
+. bychom si obecně vzít jakoukoli množinu množin splňující dané
+. pravidlo, problémy jsme viděli v minulé kapitole. Že si třeba
+. nemůžeme vzít množinu všech množin, které neobsahují samy sebe.
+. Ale tento axiom má této přirozené konstrukci množin ze všech axiomů
+. asi nejblíž. Jenom je potřeba vždy vycházet z nějaké předchozí
+. množiny.
+.
+. Axiom vydělení se taky hodí třeba k sestrojení průniku dvou množin.
+. Mějme dvě množiny A a B. Naše pravidlo bude "Prvek leží v množině B",
+. a axiomu vydělení použijeme na množinu A. Pravidlu odpovídají prvky z
+. množiny B, ale současně se při použití axiomu vůbec nedíváme mimo
+. množinu A. Sestrojíme tak průnik množin A a B.
+.
+. Axiomy existence, dvojice, sjednocení a vydělení osobně považuji za
+. axiomy základních konstrukcí.
+. Už jenom axiomy existence a dvojice vynutí,
 
-Podobně můžeme pomocí vydělení sestrojit průnik dvou množin. Mějme dvě
-množiny A a B. Naše pravidlo bude "Prvek leží v množině B", a z axiomu
-vydělení můžeme sestrojit podmnožinu množiny A odpovídající tomuto
-pravidlu. To je přesně průnik množin A a B.
+:----------------------InfiniteWorld-------------------------
 
-Takže axiomy dvojice, sjenocení a vydělení můžeme považovat za
-základní základních konstrukcí. Přesto tyto axiomy stále nepostačují
-k sestrojení nekonečných množin. Připomeneme si konstrukci ze začátku
-čtvrtého dílu, kde jsme se naivně pokusili sestrojit co největší
-množinu.
+. aby byl svět množin nekonečný. Můžeme zabalovat množiny do dvojic, a
+. vyrábět tak nové a nové dvojice. Na druhou stranu nám zatím nic
+. nezaručuje, že by existovala nějaká nekonečná množina.
+. Axiomy, které umožní pracovat s nekonečny přijdou záhy, ale
+. napřed si připomeneme konstrukci velké množiny z úvodu čtvrtého dílu o
+. transfinitní rekurzi.
 
-Začali jsme s množinou všech přirozených čísel omega. Pak jsme uvážili
-potenční množinu všech podmnožin, P omega. Tuto operaci jsme
-zopakovali dvakrát, třikrát, a nakonec každým přirozeným číslem. A
-výsledek jsme sjednotili.
+:-----------------LargeConstructionReminder--------------
+.
+. Začali jsme s množinou všech přirozených čísel omega. Pak jsme uvážili
+. potenční množinu P omega, tedy všech podmnožin omegy. Tuto operaci jsme
+. zopakovali dvakrát, třikrát, a takhle jsme pokračovali přes všechna
+. přirozená čísla. Nakonec jsme výsledek sjednotili a získali jsme ještě
+. větší množinu než ty předchozí.
+. Tento proces by se dal nazvat ukázkovým pro použití axiomů teorie
+. množin.
 
-Tento proces by se dal nazvat ukázkovým pro použití axiomů teorie
-množin. Začínáme s omegou, množinou všech přirozených čísel. A
-skutečně, jeden z axiomů, axiom nekonečna, defakto říká, že existuje
-množina všech přirozených čísel.
+:-----------------LargeConstructionAxioms--------------
+
+. Začínáme s omegou, množinou všech přirozených čísel. A
+. skutečně, další axiom, axiom nekonečna, defakto říká, že existuje
+. množina všech přirozených čísel.
 :{"5) Axiom nekonečna: Existuje množina všech přirozených čísel."}
-Není to úplně přesné, a prozatím je řečeno poněkud vágně. Zatím jsme
-si totiž ani přesně neřekli, co jsou ve světě teorie množin přirozená
-čísla. Přirozené číslo, jako každý jiný objekt v teorii množin musí
-být kódované nějakou množinou. Blíže se na znění axiomu nekonečna
-tudíž podíváme v jedenácté kapitole o formálních číslech.
+. Není to úplně přesné, a prozatím je to i řečeno poněkud vágně, když
+. jsme si ještě ani neřekli, co jsou ve světě teorie množin vlastně
+. znamenají přirozená čísla. Přirozené číslo, jako každý jiný objekt v
+. teorii množin musí být kódované nějakou množinou. Blíže se na znění
+. axiomu nekonečna tudíž v jedenácté kapitole o formálních
+. číslech. Teď se ale vrátíme k našemu postupu.
 
-Dále v našem postupu vytváření velké množíny potřebujeme sestrojit
-potenční množiny. A to je přesně další axiom.
+. Další krok spočívá v sestrojení potenční množiny, tedy množiny všech
+. podmnožin.
+.  A to je přesně další axiom.
 :{"6) Axiom potenční množiny: Od každé množiny existuje potenční množina."}
-Axiom potence říká, že kdykoli máme množinu X, jakkoli velkou, musí
-existovat další množina P X, která obsahuje přesně všechny podmnožiny
-množiny X.
+. Axiom potenční množiny říká, že od každé množiny můžeme sestrojit její
+. potenční množinu, tedy množinu všech podmnožin.
+. Když budeme tenhle axiom používat pořád dokola, sestrojíme tak celou
+. naši posloupnost čím dál většich množin.
 
-Teď se dostáváme k otázce, jak se nám povedlo všechny tyto potence
-sjednotit. Dostává se ke slovu již dříve zavadená silnější verze
-axiomu sjednocení,
+. Teď se dostáváme k otázce, jak všechny tyto potenční množiny
+. sjednotit. Dostává se ke slovu již dříve zavadená silnější verze
+. axiomu sjednocení,
 :{"3) Axiom sjednocení: Existuje sjednocení všech prvků dané množiny."}
-kdykoli máme množinu množin, můžeme sjednotit všechny její
-prvky. Abychom mohli axiom sjednocení použít, potřebujeme zabalit
-všechny ty potenční množiny do jedné množiny. Na to je třeba další
-axiom, axiom nahrazení.
+. kdykoli máme množinu množin, můžeme sjednotit všechny její
+. prvky. Abychom mohli axiom sjednocení použít, potřebujeme zabalit
+. všechny ty potenční množiny do jedné množiny. O to se postará další
+. axiom, axiom nahrazení.
 :{"7) Axiom nahrazení: Můžeme nahradit všechny prvky v libovolné
-množině za jiné pomocí daného pravidla."}
-Kdykoli máme nějaké pravidlo, jak nahrazovat prvky za jiné, můžeme
-tímto pravidlem ponahrazovat prvky v jakékoli množině.
-V našem případě si opět vezmeme množinu všech přirozených čisel
-zaručenou axiomem sjednocení. Dále máme pravidlo: Každého přirozenému
-čislu n přiřadíme n-krát aplikovanou potenci na množinu všech
-přirozených čisel. Díky axiomu nahrazení proto existuje množina
-obsahující potenci aplikovanou nulakrát, jednou dvakrát, a tak dál.
-Na tuhle množinu můžeme konečně aplikovat axiom sjednocení a dostat
-kýžený výsledek.
+. množině za jiné pomocí daného pravidla."}
+. Kdykoli máme nějaké pravidlo, jak nahrazovat prvky za jiné, začít s
+. jednou množinou, aplikovat toto pravidlo na jinou množinu, a výsledek
+. bude opět množina. Takhle řečeno je to dost obecné, ale snad to bude
+. jasnější na našem příkladu.
+. Sice zatím nevíme, jestli existuje množina, která by obsahovala
+. všechny ty naše potenční množiny, ale tyhle čárečky původně
+. reprezentují přirozená čísla. A už víme, že množina všech přirozených
+. čisel existuje, to plyne z axiomu nekonečna.
+.
+. A teď jednoduše každému přirozenému číslu n přiřadíme n-násobnou
+. potenční množinu od omegy, to bude naše pravidlo. Takže nule přiřadíme
+. omegu, jedničce P omega, a tak dál. Axiom nahrazení teď přesně říká,
+. že tím pádem můžeme zabalit do jedné množiny i všechny ty n-násobné
+. potenční množiny od omegy.
+.
+. Na tuhle množinu můžeme konečně aplikovat axiom sjednocení a dostat
+. kýžený výsledek.
 
-Takže můzeme říci, že podstatné axiomy pro nekonečné konstrukce
-jsou axiom nekonečna, potence, nahrazení a sjednocení.
+. Ještě bych rád poznamenal jednu technikalitku -- v této konstrukci
+. jsme použili i axiom extenzionality. To je ten, který říká, že
+. množina je určena pouze svými prvky, a ničím jiným. Proč?
+. Protože když chceme použít axiom nahrazení, musíme mít pro každé
+. přírozené číslo naprosto jednoznačně předepsané, kterou množinu mu
+. přiřadíme.
+. A naše pravidlo, přiřadit čislu n n-násobnou potenční množinu od omegy
+. skutečně je jednoznačné, ale jenom pokavaď předpokládáme axiom
+. extensionality.
+. Kdybychom axiom exstensionality neměli, mohlo by existovat několik
+. různých takových množin, které by sice měly stejné prvky, ale jinak by
+. byly rozlišitelné. Tím pádem by pravidlo ukazovalo na víc různých
+. množin pro jedno přirozené čislo, a nemohli bychom jej pro axiom
+. nahrazení použít.
 
-Tím už máme skoro všechny axiomy probrané, zbývají nám už jenom dva.
-:{"Axiom výběru: Lze provést nekonečně mnoho nahodilých výběrů najednou."}
-Jeden z nich, axiom výběru, byl v minulosti dost kontroverzní, dnes už
-je veskrze přijimaný. Zhruba řečeno říká, že můžeme provést nekonečně
-mnoho nahodilých výběrů najednou. Tedy kdyby například pravidlo pro
-axiom nahrazení neříkalo přesně, kterým prvkem máme nahrazení provést,
-ale dávalo na výběr celou množinu možností, stále můžeme nějaké takové
-nahrazení provést. Podrobněji se tomuto axiomu budeme zabývat ve
-třinácté kapitole.
+. Naštěstí axiom extensionality máme, takže se
+. to nestane, každému číslu náleží jednoznačně přesně jedna množina, a
+. můžeme axiom nahrazení se použít dá.
+. Teda, nejsem si jistý, nakolik bylo tohle vysvětlení pochopitelné, ale
+. zkrátka si z toho odneste, že axiom extensionality není jenom pro
+. srandu králíkům.
+. Tím už máme skoro všechny axiomy probrané, zbývají nám už ještě dva.
 
-A poslední axiom, axiom fundovanosti, nebo též regularity, uvádíme
-spíše jen pro úplnost.
+:--------------------AxiomOfChoice----------------------
+
+:{"8) Axiom výběru: Lze provést nekonečně mnoho nahodilých výběrů najednou."}
+. Jeden z nich, axiom výběru, byl v minulosti docela kontroverzní, dnes už
+. je veskrze přijimaný. Blíže se na něj podíváme v třinácté kapitole.
+. Zhruba řečeno říká, že můžeme provést nekonečně
+. mnoho nahodilých výběrů najednou a konkrétně říká toto. Kdykoli máme
+. množinu neprázdných, disjunktních neboli neprotínajících se množin,
+. můžeme z každé vybrat jeden prvek, a z těchto prvků vytvořit novou
+. množinu. Na první pohled to nevypadá, že by to umělo něco moc
+. velkého, a v řadě případů se práce axiomu výběru dá zastat pomocí
+. jiných axiomů jako je nahrazení, nebo sjednocení a vydělení, ale
+. když chceme provést nekonečně mnoho nahodilých výběrů najednou, tak
+. nám nic jiného nezbývá.
+
+:--------------------AxiomOfFoundation----------------------
+
+. A poslední axiom, axiom fundovanosti, nebo též axiom regularity,
+. uvádíme spíše jen pro úplnost.
 :{"Axiom fundovanosti: Neexistují \uv{divné} množiny."}
-Říká, že se nemůže stát, že by například množina obsahovala samu sebe,
-nebo obecně, že by existovala nekonečná posloupnost zanořených
-množin. Je pravda, že tento axiom pomáhá rozřadit všechny množiny do
-určité hierarchie, jak moc jsou složité, ale není to otázka, která si
-podle mne zasluhuje v esenci teorie množin hlubši rozbor.
+. Říká, že se nemůže stát, že by například množina obsahovala samu sebe,
+. nebo obecně, že by existovala množina, která by obsahovala další
+. množinu, která by obsahovala další množinu, a tak by to šlo pořád do
+. nekonečna.
 
-Takže kdyby vás někdo v noci vzbudil s otázkou, jaké jsou axiomy
-teorie množin, určitě si vzpomeňte na axiom extensionality, že množina
-je daná jen a pouze svými prvky. Dále si vybavte konstrukci velké
-množiny, která potřebuje axiom nekonečna, potence, nahrazení a
-sjednocení. A nezapomeňte na ten nejkontroverznější axiom -- axiom
-výběru.
+. Ale pochopitelně, že tahle vágní představa není přesně to, co daný
+. axiom říká. Jeho přesná formulace je následující.
+. Kdykoli máme nějakou neprázdnou množinu, tak můžeme najít některý její
+. prvek, který je coby množina s původní množinou disjunktní, tedy nemá
+. žádné společné prvky.
+. 
+. Uh? To na první pohled nevypadá jako to, co jsem před chvílí
+. popisoval, že? Tak když už jsem se do toho uvrtal, tak nastíním
+. souvislost.
 
-To by bylo z úvodu do axiomů vše. V dalším začneme v tomto systému
-budovat první objekty, uspořádané dvojice, a ukážeme si, jaká
-je úzká souvislost grafem funkce, bipartitním grafem a orientovaným
-grafem. Nashle příště.
+. Představme si, že by existoval takový ten tunel -- množina obsahující
+. množinu obsahující množinu, a tak pořád dál donekonečna.
+. Teď si to nakreslíme v grafovém pojetí.
+. V tom vidíme nekonečnou posloupnost, ve které jdeme po šipkách
+. pozpátku.
+
+. Pomocí dalších axiomů teorie množin takovou posloupnost můžeme zapalit
+. do množiny.
+
+. Ale ať si v takové množině vybereme kterýkoli prvek,
+. tak tento prvek copy množina obsahuje ten další prvek
+. v posloupnosti. Není s původní velkou množinou disjunktní.
+. To je ve sporu s axiomem fundovanosti, takže z axiomu fundovanosti
+. taková množina existovat nemůže, a nemůže tedy ani existovat ta
+. množina, se kterou jsme začali.
+
+:-------------------VonNeumannUniverse-----------------------
+
+. Potom má axiom fundovanosti v teorii množin ještě další místo, pomáhá
+. rozřadit všechny množiny do určité hierarchie, ale to je spíše otázka
+. nad rámec esence teorie množin. Jestli vás to zajímá, můžete si třeba
+. vyhledat pojem "Von Neumann universe" na anglické wikipedii nebo
+. "Fundované jádro" na České.
+. V elementární teorii množin ale axiom fundovanosti není až tak
+. podstatný, a někdy ho dokonce matematici záměrně z axiomů odstraňují,
+. tak se mu už podrobněji věnovat nebudeme, a zakončíme naše povídání o
+. axiomech. Už tak to trvalo déle, než jsem původně zamýšlel.
+
+:---------------------AxiomsReminder----------------------------
+
+. Na závěr si zkuste pozastavit video, prohlédnout si právě probraný
+. seznam axiomů, a vzpomenout si, co který axiom říká. Je jich docela
+. dost. Za ty nejdůležitějši bych označil axiomy extensionality,
+. sjednocení, nekonečna, potenční množiny, nahrazení a výběru. Mimo jiné
+. proto, že už jenom z těch se dají odvodit všechny ostatní axiomy kromě
+. fundovanosti.
+. Nejspíš se ale shodnem, že působivější než samotné axiomy, je fakt, že
+. těchto pár axiomů stačí na to, abychom vybudovali celý matematický
+. svět se vším všudy.
+
+:----------------------NextChapter------------------------------
+
+V dalším díle s tím začneme, řekneme si, co je ve světě teorie množin
+znamená uspořádaná dvojice, a ukážeme si, jaká je souvislost grafem,
+grafem, a grafem. Nashle příště.
