@@ -173,7 +173,7 @@ class NumberPlane(VMobject):
             step = freq/float(freq + self.secondary_line_ratio)
             for v in np.arange(0, radius, step):
                 line1 = Line(start+v*unit, end+v*unit)
-                line2 = Line(start-v*unit, end-v*unit)                
+                line2 = Line(start-v*unit, end-v*unit)
                 if v == 0:
                     self.axes.add(line1)
                 elif v in main_range:

@@ -32,7 +32,7 @@ import importlib
 class Chapter9OpeningTitle(OpeningTitle):
     CONFIG = {
         "series_str" : "Esence teorie množin",
-        "chapter_str" : "Axiomy",
+        "chapter_str" : "Kapitola 9\\\\Axiomy",
     }
 
 class Chapter9OpeningQuote(Scene):
@@ -358,6 +358,8 @@ class FirstAxioms(Scene):
         self.play(FadeOut(picture))
 
 def dot_triple(angle = RIGHT, radius = 0.8):
+    if angle == "random":
+        angle = rotate_vector(RIGHT, random.random()*2*np.pi)
     points = compass_directions(3, angle)*radius
     return VGroup(Dot(p) for p in points)
 
@@ -1091,7 +1093,7 @@ class AxiomOfChoice(Scene):
             VGroup(
                 Square(),
                 dot_triple(
-                    angle = rotate_vector(RIGHT, random.random()*2*np.pi),
+                    angle = "random",
                     radius = 0.6,
                 ),
             ).highlight(color)

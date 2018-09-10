@@ -43,6 +43,7 @@ class Scene(object):
         if self.name is None:
             self.name = self.__class__.__name__
         self.current_scene_time = 0
+        self.extra_mobjects_for_animation = ()
 
         self.setup()
         if self.write_to_movie:
@@ -326,11 +327,21 @@ class Scene(object):
         for t in self.get_time_progression(animations):
             for animation in animations:
                 animation.update(t / animation.run_time)
-            self.update_frame(moving_mobjects, static_image)
+
+            if len(self.extra_mobjects_for_animation) > 0:
+                with_points = []
+                for mob in self.extra_mobjects_for_animation:
+                    with_points += mob.family_members_with_points()
+                self.update_frame(moving_mobjects + with_points, static_image)
+                self.extra_mobjects_for_animation = ()
+            else:
+                self.update_frame(moving_mobjects, static_image)
+
             self.add_frames(self.get_frame())
         self.add(*moving_mobjects)
         self.mobjects_from_last_animation = moving_mobjects
         self.clean_up_animations(*animations)
+        self.extra_mobjects_for_animation = ()
         if 'order_f' in kwargs:
             self.mobjects.sort(key = kwargs['order_f'])
 

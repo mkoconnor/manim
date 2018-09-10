@@ -665,8 +665,6 @@ class Contradiction(Scene):
 class Crisis(Scene):
     def construct(self):
 
-        self.force_skipping()
-        
         numbers = VGroup([
             TexMobject(str(i))
             for i in range(9)
@@ -777,7 +775,6 @@ class Crisis(Scene):
         )))
         self.dither()
 
-        self.revert_to_original_skipping_status()
         conversation = Conversation(self)
         conversation.add_bubble("Tak to jsme prohráli :-(")
         conversation.add_bubble("Vinu nese nejednoznačnost")

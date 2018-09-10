@@ -593,7 +593,10 @@ class Mobject(object):
         for m1, m2 in zip(self.submobjects, self.submobjects[1:]):
             m2.next_to(m1, direction, **kwargs)
         if center:
-            self.center()
+            if "coor_mask" in kwargs:
+                self.move_to(ORIGIN, coor_mask = kwargs["coor_mask"])
+            else:
+                self.center()
         return self
 
     def sort_submobjects(self, point_to_num_func = lambda p : p[0]):

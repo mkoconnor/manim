@@ -1,0 +1,353 @@
+Kartézský součin
+================
+
+Quote: Umění matematiky spočívá v pojmenovávání různých věcí stejně. (Henri Poincaré)
+
+* motivation, definition
+* examples: $\omega^2, \R^2, \R^3$, graph theory
+* What is formally an ordered pair?
+  * not everything is working, $\{\{a\}, b\}$: $b$ of form $\{x\}$
+  * usual definition $\{\{a\}, \{a,b\}\}$ (Kuratowski)
+  * what hapens when $a=b$
+* obtaining the cartesian product by axioms
+  * by double application of replacement and union
+  * by two powersets and selection
+* formal view of a function
+  * function graph
+  * graph-theoretical graph
+  * function vs. class function
+
+:----------------------- PreviousChapter ----------------------------
+.
+. V minulém díle jsme si ukázali axiomy teorie množin, a jak je lze
+. použít na konstrukci konečných množin, či některých velkých množin.
+. Nicméně cílem teorie množin není jenom zkoumat množiny, ale zakódovat
+. do jazyka množin celý matematický vesmír. O jednom základním
+. matematickém objektu pojednává tato kapitola,
+
+:-------------------------- Overview ------------------------------
+.
+. Jde o kartézský součin. Ten by se dal označit jako mezičlánek mezi
+. formálním světem a dalšími objekty jako je rovina bodů,
+. párování, funkce, uspořádání, či orientovaný graf. V tomhle videu si
+. ukážeme obě tyto souvislosti. Napřed si ukážeme, k čemu kartézský
+. součin slouží, a jak přes něj definovat různé další věci, a potom se
+. ponoříme do formalního světa, a ukážeme, jak přesně definovat
+. skalární součin jenom pomocí množin, a jak jej sestrojit pomocí
+. axiomů.
+. Začneme definicí, co kartézský součin znamená.
+
+:---------------------- ProductDefinition --------------------------
+.
+. Vezmeme si dvě množiny -- A a B.
+. Kartézský součin A krát B potom je množinu všech možných
+. uspořádaných dvojic, kde první prvek je z množiny A, a druhý je
+. z množiny B. Uspořádanou dvojici zapisujeme v kulatých závorkách a
+. kartézský součin jako A krát B, kde krát
+. se značí křížkem, nikoli tečkou.
+. Pro přehlednost můžeme množinu A zapsat do sloupce, množinu B do
+. řádku, a prvky součinu nakreslit do tabulky, kde řádky odpovídají
+. příslušným prvkům množiny A a sloupce prvkům množiny B.
+. Pozorný divák si může všimnout dvou věcí.
+. Jednak je celkem jasné, proč se kartézskému součinu říká
+. součin. Opravdu se přitom násobí velikosti daných množin. Tohle je
+. jedna z prvních definicí násobení, kterou žák na základní škole potká --
+. když máme pevný počet prvků v řádku, a daný počet řádků, tak počet
+. všech prvků je součin těch dvou čísel, v našem případě tři krát tři je
+. devět, kdo neví je medvěd.
+. A za druhé je patrná souvislost s kartézskou soustavou souřadnic bodů
+. v roviné.
+
+:------------------- CartesianCoordinates ---------------------------
+
+. Když vynásobíme množinu všech reálných čísel s další
+. množinou reálných čísel, získáme při naší vizualizaci celou rovinu.
+. Jakýkoli bod v této rovině pak je ve skutečnosti dvojice reálných
+. čísel, ty udávají jeho x-ovou a y-ovou souřadnice.
+. Tomuhle přiřazení dvojic čísel bodům v rovině se říká kartézská
+. soustava souřadnic. Teď si to zmiňujeme jako jeden příklad
+. použití kartézského součinu, a taky jako historický důvod, proč se
+. kartézskému součinu říká kartézský.
+.
+. Samotný kartézský součin má ale v teorii množin podstatnější
+. postavení než základ pro geometrii.
+
+:----------------------- MatchingScene ----------------------------
+.
+. Celé povídání o teorii množin jsme v druhé kapitole začali tím, že
+. jsme měli dvě množiny, a porovnávali jsme jejich velikosti pomocí
+. párování. Pokud mezi množinami
+. existuje párování, jsou tyto množiny stejně velké.
+. Ale ve světě teorie množin doposud máme jenom množiny samotné, slovo
+. "párování" v tomto světě ještě nebylo vynalezeno.
+. Abychom mohli mluvit porovnávat množiny i ve formálním světě, musíme
+. definovat, kterému prvku světa množin párování odpovídá.
+.
+. Takže párování je formálně množina spojů mezi množinami A a B.
+. Co je spoj? Uspořádaná dvojice.
+. Takže párování je podmnožina kartézského součinu A krát B.
+. Samozřejmě ne jen tak ledajaká.
+. Párování je definováno jako taková podmnožina kartézského
+. součinu A krát B, ve které se každý prvek množiny A vyskytuje přesně
+. v jedné dvojici nalevo, neboli se nesmí opakovat, a každý se tam musí
+. vyskutnout.
+. A podobně musí to samé platit pro B, tedy každý prvek B se dle
+. definice musí vyskytovat přesně v jedné dvojici napravo. To je celá
+. formální definice párování.
+.
+. Možná je ale překvapivé, že se pojem párování v teorii množin běžně
+. vůbec nezavádí. Místo toho se pracuje s pojmem bijektivní funkce,
+. který formálně znamená totéž. Jak to?
+
+:--------------------- FunctionsIntro -----------------------------
+
+. Běžná funkce je něco, co dostane reálné číslo x, zpracuje jej nějakým
+. vzorečkem, třeba 2-x^2/2, a vyplivne jiné reálné číslo f(x). Takže když
+. do této funkce dosadíme třeba tři, vyhodí 2-3^2, což je 2 - 9/2, čili
+. minus 2.5.
+.
+. Takové funkce běžně zakreslujeme do grafu. Pro každou x-ovou
+. souřadnici, třeba dva, spočteme hodnotu dané funkce, v tomto případě
+. -2, a tu zaneseme coby y-ovou
+. souřadnici. Takto projdeme všechny možné hodnoty, a dostaneme
+. podmnožinu roviny, která typicky vypadá jako nějaká čára jdoucí zleva
+. doprava.
+. V obecném případě ale funkce jednak nepotřebují vzoreček, a za druhé
+. nemusí převádět reálná čísla na množiny reálná čísla.
+
+:--------------------- FunctionsAtoB -----------------------------
+
+. Obecně můžeme mít funkci f z množiny A do množiny B, to se stručně
+. značí takto, a můžeme si tu funkci f představit jako krabičku, která
+. kdykoli dostane prvek množiny A, určí z tohoto vstupu prvek
+. množiny B.
+.
+. I z takové funkce můžeme sestrojit její graf. Sestrojíme kartézský
+. součin A krát B, a v něm pro každou x-ovou souřadnici najdeme
+. odpovídající hodnotu funkce.
+. Tak vznikne určitá podmnožina kartézského
+. součinu s tou vlastností, že z každého sloupečku obsahuje přesně jeden
+. prvek.
+.
+. A zatímco se zatím tvářím, že graf funkce, tedy podmnožina kartézského
+. součinu, a funkce samotná, jakási kouzelná krabička proměňující a-čka
+. na b-čka, jsou něco jiného, z pohledu formální teorie množin se jedná
+. o jeden a tentýž objekt. Nejenom, že je funkce svým grafem jednoznačně
+. určená, funkce je totéž, co graf funkce. Rozdíl je jenom v pohledu,
+. jak se na funkci díváme. Dá se tedy říci, že funkce coby krabička,
+. pracuje naprosto konkrétním způsobem.
+. způsobem: Dostane prvek množiny A, podívá se na příslušný sloupeček, a
+. vrátí odpovídající prvek množiny B.
+.
+. Formální je tedy funkce definovaná jako taková podmnožina kartézského
+. součinu, která z každého sloupečku obsahuje přesně jeden prvek, neboli
+. se každý prvek množiny A vyskytuje nalevo v přesně jedné uspořádané dvojici.
+.
+. To je podobná podmínka jako na párování, jenom s tím rozdílem, že
+. párování vyžaduje totéž i po řádcích, alias množině B.
+. Každopádně je tedy párování jenom speciálním případem funkce -- je to
+. taková funkce, která přiřadí každou hodnotu množiny B přesně
+. jednou. Naší funkci můžeme opravit tak, že změníme hodnotu v posledním
+. sloupečku. Taková funkce se pak nazývá bijektivní funkce, a pro
+. porovnávání množin se běžněji dočtete o bijektivních funkcích než o
+. párování, ačkoli v tom formálně není rozdíl.
+. Vlastně bychom mohli označit za slovní hříčku to,
+
+:------------------------ GraphMatching ------------------------------
+
+. že ta oblast matematiky, ve které se setkáte spíše s párováním než s
+. grafem funkce je teorie grafů. V její terminologii bychom začli s
+. úplným bipartitním grafem A krát B. Úplný proto, že mezi každou
+. dvojicí a, b vede hrana, a bipartitní proto, že A a B tvoří dvě
+. partity tohoto grafu. To, co zde my běžně nazýváme párováním, a
+. současně odpovídá bipartitní funkci, kde jinde bychom pak označili jako
+. perfektní párování úplného bipartitního grafu. Perfektní proto, že
+. jako párování se v teorii grafů většinou označuje částečné párování,
+. které nemusí pokrýt všechny vrcholy.
+
+:---------------------- DirectedGraphs -------------------------------
+
+. Dalším objektem z teorie grafů, který má úzkou souvislost s kartézským
+. součinem, je orientovaný graf. V tomto případě začináme s jednou
+. množinou vrcholů V, kterou kartézsky vynásobíme samu se sebou. Jednu
+. uspořádanou dvojici vrcholů, třeba v3, v1, pak v obrázku nakreslíme
+. jako šipku z prvního vrcholu do druhého, tedy z v3 do v1. Celý
+. kartézský součin by pak vypadal takto.
+. Podmnožina kartézského součinu pak může odpovídat jakémukoli
+. orientovanému grafu.
+. 
+. Orientované grafy tu ale nezmiňuju jen tak pro nic za nic.
+. Pohled na kartézský součin skrze orientované grafy je mimo jiné docela
+. dobrý způsob, jak popsat uspořádání.
+
+:--------------------- OrderingScene --------------------------------
+
+. Uspořádání jsme si v kapitolách o ordinálech kreslili jako pořadí
+. zleva doprava. Pořadí, ve kterém jsme si prvky nakreslili mělo
+. matematický význam.
+. Ale i tento obrázek by měl mít formální význam. Tak se
+. zkusme zamyslet, jak zakódovat uspořádání pomocí orientovaného grafu.
+.
+. Na konečné množině bychom mohli uspořádání popsat posloupností šipek od
+. prvního prvku až k poslednímu, ale takový přístup narazí, když bude bodů
+. nekonečně mnoho.
+. Jaké šipky bychom měli třeba nakreslit v otevřeném intervalu reálných
+. čísel od nuly do jedné, když to chceme rozlišit od všech možných jiných
+. přeuspořádání této množiny. Nemůžeme nakreslit šipky mezi jedním
+. prvkem a jeho sousedy, protože zde žádné sousedy nemá. Pro každý
+. další bod najdeme jiný, který je blíž.
+.
+. Ale vlastně to nakonec tolik nevadí, když se nebudeme snažit šipkami
+. šetřit. Když bod nemusí mít bezprostředního následníka,
+. tak radši z tohoto bodu nakreslíme šipku do všech bodů napravo. A
+. naopak, do tohoto bodu povedou šipky ze všech bodů nalevo. Nakonec
+. budou šipky samozřejmě i mezi ostatními body, jenom už se nám
+. nevejdou do obrázku, tak je tu nekreslíme.
+.
+. Když už něco funguje v nekonečném případě, není důvod to v konečném
+. dělat jinak, takže i u těch čtyř bodů budeme mít nakonec šipek víc než
+. jsme si kreslili na začátku.
+. Obecně takhle vznikne orientovaný graf, který jednak má šipku některým 
+. směrem mezi každou dvojicí bodů, a na druhou stranu v něm nejsou žádné
+. orientované cykly, není možné jít po šipkách a dojít na to samé místo.
+. :{Šipka mezi každou dvojicí}
+. :{Žádné cykly}
+. A to je formální definice uspořádání. Tedy
+. uspořádání je taková množina orientovaných hran, která udává pořadí
+. mezi každou dvojicí bodů a neobsahuje cykly.
+
+:------------------------ ExampleSummary ------------------------------
+.
+. Takže i když se na různé matematické objekty můžem být zvyklí dívat
+. různě, tuhle mluvíme o párování, tuhle o grafu funkce, tuhle o
+. orientovaném grafu, tuhle o uspořádání,
+. ve všech čtyřech případech se jedná jenom o jisté speciální případy
+. podmnožiny kartézského součinu. Dobré, ne?
+
+:------------------------  Overview2 -------------------------------
+.
+. Teď se přesouváme od aplikací kartézského součinu k jeho implementaci
+. -- zbývá si ujasnit, proč kartézský součin z axiomů existuje, a co je
+. to vlastně uspořádaná dvojice.
+
+:--------------------- FormalPairIssues ----------------------------
+.
+. Uspořádaná dvojice (a,b) by měla být nějaká množina, kterou můžeme pomocí
+. axiomů sestrojit z prvků 'a', 'b',
+. a přitom tato množina jednoznačně kóduje 'a', 'b', i jejich pořadí.
+. Pochopitelně k tomu nemůžeme využít uspořádání, které jsme si popsali
+. před chvílí, protože toto uspořádání se opíralo o kartézský součin, a
+. ten o uspořádanou dvojici. Samotnou uspořádanou dvojici je třeba
+. definovat elementárně.
+.
+. Taky je asi jasné, že uspořádaná dvojice nemůže být pouze dvouprvková
+. množina obsahující 'a' a 'b', kterou sestrojí axiom dvojice. To proto,
+. že stejnou množinu bychom dostali, kdybychom takto zabalili opačnou
+. dvojici b, a, takže výsledek neurčuje jednoznačně jednotlivé prvky.
+. Potřebujeme od sebe musíme 'a' a 'b' nějak odlišit.
+. Tak co třeba tak, že prvek 'a' zabalíme do jednoprvkové množiny,
+. zatímco prvek 'b' necháme, tak, jak je.
+. Bude to fungovat jako definice uspořádané dvojice? Teď už bude dvojice
+. (b,a) vypadat jinak, prohození 'a' a 'b' vymění zarámečkovaný prvek.
+. Ale pořád to jako definice uspořádané dvojice nestačí. Proč? Dám vám
+. klasických pět sekund na rozmyšlenou, ale spíš je to čas, abyste si
+. stihli zastavit video, a rozmyslet si to, bude-li se vám chtít.
+.
+. --- 5 sec ---
+.
+. Problém je v tom, že samotné prvky 'a' a 'b' můžou být jednoprvkové
+. množiny.
+. Takže kdybychom dostali takovouhle množinu se zabaleným 'c' a 'd',
+. není jasné, jestli to dekódovat jako dvojici, která má vlevo 'c' a
+. vpravo množinu obsahující 'd', nebo naopak dvojici, která má vlevo 'd'
+. a vpravo množinu obsahující c.
+. 
+. Tohle bylo pár příkladů, co nefunguje, ale když byste si s tím chvilku
+. hráli, časem byste asi narazili na něco, co funguje. Nejobvyklejší je
+. asi Kuratowskiho definice.
+
+:-------------------- FormalPairKuratowski -----------------------
+.
+. Uspořádaná dvojice (a,b) je definována následovně.
+. 'a' zabalíme do jednoprvkové množiny, a do další množiny
+. zabalíme a i b. Uspořádaná dvojice (a,b) pak bude množina obsahující tyto
+. dvě množiny.
+. Abychom se ujistili, že takto sestrojená množina kóduje 'a', 'b' a
+. jejich pořadí jednoznačně, rozebereme dva případy.
+. Napřed se poďíváme na případ, kdy jsou oba prvky stejné,
+. tedy kódujeme dvojici (a,a),
+. Množina nemůže obsahovat jeden prvek dvakrát, takže se v druhé množině
+. obě a-čka slijí do jednoho. Jenže teď se ze stejného důvodu slijí do
+. jedné obě tyto jednoprvkové množiny.
+. Uspořádaná dvojice tak bude jednoprvková množina
+. obsahující jednoprvkovou množinu obsahující 'a'.
+.
+. V druhém případě, když budou 'a' a 'b' různé prvky, k žádnému kolapsu
+. nedojde. Takže bude naše dvojice obsahovat jedno jednoprvkovou a jednu
+. dvouprvkovou množinu. Když chceme dvojici dekódovat, stačí si napřed
+. přečíst a-čko z té jednoprvkové, následně si z té dvouprvkové můžeme
+. a-čko odmyslet a přečíst b-čko.
+.
+. Tím jsme ověřili, že Kuratowskiho definice funguje v tom smyslu, že
+. jakékoli kódování uspořádané dvojice tuto dvojici jednoznačně určuje
+. včetně pořadí. Na závěr si uděláme malé cvičení s axiomy, a sestrojíme
+. s nimi množinu všech uspořádaných dvojic nad danou dvojicí množin, tedy
+. kartézský součin.
+.
+:-------------------- AxiomaticConstruction -------------------------
+
+Ukážeme si rovnou dvě konstrukce. Jednu konstrukci
+hrubou silou, která demonstruje, že pomocí potence a vydělení můžeme
+sestrojit skoro cokoli, a pak druhou, kde demonstrujeme, jak můžeme
+použít axiom nahrazení. Jdeme na to.
+
+Máme množiny A a B, chceme kartézský součin. Tak je napřed sjednotíme
+do jedné množiny.
+Po prvním aplikování potenční množiny budeme mít množinu se spoustou
+prvků. Mimo jiné v této potenční množině budou všechny jednoprvkové
+množiny obsahující prvky z 'A', a taky všechny dvouprvkové množiny obsahující
+jeden prvek 'A' a jeden z 'B'. A taky tam bude spousta balastu navíc.
+
+Nyní opět sestrojíme potenční množinu této množiny. V té budou všechny
+dvouprvkové podmnožiny předchozí potenční množiny, čili v ní budou
+všechny uspořádané dvojice, které jsme potřebovali. A samozřejmě tam
+bude spousta balastu navíc.
+
+Nicméně, toho balastu se snadno zbavíme axiomem vydělení. Pravidlo pro
+vydělení jednoduše říká, že chceme jenom ty prvky, které do skalárního
+součinu patří. Takže po jednom sjednocení, dvojité potenční množině, a
+jednom vydělení máme skalární součin.
+
+Drobná vada na kráse této konstrukce je, že v ní musíme jít do hloubky
+definice uspořádané dvojice. Kdybychom si zvolili jinou definici
+uspořádané dvojice, museli bychom na to jít znovu. Asi správně tušite,
+že by stačilo přidat pár dalších potencí, případně nějaké to
+sjednocení, a taky by to dopadlo.
+Ale nebylo by hezči mít konstrukci,
+které by bylo úplně šumafuk, co to ta uspořádaná dvojice vlastně je?
+Protože by vůbec nerozbalovala definici uspořádané dvojice?
+Ano, taková konstrukce taky existuje, pomocí axiomu nahrazení.
+
+Zafixujeme si jeden prvek množiny A, a uvážíme následující
+proces. Kdykoli nám někdo dá prvek množiny B, zabalíme jej spolu s
+našim vypraným 'a'-čkem do uspořádané dvojice.
+Axiom nahrazení nám řiká, že můžeme tento proces aplikovat na všechny
+prvky množiny B, a výsledek zabalit do množiny. Tak umíme sestrojit
+jeden sloupec kartézského součinu.
+A protože nezáleželo na tom, který prvek množiny 'a' jsme si vybrali,
+můžeme takto sestrojit kterýkoli sloupec kartézského součinu.
+Trik spočívá v tom, že teď můžeme použít axiom nahrazení ještě jednou.
+Doposud jsme si definovali proces, který dostane prvek množiny A, a
+sestrojí jeden sloupeček. Dle axiomu nahrazení můžeme tento proces
+aplikovat na všechny prvky množiny A, a výsledek zabalit do množiny.
+To ještě není kartézský součin, protože je každý sloupeček zabalený
+v množině, ale od toho už nám snadno dopomůže axiom sjednocení.
+
+Tak jsme si ukázali, co je kartézský součin, jak se pomocí něj
+v teorii množin můžeme kódovat párování mezi množinami, funkce, či
+uspořádání, a jak kartézský součin sestrojit.
+
+V dalším díle se z hlediska formální teorie množin podíváme na další
+základní matematický objekt -- na přirozená a ordinální čisla.
+Už vám někdo někdy říkal, že devítka obsahuje sedmičku?
+Nashle příště?
