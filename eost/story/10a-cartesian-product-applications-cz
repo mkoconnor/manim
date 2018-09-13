@@ -29,12 +29,31 @@ Quote: Umění matematiky spočívá v pojmenovávání různých věcí stejně
 .
 . Jde o kartézský součin. Ten by se dal označit jako mezičlánek mezi
 . formálním světem a dalšími objekty jako je rovina bodů,
-. párování, funkce, uspořádání, či orientovaný graf. V tomhle videu si
-. ukážeme obě tyto souvislosti. Napřed si ukážeme, k čemu kartézský
-. součin slouží, a jak přes něj definovat různé další věci, a potom se
-. ponoříme do formalního světa, a ukážeme, jak přesně definovat
-. skalární součin jenom pomocí množin, a jak jej sestrojit pomocí
-. axiomů.
+. párování, funkce, uspořádání, či orientovaný graf.
+. Původně jsem měl v úmyslu ukázat obě části v jednom videu, kapitole
+. 10, ale postupem času se tato kapitola jednak poněkud rozrostla, a
+. za druhé musím uznat, že jsou obě části poněkud nezávislá témata.
+.
+. Proto jsem desátou kapitolu rozdělil na část 'a', ve které si ukážeme
+. k čemu je kartézský součin dobrý, a na část 'b', kde si jej
+. sestrojíme ve formálním světě množin.
+.
+. Musím se přiznat, že samotné trochu divné číslování kapitol je
+. částečně důvodem mojí lenosti, kdy se mi nechtělo kapitoly přečíslovávat
+. v už dříve přípravených videích. Současně se na to ale dá dívat i
+. tak, že není úplně jednoznačné to správné pořadí částí 'a' a 'b'.
+.
+. Určit pořadí těchto částí pro mne totiž taky bylo určité dilema.
+. Rozhodl jsem se začít aplikacemi, které považuji o něco zajímavější,
+. ale během sledování si holt budete muset představovat, že kartézský
+. součin už je něco, co ve formálním světě žije, a proč tomu tak je se
+. dozvíte až v dalším videu.
+.
+. A nebo si klidně můžete tohle video teď pozastavit, napřed si
+. prohlédnout část 'b' o tom, kde se kartézský součin vezme ve
+. formálním světě teorie množin, a až potom zjistit, k čemu taková
+. věc může být dobrá.
+
 . Začneme definicí, co kartézský součin znamená.
 
 :---------------------- ProductDefinition --------------------------
@@ -224,130 +243,8 @@ Quote: Umění matematiky spočívá v pojmenovávání různých věcí stejně
 . ve všech čtyřech případech se jedná jenom o jisté speciální případy
 . podmnožiny kartézského součinu. Dobré, ne?
 
-:------------------------  Overview2 -------------------------------
+:--------------------------  NextPart -------------------------------
 .
-. Teď se přesouváme od aplikací kartézského součinu k jeho implementaci
-. -- zbývá si ujasnit, proč kartézský součin z axiomů existuje, a co je
-. to vlastně uspořádaná dvojice.
-
-:--------------------- FormalPairIssues ----------------------------
-.
-. Uspořádaná dvojice (a,b) by měla být nějaká množina, kterou můžeme pomocí
-. axiomů sestrojit z prvků 'a', 'b',
-. a přitom tato množina jednoznačně kóduje 'a', 'b', i jejich pořadí.
-. Pochopitelně k tomu nemůžeme využít uspořádání, které jsme si popsali
-. před chvílí, protože toto uspořádání se opíralo o kartézský součin, a
-. ten o uspořádanou dvojici. Samotnou uspořádanou dvojici je třeba
-. definovat elementárně.
-.
-. Taky je asi jasné, že uspořádaná dvojice nemůže být pouze dvouprvková
-. množina obsahující 'a' a 'b', kterou sestrojí axiom dvojice. To proto,
-. že stejnou množinu bychom dostali, kdybychom takto zabalili opačnou
-. dvojici b, a, takže výsledek neurčuje jednoznačně jednotlivé prvky.
-. Potřebujeme od sebe musíme 'a' a 'b' nějak odlišit.
-. Tak co třeba tak, že prvek 'a' zabalíme do jednoprvkové množiny,
-. zatímco prvek 'b' necháme, tak, jak je.
-. Bude to fungovat jako definice uspořádané dvojice? Teď už bude dvojice
-. (b,a) vypadat jinak, prohození 'a' a 'b' vymění zarámečkovaný prvek.
-. Ale pořád to jako definice uspořádané dvojice nestačí. Proč? Dám vám
-. klasických pět sekund na rozmyšlenou, ale spíš je to čas, abyste si
-. stihli zastavit video, a rozmyslet si to, bude-li se vám chtít.
-.
-. --- 5 sec ---
-.
-. Problém je v tom, že samotné prvky 'a' a 'b' můžou být jednoprvkové
-. množiny.
-. Takže kdybychom dostali takovouhle množinu se zabaleným 'c' a 'd',
-. není jasné, jestli to dekódovat jako dvojici, která má vlevo 'c' a
-. vpravo množinu obsahující 'd', nebo naopak dvojici, která má vlevo 'd'
-. a vpravo množinu obsahující c.
-. 
-. Tohle bylo pár příkladů, co nefunguje, ale když byste si s tím chvilku
-. hráli, časem byste asi narazili na něco, co funguje. Nejobvyklejší je
-. asi Kuratowskiho definice.
-
-:-------------------- FormalPairKuratowski -----------------------
-.
-. Uspořádaná dvojice (a,b) je definována následovně.
-. 'a' zabalíme do jednoprvkové množiny, a do další množiny
-. zabalíme a i b. Uspořádaná dvojice (a,b) pak bude množina obsahující tyto
-. dvě množiny.
-. Abychom se ujistili, že takto sestrojená množina kóduje 'a', 'b' a
-. jejich pořadí jednoznačně, rozebereme dva případy.
-. Napřed se poďíváme na případ, kdy jsou oba prvky stejné,
-. tedy kódujeme dvojici (a,a),
-. Množina nemůže obsahovat jeden prvek dvakrát, takže se v druhé množině
-. obě a-čka slijí do jednoho. Jenže teď se ze stejného důvodu slijí do
-. jedné obě tyto jednoprvkové množiny.
-. Uspořádaná dvojice tak bude jednoprvková množina
-. obsahující jednoprvkovou množinu obsahující 'a'.
-.
-. V druhém případě, když budou 'a' a 'b' různé prvky, k žádnému kolapsu
-. nedojde. Takže bude naše dvojice obsahovat jedno jednoprvkovou a jednu
-. dvouprvkovou množinu. Když chceme dvojici dekódovat, stačí si napřed
-. přečíst a-čko z té jednoprvkové, následně si z té dvouprvkové můžeme
-. a-čko odmyslet a přečíst b-čko.
-.
-. Tím jsme ověřili, že Kuratowskiho definice funguje v tom smyslu, že
-. jakékoli kódování uspořádané dvojice tuto dvojici jednoznačně určuje
-. včetně pořadí. Na závěr si uděláme malé cvičení s axiomy, a sestrojíme
-. s nimi množinu všech uspořádaných dvojic nad danou dvojicí množin, tedy
-. kartézský součin.
-.
-:-------------------- AxiomaticConstruction -------------------------
-
-Ukážeme si rovnou dvě konstrukce. Jednu konstrukci
-hrubou silou, která demonstruje, že pomocí potence a vydělení můžeme
-sestrojit skoro cokoli, a pak druhou, kde demonstrujeme, jak můžeme
-použít axiom nahrazení. Jdeme na to.
-
-Máme množiny A a B, chceme kartézský součin. Tak je napřed sjednotíme
-do jedné množiny.
-Po prvním aplikování potenční množiny budeme mít množinu se spoustou
-prvků. Mimo jiné v této potenční množině budou všechny jednoprvkové
-množiny obsahující prvky z 'A', a taky všechny dvouprvkové množiny obsahující
-jeden prvek 'A' a jeden z 'B'. A taky tam bude spousta balastu navíc.
-
-Nyní opět sestrojíme potenční množinu této množiny. V té budou všechny
-dvouprvkové podmnožiny předchozí potenční množiny, čili v ní budou
-všechny uspořádané dvojice, které jsme potřebovali. A samozřejmě tam
-bude spousta balastu navíc.
-
-Nicméně, toho balastu se snadno zbavíme axiomem vydělení. Pravidlo pro
-vydělení jednoduše říká, že chceme jenom ty prvky, které do skalárního
-součinu patří. Takže po jednom sjednocení, dvojité potenční množině, a
-jednom vydělení máme skalární součin.
-
-Drobná vada na kráse této konstrukce je, že v ní musíme jít do hloubky
-definice uspořádané dvojice. Kdybychom si zvolili jinou definici
-uspořádané dvojice, museli bychom na to jít znovu. Asi správně tušite,
-že by stačilo přidat pár dalších potencí, případně nějaké to
-sjednocení, a taky by to dopadlo.
-Ale nebylo by hezči mít konstrukci,
-které by bylo úplně šumafuk, co to ta uspořádaná dvojice vlastně je?
-Protože by vůbec nerozbalovala definici uspořádané dvojice?
-Ano, taková konstrukce taky existuje, pomocí axiomu nahrazení.
-
-Zafixujeme si jeden prvek množiny A, a uvážíme následující
-proces. Kdykoli nám někdo dá prvek množiny B, zabalíme jej spolu s
-našim vypraným 'a'-čkem do uspořádané dvojice.
-Axiom nahrazení nám řiká, že můžeme tento proces aplikovat na všechny
-prvky množiny B, a výsledek zabalit do množiny. Tak umíme sestrojit
-jeden sloupec kartézského součinu.
-A protože nezáleželo na tom, který prvek množiny 'a' jsme si vybrali,
-můžeme takto sestrojit kterýkoli sloupec kartézského součinu.
-Trik spočívá v tom, že teď můžeme použít axiom nahrazení ještě jednou.
-Doposud jsme si definovali proces, který dostane prvek množiny A, a
-sestrojí jeden sloupeček. Dle axiomu nahrazení můžeme tento proces
-aplikovat na všechny prvky množiny A, a výsledek zabalit do množiny.
-To ještě není kartézský součin, protože je každý sloupeček zabalený
-v množině, ale od toho už nám snadno dopomůže axiom sjednocení.
-
-Tak jsme si ukázali, co je kartézský součin, jak se pomocí něj
-v teorii množin můžeme kódovat párování mezi množinami, funkce, či
-uspořádání, a jak kartézský součin sestrojit.
-
-V dalším díle se z hlediska formální teorie množin podíváme na další
-základní matematický objekt -- na přirozená a ordinální čisla.
-Už vám někdo někdy říkal, že devítka obsahuje sedmičku?
-Nashle příště?
+. V části 'b' kapitoly 10 se od aplikací kartézského součinu přesuneme
+. k jeho implementaci. Formálně si definujeme uspořádanou dvojici,
+. a z axiomů sestrojíme samotný kartézský součin. Nashle příště.

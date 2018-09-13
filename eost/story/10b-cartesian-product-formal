@@ -1,0 +1,6 @@
+Q: Why do we accept Kuratowski's definition of ordered pairs?
+
+A: We accept this definition because it works, and it works very well.
+However do note that almost nobody cares about the actual encoding of ordered pairs, and in most cases set theorists don't really care either.
+
+-- from Math StackExchange
