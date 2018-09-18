@@ -19,156 +19,237 @@ Quote: Úlohu jsem vyřešil po dvoutýdením soustředění se na prázdnou mno
 * existence of omega1
 * what about cardinals? wait for chapter~\ref{cardinals}
 
-V základech teorie množin máme pouze množiny.
-Prázdnou množinu.
-Množinu obsahující prázdnou množinu.
-Ale zatím vlastně nemáme ani přirozená čisla.
-Jako je nula,
-nebo jedna.
-Jako všechno v teorii množin, i čísla budou muset být množiny,
-jen si musíme ujasnit, jaké.
+:------------------- FirstAttempt -----------------------
+.
+. V základech teorie množin máme pouze množiny.
+. Prázdnou množinu.
+. Množinu obsahující prázdnou množinu.
+. Ale zatím tam vlastně nemáme ani přirozená čisla.
+. Jako je nula, jednička, dvojka...
+. Jako všechno v teorii množin, i čísla budou muset být množiny,
+. jen si musíme ujasnit, které.
+.
+. Tak třeba nulu je docela přirozené reprezentovat prázdnou množinou.
+. Jednička by pak mohla být množina obsahující nulu.
+. Dvojka množina obsahující jedničku, a tak dál.
+. Takhle bychom čísla sice zavést mohli, ale není to praktické
+. z několika důvodů.
+. Zaprvé se tento postup těžko zobecňuje na ordinální čísla.
+. Jak bychom takto chtěli reprezentovat třeba ordinál omega? Takhle?
+. A co omega plus jedna?
+. Sice si tady na obrazovku můžeme nakreslit nekonečnou posloupnost do
+. sebe zanořených obdélníčků, ale jednak to odporuje axiomu
+. fundovanosti, a takto vyobrazená omega plus jednička už ve formálním
+. jazyce teorie množin nedává vůbec žádný smysl. Takhle by to tedy nešlo.
+.
+. A snad ještě podstatnější nevýhoda takto zanořených přirozených čisel
+. je, že bychom přirozená čísla bychom používali k měření velikosti
+. konečných množin. Ideálně pomocí párování s daným přirozeným čislem.
+. Jenže takto zavedené přirozené číslo je kromě nuly vždycky
+. jednoprvková množina.
+. Praktičtější bude, když bude mít každé přirozené čislo tolik prvků,
+. kolik uvádí.
+. Takže se přirozená čisla správně staví následovně.
+.
+:------------------ NaturalsDefinition -------------------------
+.
+. Nula je prázdná množina.
+. Jednička množina obsahující prázdnou množinu, zatím je to stejné.
+. Dvojka by ale měla být dvouprvková množina. Doposud jsme sestrojici
+. dvě množiny -- nulu a jedničku. Tak bude dvojka obsahovat nulu a
+. jedničku.
+. Trojka bude množina obsahující nulu, jedničku a dvojku...
+. A tak dál.
+. >"Ááá, to se nedá představit"
+. >"Nemusíš si to představovat takhle."
+. 
+. Taková definice přirozených čísel je z řady důvodů šikovná, ale
+. prakticky žádný matematik si přirozená čisla nepředstavuje jako
+. hromadu do sebe zanořených množin.
+. Co se ale může hodit je jedna expanze -- interpretovat někdy jedno
+. přirozené číslo, třeba jako množinu všech čísel menších než pět.
+. Takový pohled by se mohl líbit programátorům.
 
-Tak třeba nulu je docela přirozené reprezentovat prázdnou množinou.
-Jednička by pak mohla být množina obsahující nulu.
-Dvojka množina obsahující jedničku, a tak dál.
-Takhle bychom to sice možná zavést mohli, ale není to šikovné z několika důvodů.
-Zaprvé se tento postup těžko zobecňuje na ordinály.
-Jak bychom takto chtěli reprezentovat třeba omegu? Nebo omega plus jedna?
-Sice si můžeme nakreslit nekonečnou posloupnost do sebe zanořených obdélníčků,
-ale jednak to odporuje axiomu fundovanosti, a omega plus jedna už
-v jazyce teorie množin nedává vůbec žádný smysl.
-A další nevýhoda takto zanořených přirozených čisel je, že přirozená
-čísla bychom rádi používali k měření velikosti konečných množin.
-Ideálně pomocí párování s daným přirozeným čislem.
-Jenže takto zavedené přirozené číslo je kromě nuly vždycky
-jednoprvková množina.
-Praktičtější bude, když bude mít každé přirozené čislo tolik prvků,
-kolik je ono samo.
+:-------------------- ProgrammingExcursion --------------------------
+.
+. Například tohle video je naprogramované v programovacím jazyce Python.
+. a v tomto programovacím jazyce často narazíte na funkci range.
+. To je funkce, která dostane přirozené číslo, a vrátí seznam menších
+. přirozených čísel. To se může hodit, když chcete třeba projít všechna
+. čisla od nuly po n-1, a při programování něco takového typicky chcete
+. docela často.
+. Vtip teorie množin je v tom, že tam funkce "range" není potřeba,
+. protože můžeme každé číslo rovnou považovat za příslušný seznam.
+.
+. Teď už se ale vrátíme do ryzí matematiky s nekonečny, a ukážeme si,
+. jak přímočaré je zobecněni přirozených čísel na čísla ordinální.
+.
+:--------------------- ExtensionToOrdinals ---------------------
+.
+. Ordinál omega bude opět množina všech předchozích čísel, tedy množina
+. přirozených čisel. Takže ne jenom, že ordinál omega uspořádáním
+. odpovídá omeze coby množině přirozených čísel, ono to vážně není nic
+. jiného než množina přirozených čísel.
+. Dál ordinál omega plus jedna je množina všech přirozených
+. čisel s omegou k tomu a podobně bychom mohli pokračovat.
+.
+. S formálně zavedenými ordinály je všechno mnohem prozaičtější.
+. Nemusíme říkat, že supremum množiny ordinálů je něco jako
+. sjednocení. Tím, že všechny ordinály obsahují to samé, je to skutečné
+. sjednocení, přesně to, které nám poskytuje axiom sjednocení.
+.
+:----------------------- Chapter5Reminder -------------------------
+.
+. V páté kapitole jsme si
+. zavedli dvě role ordinálních čísel -- buď coby reprezentant dobře
+. uspořádané množiny, nebo coby index do nějakého většího ordinálu.
+. Ale teď už se nemusíme tvářit, že menší ordinály jakoby ukazují do
+. většiho ordinálu. Ony to opravdu jsou přímo jeho prvky.
 
-Takže se přirozená čisla správně konstruují takto.
-Nula je prázdná množina.
-Jednička množina obsahující prázdnou množinu, zatím je to stejné.
-Ale dvojka by měla být dvouprvková množina. Doposud jsme sestrojici
-dvě množiny -- nulu a jedničku. Tak bude dvojka obsahovat nulu a
-jedničku.
-Trojka bude množina obsahující nulu, jedničku a dvojku...
-A tak dál.
->"Ááá, to se nedá představit"
->"Nemusíš si to představovat takhle."
+:-------------------- GraphView -----------------------------
+.
+. Další pěkný pohled na věc je přes graf náležení.
+. Když máme dva obecné ordinály, alfa a beta, tak to, že alfa je menší
+. než beta se pozná tak, že když se na betu díváme jako na množinu, tak
+. alfa v této množině leží.
+. To jsme v kapitolách o formálním světě množin a o axiomech značili
+. modrou šipkou z alfy do bety.
+. Takže když si mezi ordinály nakreslíme šipky náležení, budou šipky
+. směřovat vždy z menších ordinálů do větších.
+. Vlastně tento graf náležení určuje na
+. ordinálech uspořádání přesně tak, jak jsme si uspořádání popisovali
+. v kapitole 10a o aplikacích kartézského součinu. Jenom tentokrát šipky
+. neznačí podmnožinu kartézského součinu, ale ten ryzí základ, na
+. kterém celá teorie stojí.
+.
+. Obecně takto můžeme běžným způsobem definovat formální ordinální
+. čislo. Je to taková množina, která je dobře uspořádaná grafem
+. náležení, a její prvky neobsahují nic navíc. To znamená, že na prvky
+. ordinálu nebude ukazovat nic mimo toto ordinální číslo. Téhle druhé
+. vlastnosti, že prvky ordinálu neobsahují nic navíc se taky někdy
+. v literatuře říká, že je to tranzitivní množina. Takže odborně řečeno
+. je ordinál tranzitivní množina, která je dobře uspořádaná relací
+. náležení.
 
-Taková definice přirozených čísel je z řady důvodů šikovná, ale
-prakticky žádný matematik si přirozená čisla nepředstavuje jako
-hromadu do sebe zanořených množin.
-Co se ale může hodit je jedna expanze -- představit si někdy přirozené
-číslo jako množinu všech těch menších.
-Tohle video je naprogramované v programovacím jazyce Python.
-V tomto programovacím jazyce často narazíte na funkci range.
-To je funkce, která dostane přirozené číslo, a vrátí seznam menších
-přirozených čísel. Může se hodit, když chcete projít všechna čisla od
-nul po n-1.
-V teorii množin "range" není potřeba, protože můžeme každé číslo rovnou
-považovat za příslušný seznam.
+:------------------ ConstructionsIntro --------------------------
+.
+. Ve zbytku kapitoly se podíváme na axiomatickou konstrukci
+. dvou důležitých ordinálních čisel, konkrétně omega, a omega1.
+. Začneme s omegou.
+.
+:------------------ ConstructionOmega --------------------------
+.
+. Když jsme si představovali axiomy, tak jsme si zjednodušeně řekli, že
+. axiom nekonečna říká, že existuje množina všech přirozených čisel.
+. V takovém případě bychom měli konstrukci omegy danou axiomem, protože
+. omega není nic jiného než množina přirozených čisel. Ale toto znění
+. axiomu není úplně přesné. Je to malinko složitější, patrně proto, že
+. matematici mají radši kratší axiomy a delší důkazy. Přesná formulace
+. axiomu nekonečna zní:
+. Existuje množina M, která
+. obsahuje prázdnou množinu,
+. a kdykoli v ní leží nějaká množina x,
+. tak v této množině v M leži i množina x, do které přidáme x jako prvek.
+.
+. Z toho plyne, že když už M obsahuje prázdnou množinu, musí obsahovat i
+. prázdnou množinu, do které navíc dáme prázdnou množinu jako
+. prvek. Takové množině taky říkáme jednička, a prázdné množině taky
+. říkáme nula.
+.
+. Pokračujeme. Jednička je množina obsahující nulu.
+. Když do ní přidáme jedničku jako prvek, získáme
+. množinu obsahující nulu a jedničku, tedy dvojku. Když do dvojky
+. přidáme dvojku, získáme trojku. A tak dál. Obecně tak v množině M musí
+. ležet všechna přirozená čisla.
+.
+. Nemáme už ale zaručeno, že v M není nic navíc.
+. Klidně by množina M mohla obsahovat další ordinální čísla,
+. nebo i další naprosto nahodilé množiny.
+.
+. Naštěstí máme axiom vydělení, kterým můžeme všechny ty zbytečné prvky
+. vyhodit, a nechat si jenom přirozená čisla.
+. A teprve tak až dostaneme omegu, čili množinu přirozených
+. čísel. Není to od axiomu nekonečna daleko, ale bylo třeba udělat
+. navíc jeden krok s axiomem vydělení.
 
-Když jsme si rekurzivně zavedly přirozená čísla jako množinu všech
-předchozích, můžeme tuto definici snadno rozšířit na ordinály. Ordinál
-omega bude množina všech přirozených čisel, omega plus jedna bude
-množina všech přirozených čisel s omegou k tomu a tak dál.
-V páté kapitole jsme si zavedli dvě role ordinálních čísel -- buď coby
-reprezentant dobře uspořádané množiny, nebo coby index do nějakého
-většího ordinálu.
+:----------------- ConstructionsOverview2 -----------------------
+.
+. Teď si ještě jednou projdeme konstrukci omega jedničky se sedmé
+. kapitoly, jelikož v sedmé kapitole jsme to nemohli udělat pořádně,
+. když jsme ještě neměli axiomy.
 
-S takto formálně zavedenými ordinály je všechno mnohem prozaičtější.
-Nemusíme říkat, že ordinály menší než ordinál alfa jakoby ukazují do
-ordinálu alfa. Ony to jsou z definice přímo jeho prvky.
-Nemusíme říkat, že ordinální supremum je něco jako sjednocení.
-Ono je to skutečné sjednocení, přesně to, které nám poskytuje axiom
-sjednocení.
-A nemusíme říkat, že ordinál je abstrakcí dobře uspořádaných množin.
-Je to zcela konkrétní reprezentant dobře uspořádaných množin -- je to
-množina všech menších ordinálů.
+:---------------------- ProductPowerset --------------------------------
+.
+. Začneme s množinou přírozených čisel omega, kterou jsme sestrojili
+. před chvílí.
+. Dále sestrojíme kartézský součin omega krát omega, to můžeme nakreslit
+. jako graf, kde vede šipka z každého prvku do každého. Plus tam budou
+. ještě smyčky z jednoho vrcholu do toho samého, ty teď nekreslím, už
+. takhle je to pěkné nepřehledné.
+.
+. Ze součinu omega krát omega vytvoříme potenční množinu.
+. To znamená, že každý prvek výsledné potenční množiny bude podmnožina
+. kartézského součinu, omega krát omega, neboli určitý orientovaný graf
+. na přirozených číslech.
+.
+. Některé podmnožiny kartézského součinu omega krát omega přitom
+. reprezentují nějaké uspořádání. To znamená, že máme šipku mezi každou
+. dvojicí přirozených čisel, a můžeme přirozená čísla přeuspořádat tak,
+. aby šipky vedly zleva doprava.
+. Takovou podmnožinu omega krát omega radši znázorňujeme jako pořadí
+. přirozených čisel, a všechna tato uspořádání tvoří podmnožinu
+. naší potenční množiny. Tuto podmnožinu jednoduše sestrojíme axiomem
+. vydělení.
+.
+. Některá uspořádání mají navíc tu vlastnost, že jsou dobrá, neobsahují
+. nekonečnou klesající posloupnost. V množině všech uspořádání tak máme
+. další podmnožinu -- množinu všech dobrých uspořádání na přirozených
+. číslech. A to je ta množina, pomocí které postavíme omega jedničku.
+.
+:----------------------- OrderingToOrdinal ----------------------------
+.
+. Z libovolné dobře uspořádané množiny totiž můžeme pomocí transfinitní
+. rekurze a opakovaného použití axiomu nahrazení postavit odpovídající
+. ordinál.
+. V každém kroku rekurze uvážíme počátek uspořádané
+. množiny, který proměníme v příslušnou množinu ordinálů. Takže na začátku
+. máme prázdný počátek, který přejde v prázdnou množinu, tedy na nulu.
+. Potom počátek obsahující první prvek přejde na množinu obsahující
+. nulu, tedy na jedničku. Z dalšího počátku vznikne dvojka, potom
+. trojka, a tak dál.
+. Úplně stejně pokračujeme v limitním kroku. Z počátku naší množiny před
+. nulou vznikne množina všech přirozených čisel, tedy omega. Stejně
+. vzniknou další ordinály, až nakonec proměníme axiomem nahrazení
+. všechna přirozená čisla, a dostaneme odpovídající formální ordinál.
+.
+. Takhle jsme dobrému uspořádání na přirozených číslech přiřadili jeden
+. formální ordinál. A dalším uspořádání přirozených čisel můžeme
+. přiřadit další ordinály.
+.
+. Takže kdykoli dostaneme dobré uspořádání na přirozených čislech,
+. můžeme sestrojit odpovídající formální ordinál.
+. Protože navíc máme všechna dobrá uspořádání na přirozených
+. čislech v jedné množině, můžeme použít axiom nahrazení ještě jednou, a
+. z množiny všech dobrých uspořádání přirozených čisel sestrojit množinu
+. všech formálních ordinálů mohutnosti aleph0.
+.
+. A to je skoro omega jednička.
+.
+:------------------------ Omega1Finish ----------------------------
+.
+. Omega jednička se totiž skládá ze všech spočetných ordinálů, to jsou
+. konečné ordinály, a pak ordinály mohutnosti aleph0, které už máme
+. v jedné množině. Zbývá tedy přidat konečná ordinální čísla, alias
+. přirozená čisla tím, že naši množinu ještě sjednotíme s omegou.
+. A je to, takhle se z axiomů sestrojí omega jednička. Tuším, že
+. formální konstrukce jedné nepředstavitelné množiny asi nepatří
+. mezi ty nejzábavnější části teorie množin. Ale považoval jsem za
+. vhodné ještě trochu ukázat axiom nahrazení, a současně jsem
+. chtěl uvést na pravou míru tu mírně zamlženou konstrukci
+. v sedmé kapitole.
 
-Samotné uspořádání na ordinálu je přitom určené tím nejzákladnějším,
-co jazyk teorie množin poskytuje -- relací náležení. To že je
-ordinál a menší než b se jednoduše pozná tak, že a je prvkem b.
-Takže ještě jedna varianta, jak si ordinály představovat, je se na
-svět podívat jako na obrovský orientovaný graf, kde vrcholy
-reprezentují množiny, a šipky vedou z množiny do jejich prvků. V tomto
-vrcholu můžeme najít nulu -- ta nikam neukazuje -- dále jedničku -- ta
-ukazuje jenom na nulu, a tak dál. Takhle pokračují přirozená čisla, i
-ordinální čisla.
+:-------------------- NextChapter -------------------------------
 
-Obecně tak můžeme definovat ordinální čislo jako takovou množinu,
-která je dobře uspořádaná touto relací náležení, a její prvky
-neobsahují nic navíc. To znamená, že prvky ordinálu musí ukazovat
-pouze dovnitř tohoto ordinálu, a ne mimo.
-
-Ve zbytku kapitoly se podíváme na formální konstrukci dvou důležitých
-ordinálů, konkrétně omega, a omega1.
-
-V deváté kapitole o axiomech jsme si zjednodušeně řekli, že axiom
-nekonečna říká, že existuje množina všech přirozených čisel. V takovém
-případě bychom měli konstrukci omegy danou axiomem, ale není to úplně
-přesné. Je to malinko složitější, patrně proto, že matematici mají
-radši kratší axiomy a delší důkazy. Přesná formulace axiomu nekonečna
-tedy zní: Existuje množina M, která
-obsahuje prázdnou množinu,
-a s každým prvkem x této množiny v M leži i x sjednoceno
-s jednoprvkovou množinou obsahující x.
-Co to znamená?
-Tahle podivná operace na ordinálech funguje jako přičítání
-jedničky. Dejme tomu, že je v naší množině trojka. Vezmeme teda
-trojku, to je množina 0, 1, 2, a dále jednoprvkovou množinu obsahující
-trojku. Když tyhle dvě množiny sjednotíme, dostaneme množinu
-0, 1, 2, 3, tedy čtyřku.
-Když je v množině nula, a s každým přirozeným číslem v ní je to další
-přirozené čislo, musí už v M být všechna přirozená čisla.
-Ale axiom nám nezaručuje, že v M není nic navíc.
-Takový axiom splňuje třeba i ordinál omega krát dva. A navíc ani nic
-nezaručuje, že prvky množiny M musí být jenom ordinály,
-
-Naštěstí máme axiom vydělení, kterým můžeme všechny ty zbytečné prvky
-vyhodit, a nechat si jenom přirozená čisla. Ale... jak vlastně popsat
-přirozená čisla? Už umíme popsat ordinály, to jsou množiny dobře
-uspořádané pomocí náležení, jejichž prvky neobsahují nic navic.
-Zbývá nějakým pravidlem určit, který ordinál je vlastně přirozeným
-číslem.
-Pochopitelně, přirozená čisla jsou ty konečné ordinály, ale pokud
-současně definujeme konečnost jako velikost vyjádřitelnou přirozenym
-čislem, dostáváme se do kruhu.
-Takhle to tedy nejde, je třeba nějakou lépe testvatelnou vlastnost
-konečných ordinálů. Za naší cestu teorií množin jsme takových
-vlastností naštěstí potkali habaděj. Jmenuji jednu, přirozené čislo je
-takový ordinál, že každý jeho počáteční úsek má největší prvek.
-
-Takže z množiny M dané axiomem nekonečna vydělíme axiomem vydělení
-pouze takové ordinály, ve kterých má každý počáteční úsek největší
-prvek, a získáváme omegu -- nejmenší nekonečný ordinál.
-
-Teď si ještě jednou projdeme konstrukci omega jedničky se sedmé
-kapitoly. V sedmé kapitole jsme to nemohli udělat pořádně, když jsme
-ještě neměli axiomy.
-
-Takže začneme s množinou přírozených čisel.
-A sestrojíme potenční množiny kartézského součinu omega krát omega.
-Každý prvek této potenční množiny je množina dvojic přirozených čísel,
-to můžeme nakreslit jako množinu šipek mezi přirozenymi čisly.
-
-Ze všech těchto množin šipek vydělíme pouze ty, které reprezentují
-nějaké uspořádání, jak jsme si to ukazovali v desáté kapitole o
-skalárním součinu. To znamená, že neobsahují cykly, a přitom mezi
-každými dvěma prvky vede aspoň jedna šipka. V takovém případě nám
-šipky říkají, jak tyto prvky uspořádat zleva doprava.
-
-Ze všech těchto uspořádání si navíc necháme pouze dobrá uspořádání,
-tedy taková, že každý koncový úsek má nejmenší prvek.
-Ke každé dobře uspořádané množině můžeme najít odpovídající ordinální
-čislo. 
-
-To je vlastně předpis, jak proměnit určitou podmnožinu kartézského
-součinu omega na druhou na ordinální číslo. Axiomem nahrazení můžeme
-toto udělat pro všechny možná uspořádání omegy, a dostat tak množinu
-všech ordinálů mohutnosti aleph0. Konečně axiomem sjednocení dostáváme
-jejich supremum, tedy samotný ordinál omega1.
-
-V dalším díle se pokusíme demystifikovat proslulý axiom výběru. Nashle
-příště.
+V dalším díle navážeme na přirozená čísla, a sestrojíme si čísla
+reálná. A k tomu vyřešime trochu překvapivou úlohu o nespočetných
+řetězcích. Nashle příště.
