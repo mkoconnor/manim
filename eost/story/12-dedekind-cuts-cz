@@ -3,31 +3,45 @@ Reálná čisla coby Dedekindovy řezy
 
 Čísla jsou svobodným výtvorem lidského ducha. (Richard Dedekind)
 
-Když jsem nastupoval na matfyz, spolužák mi dal následující úlohu.
-Když uvážíme potenční množinu, tedy množinu všech podmnožin, nějaké
-množiny, můžeme si výsledek představit jako částečně uspořádanou
-množinu.
-
-Řekneme, že jeden prvek potenční množiny je menší než jiný, když je jednoduše jeho podmnožinou.
-Může se samozřejmě stát, že jeden prvek není podmnožinou druhého, ani naopak,
-v takovém případě jsou tyto prvky zkrátka neporovnatelné. Ani jeden není mětši ani menší než druhý.
-Nás ale budou zajímat tak zvané řetězce. To jsou takové podmnožiny potenční množiny, ve kterých
-jsou každé dva prvky navzájem porovnatelné.
-
-Když začneme s konečnou n-prvkovou množinou, bude největši možná délka řetězce n+1.
-A úloha zní -- jak velká může být mohutnost řetězce v P omega, tedy
-řetězce v potenční množině všech přirozených čisel.
-Celá P omega je nespočetná, ale můžeme najít v P omega nespočetný řetězec?
-Tak jsme měli na chvíli o zábavu postaráno a ukázalo se že,
-možná trochu překvapivě, lze opravdu sestrojit nespočetný řetězec,
-dokonce řetězec mohutnosti kontinua.
+:------------------------ ChainProblem ----------------------------
+.
+. Když jsem nastupoval na matfyz, spolužák mi dal následující úlohu.
+. Představíme si nějakou množinu, třeba trojku, což jak víme je zkratka
+. za množinu obsahující 0,1,2, a sestrojíme její potenční množinu, tedy
+. množinu všech podmnožin.
+. Tahle potenční množina je částečně uspořádaná tím, které množiny jsou
+. podmnožiny kterých.
+. Podmnožiny vnímáme jako menší prvky v tomto uspořádání, a když máme
+. dvě množiny, kde ani jedna není podmnožinou druhé, tak řekneme, že
+. jsou vzájemně neporovnatelné.
+.
+. Nás ale budou zejména zajímat takzvané řetězce. To jsou takové
+. podmnožiny potenční množiny, ve kterých jsou každé dva prvky navzájem
+. porovnatelné. Obecně tedy řetězec vypadá jako taková samostatná cesta
+. shora dolů.
+. 
+. Když začneme s konečnou množinou, bude největši možná délka řetězce o
+. jedna větši než velikost toho řetězce. Takže v pé tři bude nedelší
+. řetězec dlouhý čtyři.
+.
+. Úloha pak zní -- jak velká může být mohutnost řetězce v P omega, tedy
+. řetězce v potenční množině všech přirozených čisel.
+. Celá P omega má mohutnost kontinua, ale můžeme najít v P omega
+. nespočetný řetězec?
+. 
+. Tak jsme s tím spolužákem měli na nějakou dobu o zábavu postaráno a
+. ukázalo se že, možná trochu překvapivě, se v pé omega opravdu dá
+. sestrojit řetězec mohutnosti kontinua.
 Nicméně až po nějaké době jsem zjistil, že něco jako nespočetný
 řetězec v P omega se v matematice naprosto běžně vyskytuje.
 Říká se mu reálná přímka.
+Nu dobrá, ale pěkně popořádku.
 
-Nu dobrá, ale pěkně popořádku, jak sestrojit reálnou přímku, když jsme
+:------------------------ Integers ---------------------------------
+
+Jak sestrojit reálnou přímku, když jsme
 si doposud formálně zavedli jenom přirozená čísla?
-Budeme chtít postupně rozšiřovat reálná čísla tak, abychom se nejenom
+Budeme chtít postupně rozšiřovat přirozená čísla tak, abychom se nejenom
 dostávali k novým číslům, ale současně tak, aby se na nových číslech
 daly šikovně definovat základní aritmetické operace jako sčítání a
 násobení.
@@ -36,13 +50,16 @@ Sčítání a násobení na přirozených čislech už máme, sčítání odpov�
 mohutnosti sjednocení, před kterým si nějak obarvíme prvky, aby se nám
 neslily, a násobení odpovídá mohutnosti kartézského součinu.
 
-Docela jednoduše můžeme rozšiřit přirozená čisla na celá. Vytvoříme si
-dvě kopie přirozených čisel, třeba tak, že si je zabalíme jednou do
+Docela jednoduše můžeme rozšiřit přirozená čisla na celá. Podobně jako
+u sčítání si vytvoříme dvě kopie přirozených čisel, třeba tak, že si
+je zabalíme jednou do
 uspořádané dvojice s nulou a podruhé s jedničkou. Dvojici nula jedna
 zahodíme, a čísla s jedničkou budeme chápat jako záporná.
 Definice sčítání a násobení je pak trochu technická, ale přímočará na
 základě standardních pouček jako minus krát minus je plus, minus plus
 minus je minus, a podobně.
+
+:------------------------ Fractions ---------------------------------
 
 Z celých čisel můžeme poustoupit k číslům racionálním, tedy zlomkům.
 Obecný zlomek a děleno b zakódujeme jako uspořádanou dvojici celých
@@ -174,7 +191,7 @@ než jednoduché sjednocení všech těchto množin.
 
 A jaká je souvislost s úvodní úlohou o nespočetných řetězcích? Inu,
 reálná čisla jsou nespočetným řetězcem v potenční množině racionálních
-čisel. To sice není přesně omega, ale té úloze je docela jedno, jak si
+čisel. To sice není přesně omega, ale té úloze bylo docela jedno, jak si
 prvky té základní množiny pojmenujeme. Hlavní je, že omega i Q mají
 stejnou mohutnost -- aleph 0.
 
