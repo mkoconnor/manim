@@ -54,6 +54,12 @@ class TrianglePointer(VMobject):
 
         return self
 
+    def get_tip(self):
+        return self.points[0]
+    
+    def tip_to(self, point):
+        return self.shift(point - self.get_tip())
+
 class MirekOlsakLogo(VMobject):
 
     def __init__(self, camera):

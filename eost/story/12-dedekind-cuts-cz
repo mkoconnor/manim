@@ -114,120 +114,179 @@ Reálná čisla coby Dedekindovy řezy
 . faktorizaci.
 
 :------------------------ Factorization -------------------------
-
-Máme hromadu zlomků které mají stejnou hodnotu. minus jedna polovina,
-dvě minus čtvrtiny, minus tři šestiny. Ale místo toho, abychom si
-vybírali jednoho reprezentanta, jednoduše si vezmeme úplně všechny a
-zabalíme je do jedné množiny. Teprve celou tuhle množinu prohlásíme za ono
-racionální číslo. Tím že v množině nezáleži na pořadí je takový zápis
-racionálního čisla úplně stejně jednoznačný jako když vyžadujeme
-základní tvar. Jenom je trochu víc fér vůči ostatním reprezentacím.
-
-Jak definujeme násobení, a krát b? Vezmeme kteréhokoli reprezentanta
-'a', kteréhokoli reprezentanta 'b', vynásobíme po složkách, a
-sestrojíme kolem výsledku opět všechny možné reprezentace.
-Jak definujeme sčítání, a plus b? Tady můžeme být ještě trochu
-trikovější. Podíváme se do obou množin, a najdeme nějaké reprezentanty
-se stejným jmenovatelem. Pak už jen sečteme čitatele.
-Takže i sčítání zlomků se dá formálně definovat přirozeně přes
-společného jmenovatele, bez zbytečně složitých vzorečků...
-
-Ještě než postoupíme k reálným číslům, povšimněme si, že naše
-konstrukce nebyly úplně přesně rozšiřování původní struktury.
+.
+. Máme hromadu zlomků které mají stejnou hodnotu. minus jedna polovina,
+. dvě minus čtvrtiny, minus tři šestiny. Ale místo toho, abychom si
+. vybírali jednoho reprezentanta, jednoduše si vezmeme úplně všechny a
+. zabalíme je do jedné množiny. Teprve celou tuhle množinu prohlásíme za ono
+. racionální číslo 'a', které je rovno minus jedné polovině, dvěma minus
+. čtvrtinám, a tak dál. Tím že v množině nezáleži na pořadí je takový
+. zápis racionálního čisla úplně stejně jednoznačný jako když vyžadujeme
+. základní tvar. Jenom je trochu víc fér vůči ostatním reprezentacím.
+.
+. Teď si vezmeme další takové čislo b, a definujeme si součin a krát b
+. v téhle reprezentaci.
+. Vezmeme kteréhokoli reprezentanta 'a'-čka, kteréhokoli reprezentanta
+. 'b'-čka,
+. a vynásobíme je po složkách. Kolem výsledku pak sestrojíme
+. opět všechny možné reprezentace. To znamená všechny ostatní čísla,
+. která můžeme dostat krácením nebo rozšiřováním dané dvojice.
+. Podobně definujeme sčítání, a plus b, akorát tady můžeme být ještě
+. trochu trikovější. Podíváme se do obou množin, a najdeme nějaké reprezentanty
+. které mají stejného jmenovatele. U těch už stačí jenom sečíst čitatele, a
+. stejně jako předtím
+. okolo výsledku sestrojit množinu možných všech reprezentací.
+. Takže i sčítání zlomků se dá formálně definovat přirozeně přes
+. společného jmenovatele, bez zbytečně složitých vzorečků...
+.
+. Ještě než postoupíme k reálným číslům, povšimněme si, že naše
+. konstrukce nebyly úplně přesně rozšiřování původní struktury.
 
 :--------------------- Extensions ---------------------------
 
-Začali
-jsme s přirozenými čisly, ale místo abychom je jenom doplnili o
-záporná, vytvořili jsme vedle strukturu celých čísel, ve které máme
-čísla odpovídající těm přirozeným,
+. Začali
+. jsme s přirozenými čisly, ale místo abychom je jenom doplnili o
+. záporná, vytvořili jsme vedle strukturu celých čísel, ve které máme
+. čísla odpovídající těm přirozeným,
 
-Ještě zřetejnějši je to u racionálních čisel. Místo abychom celá čisla
-doplnili o nová racionální, postavili jsme novou strukturu, do které
-celá čisla tak nějak přirozeně patří. A formálně vzato je trojka
-v přirozených čislech, tedy množina nula jedna, dva, jiná než trojka
-v celých čislech, tedy uspořádaná dvojice tři nula, a ta je jiná než
-trojka v racionálních čislech, kde je to množina všech dvojic
-s podílem tři.
+. Ještě zřetejnějši je to u racionálních čisel. Opět, místo abychom celá
+. čisla doplnili o nová racionální, postavili jsme novou strukturu, ve
+. kterých za celá čísla považujeme ty zlomky, které mají jmenovatele
+. jedna. Formálně vzato je přitom trojka v přirozených čislech, tedy
+. množina nula jedna, dva, jiná než trojka v celých čislech, tedy
+. uspořádaná dvojice tři nula, a ta je jiná než trojka v racionálních
+. čislech, kde je to množina všech dvojic s podílem tři.
 
-Ale s tímhle problémem si matematici moc hlavu nelámou, a běžně
-chápou přirozená čisla uvnitř celých ta uvnitř racionálních a ta
-uvnitř reálných. Holt je někdy přilišná formalita na škodu.
+. Ale s tímhle problémem si matematici moc hlavu nelámou, a běžně
+. chápou přirozená čisla uvnitř celých ta uvnitř racionálních a ta
+. uvnitř reálných. Holt je někdy přilišná formalita na škodu.
 
-Konečně jdeme na konstrukci samotných reálných čisel. Tedy jako
-obvykle existuje konstrukcí více, my si ukážeme tu pomocí
-Dedekindových řezů.
+. Konečně jdeme na konstrukci samotných reálných čisel. Tedy jako
+. obvykle existuje konstrukcí více, my si ukážeme tu pomocí
+. Dedekindových řezů.
 
 :---------------------- RealNumbers --------------------------------
 
-I když přímka vypadá zaplněná racionálními čisly, stále je v jistém
-smyslu děravá. Můžeme se podívat třeba na známé iracionální číslo
-odmocnina ze dvou mezi racionálními čísly.
-Racionální čísla se dokáží odmocnině ze dvou těsně přiblížit z obou
-stran. Čím menší volíme jmenovatel, tím těsněji. Jenom se na ni nikdy
-přesně nestrefí. Každé iracionální čislo tak dělí racionální body na dvě
-půlky -- na ty větši, a na ty menší.
+. Jak vypadají reálná čísla mezi racionálními?
+. Můžeme se podívat třeba na známé iracionální číslo
+. odmocnina ze dvou mezi racionálními čísly.
+. Racionální čísla se dokáží odmocnině ze dvou těsně přiblížit z obou
+. stran. Čím menší volíme jmenovatel, tím těsněji. Jenom se na ni nikdy
+. přesně nestrefí. Každé iracionální čislo tak dělí všechny racionální body na dvě
+. části -- na všechny větší, a na všechny menší.
+. A naopak, takové rozdělení jednoznačně určuje ono
+. reálné čislo.
+.
+. Když tedy chceme ve formální teorii popsat množin určité reálné čislo,
+. jednoduše si vezmeme třeba množinu těch menších racionálních čísel, a
+. tu prohlásíme za to reálné číslo.
+.
+. Takhle jsme popsali formální
+. reprezentaci reálného čisla, ale nikoli co to znamená reálné
+. čislo obecně. Definice reálného čisla by neměla začínat slovy "vezměme
+. si reálné čislo". Takže tahle představa všech menších racionálních
+. čisel ve skutečnosti slouží jako motivace, a obecné reálné čislo je
+. definováno následovně.
+.
+. Je to taková podmnožina všech racionálních čísel, množina racionálních
+. čisel se typicky značí Q,
+. "* podmnožina Q,"
+. která s každým racionálním
+. čislem obsahuje všechna menší čísla,
+. "* s každým prvkem všechny menší",
+. Tento předpoklad jinými slovy říká, že se musí jednat o počáteční
+. úsek, ostatní požadavky na reálné číslo už jsou v postatě jen na to,
+. abychom vyloučili určité výjimky.
+. "* není prázdná, ani celé Q"
+. Jmenovitě to nesmí být prázdná množina ani množina všech racionálních
+. čisel,
+. a nakonec by reálné čislo coby množina racionálních čisel neměla mít
+. největši prvek.
+. "* nemá největší prvek"
+. Jasně, z puntíků to vypadá, že největší prvek je ten poslední puntík,
+. ale mezi puntíky se nachází ještě spousta racionálních čísel, které
+. teď nekreslíme.
+. Tím posledním předpokladem vlastně jenom řešíme vzácnou situaci, když
+. je to kódované reálné čislo současně racionální. Pak můžeme být na
+. vážkách, zda toto racionální množiny zařadit nebo ne. A ten předpoklad
+. říká, že jej nezařadíme.
+.
+. S takto zavedenými reálnými čísly se dobře definuje sčítání.
 
-Trik je v tom, že takové rozdělení naopak jednoznačně určuje ono
-reálné čislo. To proto, že ať si vezmeme jakkoli blízká reálná čísla,
-vždycky můžeme volit jmenovatel tak, aby rozestupy mezi racionálními
-čisly s tímto jmenovatelem byly menší než rozdíl těch reálných
-čísel. Takže najdeme racionální čislo, které je větši než jedno z těch
-reálných čisel a menší než druhé.
+:------------------------ RealsOperations -------------------------------
 
-Když tedy chceme ve formální teorii popsat množin určité reálné čislo,
-jednoduše si vezmeme třeba množinu těch menších racionálních čísel, a
-tu prohlásíme za to reálné číslo.
+. Chceme
+. sečíst dvě takové množiny racionálních čisel, x a y. Tak je posčítáme
+. po prvcích. Dejme tomu, že v množině x leží 4/3, a v množině y leží
+. 1/2, tak do reálného součtu
+. x+y dáme jejich součet, jedenáct šestin. A podobně to uděláme pro
+. všechny dvojice prvků, kde jeden prvek leží v x, a druhý v y.
+. 
+. Takto sestrojená množina už rovnou odpovídá reálnému čislu
+. x+y. Narozdíl od racionálních čísel nemusíme žádné prvky
+. doplňovat. Množina všech součtů je přesně součet dvou reálných
+. čisel. Elegance sama.
+.
+. Násobení můzeme definovat podobně, ale je třeba si dát pozor na
+. násobení záporných čisel. V obou množinách máme minus tisíc, ale
+. minus tisíc krát minus tisíc je plus milion, což je racionální čislo
+. větši než součin reálných čísel x a y, přinejmenším v téhle
+. ukázce. Takže když chceme třeba vynásobit dvě kladná reálná čisla,
+. vezmeme si jenom jejich kladné části. Stejně jako u sčítání vynásobíme
+. čtyři třetiny a jednu polovinu na jednu třetinu, a obecně mezi sebou
+. vynásobíme všechny dvojice racionální čísel, co tu máme.
+. Nakonec do výsledku vrátíme záporná čisla.
+. Obecná definice násobení, když jsou některé činitele záporné, je jen
+. ne příliš záživné rozebírání případů, tak ty vynecháme, a podíváme se
+. radši na ještě jednu operaci, která se s reálnými čisly coby
+. dedekindovými řezy provádí jedna báseň.
 
-"To je definice kruhem... ne?"
+:------------------------- RealSupremum -----------------------------
 
-Pozorný divák si zajisté všimnul, že jsme možná popsali formální
-reprezentaci reálného čisla, ale nikoli co to je samotné reálné
-čislo. Definice reálného čisla by neměla začínat slovy "vezměme si
-reálné čislo". Takže tahle představa všech menších racionálních čisel
-ve skutečnosti slouží jako motivace, a obecné reálné čislo je
-definováno následovně.
+. Supremum:
+. To je ta operace,
+. která dostane množinu reálných čisel, když má tato množina maximum,
+. vrátí maximum, a když daná množina maximum nemá, tak vrátí nejbližší
+. číslo hned za onou množinou.
+.
+. Když se totiž na reálná čisla díváme jako na množiny těch menších
+. racionálních čisel, je situace analogická tomu, když se na ordinály
+. díváme jako na množiny menších ordinálů. Supremum pak není nic jiného
+. než jednoduché sjednocení všech těchto množin.
+.
+. Tak si to shrňme. 
 
-Je to taková podmnožina racionální přímky, která s každým racionálním
-čislem obsahuje všechny menší,
-"* s každým prvkem všechny menší",
-Není to prázdná množina ani množina všech racionálních čisel
-"* není prázdná, ani celé Q"
-A poslední technický předpoklad -- nemá největší prvek.
-"* nemá nejmenší prvek"
-Tímto předpokladem řešíme situaci, když je ono reálné čislo současně
-racionální, tak můžeme být na vážkách, zda toto racionální množiny
-zařadit nebo ne. Tento předpoklad říká, že jej nezařadíme.
+:---------------------------- Summary ------------------------------
 
-S takto zavedenými reálnými čísly se dobře definuje sčítání. Chceme
-sečíst dvě množiny racionálních čisel? Tak zkrátka sečteme každý prvek
-s každým, a výsledek bude zase reálné čislo odpovídající součtu.
+. Reálné čislo, třeba pí, je ve skutečnosti množina všech menších
+. racionálních čisel.
+. Každé racionální čislo je množina všech jeho možných reprezentací,
+. Každá reprezentace je uspořádaná dvojice celých čísel,
+. a každé celé čislo je uspořádaná dvojice obsahujíci jedno přirozené
+. čislo a pak nulu nebo jedničku.
+. A jak jsme si ukazovali v předchozích kapitolách, přirozená čisla i
+. uspořádané dvojice jsou pořád jenom určité množiny, ale jejich
+. definice už teď dál rozbalovat nebudem.
+.
+. Na závěr bych měl zmínit souvislost
 
-Násobení můzeme definovat podobně, ale je třeba si dát pozor na to, že
-součin záporných čísel je kladný. Takže si tu ukážeme jenom součin dvou
-kladných čisel. Vezmeme si pouze ta nezáporná racionální čisla z obou
-množin.
-Vynásobíme každé s každým, a do výsledku opět vrátíme záporná čisla.
+:------------------------ ChainSolution ---------------------------
 
-A pak je ještě jedna operace, která se s reálnými čisly coby
-dedekindovými řezy definuje jedna báseň -- supremum. To je ta operace,
-která vezme množinu reálných čisel, když má tato množina maximum,
-vrátí maximum, a když ne, vrátí takové skoro maximum. To nejbližší
-číslo hned za onou množinou.
+. s úvodní úlohou o nespočetných
+. řetězcích, i když jste si možná uvědomili, jak to s nimi je.
+. V potenční množině racionálních čisel tvoří
+. reálná čisla nespočetný řetězec.
+. Kdykoli uvážime dvě reálná čisla, a interpretujeme je jako množiny
+. racionálních čisel, je to větši nadmnožinou toho menšiho.
 
-Když se totiž na reálná čisla díváme jako na množiny těch menších
-racionálních čisel, je situace analogická tomu, když se na ordinály
-díváme jako na množiny menších ordinálů. Supremum pak není nic jiného
-než jednoduché sjednocení všech těchto množin.
-
-TODO: Shrnutí toho, co je reálné číslo.
-
-A jaká je souvislost s úvodní úlohou o nespočetných řetězcích? Inu,
-reálná čisla jsou nespočetným řetězcem v potenční množině racionálních
-čisel. To sice není přesně omega, ale té úloze bylo docela jedno, jak si
-prvky té základní množiny pojmenujeme. Hlavní je, že omega i Q mají
-stejnou mohutnost -- aleph 0.
-
-To je k formálním reálným číslům vše. V dalšim díle se podíváme na
-zoubek jednomu trochu kontroverznímu axiomu -- axiomu výběru.
-Nashle příště.
+. Původní úloha se sice ptala na potenční množinu od přirozených
+. čísel, což formálně není totéž, co racionální čísla, ale obě množiny
+. mají stejnou mohutnost, takže na pojmenování prvků vlastně nezáleží.
+.
+. A přesto, tím, že jsme si místo přirozených čisel vzali jinou
+. spočetnou množinu, počátečních úseků je najednou nespočetně
+. mnoho. Dobré ne?
+.
+. To je k formálním reálným číslům vše. V dalšim díle se podíváme na
+. zoubek jednomu trochu kontroverznímu axiomu -- axiomu výběru.
+. Nashle příště.
