@@ -395,18 +395,16 @@ class Prisoner(SVGMobject):
         "initial_scale_factor" : 0.05,
         "file_name" : "prisoner",
         "hat_color" : None,
+        "stroke_width" : DEFAULT_POINT_THICKNESS,
     }
     def __init__(self, **kwargs):
         SVGMobject.__init__(self, **kwargs)
+        self.set_stroke(width = self.stroke_width)
         self.eye.set_style_data(stroke_width = 0, stroke_color = WHITE,
                                 fill_color = WHITE, fill_opacity = 1)
         if self.hat_color is None:
             self.hat_color = random.choice((BLUE, YELLOW))
-        self.hat.set_style_data(
-            stroke_width = DEFAULT_POINT_THICKNESS,
-            fill_opacity = 0.5,
-            fill_color = self.hat_color,
-        )
+        self.hat.set_fill(self.hat_color, 0.5)
         self.hide_bubble()
 
     def hide_bubble(self):
@@ -417,7 +415,17 @@ class Prisoner(SVGMobject):
         self.bubble.scale_about_point(np.array([10,-10, 1]), self.bubble_tip)
         self.bubble.set_style_data(
             fill_opacity = 0.5, fill_color = color,
-            stroke_width = DEFAULT_POINT_THICKNESS,
+            stroke_width = self.stroke_width,
+        )
+
+    def eye_cone(self, h = 0.6, w = 0.7):
+        ratio = self[0].get_width()
+        h *= ratio
+        w *= ratio
+        eye_center = self.eye.get_center()
+        return VGroup(
+            DashedLine(eye_center, eye_center + h*UP + w*RIGHT),
+            DashedLine(eye_center, eye_center + h*DOWN + w*RIGHT),
         )
 
     @property
@@ -466,7 +474,301 @@ class ExamplesIntro(Scene):
 
         self.play(FadeOut(VGroup(title, prisoners, hats_title, unmeasurable)))
 
+def make_prisoners():
+    corner = DOWN+RIGHT
+    limit_point = corner * (SPACE_WIDTH, SPACE_HEIGHT, 0)
+    limit_point -= corner * DEFAULT_MOBJECT_TO_EDGE_BUFFER
+    ratio = 0.88
+
+    prisoners = VGroup(
+        (Prisoner(stroke_width = DEFAULT_POINT_THICKNESS * (ratio ** i))
+         .to_corner(DOWN+LEFT).scale_about_point(ratio ** i, limit_point))
+        for i in range(40)
+    )
+    prisoners.shift(0.5*UP)
+
+    labels = VGroup(
+        TexMobject(str(i)) for i in range(len(prisoners))
+    )
+    for label, p in zip(labels, prisoners):
+        max_h = p.get_width() * 0.4
+        if label.get_height() >= max_h: label.scale_to_fit_height(max_h)
+        label.next_to(p, DOWN, buff = 0.7*label.get_height())
+
+    return prisoners, labels
+
 class PrisonersTale(Scene):
     def construct(self):
 
+        king = SVGMobject(file_name = "evil_king", initial_scale_factor = 0.03, unpack_groups = False)
+        king.to_corner(UP+LEFT)
+
+        throne, arms, legs, head, crown = king
+        throne.set_style_data(stroke_width = 0, fill_opacity = 1, fill_color = DARK_GREY)
+        arms[0].set_style_data(fill_opacity = 1, fill_color = BLACK, stroke_width = 0)
+        legs.set_fill(BLACK, 1)
+        crown.set_style_data(fill_opacity = 1, fill_color = BLACK, stroke_color = YELLOW)
+
+        head[0].set_fill(BLACK, 1)       # head outline
+        head[1].mark_paths_closed = True # mouth
+        VGroup(head[2:]).highlight(RED)  # eyes
+
+        self.play(
+            FadeIn(throne),
+            Animation(arms[0]),
+            ShowCreation(VGroup(arms[1:])),
+            ShowCreation(legs),
+            ShowCreation(head),
+            ShowCreation(crown),
+        )
+        self.dither()
+
+        prisoner_cap = SVGMobject(file_name = "prisoner_cap", initial_scale_factor = 0.06, unpack_groups = False)
+        stripes = prisoner_cap[0]
+        stripes.set_style_data(stroke_width = 0, fill_opacity = 1, fill_color = WHITE)
+        eye = prisoner_cap[-1]
+        eye.set_style_data(stroke_width = 0, fill_opacity = 1, fill_color = WHITE)
+        prisoners = VGroup(prisoner_cap.copy() for _ in range(8))
+        prisoners.arrange_submobjects()
+        prisoners.to_edge(DOWN, buff = 0)
+
+        grid = VGroup(
+            VGroup(Line(LEFT, RIGHT) for _ in range(3)).arrange_submobjects(DOWN, buff = 0.55),
+            VGroup(Line(UP, DOWN) for _ in range(3)).arrange_submobjects(RIGHT, buff = 0.55),
+        )
+        grid.next_to(prisoners, UP)
+        grid.to_edge(RIGHT)
+        self.play(ShowCreation(grid))
+
+        self.play(UnapplyMethod(prisoners.behind_edge, DOWN))
+
+        self.dither(2)
+
+        self.play(
+            FadeOut(grid),
+            prisoners.behind_edge, DOWN,
+        )
+
+        prisoners, labels = make_prisoners()
+        self.play(UnapplyMethod(prisoners.behind_edge, DOWN))
+
+        eye_cone = prisoners[2].eye_cone()
+        hidden_hats = VGroup(p.hat for p in prisoners[:3])
+        hidden_hats.save_state()
+        self.play(
+            ShowCreation(eye_cone[0]),
+            ShowCreation(eye_cone[1]),
+            hidden_hats.set_fill, BLACK,
+        )
+
+        self.play(ShowCreation(labels))
         
+        self.dither()
+
+        self.play(
+            FadeOut(eye_cone),
+            hidden_hats.restore,
+        )
+
+        bubbles = VGroup(p.bubble for p in prisoners)
+        bubbles.save_state()
+
+        for p in prisoners: p.show_bubble(random.choice((YELLOW, BLUE)))
+        self.play(
+            MoveFromSaved(bubbles)
+        )
+
+        self.dither(2)
+
+        rules = VGroup(
+            TextMobject("Konečně chyb $\Rightarrow$ všichni volní"),
+            TextMobject("Nekonečně chyb $\Rightarrow$ všichni mrtví"),
+        ).arrange_submobjects(DOWN, aligned_edge = LEFT)
+        rules.next_to(king).to_edge(UP)
+
+        self.play(FadeIn(rules[0], submobject_mode = "lagged_start", run_time = 2))
+        self.play(FadeIn(rules[1], submobject_mode = "lagged_start", run_time = 2))
+
+        self.dither()
+
+        def rate_func(x):
+            x *= np.pi*5
+            return np.abs(np.sin(x))
+
+        self.play(ApplyMethod(VGroup(head, crown).shift, 0.2*DOWN, run_time = 3, rate_func = rate_func))
+
+        self.dither()
+
+        one_half = TexMobject("\\frac12")
+        self.play(Write(one_half))
+
+        self.dither(2)
+
+        self.play(
+            king.behind_edge, LEFT,
+            #VGroup(labels, prisoners).behind_edge, DOWN,
+            FadeOut(VGroup(bubbles, rules, one_half)),
+            VGroup(p.hat for p in prisoners).set_fill, BLACK,
+        )
+
+class SimpleStrategy(Scene):
+    def construct(self):
+
+        prisoners, labels = make_prisoners()
+        hats = VGroup((p.hat for p in prisoners), fill_opacity = 0.5)
+        hats.save_state()
+        hats.set_fill(BLACK)
+
+        self.add(prisoners, labels)
+
+        index = 2
+        prisoner = prisoners[index]
+        eye_cone = prisoner.eye_cone()
+        self.play(
+            ShowCreation(eye_cone[0]),
+            ShowCreation(eye_cone[1]),
+            VGroup(hats[index+1:], fill_opacity = 0.5).set_fill, BLUE,
+        )
+
+        prisoner.bubble.save_state()
+        prisoner.show_bubble(BLUE)
+        self.play(MoveFromSaved(prisoner.bubble))
+        
+        bubbles = VGroup(p.bubble for p in prisoners[index+1:])
+        bubbles.save_state()
+        for p in prisoners[index+1:]: p.show_bubble(BLUE)
+
+        self.play(MoveFromSaved(bubbles, submobject_mode = "one_at_a_time"))
+
+        self.dither()
+        self.play(
+            FadeOut(VGroup(prisoner.bubble, bubbles, eye_cone)),
+            hats.restore,
+        )
+
+chapter9 = importlib.import_module('eost.09-axioms-cz')
+dot_r_comp = chapter9.dot_r_comp
+
+class HatsSet(Scene):
+    def construct(self):
+        prisoners, labels = make_prisoners()
+        self.add(prisoners, labels)
+
+        seq = OrdinalOmega()
+        next_bars = VGroup(seq[len(prisoners):])
+
+        for bar, p in zip(seq, prisoners):
+            bar.set_color(p.hat_color)
+        for bar in next_bars:
+            bar.set_color(random.choice((BLUE, YELLOW)))
+
+        seq_ordinal = seq.copy()
+
+        for bar, p in zip(seq, prisoners):
+            bar.next_to(p.hat, UP, buff = p.hat.get_height() * 0.3)
+        i = len(prisoners)-1
+        next_bars.shift(seq[i].get_center() - seq_ordinal[i].get_center())
+        for bar in next_bars:
+            bar.next_to(prisoners[-1].hat, UP, coor_mask = Y_MASK, buff = 0)
+
+        seq.save_state()
+        for bar in seq: bar.scale_in_place(0)
+        for bar, p in zip(seq, prisoners):
+            bar.move_to(p.hat)
+        for bar in next_bars:
+            bar.move_to(prisoners[-1].hat, coor_mask = Y_MASK)
+
+        self.play(seq.restore)
+        self.dither()
+        self.play(Transform(seq, seq_ordinal))
+        self.dither()
+
+        big_rect = Rectangle(width = 1.9*SPACE_WIDTH, height = 1.9*SPACE_HEIGHT)
+        self.play(
+            ShowCreation(big_rect),
+            VGroup(prisoners, labels).behind_edge, DOWN,
+        )
+        self.dither()
+
+        seq.save_state()
+        seqs = VGroup(
+            (OrdinalOmega(), OrdinalOmega()),
+            (OrdinalOmega(), seq),
+        )
+        for bar in seqs[0][0]: bar.highlight(random.choice((YELLOW, BLUE)))
+        seqs[0][1].highlight(BLUE)
+        for i, bar in enumerate(seqs[1][0]): bar.highlight((BLUE, YELLOW)[i%2])
+        seqs.scale(0.7)
+        for row in seqs:row.arrange_submobjects()
+        seqs.arrange_submobjects(DOWN)
+        seqs.next_to(big_rect.get_corner(LEFT+UP), DOWN+RIGHT, buff = 0.5)
+
+        self.play(
+            MoveFromSaved(seq),
+            FadeIn(seqs[0]),
+            FadeIn(seqs[1][0]),
+        )
+        self.dither()
+
+        seqs = VGroup(seqs[0][0], seqs[1][0], seqs[0][1], seqs[1][1])
+        classes = VGroup(SurroundingRectangle(seq, buff = 0, color = GREEN) for seq in seqs)
+        seqs.save_state()
+        for seq in seqs: seq.scale_in_place(np.array((0.9, 0.8, 1)))
+        self.play(
+            MoveFromSaved(seqs),
+            FadeIn(classes),
+        )
+
+        seq = seqs[-1]
+        rect = classes[-1]
+        seq2 = seq.copy().next_to(rect, DOWN, coor_mask = Y_MASK)
+        rect2 = rect.copy().shift(seq2[0].get_center() - seq[0].get_center())
+
+        index = 4
+
+        for bar in seq2[:index]: bar.set_color(random.choice((BLUE, YELLOW)))
+        bar = seq2[index]
+        if (color_to_rgb(bar.color) == color_to_rgb(YELLOW)).all(): bar.set_color(BLUE)
+        elif (color_to_rgb(bar.color) == color_to_rgb(BLUE)).all(): bar.set_color(YELLOW)
+        else: raise Exception("Unexpected color")
+
+        self.play(
+            FadeIn(seq2),
+            Transform(rect, SurroundingRectangle(VGroup(rect, rect2), buff = 0, color = GREEN)),
+        )
+
+        edge = DashedLine(
+            VGroup(seq[index:index+2]).get_center(),
+            VGroup(seq2[index:index+2]).get_center(),
+            color = GREEN,
+        )
+        arrow = Arrow(ORIGIN, RIGHT*2, color = GREEN).next_to(edge, buff = 0)
+        self.play(ShowCreation(edge))
+        self.play(ShowCreation(arrow))
+
+        dots = VGroup(dot_r_comp(color = GREEN) for _ in seqs)
+        dots.arrange_submobjects(buff = 1)
+        dots.next_to(big_rect.get_edge_center(UP), DOWN, buff = 1)
+
+        self.play(FadeOut(VGroup(edge, arrow)))
+
+        seqs.save_state()
+        seq2.save_state()
+        for seq, dot in zip(seqs, dots):
+            seq.scale(0)
+            seq.move_to(dot.get_center())
+        seq2.scale(0)
+        seq2.move_to(dots[-1].get_center())
+        self.play(
+            MoveFromSaved(seqs),
+            MoveFromSaved(seq2),
+            ReplacementTransform(classes, dots),
+        )
+
+        self.dither()
+
+        self.seqs = seqs
+        self.dots = dots
+
+        #self.expand_dot(3)
+        #self.hide_dot()

@@ -101,54 +101,76 @@ Quote: Axiom výběru potřebujeme k tomu, abychom si z nekonečně mnoho párů
 . na úlohy s vězni docela standardní,
 
 :-------------------- PrisonersTale -----------------------------
+.
+. Tyranský král dal uvěznit nekonečně mnoho věznů, a teď je chce dát
+. popravit. Ještě před popravou pro ně ale vymyslel takovou hříčku, aby
+. je trochu víc vystresoval, a vyvolal v nich dojem, že si za to můžou
+. sami.
+.
+. Ráno před popravou na každého posadí žlutý nebo modrý klobouk,
+. a postaví do řady tak, že každý vězeň uvidí
+. nekonečně mnoho klobouků před sebou, a neuvidí konečně mnoho klobouků za
+. sebou, pochopitelně ani ten svůj. Každý vězeň také ví, kolikátý stojí v řadě.
+.
+. Teď si všichni vězni najednou tipnou barvu svého klobouku.
+. Když se splete jenom konečně vězňů, král je všechny pustí na svobodu.
+. Jakmile se ale zmýlí nekonečně mnoho vězňů, král nechá všechny bez
+. milosti popravit. Cho cho cho cho cho.
+.
+. To vypadá dost beznadějně, nezdá se vám? Když nemají o svém klobouku
+. žádnou informaci, tak má každý šanci jedna polovina, že se strefí, a
+. nakonec se splete zhruba každý druhý vězeň.
+.
+. Ale protože se poprava bude konat až následující den, mají vězni
+. v cele ještě čas si domluvit strategii.
 
-Tyranský král dal uvěznit nekonečně mnoho věznů, a teď je chce dát
-popravit. Ještě před popravou pro ně ale vymyslel takovou hříčku, aby
-je trochu víc vystresoval, a vyvolal v nich dojem, že si za to můžou
-sami. Ráno popravou je postaví do řady tak, že každý vězeň uvidí
-nekonečně mnoho vězňů před sebou, a neuvidí konečně mnoho vězňů za
-sebou. Každý vězeň také ví, kolikátý stojí v řadě.
+:-------------------------- SimpleStrategy ---------------------------------
 
-Každý vězeň dostane na hlavu modrý nebo žlutý klobouk.
-A každý vězeň si pak tipne barvu svého klobouku.
-Když se splete jenom konečně vězňů, král je pustí.
-Jakmile se ale zmýlí nekonečně mnoho vězňů, král nechá všechny bez
-milosti popravit. Cha cha cha.
+. Některé strategie fungují ve specifických situacích.
+. Například, když před sebou vidíte samé modré klobouky, tipněte si
+. modrou. Sice se možná nestrefíte, ale všichni před vámi už se podle
+. této strategie zaručeně strefí, a tak se splete nanejvýš konečně mnoho
+. vězňů.
+. Když chceme najít strategii, která bude fungovat kdykoli, musíme být
+. obecnější.
 
-To vypadá dost beznadějně, nezdá se vám? Když nemají o svém klobouku
-žádnou informaci, tak má každý šanci jedna polovina, že se strefí, a
-nakonec se splete zhruba každý druhý vězeň.
+:---------------------------- HatsSet -----------------------------------
+.
+. Jakékoli rozvržení klobouků si budeme jednoduše kreslit
+. jako odpovídající posloupnosti barev, podobně jako jsme kreslili
+. ordinální čísla.
+. Uvážíme přitom množinu úplně všech
+. takových posloupností. Těch je nespočetně mnoho, mimochodem, i když
+. jsme si nakreslili jenom čtyři příklady.
+.
+. Posloupnosti v téhle množině ještě rozdělíme do nekonečných skupinek
+. tak, že dvě posloupnosti jsou v jedné skupince přesně tehdy, když se od
+. nějakého bodu dále přesně shodují. Jinými slovy, se každé dvě
+. posloupnosti ve skupince liší jenom na konečně mnoha místech.
+Takto z množiny všech posloupností vznikne množina disjunktních
+skupinek, těch je mimochodem stále nespočetně.
 
-Ale protože bude poprava až následující den, mají vězni v cele ještě
-čas si domluvit strategii.
-Hned se začaly objevovat první nápady, které fungují v konkrétních
-situacích.
-Například, když před sebou vidíte samé modré klobouky, tipněte si
-modrou. Sice se možná nestrefíte, ale všichni před vámi už se podle
-této strategie zaručeně strefí, a tak se splete nanejvýš konečně mnoho
-z nás.
-Abychom ale našli strategii, která bude připravená na jakékoli
-rozložení klobouků, si musíme představit všechny možné posloupnosti
-klobouků.
-
-Tyhle posloupnosti rozdělíme do skupinek tak, že se
-uvnitř každé skupinky každé dvě posloupnosti liši jenom na konečně
-mnoha pozicích. Jeden přiklad takové skupinky jsou ty posloupnosti,
+Jeden přiklad takové skupinky jsou ty posloupnosti,
 které mají libovolný konečný začátek, ale na konci mají samé modré
 klobouky.
+
 Jiný příklad takové skupinky jsou posloupnosti, které mají libovolný
 začátek, ale na konci už mají na všech sudých pozicích modré klobouky,
 a na lichých žluté.
+
 Trik je v tom, že i když vězni nebudou vidět celou posloupnost
 klobouků, poznají do které skupinky taková posloupnost patří, protože
 těch konečně mnoho pozic, které vězeň nevidí, skupinku stejně
 neovlivní. Takže i když vězni nevidí svůj klobouk a nemůžou spolu
 komunikovat, ta správná skupinka bude jejich sdílená znalost.
 
-Ať si teď z dané skupinky vyberou kteroukoli posloupnost, bude se tato
-posloupnost lišit od skutečnosti jenom na konečně mnoha místech.
+Ať si teď z této skupinky vyberou kteroukoli posloupnost, bude se tato
+posloupnost lišit od skutečnosti jenom na konečně mnoha místech,
+protože každé dvě posloupnosti v té skupince se liší jenom na konečně
+mnoha místech.
 Každému vězni tak stačí říct příslušnou barvu, a splete se jich jenom
 konečně mnoho.
+
 Ale jak se dohoodnou na tom reprezentantovi, když při zkoušce mezi
 sebou nemůžou komunikovat? Musí se dohodnout předem. Už před zkouškou
 se musí pro každou skupinku posloupností lišících se jenom konečnými
@@ -165,16 +187,18 @@ mnoho vězňů si tito vězni přece zvládnou zapamatovat nespočetně mnoho
 posloupností, co na tom taky může být těžkého?
 
 Takže s touto strategií si všichni vězni všimnou, ve které skupince se
-nachází výsledná posloupnost, všichni si uvědomí, kterého
-reprezentanta této posloupnosti přiřadili, a v důsledku splete jenom
-konečně mnoho vězňů v barvě svého klobouku.
+nachází výsledná posloupnost, všichni si uvědomí, na kterém
+reprezentantovi z této posloupnosti se domluvili, a v důsledku splete
+jenom konečně mnoho vězňů v barvě svého klobouku.
 
 A tak axiom výběru zachránil nekonečně mnoho lidských životů a všichni
 vězni se pak vrátili ke svým rodinám a žili šťastně až do smrti. Pokud
 se chcete z této pohádky dozvědět o něco víc, můžu vás odkázat na
-video Mathologera -- death with infinity (?)
+video Mathologera -- Death by infinity puzzles and the Axiom of
+Choice.
+[https://www.youtube.com/watch?time_continue=11&v=aDOP0XynAzA]
 
-Teď bych se totiž radši podíval ještě na jiný příklad, který má blíž ke
+Teď bych se totiž radši ještě podíval na jiný příklad, který má blíž ke
 skutečné matematice.
 
 :-------------------- UnmeasurableIntro ------------------------
