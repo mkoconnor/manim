@@ -1167,6 +1167,8 @@ class RealNumbers(Scene):
     
     def construct(self):
 
+        self.force_skipping()
+
         self.numberline = NumberLine(unit_size = 1)
         self.play(ShowCreation(self.numberline))
         numberline_ori = self.numberline
@@ -1208,6 +1210,9 @@ class RealNumbers(Scene):
         bigger_dots = VGroup(filter(lambda dot: dot.get_center()[0] >= split, rat_dots))
         smaller_dots.submobjects.reverse()
 
+        self.revert_to_original_skipping_status()
+        rat_dots.save_state()
+        self.play(bigger_dots.shift, 0.1*DOWN)
         self.play(bigger_dots.highlight, col_rat, submobject_mode = "one_at_a_time")
         self.dither()
         self.play(bigger_dots.highlight, GREY)
@@ -1230,7 +1235,7 @@ class RealNumbers(Scene):
             FadeOut(VGroup(
                 self.numberline, sqrt2, smaller_dots, smaller_rect, real_label,
             )),
-            rat_dots.highlight, GREY,
+            rat_dots.restore,
         )
 
         smaller_dots = smaller_ori

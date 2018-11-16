@@ -51,7 +51,7 @@ class Chapter11OpeningQuote(OpeningQuote):
 colors = [GREY, GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE]
 def rect_color(n):
     if n == 0: return colors[0]
-    n = n-1 % (len(colors)-1)
+    n = (n-1) % (len(colors)-1)
     return colors[n+1]
 
 class FirstAttempt(Scene):

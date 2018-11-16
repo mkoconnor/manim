@@ -27,13 +27,13 @@ from topics.icons import MirekOlsakLogo, TrianglePointer, IconYes, IconNo
 from topics.objects import BraceDesc, BraceText, Counter
 import eost.deterministic
 
-class Chapter7OpeningTitle(OpeningTitle):
+class Chapter14OpeningTitle(OpeningTitle):
     CONFIG = {
         "series_str" : "Esence teorie množin",
         "chapter_str" : "Kapitola 14\\\\ Formální rekurze",
     }
 
-class Chapter7OpeningQuote(OpeningQuote):
+class Chapter14OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
             "Pokud už víte, co znamená","rekurze,","držte si to v paměti. V opačném případě najděte někoho, kdo stojí blíže k~Douglasu Hofstadterovi a zeptejte se jej, co je to","rekurze."
