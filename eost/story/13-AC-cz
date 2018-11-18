@@ -147,53 +147,56 @@ Quote: Axiom výběru potřebujeme k tomu, abychom si z nekonečně mnoho párů
 . tak, že dvě posloupnosti jsou v jedné skupince přesně tehdy, když se od
 . nějakého bodu dále přesně shodují. Jinými slovy, se každé dvě
 . posloupnosti ve skupince liší jenom na konečně mnoha místech.
-Takto z množiny všech posloupností vznikne množina disjunktních
-skupinek, těch je mimochodem stále nespočetně.
+. Takto z množiny všech posloupností vznikne množina disjunktních
+. skupinek, těch je mimochodem stále nespočetně, i když si teď
+. kreslíme jenom čtyři.
+.
+. Jeden přiklad takové skupinky jsou ty posloupnosti,
+. které mají libovolný konečný začátek, ale na konci mají samé modré
+. klobouky.
+.
+. Jiný příklad takové skupinky jsou posloupnosti, které mají libovolný
+. začátek, ale na konci už mají na všech sudých pozicích modré klobouky,
+. a na lichých žluté.
+.
+. Trik je v tom, že i když vězeň nevidí celou posloupnost
+. klobouků, pozná do které skupinky ta opravdová posloupnost patří,
+. protože těch konečně mnoho pozic, které nevidí, skupinku stejně
+. neovlivní. Takže i když vězni nevidí svůj klobouk a nemůžou spolu
+. komunikovat, ta správná skupinka bude jejich sdílená znalost.
+.
+. A ať si teď z této skupinky vyberou kteroukoli posloupnost, bude se tato
+. posloupnost lišit od skutečnosti jenom na konečně mnoha místech,
+. protože každé dvě posloupnosti v naší skupince od určitého místa shodují.
+. Každému vězni tak stačí říct příslušnou barvu, a splete se jich jenom
+. konečně mnoho.
+.
+. Jak se ale dohoodnou na tom reprezentantovi, když při zkoušce mezi
+. sebou nemůžou komunikovat? Musí se dohodnout předem. Už před zkouškou
+. se musí pro každou skupinku posloupností lišících se jenom konečnými
+. obměnami, dohodnout na jednom reprezentantovi.
+. Bohužel neexistuje žádný předpis, kterým bychom mohli takového
+. reprezentanta obecně popsat. Tak co asi uděláme?
+. No to byste nečekali, použijeme axiom výběru.
+. To je přesně ten nástroj, který může z každé skupinky vytáhnout jednoho
+. reprezentanta a výsledek zabalit do množiny. Na této množině se vězni
+. dohodnou jako na součásti strategie.
+. Jako jo, vypadá to trochu jako podvod mít coby součást strategie
+. nespočetnou množinu reprezentantů, ale ve světě, kde žije nekonečně
+. mnoho vězňů si tito vězni přece zvládnou zapamatovat nespočetně mnoho
+. posloupností, co na tom taky může být těžkého?
+.
+. Takže s touto strategií si všichni vězni všimnou, ve které skupince se
+. nachází výsledná posloupnost, všichni si uvědomí, na kterém
+. reprezentantovi z této posloupnosti se domluvili, a v důsledku splete
+. jenom konečně mnoho vězňů v barvě svého klobouku.
+.
+. A tak axiom výběru zachránil nekonečně mnoho lidských životů a všichni
+. vězni se pak vrátili ke svým rodinám a žili šťastně až do smrti. Pokud
+. se chcete o této úložce dozvědět o něco víc, můžu vás odkázat na
 
-Jeden přiklad takové skupinky jsou ty posloupnosti,
-které mají libovolný konečný začátek, ale na konci mají samé modré
-klobouky.
+!!!!!!!!!!   TODO  (stáhnout obrázek)
 
-Jiný příklad takové skupinky jsou posloupnosti, které mají libovolný
-začátek, ale na konci už mají na všech sudých pozicích modré klobouky,
-a na lichých žluté.
-
-Trik je v tom, že i když vězni nebudou vidět celou posloupnost
-klobouků, poznají do které skupinky taková posloupnost patří, protože
-těch konečně mnoho pozic, které vězeň nevidí, skupinku stejně
-neovlivní. Takže i když vězni nevidí svůj klobouk a nemůžou spolu
-komunikovat, ta správná skupinka bude jejich sdílená znalost.
-
-Ať si teď z této skupinky vyberou kteroukoli posloupnost, bude se tato
-posloupnost lišit od skutečnosti jenom na konečně mnoha místech,
-protože každé dvě posloupnosti v té skupince se liší jenom na konečně
-mnoha místech.
-Každému vězni tak stačí říct příslušnou barvu, a splete se jich jenom
-konečně mnoho.
-
-Ale jak se dohoodnou na tom reprezentantovi, když při zkoušce mezi
-sebou nemůžou komunikovat? Musí se dohodnout předem. Už před zkouškou
-se musí pro každou skupinku posloupností lišících se jenom konečnými
-obměnami, dohodnout na jednom reprezentantovi.
-Bohužel neexistuje žádný předpis, kterým bychom mohli takového
-reprezentanta obecně popsat. Tak co asi uděláme?
-No to byste nečekali, použijeme axiom výběru.
-To je přesně ten nástroj, který může z každé skupinky vytáhnout jeden
-prvek a výsledek zabalit do množiny. Na této množině se vězni dohodnou
-jako na součásti strategie.
-Jako jo, vypadá to trochu jako podvod mít coby součást strategie
-nespočetnou množinu reprezentantů, ale ve světě, kde žije nekonečně
-mnoho vězňů si tito vězni přece zvládnou zapamatovat nespočetně mnoho
-posloupností, co na tom taky může být těžkého?
-
-Takže s touto strategií si všichni vězni všimnou, ve které skupince se
-nachází výsledná posloupnost, všichni si uvědomí, na kterém
-reprezentantovi z této posloupnosti se domluvili, a v důsledku splete
-jenom konečně mnoho vězňů v barvě svého klobouku.
-
-A tak axiom výběru zachránil nekonečně mnoho lidských životů a všichni
-vězni se pak vrátili ke svým rodinám a žili šťastně až do smrti. Pokud
-se chcete z této pohádky dozvědět o něco víc, můžu vás odkázat na
 video Mathologera -- Death by infinity puzzles and the Axiom of
 Choice.
 [https://www.youtube.com/watch?time_continue=11&v=aDOP0XynAzA]
@@ -201,38 +204,127 @@ Choice.
 Teď bych se totiž radši ještě podíval na jiný příklad, který má blíž ke
 skutečné matematice.
 
-:-------------------- UnmeasurableIntro ------------------------
+:----------------------- MeasureIntro ---------------------------
+.
+. V matematice se tak nějak počítá s tím, že geometrické objekty mají
+. obsah. Trojúhelníku spočteme obsah jako základna krát výška děleno
+. dvěma, kruhu jako pí r na druhou. Matematici si jednou mysleli, že by
+. mohli nějaký obsah přířadit jakékoli, jakkoli bláznivé množině bodů.
+. A když se snažíte vymyslet takové zobecnění obsahu pro jakékoli
+. množiny, je rozumné začít ne v rovině,
 
-V matematice se tak nějak počítá s tím, že geometrické objekty mají
-obsah. Trojúhelníku spočteme obsah jako základna krát výška děleno
-dvěma, kruhu jako pí r na druhou. Matematici si jednou mysleli, že by
-mohli nějaký obsah přířadit jakékoli množině bodů.
-A když se snažíte vymyslet takové zobecnění obsahu pro jakékoli
-množiny, je rozumné začít ne v rovině, ale jenom nednoduše na přímce.
-Takovému obsahu na přímce budeme říkat míra.
-Například tedy míra intervalu je totéž, co jeho délka.
-Míra sjednocení dvou disjunktních intervalů je jejich součet, a tak
-podobně.
-Dále by měla míra splňovat následující přirozené vlastnosti.
-Zaprvé. Když do množiny přidáme nové body, její míra by se měla zvětšit nebo
-zůstat stejná.
-Zadruhé, když množinu posuneme o nějaké reálné čislo doprava nebo
-doleva, její míra by měla zůstat stejná.
-A zatřetí, totéž by mělo platit, když množinu rozdělíme na spočetně
-mnoho kousků, každý z nich posuneme tak, aby se stále nepřekrývaly, a
-výsledek opět spojíme.
-Bohužel, míra s takovými vlastnostmi nemůže existovat.
-Pomocí axiomu výběru dokážeme sestrojit množinu,
-která je podmnožinou intervalu od nuly do dvou, tedy její míra by
-neměla být větši než dva,
-a přitom ji dokážeme rozdělit na spočetně mnoho částí,
-tyto části různě rozposouvat,
-a výsledkem vyplnit celou reálnou přímku.
-Jdeme na to.
+:-------------------- MeasureProperties --------------------------
 
-TODO
+. ale jenom nednoduše na přímce.
+. Takovému obsahu na přímce budeme říkat míra. Teda obecně míra
+. může znamenat i obsah nebo objem, ale my si vystačíme s
+. jednorozměrnou mírou.
+. Například tedy míra intervalu je totéž, co jeho délka.
+. Míra sjednocení dvou disjunktních intervalů je součet délek, a tak
+. podobně.
+. Dále by měla míra splňovat následující vlastnosti.
+.
+. Zaprvé. Když do množiny přidáme nové body, její míra by se měla zvětšit nebo
+. zůstat stejná.
+.
+. Zadruhé, když máme množinu nějaké míry a posuneme ji o nějaké reálné
+. čislo doprava nebo doleva, její míra by měla zůstat stejná.
+.
+. A zatřetí, míra by se neměla změnit, ani když množinu rozdělíme na spočetně
+. mnoho kousků, nezávisle posuneme každý z nich tak, aby se stále
+. nepřekrývaly, a výsledek opět spojíme. Z tohoto pravidla mimochodem
+. vyplývá, že míra spočetné množiny je vždycky nulová.
+.
+. Bohužel, nemůžeme každé množině najít míru tak, abychom dostáli těmto
+. požadavkům.
 
-:{Za to může ta podmínka se spočetným rozdělením.}
-:{Ne tak docela, viz Banach-Tarskiho paradox.}
+:--------------------- UnmeasurableOverview -----------------------
 
-TODO
+. Pomocí axiomu výběru dokážeme sestrojit množinu,
+. která je podmnožinou intervalu od nuly do dvou, tedy její míra by
+. neměla být větši než dva,
+. a přitom ji dokážeme rozdělit na spočetně mnoho částí,
+. tyto části různě rozposouvat,
+. a výsledkem pak vyplnit celou reálnou přímku, která by měla mít míru
+. nekonečnou.
+. Jdeme na to.
+
+:-------------------- UnmeasurableConstruction -----------------------
+.
+. Tentokrát do skupinek rozdělíme reálná čísla, a to modulo Q.
+. Co to znamená? Že dvě reálná čísla dáme do jedné skupinky, pokud se
+. liší o nějaké racionální čislo.
+. Typickým příkladem takové skupinky je množina všech racionálních
+. čísel,
+. a obecně skupinka vznikne tak, že si vezmeme pevné reálné čislo,
+. třeba odmocninu ze dvou, a přičteme k ní všechna racionální čisla.
+.
+. Každá taková skupinka má nějaké prvky v intervalu od nuly do
+. jedné, a pomocí axiomu výběru si v tomto intervalu z každé skupinky
+. vybereme přesně jedno čislo.
+. Výslednou množinu reprezentantů označíme třeba R.
+
+:--------------------- TranslateDisjoint ----------------------------
+
+. Takže kdykoli si vezmeme dva různé prvky z R-ka a každý posuneme o
+. nějaké racionální čislo, nikdy se nestrefíme přesně na totéž čislo,
+. protože oba počáteční prvky pochází z různých skupinek.
+. To se dá říct ještě trochu jinak. Kdykoli si vezmeme dvě kopie R-ka, a
+. obě posuneme o různá racionální čisla, tak se výsldné množiny nikdy
+. nebudou překrývat. Jednoduše proto, že žádné čislo z první kopie
+. se nemůže strefit do žádného čisla z té druhé kopie.
+
+:-------------------- MeasureContradiction ----------------------
+
+. K zakončení paradoxu s mírou použijeme jeden základní poznatek z
+. mohutností:
+. Racionálních čísel v intervalu od nuly do jedné je
+. Aleph_0, což je stejné množství jako je všech racionálních čisel.
+
+. Přitom když vezmeme aleph 0 kopií R-ka a posuneme je o všechna
+. racionální čisla mezi nulou a jedničkou, výsledná množina bude nějaká
+. podmnožina intervalu od nuly do dvou, tedy její míra by měla být
+. nanejvýš dva.
+. Ale, jak jsme si říkali v úvodu povídání o neměřitelné množině,
+tuhle množinu můžeme opět rozbít na aleph 0 kopií R-ka a rozposouvat
+je o všechna racionální čísla.
+
+Tím najednou pokryjeme všechna reálná čisla.
+Proč?
+Každé reálné čislo x leží v nějaké skupince.
+A z této skupinky jsme do R-ka vybrali reprezentanta.
+Jakmile tohoto reprezentanta posuneme o příslušné racionální čislo,
+pokryjeme x.
+Takže podmínky, které jsme si na míru stanovili, množina R docela
+spolehlivě rozbíjí.
+
+:--------------------- BanachTarski -------------------------------
+
+Kdykoli se objeví problém, je přirozené začít hledat viníka.
+
+:{Může za to podmínka se spočetným rozdělením!}
+
+Ta podmínka na spočetná rozdělení byla vlastně
+dost umělá bez ní by třeba míra fungovala...
+:{Ne tak docela, Banach-Tarskiho paradox.}
+Není to tak úplně pravda. Už ve třírozměrném prostoru existuje podobný
+příklad, kdy rozložíte kouli na konečně mnoho částí, ty posunete,
+otočíte, a z toho složíte dvě stejně velké koule. Téhle, o něco
+složitějši konstrukci, se říká Banach-Tarskiho paradox, a docela dobré
+video o něm má třeba vSauce.
+
+:{Může za to axiom výběru!}
+
+Takže za to může axiom výběru? Možná.
+nebo spíš naše intuitivní představa objemu pro obecné množiny prostě
+zoufale nefunguje.
+Axiom výběru byl i na základě uvedených příkladů nějakou dobu poměrně
+kontroverzní. Dneska už ho matematici považují za vcelku rovnocenný
+ostatním axiomům. Jeden z důvodů je, že se logikům povedlo dokázat, že
+se axiom výběru, podobně jako hypotéza kontinua, nedá vyvrátit.
+
+A navíc je axiom výběru potřeba i pro
+dost nevinně vyhlížející tvrzení. Jedno takové si ukážeme v dalším
+díle, konkrétně že se v libovolné neprázdné množině bez nejmenšího
+prvku dá najít nekonečná klesající posloupnost.
+Nashle příště.

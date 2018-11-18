@@ -62,6 +62,8 @@ class Chapter9OpeningQuote(Scene):
         self.dither(2)
 
 def dot_r_comp(*args, **kwargs):
+    if not "mark_paths_closed" in kwargs:
+        kwargs["mark_paths_closed"] = True
     dot = Dot(*args, **kwargs)
     dot.stretch_in_place(-1, 0)
     dot.rotate_in_place(-np.pi/4)

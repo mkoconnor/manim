@@ -652,7 +652,8 @@ dot_r_comp = chapter9.dot_r_comp
 class HatsSet(Scene):
     def construct(self):
         prisoners, labels = make_prisoners()
-        self.add(prisoners, labels)
+        prisoners_g = VGroup(prisoners, labels)
+        self.add(prisoners_g)
 
         seq = OrdinalOmega()
         next_bars = VGroup(seq[len(prisoners):])
@@ -684,9 +685,10 @@ class HatsSet(Scene):
         self.dither()
 
         big_rect = Rectangle(width = 1.9*SPACE_WIDTH, height = 1.9*SPACE_HEIGHT)
+        prisoners.save_state()
         self.play(
             ShowCreation(big_rect),
-            VGroup(prisoners, labels).behind_edge, DOWN,
+            prisoners_g.behind_edge, DOWN,
         )
         self.dither()
 
@@ -695,9 +697,9 @@ class HatsSet(Scene):
             (OrdinalOmega(), OrdinalOmega()),
             (OrdinalOmega(), seq),
         )
-        for bar in seqs[0][0]: bar.highlight(random.choice((YELLOW, BLUE)))
-        seqs[0][1].highlight(BLUE)
-        for i, bar in enumerate(seqs[1][0]): bar.highlight((BLUE, YELLOW)[i%2])
+        for bar in seqs[0][0]: bar.set_color(random.choice((YELLOW, BLUE)))
+        for bar in seqs[0][1]: bar.set_color(BLUE)
+        for i, bar in enumerate(seqs[1][0]): bar.set_color((BLUE, YELLOW)[i%2])
         seqs.scale(0.7)
         for row in seqs:row.arrange_submobjects()
         seqs.arrange_submobjects(DOWN)
@@ -748,7 +750,7 @@ class HatsSet(Scene):
 
         dots = VGroup(dot_r_comp(color = GREEN) for _ in seqs)
         dots.arrange_submobjects(buff = 1)
-        dots.next_to(big_rect.get_edge_center(UP), DOWN, buff = 1)
+        dots.next_to(big_rect.get_edge_center(UP), DOWN, buff = 0.5)
 
         self.play(FadeOut(VGroup(edge, arrow)))
 
@@ -770,5 +772,788 @@ class HatsSet(Scene):
         self.seqs = seqs
         self.dots = dots
 
-        #self.expand_dot(3)
-        #self.hide_dot()
+        self.expand_dot(2)
+        self.dither(3)
+        self.hide_dot()
+        self.dither()
+
+        self.expand_dot(1)
+        self.dither(3)
+        self.hide_dot()
+        self.dither()
+
+        prisoners.restore()
+        prisoners.next_to(big_rect.get_edge_center(DOWN), UP)
+
+        index = 3
+        eye_cone = prisoners[index].eye_cone()
+        hidden_hats = VGroup(p.hat for p in prisoners[:index+1])
+        hidden_hats.save_state()
+        hidden_hats.set_fill(BLACK)
+        eye_cone.save_state()
+
+        prisoners.save_state()
+        VGroup(prisoners, eye_cone).behind_edge(DOWN)
+        self.play(prisoners.restore, eye_cone.restore)
+
+        expand_anim = self.expand_dot_anim(3)
+        arrows = VGroup(self.make_arrow(pr) for pr in prisoners)
+        self.play(expand_anim, ShowCreation(arrows[index]))
+        self.dither()
+
+        self.play(
+            hidden_hats.restore,
+            FadeOut(eye_cone),
+        )
+
+        remaining_arrows = VGroup(arrows.submobjects)
+        remaining_arrows.remove(arrows[index])
+        self.play(ShowCreation(remaining_arrows))
+
+        self.dither()
+        self.play(FadeOut(arrows))
+
+        seq = self.interior[2]
+        seq_ori = seq.copy()
+        seq.save_state()
+        for bar, p in zip(seq, prisoners):
+            bar.next_to(p.hat, UP, buff = p.hat.get_height() * 0.3)
+        i = len(prisoners)-1
+        next_bars = VGroup(seq[len(prisoners):])
+        next_bars.shift(seq[i].get_center() - seq.saved_state[i].get_center())
+        for bar in next_bars:
+            bar.next_to(prisoners[-1].hat, UP, coor_mask = Y_MASK, buff = 0)
+
+        self.play(MoveFromSaved(seq))
+
+        for i in reversed(range(20)):
+            if (seq[i].stroke_rgb != prisoners[i].hat.fill_rgb).any(): break
+        edge = DashedLine(ORIGIN, UP, color = GREEN)
+        edge.next_to(VGroup(seq[i:i+2]).get_center(), UP, buff = 0)
+        arrow = Arrow(LEFT, RIGHT, color = GREEN)
+        arrow.next_to(edge, buff = 0)
+        arrow.shift(0.2*UP)
+        edge_g = VGroup(edge, arrow)
+        self.play(ShowCreation(edge_g))
+
+        self.dither(2)
+
+        self.play(FadeOut(edge_g))
+
+        self.play(Transform(seq, seq_ori))
+        corner = seq.get_corner(UP+LEFT)
+        arrow = Arrow(corner+(UP+LEFT), corner, color = ORANGE)
+        self.play(ShowCreation(arrow))
+
+        self.interior.remove(self.interior[2])
+        self.interior_collapsed.remove(self.interior_collapsed[2])
+
+        arrow_dest = Arrow(ORIGIN, 1.5*DOWN, color = ORANGE)
+        arrow_dest.next_to(self.rect.saved_state, DOWN)
+        seq.save_state()
+        seq.next_to(arrow_dest, DOWN)
+
+        self.play(
+            self.hide_dot_anim(),
+            Transform(arrow, arrow_dest),
+            MoveFromSaved(seq),
+        )
+        seq_ori = seq.copy()
+        arrow_ori = arrow.copy()
+
+        for i in reversed(range(3)):
+            arrow.save_state()
+            arrow.next_to(self.dots[i], DOWN)
+            seq.save_state()
+            seq.next_to(arrow, DOWN)
+            for src, dest in zip(self.seqs[i], seq):
+                dest.set_color(src.color)
+            self.play(MoveFromSaved(arrow), MoveFromSaved(seq))
+
+        AC_title = TextMobject("Axiom výběru")
+        AC_arrow = Arrow(ORIGIN, 1.5*DOWN, color = WHITE)
+        repr_text = TextMobject("reprezentanti").highlight(ORANGE)
+        repr_rect = SurroundingRectangle(repr_text, color = WHITE)
+        repr_g = VGroup(repr_text, repr_rect)
+        AC_g = VGroup(AC_title, AC_arrow, repr_g).arrange_submobjects(DOWN)
+
+        AC_g.move_to((seq.get_edge_center(RIGHT) + big_rect.get_edge_center(RIGHT))/2)
+        AC_g.next_to(self.dots, DOWN, coor_mask = Y_MASK, buff = 1)
+
+        self.play(FadeIn(AC_title, submobject_mode = "lagged_start"))
+        self.play(ShowCreation(AC_arrow))
+        self.play(FadeIn(repr_text, submobject_mode = "lagged_start"))
+        self.play(ShowCreation(repr_rect))
+
+        self.dither()
+        repr_g.save_state()
+        repr_g.next_to(VGroup(prisoners[3:]), UP, buff = 0, coor_mask = Y_MASK)
+        self.play(
+            FadeOut(VGroup(AC_title, AC_arrow, arrow, seq)),
+            MoveFromSaved(repr_g),
+        )
+        self.dither()
+
+        circ = Circle(radius = 0.2, color = WHITE)
+        circ.rotate(np.pi/2)
+        circ.stretch(-1, 0)
+        circ.shift(self.dots[-1].get_center())
+        self.play(ShowCreation(circ))
+        self.dither()
+        arrow = arrow_ori
+        seq = seq_ori
+        self.play(ShowCreation(arrow), FadeIn(seq))
+        self.dither()
+        self.play(FadeOut(big_rect))
+        self.dither(2)
+
+        mathologer_pic = ImageMobject("mathologer-ac")
+        mathologer_pic.scale(1./3)
+        mathologer_label = TextMobject("Death by infinity puzzles\\\\(Mathologer)")
+        mathologer_label.scale(0.7)
+        mathologer_label.next_to(mathologer_pic, UP)
+        mathologer = VGroup(mathologer_pic, mathologer_label)
+        mathologer.to_edge(LEFT)
+        self.play(UnapplyMethod(mathologer.behind_edge, RIGHT))
+
+        #self.play(FadeOut(VGroup(circ, seq, arrow, self.dots, repr_g, prisoners)))
+
+    def make_arrow(self, pr):
+        p0 = pr.hat.get_edge_center(UP) + 0.3*pr.hat.get_height()*UP
+        x = p0[0]
+        corner1 = self.rect_expanded.get_corner(DOWN+LEFT)
+        corner2 = self.rect_expanded.get_corner(DOWN+RIGHT)
+        no_tip = False
+        if x < corner1[0]: x = corner1[0]
+        elif x > corner2[0]:
+            x = corner2[0]
+            no_tip = True
+        y = corner1[1]
+        p1 = x*X_MASK + y*Y_MASK
+
+        stroke_width = pr.stroke_width
+        tip_length = min(0.25, pr.hat.get_height()*1)
+
+        if no_tip: return Line(p0, p1, color = GREEN, stroke_width = stroke_width)
+        return Arrow(p0, p1, color = GREEN, buff = 0, stroke_width = stroke_width, tip_length = tip_length)
+
+    def expand_dot_anim(self, index):
+        seq = OrdinalOmega()
+        seq.stretch(0.6, 0)
+        seq.stretch(0.6, 1)
+
+        self.rect_expanded = self.dots[index]
+        for src, dest in zip(self.seqs[index], seq):
+            dest.set_color(src.color)
+
+        self.interior = VGroup(seq.copy() for _ in range(4))
+        table = VGroup(self.interior[:2], self.interior[2:])
+        for row in table: row.arrange_submobjects()
+        table.arrange_submobjects(DOWN)
+        table.next_to(self.dots, DOWN, buff = 1)
+
+        for i, seq in enumerate(self.interior):
+            for bar in seq[:3+2*i]:
+                bar.set_color(random.choice((BLUE, YELLOW)))
+
+        self.interior_expanded = self.interior.copy()
+        self.interior.scale(0).move_to(self.dots[index])
+        self.interior_collapsed = self.interior.copy()
+
+        self.rect_expanded = SurroundingRectangle(self.interior_expanded, color = GREEN, buff = 0.5)
+        self.rect = self.dots[index]
+        self.rect.save_state()
+        return AnimationGroup(
+            Transform(self.interior, self.interior_expanded),
+            Transform(self.rect, self.rect_expanded),
+        )
+
+    def expand_dot(self, index):
+        self.play(self.expand_dot_anim(index))
+
+    def hide_dot_anim(self):
+
+        return AnimationGroup(
+            Transform(self.interior, self.interior_collapsed, remover = True),
+            ApplyMethod(self.rect.restore),
+        )
+
+    def hide_dot(self):
+        self.play(self.hide_dot_anim())
+
+class MeasureIntro(Scene):
+    def construct(self):
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        self.play(Write(title))
+
+        triangle = Polygon(UP, DOWN+2*RIGHT, DOWN+LEFT)
+        circ = Circle()
+        areas_classical = VGroup(triangle, circ).arrange_submobjects().next_to(title, DOWN, buff = 0.5)
+        areas_classical.set_fill(opacity = 0.3)
+        areas_classical.set_color(RED)
+
+        triangle_label = TexMobject("\\frac{av}2")
+        triangle_label.move_to(triangle.points[0])
+        triangle_label.next_to(triangle.get_anchors()[1], UP, coor_mask = Y_MASK)
+        triangle_label.shift(0.15*RIGHT)
+
+        circ_label = TexMobject("\\pi r^2")
+        circ_label.shift(circ.get_center() - VGroup(circ_label[:2]).get_center())
+
+        crazy_set = VGroup(
+            Dot(np.random.random(size = 3)*2,
+                radius = np.random.random()*0.05+0.01,
+                color = random.choice((BLACK,RED))
+            ).fade(0.3)
+            for _ in range(800)
+        )
+        crazy_set.next_to(areas_classical, DOWN, buff = 0.5)
+
+        self.play(ShowCreation(triangle))
+        self.play(Write(triangle_label))
+        self.dither()
+
+        self.play(ShowCreation(circ))
+        self.play(Write(circ_label))
+        self.dither()
+
+        self.play(ShowCreation(crazy_set))
+        self.dither()
+
+        self.play(FadeOut(VGroup(
+            triangle, triangle_label,
+            circ, circ_label,
+            crazy_set,
+        )))
+
+set_shift = 0.2*UP
+
+class MeasureProperties(Scene):
+    def construct(self):
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        self.add(title)
+
+        reals = NumberLine()
+        self.play(ShowCreation(reals))
+        self.dither()
+
+        subtitle = TextMobject("Míra").next_to(reals, UP).to_edge(LEFT)
+        self.play(Write(subtitle))
+
+        interval1 = Line(-3*X_MASK, -1*X_MASK).shift(set_shift).highlight(YELLOW)
+        interval2 = Line(0*X_MASK, 3*X_MASK).shift(set_shift).highlight(YELLOW)
+
+        interval1_label = TexMobject('2').next_to(interval1, UP).highlight(YELLOW)
+        interval2_label = TexMobject('3').next_to(interval2, UP).highlight(YELLOW)
+
+        self.play(ShowCreation(interval1))
+        self.play(Write(interval1_label))
+        self.dither()
+
+        self.play(ShowCreation(interval2), FadeIn(interval2_label))
+        self.dither()
+
+        union_label = TexMobject('2+3').highlight(YELLOW)
+        union_center = (interval1.get_corner(UP+RIGHT) + interval2.get_corner(LEFT))/2
+        union_label.next_to(union_center, UP)
+        self.play(
+            ReplacementTransform(interval1_label[0], union_label[0]),
+            FadeIn(union_label[1]),
+            ReplacementTransform(interval2_label[0], union_label[2]),
+        )
+        self.dither()
+
+        union_label2 = TexMobject('5').highlight(YELLOW).next_to(union_center, UP)
+        self.play(ReplacementTransform(union_label, union_label2))
+
+        added_points = VGroup(
+            DashedLine(-4*X_MASK, -3*X_MASK),
+            DashedLine(-1*X_MASK,  0*X_MASK),
+            DashedLine( 3*X_MASK,  4*X_MASK),
+        ).shift(set_shift).highlight(YELLOW)
+        self.play(ShowCreation(added_points))
+
+        union_label = TexMobject('\geq 5').next_to(union_center, UP)
+        union_label[-1].highlight(YELLOW)
+
+        self.play(
+            FadeIn(union_label[0]),
+            ReplacementTransform(union_label2[0], union_label[1]),
+        )
+        self.dither()
+
+
+        self.play(FadeOut(VGroup(added_points, union_label, interval1, interval2)))
+
+        rec_set = []
+        holes = [(0.,6.)]
+        seg_len = 2.
+
+        rec_set_layers = 7
+        for _ in range(rec_set_layers):
+            next_holes = []
+            for a,b in holes:
+                center = (a+b)/2
+                c = center - seg_len/2
+                d = center + seg_len/2
+                next_holes += [(a,c), (d,b)]
+                rec_set.append(Line(c*X_MASK, d*X_MASK))
+            holes = next_holes
+            seg_len /= 4
+
+        rec_set = VGroup(rec_set)
+        rec_set.shift(set_shift).highlight(YELLOW)
+
+        rec_set.save_state()
+        rec_set.shift(0.2*UP)
+        rec_set.highlight(BLACK)
+
+        self.play(rec_set.restore)
+
+        rec_set_label = TexMobject("4").highlight(YELLOW).next_to(rec_set, UP)
+        self.play(FadeIn(rec_set_label))
+        self.dither()
+
+        self.play(rec_set.shift, 3*LEFT)
+        self.dither()
+        self.play(rec_set_label.shift, 3*LEFT)
+        self.dither()
+
+        rec_set.save_state()
+        rec_set.arrange_submobjects(DOWN, coor_mask = Y_MASK)
+        rec_set.next_to(reals, DOWN, coor_mask = Y_MASK)
+
+        self.play(MoveFromSaved(rec_set, run_time = 2))
+        self.dither()
+
+        rec_set_folded = []
+        for i in range(rec_set_layers):
+            start = 2 - 2.0**(2-i)
+            end = 2 - 2.0**(2-(i+1))
+            points = np.linspace(start, end, 2**i + 1)
+            for p0, p1 in zip(points, points[1:]):
+                rec_set_folded.append(Line(p0*X_MASK, p1*X_MASK))
+
+        rec_set_folded = VGroup(rec_set_folded)
+        rec_set_folded.shift(set_shift).highlight(YELLOW)
+
+        rec_set_folded_in_rows = rec_set_folded.copy()
+        rec_set_folded_in_rows.arrange_submobjects(DOWN, coor_mask = Y_MASK)
+        rec_set_folded_in_rows.next_to(reals, DOWN, coor_mask = Y_MASK)
+
+        self.play(ReplacementTransform(rec_set, rec_set_folded_in_rows))
+        self.dither()
+        self.play(ReplacementTransform(rec_set_folded_in_rows, rec_set_folded))
+        self.dither()
+        self.play(FadeOut(VGroup(subtitle, rec_set_label, rec_set_folded)))
+
+class UnmeasurableOverview(Scene):
+    def construct(self):
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        reals = NumberLine()
+        self.add(title, reals)
+
+        subinterval = GradientLine(ORIGIN, 2*X_MASK, YELLOW, YELLOW, segment_num = 50)
+        subinterval.submobjects = subinterval.submobjects[::2]
+        subinterval.shift(set_shift)
+
+        AC_label = TextMobject("Axiom výběru").next_to(subinterval, UP, buff = 0.5)
+        self.play(FadeIn(AC_label, submobject_mode = "lagged_start"))
+
+        numbers = reals.get_number_mobjects()
+        zero_i = len(numbers)//2
+        zero = numbers[zero_i]
+        two = numbers[zero_i+2]
+        self.play(
+            ShowCreation(subinterval),
+            FadeIn(VGroup(zero, two), submobject_mode = "one_at_a_time"),
+        )
+        self.dither()
+
+        shifts = []
+        for i in range(5):
+            shifts += [
+                subinterval.copy().shift(i*(2*RIGHT)),
+                subinterval.copy().shift((i+1)*(2*LEFT)),
+                subinterval.copy().shift(RIGHT + (i+1)*(2*LEFT)),
+                subinterval.copy().shift(RIGHT + i*(2*RIGHT)),
+            ]
+        shifts = VGroup(shifts)
+
+        copies = VGroup(subinterval.copy() for _ in shifts)
+        copies.arrange_submobjects(DOWN, coor_mask = Y_MASK)
+        copies.next_to(reals, DOWN, coor_mask = Y_MASK)
+
+        self.play(
+            FadeOut(VGroup(zero, two)),
+            ReplacementTransform(VGroup(subinterval), copies),
+        )
+        self.dither()
+        copies.save_state()
+        for src, dest in zip(shifts, copies): dest.move_to(src, coor_mask = X_MASK)
+        self.play(MoveFromSaved(copies, run_time = 2))
+        self.dither()
+        self.play(ReplacementTransform(copies, shifts))
+        self.dither()
+        self.play(FadeOut(VGroup(AC_label, shifts)))
+
+class UnmeasurableConstruction(Scene):
+    def construct(self):
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        reals = NumberLine()
+        self.add(title, reals)
+
+        classes_desc = TextMobject("Skupinky modulo $\\mathbb Q$")
+        classes_desc.next_to(title, DOWN, buff = 0.5)
+        classes_desc.to_edge(LEFT)
+
+        self.play(FadeIn(classes_desc))
+
+        dot_pair = VGroup(
+            Dot(np.sqrt(3) * X_MASK),
+            Dot((np.sqrt(3)-3.5) * X_MASK),
+        )
+        dot_pair.set_fill(YELLOW, 0)
+
+        dot_pair.save_state()
+        dot_pair.shift(0.5*UP)
+        dot_pair.set_fill(opacity = 1)
+
+        self.play(MoveFromSaved(dot_pair))
+
+        double_arrow = DoubleArrow(*dot_pair, color = WHITE)
+        rat_desc = TextMobject("racionální").next_to(double_arrow, UP)
+        self.play(
+            ShowCreation(double_arrow),
+            FadeIn(rat_desc),
+        )
+        self.dither()
+
+        denom = 6
+        nominators = range(-1-int((SPACE_WIDTH+2)*denom), int((SPACE_WIDTH+2)*denom)+2)
+        zero_i = nominators.index(0)
+        rat_dots_template = VGroup(
+            Dot(X_MASK * float(nom) / denom, radius = 0.05)
+            for nom in nominators
+        )
+
+        rat_dots = rat_dots_template.copy()
+        rat_dots_label = TexMobject("\\mathbb Q")
+        rat_dots_label.next_to(rat_dots, DOWN).to_edge(RIGHT)
+        rat_dots_g = VGroup(rat_dots, rat_dots_label)
+
+        rat_dots_g.target = rat_dots_g.copy()
+        rat_dots_g.target.to_edge(DOWN)
+        rat_dots_g.set_fill(opacity = 0)
+
+        self.play(MoveToTarget(rat_dots_g))
+
+        real_sample = Dot(np.sqrt(2)*X_MASK, color = YELLOW)
+        sample_label = TexMobject("\\sqrt2").next_to(real_sample, DOWN)
+        sample_label.highlight(YELLOW)
+        self.play(
+            ApplyMethod(real_sample.shift, 0.2*DOWN, rate_func = there_and_back),
+            FadeIn(sample_label)
+        )
+
+        shifted_label = TexMobject("\\sqrt 2"," + \\mathbb Q")
+        shifted_label[0].highlight(YELLOW)
+        shifted_label.next_to(rat_dots, UP, buff = 0.5)
+        shifted_label.to_edge(RIGHT)
+
+        shifted_dots = rat_dots_template.copy().shift(np.sqrt(2)*RIGHT)
+        shifted_dots.target = shifted_dots.copy()
+        shifted_dots.target.next_to(shifted_label, UP, coor_mask = Y_MASK)
+        shifted_dots.target[zero_i].highlight(YELLOW)
+
+        shifted_dots.set_fill(opacity = 0)
+        shifted_dots.submobjects[zero_i] = real_sample
+
+        self.play(
+            MoveToTarget(shifted_dots),
+            FadeIn(VGroup(shifted_label[1:])),
+            ReplacementTransform(sample_label, shifted_label[0]),
+        )
+        self.dither()
+
+        self.play(FadeOut(VGroup(dot_pair, double_arrow, rat_desc)))
+
+        rnd_dots = rat_dots_template.copy()
+        rnd_dots.shift(np.random.random() * RIGHT)
+        rnd_dots.target = rnd_dots.copy()
+        rnd_dots.target.shift(set_shift)
+        rnd_dots.set_fill(opacity = 0)
+        self.play(
+            MoveToTarget(rnd_dots),
+        )
+
+        brace = Brace(Line(ORIGIN, RIGHT), UP)
+        brace.next_to(rnd_dots, UP, coor_mask = Y_MASK, buff = 0)
+
+        all_dots = VGroup(rat_dots, shifted_dots, rnd_dots).family_members_with_points()
+        self.play(GrowFromCenter(brace))
+        for dot in all_dots:
+            x = dot.get_center()[0]
+            if x < 0 or x > 1:
+                dot.set_fill(opacity = 0.3)
+        self.dither()
+
+        def dots_choice(dots):
+            result = random.choice([dot for dot in dots if dot.fill_opacity > 0.5])
+            all_dots.remove(result)
+            dots.remove(result)
+            return result
+
+        rnd_dots_c = dots_choice(rnd_dots)
+        rat_dots_c = dots_choice(rat_dots)
+        shifted_dots_c = dots_choice(shifted_dots)
+
+        representants = VGroup(rnd_dots_c, shifted_dots_c, rat_dots_c)
+
+        for dot in representants:
+            dot.highlight(ORANGE)
+            self.play(ApplyMethod(dot.shift, 0.3*UP), rate_func = there_and_back)
+
+        self.dither()
+
+        centers = [dot.get_center() for dot in representants]+[SPACE_HEIGHT*DOWN]
+        for y in (interpolate(centers[0], centers[1], 0.5),
+                  interpolate(centers[1], centers[2], 0.33),
+                  interpolate(centers[1], centers[2], 0.66),
+                  interpolate(centers[2], centers[3], 0.5)):
+            representants.add(Dot(
+                np.random.random()*RIGHT + y*Y_MASK,
+                color = ORANGE, radius = 0.05,
+                fill_opacity = 0,
+            ))
+
+        representants.save_state()
+
+        for dot in representants:
+            dot.set_fill(opacity = 1)
+            dot.move_to(set_shift, coor_mask = Y_MASK)
+
+        self.play(
+            FadeOut(VGroup(brace, all_dots,
+                           rat_dots_label, shifted_label)),
+            MoveFromSaved(representants),
+        )
+
+        repr_label = TexMobject('R').highlight(ORANGE).next_to(representants, UP)
+        self.play(Write(repr_label))
+
+        self.dither()
+        self.play(FadeOut(classes_desc))
+
+        #print([dot.get_center()[0] for dot in representants])
+
+repr_x = [ # exported from previous scene
+    0.87191077205623502,
+    0.41421356237309515,
+    0.33333333333333331,
+    0.98231661040877083,
+    0.013807249315600956,
+    0.74240660026476424,
+    0.038358018161719909
+]
+
+class TranslateDisjoint(Scene):
+    def construct(self):
+
+        self.force_skipping()
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        reals = NumberLine()
+
+        denom = 6
+        nominators = range(-1-int((SPACE_WIDTH+2)*denom), int((SPACE_WIDTH+2)*denom)+2)
+        nominators.remove(0)
+        dots_template = VGroup(
+            Dot(X_MASK * float(nom) / denom, radius = 0.05, color = DARK_GRAY)
+            for nom in nominators
+        )
+
+        repr_dots = VGroup(
+            Dot(x * X_MASK, radius = 0.05, color = ORANGE)
+            for x in sorted(repr_x)
+        ).shift(set_shift)
+        repr_label = TexMobject("R").next_to(repr_dots, UP).highlight(ORANGE)
+
+        self.add(title, reals, repr_dots, repr_label)
+
+        sample1 = repr_dots[-2].copy()
+        sample2 = repr_dots[-1].copy()
+
+        self.play(
+            sample1.shift, 1*DOWN,
+            sample2.shift, 2*DOWN,
+        )
+
+        dots1 = dots_template.copy().shift(sample1.get_center())
+        dots2 = dots_template.copy().shift(sample2.get_center())
+        
+        goal = 3
+        approx = VGroup(
+            min(dots, key = lambda dot: abs(goal - dot.get_center()[0]))
+            for dots in (dots1, dots2)
+        ).copy().highlight(ORANGE)
+
+        self.play(
+            FadeIn(dots1),
+            ReplacementTransform(sample1.copy(), approx[0], path_arc = -np.pi/10),
+        )
+        self.play(
+            FadeIn(dots2),
+            ReplacementTransform(sample2.copy(), approx[1], path_arc = np.pi/10),
+        )
+        self.dither()
+
+        neq = TexMobject("\\neq").move_to(approx)
+        self.play(Write(neq))
+        self.dither()
+
+        copies = VGroup(repr_dots.copy() for _ in range(2))
+        copies.save_state()
+
+        copies[0].next_to(sample1, UP, buff = 0.2, coor_mask = Y_MASK)
+        copies[1].next_to(sample2, DOWN, buff = 0.2, coor_mask = Y_MASK)
+
+        self.play(MoveFromSaved(copies))
+
+        copies2 = copies.copy()
+
+        for dots, sample, apr in zip(copies2, (sample1, sample2), approx):
+            dots.save_state()
+            dots.shift(apr.get_center() - sample.get_center())
+
+        self.play(MoveFromSaved(copies2[0]))
+        self.play(MoveFromSaved(copies2[1]))
+
+        self.revert_to_original_skipping_status()
+
+        def hl_set(dots):
+            dots_hl = VGroup(
+                dot.copy().scale_in_place(1.5)
+                for dot in dots
+            )
+            dots_hl.highlight(YELLOW)
+            dots_ori = dots.copy()
+            self.play(Transform(
+                dots, dots_hl,
+                submobject_mode = "one_at_a_time",
+            ))
+            self.play(Transform(
+                VGroup(dots), VGroup(dots_ori),
+                submobject_mode = "one_at_a_time",
+            ))
+
+        hl_set(copies2[0])
+        hl_set(copies2[1])
+
+        self.play(FadeOut(VGroup(
+            dots1, dots2, sample1, sample2,
+            approx, neq,
+            copies, copies2,
+        )))
+
+class MeasureContradiction(Scene):
+    def construct(self):
+
+        self.force_skipping()
+
+        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        reals = NumberLine()
+
+        denom = 6
+        nominators = range(-1-int((SPACE_WIDTH+2)*denom), int((SPACE_WIDTH+2)*denom)+1)
+        zero_i = nominators.index(0)
+        dots_template = VGroup(
+            Dot(X_MASK * float(nom) / denom, radius = 0.05, color = DARK_GRAY)
+            for nom in nominators
+        )
+
+        repr_dots = VGroup(
+            Dot(x * X_MASK, radius = 0.05, color = ORANGE)
+            for x in sorted(repr_x)
+        ).shift(set_shift)
+        repr_label = TexMobject("R").next_to(repr_dots, UP).highlight(ORANGE)
+
+        self.add(title, reals, repr_dots, repr_label)
+
+        rat_dots = dots_template.copy().highlight(GREY)
+        small_rats = VGroup(rat_dots[zero_i : zero_i+denom+1])
+        small_rats.highlight(YELLOW)
+        rat_dots_label = TexMobject("\\mathbb Q")
+        rat_dots_label.next_to(rat_dots, DOWN).to_edge(RIGHT)
+        rat_dots_g = VGroup(rat_dots, rat_dots_label)
+        rat_dots_g.to_edge(DOWN)
+        self.play(ShowCreation(rat_dots), FadeIn(rat_dots_label))
+
+        brace = BraceDesc(small_rats, "\\aleph_0", UP, buff = 0.1)
+        self.play(brace.creation_anim())
+        self.dither()
+        self.play(brace.shift_brace, rat_dots)
+        self.dither()
+
+        r_copies = VGroup(repr_dots.copy() for _ in small_rats)
+        for dots, dot in zip(r_copies, small_rats):
+            dots.x = dot.get_center()[0]
+            dots.shift(dots.x * DOWN)
+
+        r_copies.shift(DOWN)
+
+        self.play(
+            FadeOut(brace),
+            ReplacementTransform(VGroup(repr_dots).copy(), r_copies),
+        )
+
+        r_copies.save_state()
+        for dots in r_copies: dots.shift(dots.x * RIGHT)
+        self.play(MoveFromSaved(r_copies))
+        r_copies.save_state()
+        center = r_copies.get_center()
+        for dots in r_copies: dots.move_to(center, coor_mask = Y_MASK)
+
+        lt_2_label = TexMobject("\leq 2").next_to(r_copies, UP)
+        self.play(Write(lt_2_label))
+
+        self.revert_to_original_skipping_status()
+        self.dither()
+
+        r_copies_col = VGroup(repr_dots.copy() for _ in rat_dots)
+        start_x = r_copies[0].x
+        end_x = r_copies[-1].x
+        ori_y = repr_dots.get_center()[1]
+        start_y = reals.get_edge_center(DOWN)[1] - ori_y
+        end_y = rat_dots.get_edge_center(DOWN)[1] + 0.2 - ori_y
+        y_coor = np.linspace(start_y, end_y, len(r_copies_col))
+
+        for dots, y in zip(r_copies_col, y_coor):
+            dots.shift(y*Y_MASK)
+
+        r_copies_dest = r_copies_col.copy()
+        x_coor = np.linspace(start_x, end_x, len(r_copies_col))
+        for dots, x in zip(r_copies_dest, x_coor):
+            dots.shift(x*X_MASK)
+
+        self.play(
+            FadeOut(lt_2_label),
+            ReplacementTransform(r_copies, r_copies_dest),
+        )
+        r_copies = r_copies_dest
+        self.dither()
+
+        r_copies_dest = r_copies_col.copy()
+        x_coor = [dot.get_center()[0] for dot in rat_dots]
+        x_coor.sort(key = lambda x: (x % 2, x))
+        for dots, x in zip(r_copies_dest, x_coor):
+            dots.shift(x*X_MASK)
+
+        self.play(
+            Transform(r_copies, r_copies_dest),
+        )
+        self.dither()
