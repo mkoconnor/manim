@@ -286,45 +286,55 @@ skutečné matematice.
 . podmnožina intervalu od nuly do dvou, tedy její míra by měla být
 . nanejvýš dva.
 . Ale, jak jsme si říkali v úvodu povídání o neměřitelné množině,
-tuhle množinu můžeme opět rozbít na aleph 0 kopií R-ka a rozposouvat
-je o všechna racionální čísla.
+. tuhle množinu můžeme opět rozbít na aleph 0 kopií R-ka a rozposouvat
+. je o všechna racionální čísla.
+.
+. Tím najednou pokryjeme všechna reálná čisla.
+. Proč?
+. Kdykoli si vybereme nějaké reálné čislo x, tak tohle číslo leží v
+. nějaké skupince.
+. A z této skupinky jsme do R-ka vybrali reprezentanta.
+. Jakmile tohoto reprezentanta posuneme o příslušné racionální čislo,
+. pokryjeme x.
+. A tohle posunutí už bylo mezi posunutími o všechna racionální čísla,
+. konkrétně tady.
+. Takže podmínky, které jsme si na míru stanovili, množina R docela
+. spolehlivě rozbíjí.
 
-Tím najednou pokryjeme všechna reálná čisla.
-Proč?
-Každé reálné čislo x leží v nějaké skupince.
-A z této skupinky jsme do R-ka vybrali reprezentanta.
-Jakmile tohoto reprezentanta posuneme o příslušné racionální čislo,
-pokryjeme x.
-Takže podmínky, které jsme si na míru stanovili, množina R docela
-spolehlivě rozbíjí.
+:--------------------- FindingCause -------------------------------
 
-:--------------------- BanachTarski -------------------------------
+. Kdykoli se objeví problém, je přirozené začít hledat viníka.
+. 
+. :{Může za to podmínka se spočetným rozdělením!}
+. 
+. Ta podmínka na spočetná rozdělení byla vlastně
+. dost umělá, a divné vlastnosti spočetné mohutnosti hrály v paradoxu
+. podstatnou roli, tak třeba by bez ní míra fungovala...
+. :{Ne tak docela, Banach-Tarskiho paradox.}
+. Není tomu tak. Už ve třírozměrném prostoru existuje podobný, o něco
+. složitější příklad, kdy rozložíte kouli na konečně mnoho částí, ty
+. posunete, otočíte, a z toho složíte dvě stejně velké koule.
+. Téhle, o něco složitějši konstrukci, se říká Banach-Tarskiho paradox,
+. a docela dobré video o něm má třeba Vsauce.
+.
+. :{Může za to axiom výběru?}
+. 
+. Takže za to může axiom výběru? Možná.
+. nebo spíš naše intuitivní představa objemu pro obecné množiny prostě
+. zoufale nefunguje.
 
-Kdykoli se objeví problém, je přirozené začít hledat viníka.
+:---------------------- Choicestatus ------------------------------
 
-:{Může za to podmínka se spočetným rozdělením!}
+. Axiom výběru byl i na základě uvedených příkladů nějakou dobu poměrně
+. kontroverzní. Dneska už ho matematici považují za vcelku rovnocenný
+. ostatním axiomům. Jeden z důvodů je, že se logikům povedlo dokázat, že
+. se axiom výběru, podobně jako hypotéza kontinua, nedá z ostatních
+. axiomů vyvrátit.
 
-Ta podmínka na spočetná rozdělení byla vlastně
-dost umělá bez ní by třeba míra fungovala...
-:{Ne tak docela, Banach-Tarskiho paradox.}
-Není to tak úplně pravda. Už ve třírozměrném prostoru existuje podobný
-příklad, kdy rozložíte kouli na konečně mnoho částí, ty posunete,
-otočíte, a z toho složíte dvě stejně velké koule. Téhle, o něco
-složitějši konstrukci, se říká Banach-Tarskiho paradox, a docela dobré
-video o něm má třeba vSauce.
-
-:{Může za to axiom výběru!}
-
-Takže za to může axiom výběru? Možná.
-nebo spíš naše intuitivní představa objemu pro obecné množiny prostě
-zoufale nefunguje.
-Axiom výběru byl i na základě uvedených příkladů nějakou dobu poměrně
-kontroverzní. Dneska už ho matematici považují za vcelku rovnocenný
-ostatním axiomům. Jeden z důvodů je, že se logikům povedlo dokázat, že
-se axiom výběru, podobně jako hypotéza kontinua, nedá vyvrátit.
-
-A navíc je axiom výběru potřeba i pro
-dost nevinně vyhlížející tvrzení. Jedno takové si ukážeme v dalším
+. To pochopitelně jako důvod nestačí, hypotéza kontinua se taky
+. automaticky nepovažuje za platnou, ale axiom výběru by
+. intuitivně měl vážně platit, a navíc je potřeba pro další
+. nevinně vyhlížející tvrzení. Jedno takové si ukážeme v dalším
 díle, konkrétně že se v libovolné neprázdné množině bez nejmenšího
 prvku dá najít nekonečná klesající posloupnost.
 Nashle příště.

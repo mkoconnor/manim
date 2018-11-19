@@ -1557,3 +1557,172 @@ class MeasureContradiction(Scene):
             Transform(r_copies, r_copies_dest),
         )
         self.dither()
+
+        shift_approx = -4.5
+        shift_index, shift_dot = min(
+            enumerate(rat_dots),
+            key = lambda (i,dot): abs(dot.get_center()[0] - shift_approx),
+        )
+
+        shift = X_MASK * shift_dot.get_center()
+        copy_index = x_coor.index(shift_dot.get_center()[0])
+        x_in_r = 4
+        x = r_copies[copy_index][x_in_r].get_center()[0]
+        x_repr = repr_dots[x_in_r].get_center()[0]
+        x_dot = Dot(x * X_MASK, color = YELLOW)
+        x_label = TexMobject('x').next_to(x_dot, UP)
+        x_dot.save_state()
+        x_dot.shift(LEFT)
+        x_dot.set_fill(opacity = 0)
+        self.play(x_dot.restore, FadeIn(x_label))
+        self.dither()
+
+        x_class = dots_template.copy().shift(x_repr * X_MASK)
+        x_class.next_to(repr_label, UP, coor_mask = Y_MASK)
+
+        x_label.save_state()
+        x_label.next_to(x_class[shift_index], UP)
+        self.play(
+            FadeIn(x_class),
+            MoveFromSaved(x_label),
+            Transform(x_dot, x_class[shift_index].copy().highlight(YELLOW)),
+        )
+
+        x_class[zero_i].highlight(YELLOW)
+        self.play(x_class[zero_i].shift, 0.2*UP, rate_func = there_and_back)
+        dot = x_class[zero_i].copy()
+        dot_dest = repr_dots[x_in_r].copy().highlight(YELLOW)
+        self.play(Transform(dot, dot_dest))
+        self.remove(dot)
+        repr_dots[x_in_r].highlight(YELLOW)
+
+        self.dither()
+
+        repr_copy_x = repr_dots.copy()
+        self.play(repr_copy_x.shift, shift)
+
+        rect = SurroundingRectangle(r_copies[copy_index])
+        self.play(
+            ShowCreation(rect),
+            r_copies[copy_index][x_in_r].highlight, YELLOW,
+        )
+
+        self.dither()
+
+class FindingCause(Scene):
+    def construct(self):
+
+        title = TextMobject("Co za to může?").to_edge(UP)
+        self.play(FadeIn(title, submobject_mode = "lagged_start"))
+
+        conversation = Conversation(self)
+        conversation.add_bubble("Ta podmínka se spočetným rozdělením.")
+        self.add_foreground_mobjects(conversation.dialog)
+
+        rec_set = []
+        holes = [(-3.,3.)]
+        seg_len = 2.
+        rec_set_layers = 6
+
+        for _ in range(rec_set_layers):
+            next_holes = []
+            for a,b in holes:
+                center = (a+b)/2
+                c = center - seg_len/2
+                d = center + seg_len/2
+                next_holes += [(a,c), (d,b)]
+                rec_set.append(Line(c*X_MASK, d*X_MASK))
+            holes = next_holes
+            seg_len /= 4
+
+        rec_set = VGroup(rec_set)
+        rec_set.shift(UP).highlight(YELLOW)
+
+        self.play(FadeIn(rec_set))
+
+        rec_set.save_state()
+        rec_set.arrange_submobjects(DOWN, center = False, coor_mask = Y_MASK)
+
+        self.play(MoveFromSaved(rec_set, run_time = 1))
+
+        rec_set_folded = []
+        for i in range(rec_set_layers):
+            start = 2 - 2.0**(2-i)
+            end = 2 - 2.0**(2-(i+1))
+            points = np.linspace(start, end, 2**i + 1)
+            for p0, p1 in zip(points, points[1:]):
+                rec_set_folded.append(Line(p0*X_MASK, p1*X_MASK))
+
+        rec_set_folded = VGroup(rec_set_folded)
+        rec_set_folded.shift(UP).highlight(YELLOW)
+
+        rec_set_folded_in_rows = rec_set_folded.copy()
+        rec_set_folded_in_rows.arrange_submobjects(DOWN, center = False, coor_mask = Y_MASK)
+
+        self.play(ReplacementTransform(rec_set, rec_set_folded_in_rows))
+        self.play(ReplacementTransform(rec_set_folded_in_rows, rec_set_folded))
+        self.dither()
+
+        self.play(FadeOut(rec_set_folded))
+        conversation.add_bubble("Ne tak docela, Banach-Tarskiho paradox.")
+
+        banach_tarski_pic = ImageMobject("vsauce-banach-tarski.png")
+        banach_tarski_pic.scale(1./3)
+        banach_tarski_label = TextMobject("The Banach–Tarski Paradox\\\\(Vsauce)")
+        banach_tarski_label.scale(0.7)
+        banach_tarski_label.next_to(banach_tarski_pic, RIGHT)
+        banach_tarski = VGroup(banach_tarski_pic, banach_tarski_label)
+        banach_tarski.next_to(conversation.dialog, UP)
+        self.play(UnapplyMethod(banach_tarski.behind_edge, RIGHT))
+
+        self.play(
+            FadeOut(VGroup(banach_tarski_label, conversation.dialog)),
+            FadeOut(banach_tarski_pic),
+        )
+
+        conversation = Conversation(self)
+        conversation.add_bubble("Tak axiom výběru?")
+        conversation.add_bubble("Nebo jenom blbá intuice.")
+
+class ChoiceStatus(Scene):
+    def construct(self):
+
+        title = TextMobject("Axiom výběru").to_edge(UP)
+        self.add(title)
+        items = VGroup(
+            TextMobject("$\\bullet$ Býval kontroverzní, dnes přijímaný"),
+            TextMobject("$\\bullet$ Nedá se dokázat ani vyvrátit"),
+        ).arrange_submobjects(DOWN, aligned_edge = LEFT, buff = 0.4)
+        items.next_to(title, DOWN, buff = 0.5).to_edge(LEFT)
+
+        self.play(FadeIn(items[0], submobject_mode = "lagged_start"))
+        self.dither()
+
+
+        stamp_text = TextMobject("Dokázáno")
+        stamp_rect = SurroundingRectangle(stamp_text, buff = 0.2)
+        stamp_bg = BackgroundRectangle(stamp_rect)
+        stamp = VGroup(stamp_bg, stamp_rect, stamp_text)
+        stamp.set_color(RED)
+        stamp.rotate(np.pi*0.1)
+        stamp.next_to(items[1])
+        stamp.shift(1.3*LEFT + 0.25*DOWN)
+
+        self.play(
+            FadeIn(items[1], submobject_mode = "lagged_start"),
+            FadeInZoomOut(stamp, about_point = stamp.get_center()),
+        )
+        self.dither()
+
+        chapter14 = importlib.import_module('eost.14-formal-recursion-cz')
+        make_jumps = chapter14.make_jumps
+
+        jumps = make_jumps(3, -4)
+        line = Line(4.5*LEFT, 4.5*RIGHT, color = DARK_GREY)
+        jumps_g = VGroup(line, jumps)
+        jumps_g.shift(2*DOWN)
+
+        self.play(ShowCreation(line))
+        for i in range(6): self.play(ShowCreation(jumps[i], run_time = 0.5))
+        self.play(ShowCreation(VGroup(jumps[i+1:])))
+        self.dither()
