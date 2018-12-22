@@ -1,0 +1,299 @@
+0:00:00.000,0:00:02.720
+Essence of set theory
+
+0:00:02.740,0:00:06.020
+Chapter 1
+Introduction
+
+0:00:06.900,0:00:10.360
+"Set theory has a dual role in mathematics. In pure mathematics, it is the place where questions about infinity are studied.
+
+0:00:10.360,0:00:14.460
+'Although this is a fascinating study of permanent interest, it does not account for the importance of set theory in applied areas.
+
+0:00:14.460,0:00:18.860
+There, the importance stems from the fact that set theory provides an incredibly versatile toolbox for building mathematical models of various phenomena."
+
+0:00:19.780,0:00:23.020
+Hi, and welcome to Essence of set theory!
+
+0:00:23.020,0:00:31.240
+Because the video targets an audience as diverse and broad as I can get, let's first outline what it's all about.
+
+0:00:31.240,0:00:35.480
+Set theory, which in Czech is sometimes humorously slang abbreviated as TeMno ('darkness'),
+
+0:00:35.480,0:00:40.600
+is a mathematical discipline founded in the nineteenth century by George Cantor.
+
+0:00:40.600,0:00:44.200
+At its core, set theory is the study of infinity;
+
+0:00:44.200,0:00:47.780
+or rather, infinite sets, to be precise.
+
+0:00:47.780,0:00:51.740
+If you have ever heard some cool things about infinity,
+
+0:00:51.740,0:00:55.640
+like how an infinite number of buses each with an infinite amount of people
+
+0:00:55.640,0:00:59.260
+can fit into a single hotel with an infinite number of rooms,
+
+0:00:59.580,0:01:02.080
+or how an infinite number of prisoners wearing colored hats
+
+0:01:02.080,0:01:05.300
+are able to coordinate their actions such that almost all of them can, correctly,
+
+0:01:05.300,0:01:06.300
+guess their own hat color,
+
+0:01:06.620,0:01:10.820
+you'll find that these are, indeed, things strongly connected to set theory.
+
+0:01:11.240,0:01:13.675
+To be honest, understanding infinity is actually
+
+0:01:13.680,0:01:15.120
+the main reason why we study set theory:
+
+0:01:15.120,0:01:16.460
+to a mathematician, infinity is beautiful!
+
+0:01:16.720,0:01:21.160
+It is a concept that provides to a mathematician a whole, amazing world just for the sake of his ideas.
+
+0:01:21.640,0:01:23.580
+Of course, that means if you're a practically oriented person
+
+0:01:23.580,0:01:25.580
+who wants to see its direct applications in the real world, sorry;
+
+0:01:25.580,0:01:27.580
+You won't meet infinity walking down the street.
+
+0:01:28.420,0:01:29.220
+Still,
+
+0:01:29.220,0:01:33.820
+there is also another reason why set theory is important:
+
+0:01:33.820,0:01:35.900
+it gives a solid framework for mathematics in general.
+
+0:01:35.900,0:01:39.080
+As it turns out, following our intuitions about infinity
+
+0:01:39.080,0:01:40.920
+can easily lead to paradoxes,
+
+0:01:40.920,0:01:42.500
+as when a set being an element of itself implies it can't be itself 
+(is it a paraphrase of Russell's Paradox? I couldn't understand)
+
+0:01:47.100,0:01:52.160
+Mathematicians had to develop a formal axiomatic framework
+
+0:01:52.160,0:01:54.660
+to deal with these problems.
+
+0:01:54.980,0:01:59.520
+And it turned out that their solution was so universal
+
+0:01:59.520,0:02:03.820
+that it covers virtually any mathematical field.
+
+0:02:04.460,0:02:08.080
+Therefore set theory actually plays two roles in mathematics:
+
+0:02:08.080,0:02:10.060
+not only is it the theory of infinity,
+
+0:02:10.060,0:02:12.520
+but it also constitutes the very foundations of mathematics.
+
+0:02:13.080,0:02:17.820
+In the first few videos, we'll start with some intuition for infinity;
+
+0:02:18.020,0:02:20.840
+Then we'll use that intuition to present the problems
+
+0:02:20.880,0:02:23.660
+and to solve them by introducing a framework in terms of a few axioms;
+
+0:02:23.660,0:02:28.400
+And we'll finish with some more advanced tools of set theory,
+
+0:02:28.400,0:02:30.480
+like the principle of maximality.
+
+0:02:30.600,0:02:36.540
+To begin thinking about infinity, we first have to define it.
+
+0:02:36.540,0:02:40.540
+What do we mean by a rotated number eight?
+
+0:02:40.540,0:02:44.920
+Actually, this question is too vague for us to answer. We won't even use the infinity symbol in this series!
+
+0:02:44.920,0:02:47.520
+Instead, we'll try to define "infinite size":
+
+0:02:47.520,0:02:49.800
+what's something infinitely big?
+
+0:02:50.060,0:02:53.560
+Of course, there's a cheap answer:
+
+0:02:53.640,0:02:56.680
+something infinitely big is something not finitely big.
+
+0:02:57.080,0:03:00.760
+But "finitely big" is easy to define:
+
+0:03:00.760,0:03:04.080
+a finitely big set is just a set where its number of elements
+
+0:03:04.080,0:03:07.020
+can be expressed as a natural number.
+
+0:03:07.560,0:03:11.080
+A set of five elements is finite.
+
+0:03:11.080,0:03:13.980
+A set of one million elements is finite too.
+
+0:03:14.100,0:03:16.920
+But the set of all natural numbers
+
+0:03:16.920,0:03:21.500
+is too big to be measured by a finite natural number.
+
+0:03:21.700,0:03:23.940
+Therefore, it is infinite in size.
+
+0:03:24.460,0:03:26.540
+Even an empty set is finite:
+
+0:03:26.540,0:03:28.080
+it has zero elements!
+
+0:03:28.080,0:03:30.760
+That's why we consider zero as a natural number.
+
+0:03:31.000,0:03:35.460
+This may be somewhat unusual in other fields, but in set theory, it turns out to be...
+
+0:03:35.460,0:03:37.420
+*very natural*
+
+0:03:38.820,0:03:42.460
+According to this definition of infinite sets,
+
+0:03:42.460,0:03:44.900
+in which we defined what infinite definitely isn't,
+
+0:03:44.900,0:03:49.120
+the answer to our question is that the size of something infinitely big can't just be a large natural number.
+
+0:03:49.420,0:03:52.315
+Actually, the whole study of infinity
+
+0:03:52.315,0:03:55.055
+rely on the fact that infinite sets behave in unexpected ways,
+
+0:03:55.060,0:03:57.480
+and this is precisely what our studies are concerned with.
+
+0:03:57.800,0:04:00.720
+Consider the following problem:
+
+0:04:00.900,0:04:03.980
+We have a grid of size five by five
+
+0:04:03.980,0:04:07.460
+and we are coloring it using two colors, yellow and blue.
+
+0:04:08.120,0:04:11.880
+If we color it in such a way that all the rows are predominantly blue,
+
+0:04:11.960,0:04:17.540
+it may happen that some of the columns are predominantly yellow,
+
+0:04:17.540,0:04:19.580
+but definitely not all of them!
+
+0:04:19.580,0:04:23.920
+Even if we change the remaining columns so that they are predominantly yellow,
+
+0:04:23.940,0:04:27.500
+we will unavoidably break some of the grid's rows.
+
+0:04:27.500,0:04:31.060
+It is really an impossible task to carefully choose grid colors
+
+0:04:31.060,0:04:32.900
+in such a configuration in which the all the rows are predominantly blue
+
+0:04:32.900,0:04:34.800
+and, at the same time, all the columns are predominantly yellow.
+
+0:04:35.040,0:04:38.320
+This happens for the simple reason that we cannot fill the table in such a way
+
+0:04:38.340,0:04:40.400
+that there are more blue squares than yellow ones
+
+0:04:40.400,0:04:42.840
+at the same time there are more yellow squares than blue ones!
+
+0:04:43.240,0:04:46.680
+But what if we pick an infinite grid?
+
+0:04:46.680,0:04:49.080
+In this case, there exists a colorization of the grid
+
+0:04:49.080,0:04:53.400
+such that every row contains only a finite number of yellow squares,
+
+0:04:53.400,0:04:57.800
+and every column contains only a finite number of blue ones.
+
+0:04:58.260,0:05:03.400
+I recommend you to pause the video and think about it for a while.
+
+0:05:03.400,0:05:06.020
+You can take your paper and pencil for help.
+
+0:05:14.480,0:05:16.860
+Here it comes the solution:
+
+0:05:17.605,0:05:18.815
+Do you see?!
+
+0:05:19.240,0:05:24.320
+Every row is mostly blue and contains only a finite number of yellow squares
+
+0:05:24.320,0:05:29.360
+and every column is mostly yellow and contains only a finite number of blue squares.
+
+0:05:29.380,0:05:32.300
+The impossible task in the finite world
+
+0:05:32.305,0:05:34.495
+just became possible for the infinite grid.
+
+0:05:34.820,0:05:37.360
+And that is just the beginning.
+
+0:05:37.880,0:05:40.340
+In the next chapter...
+
+0:05:40.600,0:05:44.200
+We will learn how to compare sizes of infinite
+sets.
+
+0:05:44.840,0:05:46.460
+See you then!
