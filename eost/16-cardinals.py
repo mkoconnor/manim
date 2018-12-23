@@ -32,19 +32,19 @@ import eost.deterministic
 
 class Chapter16OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 16\\\\ Rekurze na kardinálu",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 16\\\\ Recursion on Cardinal",
     }
 
 class Chapter16OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Ukazuje se, že","nekonečno","je přesný opak toho, co se o něm říká."
+            "Infinity","turns out to be the opposite of what people say it is."
         ],
         "highlighted_quote_terms" : {
-            "nekonečno" : GREEN,
+            "Infinity" : GREEN,
         },
-        "author" : "Aristoteles"
+        "author" : "Aristotle"
     }
 
 card_color = RED
@@ -54,9 +54,9 @@ class SeriesIntro(Scene):
     def construct(self):
 
         series = VideoSeries(num_videos = 16).to_edge(UP)
-        cardinals_title = TextMobject("Kardinální čísla")
-        ordinals_title = TextMobject("Ordinální čísla")
-        formal_card_title = TextMobject("Formální význam")
+        cardinals_title = TextMobject("Cardinal numbers")
+        ordinals_title = TextMobject("Ordinal numbers")
+        formal_card_title = TextMobject("Formal meaning")
         formal_ord_title = formal_card_title.copy()
 
         cardinals_title.next_to(series[1], DOWN, aligned_edge = LEFT)
@@ -119,19 +119,19 @@ class SeriesIntro(Scene):
         series.save_state()
         series.behind_edge(UP)
         self.play(series.restore)
-        self.wait_to(2.5)
+        #self.wait_to(2.5)
         self.play(
             ShowCreation(cardinals_line),
             FadeIn(cardinals_title, submobject_mode = "lagged_start"),
         )
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         self.play(FadeIn(cardinals_meaning[0]))
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(FadeIn(cardinals_meaning[1]))
-        self.wait_to(10)
+        #self.wait_to(10)
         self.play(FadeIn(cardinals_meaning[2]))
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(Transform(VGroup(series[4:7]), VGroup(numbered_series[4:7])))
         self.play(
             ShowCreation(ordinals_line),
@@ -139,7 +139,7 @@ class SeriesIntro(Scene):
         )
         self.play(FadeIn(ordinals_meaning))
 
-        self.wait_to(18)
+        #self.wait_to(18)
         self.play(
             Transform(series[10], numbered_series[10]),
             ShowCreation(formal_ord_line),
@@ -147,13 +147,13 @@ class SeriesIntro(Scene):
         )
         self.play(ShowCreation(ord_arrow))
 
-        self.wait_to(24)
+        #self.wait_to(24)
         self.play(
             Transform(series[15], numbered_series[15]),
             ShowCreation(formal_card_line),
             FadeIn(formal_card_title),
         )
-        self.wait_to(26.5)
+        #self.wait_to(26.5)
         self.play(ShowCreation(card_arrow))
 
         question = TexMobject("\\mathfrak c = \\mathord{?}")
@@ -165,12 +165,13 @@ class SeriesIntro(Scene):
         reals.save_state()
         reals.shift(question[0].get_center() - reals[-1].get_center())
 
-        self.wait_to(35)
+        #self.wait_to(35)
         self.play(
             MoveFromSaved(reals, path_arc = 1.0)
         )
         self.play(Write(VGroup(question[1:])))
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
+        self.dither(2)
 
         self.remove(reals[-1])
         reals.remove(reals[-1])
@@ -203,7 +204,7 @@ class SeriesIntro(Scene):
 class ContinuumQuestion(Scene):
     def construct(self):
 
-        title = TextMobject("Formální význam")
+        title = TextMobject("Formal meaning")
         title.highlight(card_color)
         title.to_corner(UP+RIGHT)
 
@@ -237,10 +238,10 @@ class ContinuumQuestion(Scene):
         subsets_l = TexMobject("\\mathcal P(\\omega)")
         subsets_l.next_to(subsets, LEFT)
 
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
         self.play(FadeIn(reals_l), ShowCreation(reals))
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(ShowCreation(subsets_int), run_time = 1.5)
         self.play(FadeIn(subsets_l), ShowCreation(subsets_rect))
 
@@ -253,22 +254,23 @@ class ContinuumQuestion(Scene):
             DashedLine(start, corner),
             DashedLine(corner, end),
         )
-        self.wait_to(10)
+        #self.wait_to(10)
         self.play(ShowCreation(proper_class))
 
-        paradox = TextMobject("Russelův paradox")
+        paradox = TextMobject("Russel's paradox")
         paradox.highlight(YELLOW)
         paradox.next_to(proper_class, UP, aligned_edge = LEFT)
         paradox.shift(0.5*LEFT)
 
-        self.wait_to(14.5)
+        #self.wait_to(14.5)
         self.add(paradox)
         self.dither(0.3)
         self.remove(paradox)
         self.dither(0.2)
         self.add(paradox)
+        self.dither()
 
-        self.wait_to(23)
+        #self.wait_to(23)
         self.play(FadeOut(VGroup(paradox, proper_class)))
 
         q_mark = question[-1].copy()
@@ -276,9 +278,9 @@ class ContinuumQuestion(Scene):
         q_mark.shift(1.5*(UP+LEFT))
         arrow = Arrow(q_mark, reals_l.get_corner(LEFT+UP))
 
-        self.wait_to(28.5)
+        #self.wait_to(28.5)
         self.play(FadeIn(q_mark), ShowCreation(arrow))
-        self.wait_to(33.5)
+        #self.wait_to(33.5)
 
         q_mark.save_state()
         q_mark.shift(subsets_l.get_center() - reals_l.get_center())
@@ -288,9 +290,10 @@ class ContinuumQuestion(Scene):
             Transform(arrow, arrow_dest),
         )
 
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
+        self.dither()
         self.play(FadeOut(VGroup(q_mark, arrow)))
-        self.wait_to(60+5)
+        #self.wait_to(60+5)
 
         ordinal = LongOrdinal(
             color = reals.color,
@@ -343,13 +346,14 @@ class ContinuumQuestion(Scene):
 
         conversation = Conversation(self)
 
-        self.wait_to(60+14)
-        conversation.add_bubble("A to je ta kardinalita?")
-        self.dither()
-        self.wait_to(60+21.5)
-        conversation.add_bubble("Skoro, ale musíme si vybrat konkrétní ordinál.")
+        #self.wait_to(60+14)
+        conversation.add_bubble("Is this the cardinality?")
+        self.dither(2)
+        #self.wait_to(60+21.5)
+        conversation.add_bubble("Almost, we just have to pick one.")
 
-        self.wait_to(60+28.5)
+        self.dither(2)
+        #self.wait_to(60+28.5)
         self.remove(src_mobjects)
         picture = VGroup(
             subsets,
@@ -364,7 +368,7 @@ class ContinuumQuestion(Scene):
 class CardinalDefinition(Scene):
     def construct(self):
 
-        title = TextMobject("Formální význam")
+        title = TextMobject("Formal meaning")
         title.highlight(card_color)
         title.to_corner(UP+RIGHT)
         self.add(title)
@@ -385,12 +389,12 @@ class CardinalDefinition(Scene):
         VGroup(ordinals, labels).to_edge(DOWN)
 
         omega_l = labels[0].copy().next_to(omega, DOWN)
-        self.wait_to(2)
+        #self.wait_to(2)
         self.play(
             FadeIn(omega),
             FadeIn(omega_l),
         )
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
 
         bar = labeled_bars[0].copy().highlight(YELLOW)
         self.play(
@@ -409,7 +413,7 @@ class CardinalDefinition(Scene):
             FadeIn(omega3),
             FadeIn(omega3_l),
         )
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
 
         bar = labeled_bars[1].copy().highlight(YELLOW)
         self.play(
@@ -419,7 +423,7 @@ class CardinalDefinition(Scene):
         self.remove(omega3)
         labeled_bars[1].highlight(YELLOW)
 
-        self.wait_to(11)
+        #self.wait_to(11)
 
         omega1 = Omega1(x0 = -5, x1 = -3, ordinal_end = 0.7, height = 0.5, color = YELLOW)
         omega1[1][0].highlight(WHITE)
@@ -501,7 +505,7 @@ class CardinalDefinition(Scene):
             for point in cont_points
         ])
 
-        self.wait_to(21)
+        #self.wait_to(21)
         self.play(FadeIn(continuum))
         for arrow, dot in zip(cont_arrows, cont_dots):
             self.play(
@@ -509,7 +513,7 @@ class CardinalDefinition(Scene):
                 FadeIn(dot),
                 run_time=  0.7,
             ) 
-        self.wait_to(25)
+        #self.wait_to(25)
 
         cont_dots.save_state()
         for dot in cont_dots:
@@ -523,22 +527,22 @@ class CardinalDefinition(Scene):
         self.remove(cont_dots)
         #cont_segment.highlight(RED)
 
-
         cont_bar = omega1[1].family_members_with_points()[0].copy()
         cont_bar.highlight(YELLOW)
         cont_bar.move_to(cont_segment.get_start())
         cont_bar.save_state()
         cont_bar.scale_in_place(0)
         cont_bar.set_stroke(width = 0)
-        self.wait_to(39)
+        #self.wait_to(39)
         self.play(cont_bar.restore)
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
         self.play(
             FadeOut(cont_arrows),
             continuum.next_to, cont_bar, UP,
         )
 
-        self.wait_to(52)
+        #self.wait_to(52)
+        self.dither()
 
         bar = omega1[1][1][0]
         bar.save_state()
@@ -554,7 +558,7 @@ class CardinalDefinition(Scene):
             ReplacementTransform(labels[0], omega_l),
             MoveFromSaved(aleph0),
         )
-        self.wait_to(57.5)
+        #self.wait_to(57.5)
 
         aleph1 = TexMobject("\\aleph_1").highlight(card_color)
         aleph1.next_to(omega1_bar, UP)
@@ -564,10 +568,11 @@ class CardinalDefinition(Scene):
         aleph_omega[0].highlight(card_color)
         aleph_omega[2].highlight(ord_color)
         aleph_omega.shift(UP)
-        self.wait_to(60.5)
+        #self.wait_to(60.5)
         self.play(Write(aleph_omega))
+        self.dither(2)
 
-        self.wait_to(60+26)
+        #self.wait_to(60+26)
         picture = VGroup(
             omega_l, aleph0,
             omega1,
@@ -695,7 +700,7 @@ class GridScene(Scene):
                 colors = self.get_colors(squares, line.position)
                 if len(self.bar_waits) > 0:
                     t = self.bar_waits.pop(0)
-                    if t is not None: self.wait_to(t)
+                    #if t is not None: self.wait_to(t)
                 self.play(
                     TurnSquares(squares, colors),
                     Animation(VGroup(self.grid_lines, bg, omega)),
@@ -713,7 +718,7 @@ class GridScene(Scene):
             position = self.play_bar(omega, bg, fast)
             if len(self.bar_waits) > 0:
                 t = self.bar_waits.pop(0)
-                if t is not None: self.wait_to(t)
+                #if t is not None: self.wait_to(t)
             if position == last_pos: break
 
         lines = VGroup([
@@ -762,7 +767,7 @@ class GridIntro(GridScene):
         )
         self.add_foreground_mobjects(self.grid_lines)
 
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
 
         row = self.grid[self.grid_height]
         colors = [self.color_row for _ in row]
@@ -771,7 +776,8 @@ class GridIntro(GridScene):
 
         self.play(TurnSquares(row, colors))
 
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
+        self.dither()
         self.play(row.highlight, BLACK)
         for sq in row: sq.color = BLACK
 
@@ -781,11 +787,12 @@ class GridIntro(GridScene):
             colors[self.grid_height+i] = self.color_row
         self.play(TurnSquares(column, colors))
 
-        self.wait_to(12.5)
+        #self.wait_to(12.5)
+        self.dither()
         self.play(column.highlight, BLACK)
         for sq in column: sq.color = BLACK
 
-        self.wait_to(21)
+        #self.wait_to(21)
 
 class GridCollect(GridScene):
     def construct(self):
@@ -808,10 +815,10 @@ class GridCollect(GridScene):
         columns = VGroup([self.make_rc_line(col.position) for col in columns_Z_fam])
 
         self.play(ShowCreation(columns, submobject_mode = "all_at_once"))
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(ShowCreation(rows, submobject_mode = "all_at_once"))
 
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(
             FadeIn(columns_bg),
             ReplacementTransform(columns, columns_Z_fam),
@@ -821,7 +828,7 @@ class GridCollect(GridScene):
             ReplacementTransform(rows, rows_Z_fam),
         )
 
-        self.wait_to(10)
+        #self.wait_to(10)
 
         # Transform compact rows and columns -> ordinal omega*4
 
@@ -866,7 +873,7 @@ class GridCollect(GridScene):
 
         # omega*4 -> omega
 
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
 
         part_order = 0,2,1,3
         omega = OrdinalOmega().to_edge(DOWN)
@@ -899,7 +906,8 @@ class GridCollect(GridScene):
         self.remove(omega_mid)
         self.add(omega)
 
-        self.wait_to(23)
+        self.dither()
+        #self.wait_to(23)
 
     def make_Z(self, size, symbol, color):
         
@@ -942,14 +950,15 @@ class OmegaGridColoring(GridScene):
 
         self.add(omega_bg, omega)
 
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
         self.bar_waits = [5, 7.5, 11, 15.5, None, 19, None]
         self.play_bars(
             omega, omega_bg,
             ('c', -1), ('r', self.grid_height),
             bg_fadeout = True,
         )
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
+        self.dither(2)
 
         self.play(
             self.grid.highlight, BLACK,
@@ -979,12 +988,12 @@ class Omega4GridColoring(GridScene):
             ('c', 1), ('c', 6),
             bg_fadeout = False,
         )
-        self.wait_to(9)
+        #self.wait_to(9)
 
         omega4[1][0].position = 'r',0
 
         self.play_bar(omega4[1], (omega4_bg, omega4[2:]), fast = False)
-        self.wait_to(16)
+        #self.wait_to(16)
 
         grid_problem = Line(
             ORIGIN, RIGHT*SPACE_WIDTH,
@@ -998,13 +1007,14 @@ class Omega4GridColoring(GridScene):
         )
         omega = omega_backup.copy()
         omega.highlight(DARK_GREY)
-        self.wait_to(20)
+        #self.wait_to(20)
         self.play(
             FadeIn(omega),
             ShowCreation(ordinal_problem),
         )
 
-        self.wait_to(25)
+        #self.wait_to(25)
+        self.dither()
         self.play(
             FadeOut(grid_problem),
             VGroup(self.grid[self.grid_height][:self.grid_width]).highlight, BLACK,
@@ -1014,7 +1024,8 @@ class Omega4GridColoring(GridScene):
         )
 
         cut = 5
-        self.wait_to(29)
+        #self.wait_to(29)
+        self.dither()
         omega.save_state()
         VGroup(omega[cut:]).set_stroke(width = 0)
         self.play(
@@ -1031,14 +1042,15 @@ class Omega4GridColoring(GridScene):
             for sq in row[self.grid_width : self.grid_width+cut]: sq.set_color(self.color_col)
 
         omega4[1][0].position = 'r',0
-        self.wait_to(33)
+        #self.wait_to(33)
         self.play_bar(
             omega4[1],
             (omega4_bg, omega, ordinal_problem, omega4[2:]),
             fast = False
         )
 
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
+        self.dither(2)
         self.play(
             FadeOut(VGroup(self.grid, self.grid_lines)),
             Animation(omega4_bg),
@@ -1070,7 +1082,7 @@ class CardinalFeature(Scene):
         brace.desc.highlight(card_color)
         self.play(brace.creation_anim())
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
 
         continuum = LongOrdinal(color = ord_color)
         continuum_l = TexMobject("\\mathfrak c")
@@ -1121,7 +1133,8 @@ class CardinalFeature(Scene):
         brace.desc.highlight(card_color)
 
         self.play(brace.creation_anim())
-        self.wait_to(23)
+        self.dither(2)
+        #self.wait_to(23)
 
 class MagicSetScene(Scene):
 
@@ -1360,7 +1373,7 @@ class MagicSetIntro(MagicSetScene):
             run_time = 3,
         )
         #self.remove(bg_mob)
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
 
         points = [
             [0.12, 0.77],
@@ -1407,9 +1420,9 @@ class MagicSetIntro(MagicSetScene):
 
         for point_i_triple in point_i_triples: show_triple(point_i_triple)
 
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(circles.highlight, GREY)
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
 
         mini_places = [
             [-5.08, 2.59],
@@ -1449,11 +1462,12 @@ class MagicSetIntro(MagicSetScene):
             self.add_foreground_mobjects(*new_dots)
             circles.add(circle)
 
-        self.wait_to(18.5)
+        #self.wait_to(18.5)
         self.play(circles.highlight, GREY)
         show_triple((4,6,7), to_arc = (4.3, 5.8))
 
-        self.wait_to(29.5)
+        #self.wait_to(29.5)
+        self.dither(2)
         self.play(
             FadeIn(bg_black),
             FadeOut(circles),
@@ -1482,17 +1496,17 @@ class ContinuumSquare(Scene):
         series.save_state()
         series.behind_edge(UP)
         self.play(series.restore)
-        self.wait_to(2.5)
+        #self.wait_to(2.5)
         self.play(Write(aleph0_eq))
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(FadeIn(aleph0_pair))
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(
             FadeIn(aleph0_enc),
             ShowCreation(aleph0_line),
         )
 
-        self.wait_to(18)
+        #self.wait_to(18)
         self.play(series.behind_edge, UP)
 
         cont_eq = self.make_card_eq("\\mathfrak{c}")
@@ -1502,10 +1516,10 @@ class ContinuumSquare(Scene):
         finite_neq = TexMobject("2\\cdot2\\neq4")
         VGroup([finite_neq[i] for i in (0,2,-1)]).highlight(card_color)
         finite_neq.move_to(cont_eq)
-        self.wait_to(24)
+        #self.wait_to(24)
         self.play(FadeIn(finite_neq))
 
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
         self.play(FadeOut(finite_neq))
         self.play(FadeIn(cont_eq))
 
@@ -1530,16 +1544,16 @@ class ContinuumSquare(Scene):
         cont_line.move_to(cont_eq, coor_mask = X_MASK)
 
         for seq,t in zip(sequences, (33.5, 37)):
-            self.wait_to(t)
+            #self.wait_to(t)
             self.play(ShowCreation(seq))
 
-        self.wait_to(40)
+        #self.wait_to(40)
         self.play(
             MoveFromSaved(merged),
             ShowCreation(cont_line),
         )
 
-        self.wait_to(45)
+        #self.wait_to(45)
         merged.save_state()
         self.arrange_seq(merged)
         merged.next_to(sequences, DOWN, aligned_edge = LEFT)
@@ -1556,7 +1570,7 @@ class ContinuumSquare(Scene):
             Transform(cont_line, cont_line_dest),
         )
 
-        self.wait_to(48.5)
+        #self.wait_to(48.5)
 
         general = VGroup(
             TexMobject("|A|","\\geq","\\aleph_0","\\Rightarrow"),
@@ -1572,10 +1586,10 @@ class ContinuumSquare(Scene):
             ShowCreation(gen_rect),
             FadeIn(general[1]),
         )
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(FadeIn(general[0]))        
 
-        self.wait_to(57)
+        #self.wait_to(57)
         cont_g = VGroup(cont_eq, sequences, merged, cont_line)
 
         cont_assumption = TexMobject("|A|","<","\\mathfrak c")
@@ -1590,9 +1604,9 @@ class ContinuumSquare(Scene):
             cont_g.behind_edge, RIGHT,
             FadeIn(cont_assumption, submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+2)
+        #self.wait_to(60+2)
         self.play(FadeIn(cont_impl, submobject_mode = "lagged_start"))
-        self.wait_to(60+7)
+        #self.wait_to(60+7)
 
         third_A = VGroup(cont_impl[0][1:3]).copy()
         shift = cont_impl[0][1].get_center() - cont_impl[0][3].get_center()
@@ -1600,7 +1614,8 @@ class ContinuumSquare(Scene):
             third_A.shift, shift,
             cont_impl[0][0].shift, shift,
         )
-        self.wait_to(60+20.5)
+        #self.wait_to(60+20.5)
+        self.dither()
         self.play(FadeOut(VGroup(general, gen_rect, cont_usage, third_A)))
 
     def make_card_eq(self, cardinal):
@@ -1623,7 +1638,7 @@ class ContinuumSquare(Scene):
 def make_circles_cardinal():
     ordinal = LongOrdinal(color = BLUE, height = 0.5)
     ordinal_l = TexMobject("\\mathfrak c").next_to(ordinal, LEFT).highlight(card_color)
-    circles_label = TextMobject("Kružnice").next_to(ordinal, DOWN)
+    circles_label = TextMobject("Circles").next_to(ordinal, DOWN)
     ordinal_g = VGroup(ordinal, ordinal_l, circles_label)
     ordinal_g.to_edge(DOWN)
     ordinal_bg = BackgroundRectangle(ordinal_g, buff = 0.2)
@@ -1639,9 +1654,9 @@ class CirclesCardinality(Scene):
 
         self.add(ordinal_bg)
         self.play(ordinal.creation_anim())
-        self.wait_to(2.5)
+        #self.wait_to(2.5)
         self.play(FadeIn(circles_label, submobject_mode = "lagged_start"))
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
 
         axes = Axes()
         self.play(ShowCreation(axes), Animation(ordinal_g))
@@ -1670,7 +1685,7 @@ class CirclesCardinality(Scene):
         center_l.scale(0.8)
         center_l.next_to(center, DOWN)
 
-        self.wait_to(12.5)
+        #self.wait_to(12.5)
         self.play(
             FadeIn(center_l),
             FocusOn2(center),
@@ -1679,7 +1694,7 @@ class CirclesCardinality(Scene):
         triple_num.next_to(ORIGIN, LEFT+DOWN, buff = 0.3)
         triple_num[-1].highlight(GREEN)
 
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         self.play(
             FadeIn(triple_num[3]),
             ReplacementTransform(VGroup(center_l[1:-1]).copy(), VGroup(triple_num[:3])),
@@ -1697,7 +1712,7 @@ class CirclesCardinality(Scene):
             cont_dot[1].copy().move_to(VGroup(triple_cont[i:i+2]))
             for i in range(2)
         ])
-        self.wait_to(22)
+        #self.wait_to(22)
         self.play(Write(triple_cont[0]), run_time = 0.8)
         for cont, dot in zip(triple_cont[1:], double_dot):
             self.play(
@@ -1706,7 +1721,8 @@ class CirclesCardinality(Scene):
                 run_time = 0.8,
             )
 
-        self.wait_to(25.3)
+        #self.wait_to(25.3)
+        self.dither(2)
         double_dot.save_state()
         triple_cont.save_state()
         for cont in triple_cont[::2]:
@@ -1714,7 +1730,7 @@ class CirclesCardinality(Scene):
         for dot in double_dot:
             dot.move_to(triple_cont[1], coor_mask = X_MASK)
             dot.set_fill(opacity = 0)
-            
+
         self.play(
             FadeOut(VGroup(
                 triple_num,
@@ -1733,11 +1749,11 @@ class CirclesCardinality(Scene):
         cont_label = triple_cont[1]
         self.add(cont_label)
 
-        self.wait_to(28.5)
+        #self.wait_to(28.5)
         self.play(
             ReplacementTransform(cont_label, ordinal_l, path_arc = np.pi)
         )
-        self.wait_to(38.5)
+        #self.wait_to(38.5)
 
 class MagicSetConstruction(MagicSetScene):
 
@@ -1841,11 +1857,11 @@ class MagicSetConstruction(MagicSetScene):
         dot = inter_dots[0].highlight(YELLOW)
 
         self.foreground_mobjects = [self.dots_n, self.dots_y]
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(self.put_dot_anim(dot, circle2))
         self.dots_n.add(dot)
         
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.add(circle1, self.dots_n, self.dots_y)
         circle1.highlight(RED)
         self.dither(0.3)
@@ -1854,16 +1870,16 @@ class MagicSetConstruction(MagicSetScene):
         circle1.highlight(RED)
         self.dither(2)
 
-        self.wait_to(19)
+        #self.wait_to(19)
         self.play(circle1.highlight, GREY)
         inter_dots[0].highlight(RED)
         self.dots_n.add(inter_dots[1])
         self.add(circle2, inter_dots)
 
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
         self.put_dot(dots[3], circle2)
 
-        self.wait_to(31.5)
+        #self.wait_to(31.5)
         index = 0
         for triple in triple_indices:
             if 3 not in triple: continue
@@ -1875,23 +1891,23 @@ class MagicSetConstruction(MagicSetScene):
             inter_dots = VGroup([
                 Dot(point).highlight(RED) for point in intersections
             ])
-            if index == 0: self.wait_to(34.5)
+            #if index == 0: self.wait_to(34.5)
             self.show_circle_with_dots(
                 circles_d[triple],
                 inter_dots,
                 mid_layer = VGroup(circle1, circle2)
             )
             self.dots_n.add(*inter_dots)
-            if index == 0: self.wait_to(43)
+            #if index == 0: self.wait_to(43)
 
             index += 1
 
         dots.highlight(YELLOW)
-        self.wait_to(53)
+        #self.wait_to(53)
 
         self.foreground_mobjects = [circle1, circle2, self.dots_n, self.dots_y, ordinal_g]
         self.put_dot(dots[4], circle2)
-        self.wait_to(57.5)
+        #self.wait_to(57.5)
         for triple in triple_indices:
             if 4 not in triple: continue
             if triple[-1] > 4: continue
@@ -1909,17 +1925,17 @@ class MagicSetConstruction(MagicSetScene):
 
         dots.highlight(YELLOW)
 
-        self.wait_to(60+5)
+        #self.wait_to(60+5)
         self.foreground_mobjects = [self.dots_n, self.dots_y]
         self.put_dot(dots[5], circle2)
 
         self.foreground_mobjects = [circle1, circle2, self.dots_n, self.dots_y, ordinal_g]
         remaining_circles = filter(lambda circ: circ not in self.mobjects, circles)
 
-        self.wait_to(60+7)
+        #self.wait_to(60+7)
         self.play(*map(FadeIn, remaining_circles))
 
-        self.wait_to(60+10)
+        #self.wait_to(60+10)
 
         self.foreground_mobjects = [self.dots_y]
         self.play(
@@ -1929,10 +1945,10 @@ class MagicSetConstruction(MagicSetScene):
 
         circle3 = self.make_circum_circle(circ3_points)
         circle3.save_state()
-        self.wait_to(60+11.5)
+        #self.wait_to(60+11.5)
         self.bar_to_circle(ordinal[1][0][2], circle3)
 
-        self.wait_to(60+17)
+        #self.wait_to(60+17)
         self.play(Transform(circle3, self.make_circum_circle([
             points[1], circ3_points[0], circ3_points[1],
         ])))
@@ -1941,10 +1957,10 @@ class MagicSetConstruction(MagicSetScene):
             points[1], points[2], circ3_points[1],
         ])))
 
-        self.wait_to(60+23)
+        #self.wait_to(60+23)
         self.play(Transform(circle3, circles_d[1,2,3].copy().highlight(BLUE)))
 
-        self.wait_to(60+36)
+        #self.wait_to(60+36)
         self.play(circle3.restore)
 
         intersections = itertools.chain(*[
@@ -1957,7 +1973,7 @@ class MagicSetConstruction(MagicSetScene):
         ])
         intersections.save_state()
         for dot in intersections: dot.scale_in_place(0)
-        self.wait_to(60+45.5)
+        #self.wait_to(60+45.5)
         self.play(intersections.restore)
 
         pointer = TrianglePointer(color = YELLOW).next_to(ordinal, UP)
@@ -1966,15 +1982,16 @@ class MagicSetConstruction(MagicSetScene):
         pointer.shift(LEFT)
         pointer.set_fill(opacity = 0)
 
-        self.wait_to(60+48)
+        #self.wait_to(60+48)
         self.play(pointer.restore)
 
-        self.wait_to(60+51)
+        #self.wait_to(60+51)
         shift = ordinal.get_edge_center(UP) - pointer.get_edge_center(UP)
         arc_path = -2*angle_of_vector(shift)
         self.play(ApplyMethod(pointer.shift, shift, path_arc = arc_path))
 
-        self.wait_to(60+55.5)
+        #self.wait_to(60+55.5)
+        self.dither(2)
         self.foreground_mobjects = [ordinal_g, pointer]
 
         self.play(FadeOut(VGroup(
@@ -2024,7 +2041,8 @@ class MagicSetEffect(MagicSetIntro):
             run_time = 5,
         )
         self.remove(dots, circle)
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
+        self.dither(2)
         self.play(FadeIn(bg_black))
 
 class MagicSetCardinality(MagicSetConstruction):
@@ -2050,10 +2068,10 @@ class MagicSetCardinality(MagicSetConstruction):
             UP,
         )
         brace_steps.desc.highlight(RED)
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(brace_steps.creation_anim())
 
-        self.wait_to(11)
+        #self.wait_to(11)
 
         buff = 0.5
         min_x = -SPACE_WIDTH+buff
@@ -2081,7 +2099,7 @@ class MagicSetCardinality(MagicSetConstruction):
 
         self.play(FadeIn(dots), brace_plane.creation_anim())
 
-        self.wait_to(15)
+        #self.wait_to(15)
 
         circles = []
         used = set()
@@ -2124,10 +2142,10 @@ class MagicSetCardinality(MagicSetConstruction):
         circle2.highlight(DARK_GREY)
         hl_dots2 = VGroup([dots[i] for i in circle2.triple])
 
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
         self.play(ShowCreation(circle2), hl_dots2.highlight, YELLOW)
 
-        self.wait_to(36)
+        #self.wait_to(36)
         missing_circles = list_difference_update(circles.submobjects, [circle1, circle2])
         self.play(
             FadeIn(VGroup(missing_circles)),
@@ -2139,7 +2157,7 @@ class MagicSetCardinality(MagicSetConstruction):
         p0 = dots.get_corner(DOWN+RIGHT)+0.2*RIGHT
         p1 = np.array(p0)
         p1[1] = SPACE_HEIGHT+1
-        self.wait_to(40)
+        #self.wait_to(40)
         self.play(brace_plane.shift_brace, Line(p0, p1))
 
         bar = Line(ORIGIN, 0.6*DOWN, color = BLUE)
@@ -2148,7 +2166,7 @@ class MagicSetCardinality(MagicSetConstruction):
         bar.scale(0)
         bar.move_to(ordinal)
 
-        self.wait_to(43.5)
+        #self.wait_to(43.5)
         self.play(
             FadeOut(dots),
             bar.restore,
@@ -2164,7 +2182,7 @@ class MagicSetCardinality(MagicSetConstruction):
 
         self.play(ReplacementTransform(bar, circle))
 
-        self.wait_to(47.5)
+        #self.wait_to(47.5)
 
         circles_inter = list(filter(lambda c: len(self.intersection_cc(c, circle)) > 1, circles))
 
@@ -2176,7 +2194,7 @@ class MagicSetCardinality(MagicSetConstruction):
             Circle(color = YELLOW, radius = 0.1).shift(point)
             for point in intersections
         ])
-        self.wait_to(49)
+        #self.wait_to(49)
         self.play(ShowCreation(inter_hl))
 
         red_dots = VGroup([
@@ -2193,7 +2211,7 @@ class MagicSetCardinality(MagicSetConstruction):
         angle_dest = angle_of_vector(red_dots[0].get_center()-circle.center)
         dashed_circ.rotate(angle_dest-angle_src, about_point = circle.center)
 
-        self.wait_to(54.5)
+        #self.wait_to(54.5)
         red_dots.save_state()
         for dot in red_dots: dot.scale_in_place(0)
         self.play(
@@ -2208,7 +2226,7 @@ class MagicSetCardinality(MagicSetConstruction):
         red_points_label.next_to(circle, UP)
         red_points_label.shift(RIGHT+0.3*DOWN)
 
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(
             FadeOut(circles),
             Animation(circle), 
@@ -2223,14 +2241,15 @@ class MagicSetCardinality(MagicSetConstruction):
         point = circle.center + circle.radius * rotate_vector(RIGHT, angle)
         dot = Dot(point, color = YELLOW)
         self.dots_y = VGroup()
-        self.wait_to(60+1.5)
+        #self.wait_to(60+1.5)
         self.put_dot(dot, circle)
 
-        self.wait_to(60+14)
+        #self.wait_to(60+14)
         self.play(FocusOn2(ordinal_l))
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
         self.play(FocusOn2(brace_steps.desc))
-        self.wait_to(60+20)
+        #self.wait_to(60+20)
+        self.dither()
         self.play(FadeOut(VGroup(
             circle, dashed_circ, red_points_label, brace_steps, pointer, dot
         )))
@@ -2245,9 +2264,9 @@ class Aleph0Square(Scene):
         subgoal2.to_corner(UP+RIGHT)
         for g in (goal, subgoal, subgoal2): VGroup(g[::2]).highlight(card_color)
         self.play(Write(goal))
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         self.play(FadeIn(subgoal, submobject_mode = "lagged_start"))
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         self.play(
             FadeOut(goal),
             subgoal.to_corner, UP+LEFT,
@@ -2310,7 +2329,7 @@ class Aleph0Square(Scene):
             FadeIn(dots, submobject_mode = "one_at_a_time")
         )
 
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
         self.play(ShowCreation(subsquares[0]), run_time = 0.5)
         self.play(ShowCreation(subsquares[1]))
         self.play(ShowCreation(subsquares[2]))
@@ -2328,11 +2347,11 @@ class Aleph0Square(Scene):
         zero = rows_l[0].copy().highlight(BLUE)
         zero.add_background_rectangle(dark_green)
         zero.move_to(dots[0][0])
-        self.wait_to(49.5)
+        #self.wait_to(49.5)
         self.play(subsquares[0].set_fill, None, 0.2)
         self.play(FadeIn(zero[0]), Write(zero[1]))
 
-        self.wait_to(53)
+        #self.wait_to(53)
 
         fg_digits = VGroup()
         self.add_foreground_mobjects(fg_digits)
@@ -2378,14 +2397,15 @@ class Aleph0Square(Scene):
             )
             fg_digits.add(digits)
 
-        self.wait_to(60+5)
+        #self.wait_to(60+5)
+        self.dither()
 
         subsquare_i = 5
         subsquares[0].set_fill(opacity = 0)
         self.remove(*L_shapes[:subsquare_i])
         subsquares[subsquare_i].set_fill(opacity = 0.2)
         other_subsquares = VGroup(subsquares[:subsquare_i]+subsquares[subsquare_i+1:])
-        brace = BraceText(rows_l[:subsquare_i+1], "konečno", LEFT)
+        brace = BraceText(rows_l[:subsquare_i+1], "finite", LEFT)
         brace.desc.highlight(GREEN)
 
         to_fade = VGroup(fg_digits[subsquare_i+1:])
@@ -2396,13 +2416,14 @@ class Aleph0Square(Scene):
             VGroup([num[0] for sample in to_fade for num in sample]).highlight, BLACK,
         )
 
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
         fg_digits.remove(*to_fade)
         self.play(FadeOut(to_fade))
 
         self.foreground_mobjects = []
         lines = VGroup(lines)
-        self.wait_to(60+27)
+        #self.wait_to(60+27)
+        self.dither()
         self.play(
             FadeOut(VGroup(
                 rows_l, cols_l,
@@ -2472,7 +2493,7 @@ class Aleph1Square(Scene):
         ordinal_idx.to_corner(UP+LEFT).shift(0.2*UP + 0.5*RIGHT)
         omega1_l = TexMobject("\\omega_1")
         omega1_l.next_to(ordinal_idx, DOWN, aligned_edge = LEFT)
-        self.wait_to(7)
+        #self.wait_to(7)
         self.play(FadeIn(omega1_l))
 
         corners = [
@@ -2505,12 +2526,12 @@ class Aleph1Square(Scene):
         filled_square.set_fill(opacity = 0.2)
         filled_square.save_state()
         filled_square.scale(0, about_point = subsquare.get_corner(UP+LEFT))
-        self.wait_to(12)
+        #self.wait_to(12)
         self.play(
             ShowCreation(omega_line),
             ApplyMethod(filled_square.restore, rate_func = rush_from),
         )
-        self.wait_to(14)
+        #self.wait_to(14)
 
         self.play(ShowCreation(ordinal_idx[0]))
 
@@ -2527,7 +2548,7 @@ class Aleph1Square(Scene):
         
         width = cols_l[2].get_edge_center(LEFT)[0] - subsquare.get_edge_center(LEFT)[0] - buff
 
-        self.wait_to(15.5)
+        #self.wait_to(15.5)
         subsquare.save_state()
         subsquare.scale_to_fit_width(width)
         subsquare.shift(filled_square.get_corner(UP+LEFT) - subsquare.get_corner(UP+LEFT))
@@ -2549,7 +2570,7 @@ class Aleph1Square(Scene):
         )
         self.play(ShowCreation(next_line))
 
-        self.wait_to(18)
+        #self.wait_to(18)
         self.play(ShowCreation(VGroup(ordinal_idx[1], ordinal_idx[2][0])))
         self.dither()
         start = next_line.get_anchors()[-1]
@@ -2559,7 +2580,7 @@ class Aleph1Square(Scene):
             if alpha > 1: alpha -= 1
             return there_and_back(alpha)
 
-        self.wait_to(21.2)
+        #self.wait_to(21.2)
         self.play(ShowCreation(bad_line, rate_func = rate_func))
         self.remove(bad_line)
         self.dither()
@@ -2580,12 +2601,12 @@ class Aleph1Square(Scene):
             ).points[1:],
         ], 0)
 
-        self.wait_to(34)
+        #self.wait_to(34)
         self.play(ShowCreation(good_line))
         self.play(ShowCreation(VGroup(ordinal_idx[2][1:])))
         self.play(filled_square.replace, subsquare)
 
-        self.wait_to(39)
+        #self.wait_to(39)
 
         subsquare.save_state()
         subsquare.scale_to_fit_width(
@@ -2620,7 +2641,7 @@ class Aleph1Square(Scene):
         )
         self.play(filled_square.replace, subsquare)
 
-        self.wait_to(45)
+        #self.wait_to(45)
 
         omega1 = Omega1(height = ordinal_idx.height)
         omega1.shift(ordinal_idx.get_edge_center(LEFT) - omega1.get_edge_center(LEFT))
@@ -2660,15 +2681,16 @@ class Aleph1Square(Scene):
         )
         self.remove(to_scale, cols_l, rows_l)
 
-        brace = BraceText(filled_square, "spočetné", LEFT)
-        self.wait_to(46.5)
+        brace = BraceText(filled_square, "countable", LEFT)
+        #self.wait_to(46.5)
         self.play(brace.creation_anim())
 
         next_title = TexMobject("\kappa\cdot\\kappa=\kappa")
         VGroup(next_title[::2]).highlight(card_color)
         next_title.to_corner(UP+RIGHT)
 
-        self.wait_to(60+3.5)
+        self.dither(2)
+        #self.wait_to(60+3.5)
         title.save_state()
         next_title.save_state()
         shift = UP
@@ -2680,7 +2702,7 @@ class Aleph1Square(Scene):
             MoveFromSaved(title),
         )
         self.remove(title)
-        self.wait_to(60+7.5)
+        #self.wait_to(60+7.5)
         self.play(FadeOut(VGroup(
             omega1, omega1_l, square, filled_square, brace,
         )))
@@ -2732,7 +2754,7 @@ class CardinalSquare(Scene):
         ordinals.add(VGroup(card_bars[1:]))
         card_bars = VGroup(card_bars).copy()
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             VGroup(card_bars, labels).to_edge, UP,
         )
@@ -2771,22 +2793,23 @@ class CardinalSquare(Scene):
 
         current_card = cardinals[1][3]
         print(self.current_scene_time)
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
         for bar in green_card[0][:2]: self.play(ShowCreation(bar), run_time = 0.5)
         self.play(ShowCreation(VGroup(green_card[0][2:])))
         for bar in green_card[1]: self.play(ShowCreation(bar), run_time = 0.5)
 
         bar_label = TexMobject("\\kappa").highlight(card_color)
         bar_label.next_to(current_card, UP)
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(Write(bar_label))
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
 
-        brace = BraceText(green_card, "ověřeno", DOWN)
+        brace = BraceText(green_card, "verified", DOWN)
         brace.desc.highlight(GREEN)
         self.play(brace.creation_anim())
 
-        self.wait_to(21)
+        self.dither()
+        #self.wait_to(21)
         self.play(FadeOut(brace))
 
         cardinal = LongOrdinal(height = 0.8)
@@ -2821,20 +2844,20 @@ class CardinalSquare(Scene):
         self.remove(rect)
 
         last_bar = cardinal[1][0][0].copy().next_to(cardinal)
-        self.wait_to(25)
+        #self.wait_to(25)
         self.play(ShowCreation(last_bar))
 
-        self.wait_to(28.5)
+        #self.wait_to(28.5)
         self.play(ApplyMethod(last_bar.next_to, cardinal, LEFT, path_arc = -np.pi*0.6))
 
         omega = cardinal[1][0]
         omega_src = omega.copy()
         omega_src.add_to_back(last_bar)
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
         self.remove(omega)
         self.play(ReplacementTransform(omega_src, omega))
 
-        self.wait_to(40.8)
+        #self.wait_to(40.8)
         self.play(FadeOut(cardinal))
 
         square = Square(side_length = 4.5)
@@ -2864,13 +2887,13 @@ class CardinalSquare(Scene):
             - subsquare.get_corner(UP+LEFT)
             + buff*(DOWN+RIGHT)
         )
-        self.wait_to(45)
+        #self.wait_to(45)
         self.play(ShowCreation(subsquare))
 
         subsquare_l = TexMobject("<\\kappa")
         subsquare_l[1].highlight(card_color)
         subsquare_l.next_to(subsquare, LEFT, buff = buff + MED_SMALL_BUFF + buff)
-        self.wait_to(50.3)
+        #self.wait_to(50.3)
         self.play(Write(subsquare_l))
 
         x = square.get_edge_center(LEFT)[0]-buff
@@ -2880,10 +2903,10 @@ class CardinalSquare(Scene):
             subsquare[0].get_edge_center(DOWN+LEFT),
         ).highlight(GREEN).next_to(subsquare_l, RIGHT, buff = buff)
 
-        self.wait_to(54.6)
+        #self.wait_to(54.6)
         self.play(ReplacementTransform(bar.copy(), side))
 
-        self.wait_to(58)
+        #self.wait_to(58)
         self.play(
             side.move_to, subsquare.get_edge_center(RIGHT),
             subsquare.set_fill, GREEN, 0.2,
@@ -2891,7 +2914,7 @@ class CardinalSquare(Scene):
         )
         self.remove(side)
 
-        self.wait_to(60+3)
+        #self.wait_to(60+3)
 
         subsquare_dest = Square(
             side_length = square.side_length-2*buff,
@@ -2908,48 +2931,55 @@ class CardinalSquare(Scene):
             Transform(subsquare, subsquare_dest),
             MoveFromSaved(subsquare_l),
         )
-        self.wait_to(60+18)
+        self.dither(2)
+        #self.wait_to(60+18)
 
 class Takeovers(Scene):
     def construct(self):
 
-        series = VideoSeries(num_videos = 16).to_edge(UP)
-        series.save_state()
-        series.behind_edge(UP)
-        self.play(series.restore)
-        basic_chap = VGroup(series[:7])
-        formal_chap = VGroup(series[7:14])
-        advanced_chap = VGroup(series[14:])
+        title = TextMobject("Summary").scale(1.2).to_edge(UP)
+        self.add(title)
+        
+        #series = VideoSeries(num_videos = 16).to_edge(UP)
+        #series.save_state()
+        #series.behind_edge(UP)
+        #self.play(series.restore)
+        #basic_chap = VGroup(series[:7])
+        #formal_chap = VGroup(series[7:14])
+        #advanced_chap = VGroup(series[14:])
 
-        brace = Brace(basic_chap, DOWN)
-        self.wait_to(3.5)
-        self.play(
-            basic_chap.highlight, YELLOW,
-            GrowFromCenter(brace),
-        )
+        #brace = Brace(basic_chap, DOWN)
+        #self.wait_to(3.5)
+        #self.play(
+        #    basic_chap.highlight, YELLOW,
+        #    GrowFromCenter(brace),
+        #)
 
         basic_stuff = self.play_basic_infinity()
-        self.wait_to(14)
+        #self.wait_to(14)
+        self.dither()
         self.play(
             FadeOut(basic_stuff),
-            basic_chap.highlight, series.color,
-            formal_chap.highlight, YELLOW,
-            Transform(brace, Brace(formal_chap, DOWN))
+            #basic_chap.highlight, series.color,
+            #formal_chap.highlight, YELLOW,
+            #Transform(brace, Brace(formal_chap, DOWN))
         )
         formal_stuff = self.play_formal_stuff()
-        self.wait_to(25.5)
+        #self.wait_to(25.5)
+        self.dither()
         self.play(
             FadeOut(formal_stuff),
-            formal_chap.highlight, series.color,
-            advanced_chap.highlight, YELLOW,
-            Transform(brace, Brace(advanced_chap, DOWN))
+            #formal_chap.highlight, series.color,
+            #advanced_chap.highlight, YELLOW,
+            #Transform(brace, Brace(advanced_chap, DOWN))
         )
         advanced_stuff = self.play_advanced()
-        self.wait_to(50)
+        #self.wait_to(50)
+        self.dither()
         self.play(
             FadeOut(advanced_stuff),
-            FadeOut(brace),
-            series.behind_edge, UP,
+            #FadeOut(brace),
+            #series.behind_edge, UP,
         )
 
     def play_basic_infinity(self):
@@ -2974,7 +3004,7 @@ class Takeovers(Scene):
         omega1_src.highlight(BLACK)
         omega1_src[1].add_to_back(*ordinal)
         #print(self.current_scene_time)
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(ReplacementTransform(omega1_src, omega1))
         self.dither()
         return VGroup(omega1, card_brace, cardinals)
@@ -3125,14 +3155,14 @@ class Takeovers(Scene):
             ShowCreation(circle),
             ApplyMethod(dots.restore, submobject_mode = "one_at_a_time"),
         )
-        self.wait_to(35)
+        #self.wait_to(35)
         self.play(FadeOut(VGroup(circle, dots)))
 
         reals = NumberLine(min_x = -3.99, max_x = 3.99).shift(UP)
         ordinal = LongOrdinal(color = RED).shift(DOWN)
         self.play(ShowCreation(reals))
 
-        self.wait_to(42)
+        #self.wait_to(42)
 
         bars = ordinal[1].family_members_with_points()
         segments = ordinal[0].family_members_with_points()
@@ -3180,7 +3210,7 @@ class Thanks(Scene):
 
     def construct(self):
 
-        title = TextMobject("Díky").scale(1.5).to_edge(UP)
+        title = TextMobject("Thanks").scale(1.5).to_edge(UP)
         self.play(Write(title, run_time = 2))
 
         note_icon = SVGMobject(file_name = "note_icon")
@@ -3191,14 +3221,15 @@ class Thanks(Scene):
         ).arrange_submobjects(DOWN, buff = 0.5).to_edge(LEFT)
         grant = TextMobject("Grant Sanderson\\\\(3blue1brown)").to_edge(RIGHT)
         self.play(FadeIn(radek, submobject_mode = "lagged_start"))
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(FadeIn(grant, submobject_mode = "lagged_start"))
 
-        viewers = TextMobject("Vám všem").scale(1.3).to_edge(DOWN)
-        self.wait_to(13)
+        viewers = TextMobject("The viewers").scale(1.3).to_edge(DOWN)
+        #self.wait_to(13)
         self.play(Write(viewers))
 
-        self.wait_to(22)
+        #self.wait_to(22)
+        # !!! I don't know how to translate this
         wish = TextMobject("Mějte se nekonečně!").scale_to_fit_width(8)
         self.play(
             GrowFromCenter(wish),
@@ -3207,4 +3238,4 @@ class Thanks(Scene):
             grant.behind_edge, RIGHT,
             viewers.behind_edge, DOWN,
         )
-        self.wait_to(24.5)
+        #self.wait_to(24.5)

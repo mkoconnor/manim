@@ -32,40 +32,39 @@ import importlib
 
 class Chapter10aOpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 10a\\\\ Kartézský součin -- aplikace",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 10a\\\\ Cartesian Product -- Applications",
     }
 
 class Chapter10aOpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Umění matematiky spočívá v pojmenovávání\\\\","různých",
-            "věcí","stejně."
+            "Mathematics is the art of giving","the same","name to","different","things."
         ],
         "highlighted_quote_terms" : {
-            "různých" : GREEN,
-            "stejně" : YELLOW,
+            "different" : GREEN,
+            "the same" : YELLOW,
         },
         "author" : "Henri Poincaré"
     }
 
 class Chapter10bOpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 10b\\\\ Kartézský součin z axiomů",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 10b\\\\ Cartesian Product from Axioms",
     }
 
 class Chapter10bOpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Q:","Proč je přijímaná Kuraovskiho definice uspořádaných dvojic?\\\\",
-            "A:","Je přijímaná proto, že funguje, a to velmi dobře. Ale podotkněme, že se o vnitřní kódování uspořádaných dvojic prakticky nikdo nezajímá, a ve většině případů ani matematici, kteří se zabývají teorií množin."
+            "Q:","Why do we accept Kuratowski's definition of ordered pairs?\\\\",
+            "A:","We accept this definition because it works, and it works very well. On the other hand, nobody really cares about how you encode."
         ],
         "highlighted_quote_terms" : {
             "Q:" : BLUE,
             "A:" : YELLOW,
         },
-        "author" : "zkráceno, z Math StackExchange"
+        "author" : "shortened, from Math StackExchange"
     }
 
 chapter4 = importlib.import_module('eost.04-well-ordering')
@@ -76,13 +75,13 @@ class PreviousChapter(Scene):
 
         dots = chapter9.dot_triple(angle = "random", radius = 0.8)
         rect = SurroundingRectangle(dots, buff = 0.5)
-        finite_label = TextMobject("Axiomy dvojice, sjednocení,")
+        finite_label = TextMobject("Axioms of pair, union,")
         finite_label.next_to(rect, UP, aligned_edge = LEFT)
         finite_g = VGroup(dots, rect, finite_label)
         finite_g.to_corner(LEFT+UP)
 
         self.play(Write(finite_label))
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(FadeIn(dots), ShowCreation(rect))
 
         omega = OrdinalOmega()
@@ -98,20 +97,21 @@ class PreviousChapter(Scene):
         )
         big_pic.move_to((rect.get_edge_center(RIGHT)+SPACE_WIDTH*RIGHT)/2)
         big_pic.next_to(finite_label, DOWN, coor_mask = Y_MASK)
-        big_label = TextMobject("nekonečna,","potence,","nahrazení,","sjednocení")
+        big_label = TextMobject("infinity,","powerset,","replacement,","union")
         big_label[0].highlight(GREEN)
         big_label[-1].highlight(YELLOW)
         big_label.next_to(big_pic, DOWN, aligned_edge = RIGHT)
         big_g = VGroup(big_pic, big_label)
 
-        self.wait_to(7)
+        #self.wait_to(7)
         self.play(FadeIn(big_pic))
         self.play(FadeIn(big_label, submobject_mode = "lagged_start"))
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         conversation = Conversation(self, start_answer = True)
-        conversation.add_bubble("Nejde jednom o množiny")
-        self.wait_to(22)
+        conversation.add_bubble("It is not just about sets")
+        #self.wait_to(22)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             conversation.dialog,
             big_g, finite_g,
@@ -120,11 +120,11 @@ class PreviousChapter(Scene):
 class Overview(Scene):
     def prepare(self):
 
-        self.formal_world = TextMobject("Formální svět")
-        self.product = TextMobject("Kartézský součin")
+        self.formal_world = TextMobject("Formal world")
+        self.product = TextMobject("Cartesian product")
         self.applications = TextMobject(
-            "Body v rovině","párování","funkce","uspořádání",
-            "orientovaný graf",
+            "Points in plane","matching","function","ordering",
+            "directed graph",
         )
         VGroup(
             self.applications[0],
@@ -144,12 +144,20 @@ class Overview(Scene):
 
         self.prepare()
         self.play(Write(self.product))
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(FadeIn(self.formal_world), ShowCreation(self.arrow1))
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(FadeIn(self.applications), ShowCreation(self.arrow2))
 
-        self.wait_to(16)
+        self.remove(self.arrow2)
+        self.arrow2.highlight(YELLOW)
+        self.play(
+            ShowCreation(self.arrow2),
+            VGroup(self.formal_world, self.arrow1).highlight, DARK_GREY, 
+        )
+        self.dither(2)
+        return
+        #self.wait_to(16)
         icon = VideoIcon()
         icon.highlight(BLUE)
         brace = Brace(VGroup(self.formal_world, self.applications), LEFT)
@@ -169,10 +177,11 @@ class Overview(Scene):
         icons[0].next_to(self.arrow2, LEFT, buff = 0.5)
         icons[1].next_to(self.arrow1, LEFT, buff = 0.5)
 
-        self.wait_to(32)
+        #self.wait_to(32)
+        self.dither()
         self.play(FadeOut(brace))
         self.play(ReplacementTransform(VGroup(icon), icons))
-        self.wait_to(35)
+        #self.wait_to(35)
 
         self.remove(self.arrow2)
         self.arrow2.highlight(YELLOW)
@@ -181,7 +190,7 @@ class Overview(Scene):
             VGroup(self.formal_world, self.arrow1).highlight, DARK_GREY, 
         )
 
-        self.wait_to(39)
+        #self.wait_to(39)
         self.remove(self.arrow1)
         self.arrow1.highlight(YELLOW)
         self.play(
@@ -189,7 +198,7 @@ class Overview(Scene):
             VGroup(self.applications, self.arrow2).highlight, DARK_GREY,
             self.formal_world.highlight, WHITE,
         )
-        self.wait_to(60+8)
+        #self.wait_to(60+8)
 
         self.play(
             self.arrow1.highlight, DARK_GREY,
@@ -197,7 +206,7 @@ class Overview(Scene):
             self.applications.highlight, WHITE,
             self.formal_world.highlight, DARK_GREY,
         )
-        self.wait_to(60+40)
+        #self.wait_to(60+40)
 
         product_dest = self.product.copy().to_edge(UP)
         to_black = VGroup(self.formal_world, self.applications, self.arrow1, self.arrow2, icons)
@@ -231,7 +240,7 @@ def make_pairs_table():
 class ProductDefinition(Scene):
     def construct(self):
 
-        title = TextMobject("Kartézský součin")
+        title = TextMobject("Cartesian product")
         title.to_edge(UP)
         self.add(title)
 
@@ -294,15 +303,15 @@ class ProductDefinition(Scene):
             FadeIn(label_b),
         )
 
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(Write(prod_label))
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(
             ShowCreation(prod_rect),
             FadeIn(prod_el),
         )
 
-        self.wait_to(25)
+        #self.wait_to(25)
 
         self.play(Swap(set_a, set_b))
 
@@ -330,7 +339,7 @@ class ProductDefinition(Scene):
         set_b.next_to(prod_rect, LEFT)
 
         self.play(MoveFromSaved(sets_ab_prod))
-        self.wait_to(34)
+        #self.wait_to(34)
 
         sel_a = 1
         sel_b = 2
@@ -352,13 +361,13 @@ class ProductDefinition(Scene):
             elements_b.set_fill, None, opacity,
         )
 
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
         to_highlight = VGroup(pair[-2] for pair in prod_el[sel_b])
         to_highlight.add(elements_b[sel_b])
         self.play(
             to_highlight.set_fill, None, 1,
         )
-        self.wait_to(60+17)
+        #self.wait_to(60+17)
 
 class CartesianCoordinates(Scene):
     def construct(self):
@@ -372,7 +381,7 @@ class CartesianCoordinates(Scene):
         axes[1].highlight(col_b)
 
         self.play(ShowCreation(VGroup(axes[0], numbers_x)))
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
 
         zero = numbers_x[len(numbers_x)//2]
         zero.save_state()
@@ -387,7 +396,7 @@ class CartesianCoordinates(Scene):
             ShowCreation(VGroup(axes[1], numbers_y)),
             MoveFromSaved(zero, run_time = 0.5),
         )
-        self.wait_to(6)
+        #self.wait_to(6)
 
         plane = NumberPlane(color = DARK_GREY, secondary_color = PURPLE)
         black_axes = plane.axes.highlight(BLACK)
@@ -418,7 +427,7 @@ class CartesianCoordinates(Scene):
             Animation(numbers_y),
             run_time = 2,
         )
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
 
         coor = [3,2]
         point = np.array(coor+[0])
@@ -433,16 +442,17 @@ class CartesianCoordinates(Scene):
         pair[1].highlight(col_a)
         pair[-2].highlight(col_b)
         pair.next_to(dot, UP)
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(ReplacementTransform(dot.copy(), pair))
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
 
         connection_x = Line(point, point*X_MASK, color = col_a, buff = 0.2)
         connection_y = Line(point, point*Y_MASK, color = col_b, buff = 0.2)
 
         self.play(ShowCreation(connection_x))
         self.play(ShowCreation(connection_y))
-        self.wait_to(43)
+        #self.wait_to(43)
+        self.dither(2)
 
         self.play(
             FadeOut(VGroup(
@@ -498,7 +508,7 @@ class MatchingScene(Scene):
             Line(a, b)
             for a, b in zip(points_a, points_b_permuted)
         )
-        matching_label = TextMobject("párování").next_to(sets, UP, buff = 1)
+        matching_label = TextMobject("matching").next_to(sets, UP, buff = 1)
 
         self.play(
             ShowCreation(rect_a),
@@ -510,18 +520,18 @@ class MatchingScene(Scene):
             FadeIn(elements_b),
             FadeIn(label_b),
         )
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
         self.play(ShowCreation(matching))
-        self.wait_to(20.5)
+        #self.wait_to(20.5)
         self.play(FadeIn(matching_label, submobject_mode = "lagged_start"))
-        self.wait_to(30)
+        #self.wait_to(30)
 
         matching_label.save_state()
 
         definition_items = VGroup(
-            TextMobject("$\\bullet$ podmnožina", "$A\\times B$"),
-            TextMobject("$\\bullet$ každý prvek", "$A$", "jednou vlevo"),
-            TextMobject("$\\bullet$ každý prvek", "$B$", "jednou vpravo"),
+            TextMobject("$\\bullet$ subset of", "$A\\times B$"),
+            TextMobject("$\\bullet$ everything from", "$A$", "once on left"),
+            TextMobject("$\\bullet$ everything from", "$B$", "once of right"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         definition_items[0][1][0].highlight(col_a)
         definition_items[0][1][-1].highlight(col_b)
@@ -530,15 +540,19 @@ class MatchingScene(Scene):
 
         definition_rect = SurroundingRectangle(definition_items, buff = 0.2, color = GREEN)
         definition_frame = VGroup(definition_rect, definition_items)
-        definition_label = TextMobject("(formální definice)")
+        definition_label = TextMobject("(formal definition)")
         definition = VGroup(matching_label, definition_label, definition_frame)
         definition.arrange_submobjects(DOWN, center = False)
         definition.to_edge(RIGHT)
 
-        self.play(MoveFromSaved(matching_label))
-        self.play(Write(definition_label))
+        self.play(
+            MoveFromSaved(matching_label),
+            FadeIn(definition_label),
+        )
+        #self.play(Write(definition_label))
 
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
+        #self.dither()
         matching_rect = SurroundingRectangle(VGroup(elements_a, elements_b), buff = 0.5)
         label_a.save_state()
         label_a.next_to(matching_rect, DOWN, coor_mask = Y_MASK)
@@ -550,7 +564,7 @@ class MatchingScene(Scene):
             MoveFromSaved(label_b),
         )
         self.play(ShowCreation(matching_rect))
-        self.dither()
+        #self.dither()
 
         elements_b.save_state()
         for a,b in enumerate(permutation):
@@ -561,7 +575,7 @@ class MatchingScene(Scene):
             Transform(matching, straight_matching, path_arc = np.pi/2),
         )
 
-        self.wait_to(42)
+        #self.wait_to(42)
         pairs = VGroup(
             TexMobject("(","a_{}".format(a),",","b_{}".format(b),")")
             for a,b in enumerate(permutation)
@@ -584,10 +598,10 @@ class MatchingScene(Scene):
             for a,b in enumerate(permutation)
         )
         self.play(ReplacementTransform(pairs_src, pairs))
-        self.wait_to(44)
+        #self.wait_to(44)
 
         self.play(ShowCreation(definition_rect), Write(definition_items[0], run_time = 2))
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(Write(definition_items[1], run_time = 2))
         pairs.save_state()
         for pair in pairs:
@@ -597,14 +611,14 @@ class MatchingScene(Scene):
             MoveFromSaved(pairs),
             label_b.set_fill, None, 0.3,
         )
-        self.wait_to(60+5.5)
+        #self.wait_to(60+5.5)
 
         self.play(
             pairs.set_fill, None, 1,
             label_b.set_fill, None, 1,
         )
         self.play(FadeIn(definition_items[2], submobject_mode = "lagged_start", run_time = 1.5))
-        self.wait_to(60+8.5)
+        #self.wait_to(60+8.5)
 
         pairs.save_state()
         for pair in pairs:
@@ -615,7 +629,8 @@ class MatchingScene(Scene):
             label_a.set_fill, None, 0.3,
         )
 
-        self.wait_to(60+31)
+        #self.wait_to(60+31)
+        self.dither(2)
         everything = VGroup(
             pairs,
             matching_rect,
@@ -629,7 +644,7 @@ col_f = GREEN
 class FunctionsIntro(Scene):
     def construct(self):
 
-        title = TextMobject("Funkce").scale(1.3).to_edge(UP)
+        title = TextMobject("Function").scale(1.3).to_edge(UP)
         self.play(FadeIn(title))
 
         f_desc = TexMobject("2-x^2/2")
@@ -655,16 +670,16 @@ class FunctionsIntro(Scene):
         arrow1 = Arrow(x[0], f_desc, color = col_f)
         arrow2 = Arrow(f_desc, fx[0], color = col_f)
 
-        self.wait_to(1.5)
+        #self.wait_to(1.5)
         self.play(FadeIn(x[0]), ShowCreation(arrow1))
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         self.play(FadeIn(f_box))
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(FadeIn(fx[0]), ShowCreation(arrow2))
 
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(FadeIn(x[1]), Write(x[2]))
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         plugged = x[2].copy()
         plugged.save_state()
         plugged.shift(x_in_f.get_edge_center(DOWN) - plugged.get_edge_center(DOWN))
@@ -673,7 +688,7 @@ class FunctionsIntro(Scene):
             x_in_f.highlight, DARK_GREY,
             MoveFromSaved(plugged),
         )
-        self.wait_to(22)
+        #self.wait_to(22)
 
         result_src = VGroup(f_desc.submobjects)
         result_src.submobjects[2] = plugged
@@ -682,7 +697,8 @@ class FunctionsIntro(Scene):
             ReplacementTransform(result_src.copy(), fx[2]),
         )
 
-        self.wait_to(25)
+        #self.wait_to(25)
+        self.dither()
 
         f_desc.save_state()
         f_desc.to_corner(UP+RIGHT)
@@ -703,7 +719,7 @@ class FunctionsIntro(Scene):
             MoveFromSaved(f_desc),
         )
         self.play(ShowCreation(axes))
-        self.wait_to(28)
+        #self.wait_to(28)
 
         function = lambda x: 2-x**2/2
         x_val = 3
@@ -723,10 +739,10 @@ class FunctionsIntro(Scene):
         y_label.set_fill(opacity = 0)
         dot_y.highlight(col_a)
 
-        self.wait_to(33)
+        #self.wait_to(33)
         self.play(y_g.restore)
 
-        self.wait_to(37)
+        #self.wait_to(37)
         self.play(FadeOut(VGroup(x_g, y_label)))
 
         graph = FunctionGraph(function, color = col_b)
@@ -761,7 +777,8 @@ class FunctionsIntro(Scene):
             UpdateFromFunc(dots, update_dots),
         )
         self.remove(dots)
-        self.wait_to(56)
+        #self.wait_to(56)
+        self.dither(2)
 
         everything = VGroup(
             axes, graph, dot_y_copy, f_desc,
@@ -771,7 +788,7 @@ class FunctionsIntro(Scene):
 class FunctionsAtoB(Scene):
     def construct(self):
 
-        title = TextMobject("Funkce").scale(1.3).to_edge(UP)
+        title = TextMobject("Function").scale(1.3).to_edge(UP)
         self.add(title)
 
         a_rect = Rectangle(width = 3, height = 1, color = col_a)
@@ -812,7 +829,7 @@ class FunctionsAtoB(Scene):
             FadeIn(f_label[0]),
         )
         
-        self.wait_to(2.2)
+        #self.wait_to(2.2)
 
         self.play(*map(FadeIn, [
             a_rect, a_label, elements_a,
@@ -825,9 +842,9 @@ class FunctionsAtoB(Scene):
             ShowCreation(VGroup(arrow1, arrow2)),
         )
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(Write(VGroup(f_label[1:])))
-        self.wait_to(12)
+        #self.wait_to(12)
 
         function = (0,2,0)
         for x in range(3):
@@ -846,7 +863,7 @@ class FunctionsAtoB(Scene):
             self.play(Transform(sample, dest))
             self.remove(sample)
             elements_b[y].highlight(col_b)
-            self.dither()
+            #self.dither()
             self.play(
                 elements_a[x].highlight, GREY,
                 elements_b[y].highlight, GREY,
@@ -867,18 +884,18 @@ class FunctionsAtoB(Scene):
             label.next_to(graph_table, RIGHT, buff = 0.5)
             label.move_to(dot, coor_mask = Y_MASK)
 
-        graph_label = TextMobject("graf funkce").next_to(graph_table, UP, buff = 0.5)
+        graph_label = TextMobject("graph of function").next_to(graph_table, UP, buff = 0.5)
         graph = VGroup(graph_table, graph_label, x_labels, y_labels)
         graph.move_to(RIGHT*SPACE_WIDTH/2)
 
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(FadeIn(graph_label, submobject_mode = "lagged_start"))
         self.play(
             ShowCreation(x_labels),
             ShowCreation(y_labels),
             FadeIn(graph_table, submobject_mode = "lagged_start"),
         )
-        self.wait_to(31)
+        #self.wait_to(31)
 
         circles = []
         for x in range(3):
@@ -892,19 +909,19 @@ class FunctionsAtoB(Scene):
             self.play(ShowCreation(circ))
             circles.append(circ)
 
-        self.wait_to(49)
-        self.play(FocusOn2(VGroup(graph_table, circles), scale = 1.1))
-        self.wait_to(53.5)
-        self.play(FocusOn2(f_rect, scale = 1.1))
+        #self.wait_to(49)
+        #self.play(FocusOn2(VGroup(graph_table, circles), scale = 1.1))
+        #self.wait_to(53.5)
+        #self.play(FocusOn2(f_rect, scale = 1.1))
 
-        self.wait_to(60)
+        #self.wait_to(60)
         eq = TexMobject('=').next_to(title)
         self.play(
             FadeIn(eq),
             graph_label.next_to, eq,
         )
-        self.wait_to(60+16)
-        
+        #self.wait_to(60+16)
+
         graph.remove(x_labels, graph_label)
         circles = VGroup(circles)
         graph.add(circles)
@@ -925,7 +942,7 @@ class FunctionsAtoB(Scene):
             MoveFromSaved(graph),
             MoveFromSaved(general_f_pic),
         )
-        self.wait_to(60+22.5)
+        #self.wait_to(60+22.5)
 
         x = 1
         y = function[x]
@@ -937,19 +954,19 @@ class FunctionsAtoB(Scene):
         self.remove(tmp)
         graph_table[x].highlight(col_a)
         tmp = circles[x].copy()
-        self.wait_to(60+27)
+        #self.wait_to(60+27)
         self.play(Transform(tmp, y_labels[y]))
         self.play(Transform(tmp, elements_b[y].copy().highlight(col_b), path_arc = -np.pi/2))
         self.remove(tmp)
         elements_b[y].highlight(col_b)
-        self.wait_to(60+31)
+        #self.wait_to(60+31)
 
         definition_items = VGroup(
-            TextMobject("$\\bullet$ podmnožina", "$A\\times B$"),
-            TextMobject("$\\bullet$ každý prvek", "$A$\\\\", "jednou vlevo"),
+            TextMobject("$\\bullet$ subset of", "$A\\times B$"),
+            TextMobject("$\\bullet$ everything from", "$A$\\\\", "once on left"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         definition_rect = SurroundingRectangle(definition_items, buff = 0.2, color = GREEN)
-        definition_label = TextMobject("formální definice").next_to(definition_rect, UP)
+        definition_label = TextMobject("formal definition").next_to(definition_rect, UP)
         definition = VGroup(definition_rect, definition_items, definition_label)
         definition.to_edge(RIGHT)
         definition_items[0][1][0].highlight(col_a)
@@ -960,27 +977,28 @@ class FunctionsAtoB(Scene):
             FadeIn(definition_label, submobject_mode = "lagged_start"),
             ShowCreation(definition_rect),
         )
-        self.wait_to(60+34)
+        #self.wait_to(60+34)
         self.play(
             FadeIn(definition_items[0],  submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+36.5)
+        #self.wait_to(60+36.5)
         self.play(
             FadeIn(definition_items[1],  submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+49)
+        #self.wait_to(60+49)
 
-        matching_note = TextMobject("párování","$=$\\\\","bijektivní funkce")
+        matching_note = TextMobject("matching","$=$\\\\","bijective function")
         matching_note.move_to(definition).to_edge(DOWN)
         self.play(FadeIn(matching_note[0]))
 
-        self.wait_to(2*60+12.2)
+        #self.wait_to(2*60+12.2)
         self.play(circles[2].move_to, graph_table[2][1])
-        self.wait_to(2*60+17)
+        #self.wait_to(2*60+17)
         self.play(Write(VGroup(matching_note[1:])))
-        self.wait_to(2*60+30.5)
+        #self.wait_to(2*60+30.5)
+        self.dither(2)
 
-        matching_vs_graph = TextMobject("párování","$\\times$","graf","bijektivní funkce")
+        matching_vs_graph = TextMobject("matching","$\\times$","graph of","a bijective function")
         matching_vs_graph[1].highlight(RED)
         matching_vs_graph.to_edge(DOWN)
         matching_vs_graph[2].save_state()
@@ -1004,21 +1022,21 @@ class FunctionsAtoB(Scene):
 class GraphMatching(Scene):
     def construct(self):
 
-        matching_vs_graph = TextMobject("párování","$\\times$","graf","bijektivní funkce")
+        matching_vs_graph = TextMobject("matching","$\\times$","graph of","a bijective function")
         matching_vs_graph[1].highlight(RED)
         matching_vs_graph.to_edge(DOWN)
         self.add(matching_vs_graph)
 
-        graph_theory = TextMobject("Teorie grafů")
+        graph_theory = TextMobject("Graph theory")
         graph_theory.next_to(matching_vs_graph[0], UP, buff = 2)
         arrow = Arrow(graph_theory, matching_vs_graph[0])
 
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(
             ShowCreation(arrow),
             FadeIn(graph_theory),
         )
-        self.wait_to(10)
+        #self.wait_to(10)
 
         spacing = 1
         elements_a = VGroup(
@@ -1035,7 +1053,7 @@ class GraphMatching(Scene):
         elements_b.shift(2*DOWN)
         elements = VGroup(elements_a, elements_b)
         elements.move_to((graph_theory.get_corner(UP+RIGHT)[0]+SPACE_WIDTH)/2*RIGHT)
-        compl_label = TextMobject("Úplný","bipartitní","graf").next_to(elements_a, UP, buff = 0.5)
+        compl_label = TextMobject("Complete","bipartite","graph").next_to(elements_a, UP, buff = 0.5)
         VGroup(elements, compl_label).to_edge(UP)
 
         points_a = [mob.get_edge_center(DOWN) for mob in elements_a]
@@ -1053,8 +1071,8 @@ class GraphMatching(Scene):
             FadeIn(compl_label),
             ShowCreation(compl_graph),
         )
-        self.wait_to(13.5)
-        self.play(FocusOn2(compl_label[0], scale = 1.1))
+        #self.wait_to(13.5)
+        #self.play(FocusOn2(compl_label[0], scale = 1.1))
 
         bundle1, bundle2, bundle3 = compl_graph
         self.play(bundle1.highlight, YELLOW, run_time = 0.5)
@@ -1068,14 +1086,15 @@ class GraphMatching(Scene):
         )
         self.play(bundle3.highlight, GREY, run_time = 0.5)
 
-        self.wait_to(17)
-        self.play(FocusOn2(compl_label[1], scale = 1.1))
+        #self.wait_to(17)
+        #self.play(FocusOn2(compl_label[1], scale = 1.1))
         rectangles = VGroup(
             SurroundingRectangle(elements_a, color = col_a),
             SurroundingRectangle(elements_b, color = col_b),
         )
         self.play(ShowCreation(rectangles))
-        self.wait_to(22)
+        #self.wait_to(22)
+        self.dither()
         self.play(FadeOut(rectangles))
 
         matching_data = (0,2,1)
@@ -1084,27 +1103,28 @@ class GraphMatching(Scene):
             for a,b in enumerate(matching_data)
         )
         self.play(matching.highlight, YELLOW)
-        self.wait_to(28.5)
+        #self.wait_to(28.5)
 
-        matching_label = TextMobject("perfektní","párování").next_to(elements_b, DOWN, buff = 0.5)
+        matching_label = TextMobject("perfect","matching").next_to(elements_b, DOWN, buff = 0.5)
         self.play(FadeIn(matching_label), submobject_mode = "lagged_start")
 
-        partial_label = TextMobject("$\\times$ částečné párování")
+        partial_label = TextMobject("$\\times$ partial matching")
         partial_label[0].highlight(RED)
         partial_label.next_to(matching_label, DOWN)
 
-        self.wait_to(33.5)
+        #self.wait_to(33.5)
         self.play(FadeIn(partial_label, submobject_mode = "lagged_start"))
         self.play(
             matching_label.highlight, GREY,
             matching[0].highlight, GREY,
         )
-        self.wait_to(40)
-        self.play(FocusOn2(matching_label, scale = 1.1))
-        self.wait_to(41.5)
+        #self.wait_to(40)
+        #self.play(FocusOn2(matching_label, scale = 1.1))
+        #self.wait_to(41.5)
         matching[0].highlight(YELLOW)
         self.play(ShowCreation(matching[0]))
-        self.wait_to(44)
+        #self.wait_to(44)
+        self.dither(2)
 
         graph_theory.save_state()
         graph_theory.scale(1.2).center().to_edge(UP)
@@ -1121,8 +1141,8 @@ class GraphMatching(Scene):
 class DirectedGraphs(Scene):
     def construct(self):
 
-        title = TextMobject("Teorie grafů").scale(1.2).to_edge(UP)
-        subtitle = TextMobject("Orientovaný graf").next_to(title, DOWN)
+        title = TextMobject("Graph theory").scale(1.2).to_edge(UP)
+        subtitle = TextMobject("Directed graph").next_to(title, DOWN)
 
         self.add(title)
         self.play(Write(subtitle))
@@ -1139,13 +1159,13 @@ class DirectedGraphs(Scene):
         vertices_rect = SurroundingRectangle(vertices, buff = 0.5, color = WHITE)
         vertices_label = TexMobject('V').highlight(GREEN).next_to(vertices_rect, LEFT, aligned_edge = UP)
 
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(
             FadeIn(vertices_label),
             ShowCreation(vertices_rect),
             FadeIn(vertices),
         )
-        self.wait_to(16)
+        #self.wait_to(16)
         
         radius = 0.4
         loop_arrow = Arc(
@@ -1187,8 +1207,9 @@ class DirectedGraphs(Scene):
         example_pair[1].highlight(GREEN)
         example_pair[3].highlight(GREEN)
 
-        self.play(Write(example_pair))
-        self.wait_to(21.5)
+        #self.play(Write(example_pair))
+        self.play(FadeIn(example_pair))
+        #self.wait_to(21.5)
         nodes = VGroup(example_pair[1::2]).copy()
         arrow = Arrow(
             *nodes,
@@ -1201,17 +1222,19 @@ class DirectedGraphs(Scene):
             Transform(nodes, nodes_dest, remover = True),
             Transform(arrow, compl_graph[example_pair_data[0]][example_pair_data[1]]),
         )
-        self.wait_to(28)
+        #self.wait_to(28)
+        self.dither()
 
         product_label = TexMobject("V\\times V")
         VGroup(product_label[::2]).highlight(GREEN)
         product_label.next_to(compl_graph[1][1], aligned_edge = UP)
-        subset_label = TextMobject("podmnožina").next_to(product_label, UP)
+        subset_label = TextMobject("subset").next_to(product_label, UP)
 
         self.play(FadeOut(VGroup(vertices_rect, vertices_label, example_pair)))
         self.play(ShowCreation(compl_graph), FadeIn(product_label))
         self.remove(arrow)
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
+        self.dither()
 
         edges_removed = []
         edges_preserved = []
@@ -1227,12 +1250,13 @@ class DirectedGraphs(Scene):
             FadeOut(edges_removed),
             Animation(edges_preserved),
         )
-        self.wait_to(51.5)
+        self.dither(3)
+        #self.wait_to(51.5)
 
 class OrderingScene(Scene):
     def construct(self):
 
-        title = TextMobject("Uspořádání").scale(1.2).to_edge(UP)
+        title = TextMobject("Ordering").scale(1.2).to_edge(UP)
         self.add(title)
 
         colors = [BLUE, ORANGE, PURPLE, GREEN, RED]
@@ -1243,7 +1267,7 @@ class OrderingScene(Scene):
         bars.arrange_submobjects(RIGHT, buff = 1)
 
         self.play(ShowCreation(bars))
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
 
         for _ in range(3):
             bars.save_state()
@@ -1259,9 +1283,9 @@ class OrderingScene(Scene):
             Arrow(a,b, tip_length = 0.15, buff = 0.1)
             for a,b in zip(bars, bars[1:])
         )
-        self.wait_to(21.5)
+        #self.wait_to(21.5)
         self.play(ShowCreation(arrows))
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
 
         bars_faded = bars.copy()
         bars_faded.highlight(BLACK).shift(UP)
@@ -1285,7 +1309,7 @@ class OrderingScene(Scene):
             reals.restore,
         )
 
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
         reals = reals_line
         reals_dest = reals.copy()
         reals_ori = reals.copy()
@@ -1299,7 +1323,8 @@ class OrderingScene(Scene):
         )
         reals = reals_dest
 
-        self.wait_to(43.5)
+        #self.wait_to(43.5)
+        self.dither()
         self.play(
             ReplacementTransform(reals_dest, reals_ori, path_arc = -np.pi/2)
         )
@@ -1314,7 +1339,7 @@ class OrderingScene(Scene):
         self.add(empty_dot)
         self.play(single_real.shift, 0.5*UP)
 
-        self.wait_to(51)
+        #self.wait_to(51)
 
         center = 0.5*RIGHT+0.8*DOWN
         start_angle = angle_of_vector(ORIGIN-center)
@@ -1367,14 +1392,14 @@ class OrderingScene(Scene):
         arrows_to = VGroup(make_arrow_to(x) for x in arrow_ends)
         arcs_to = VGroup(make_arc_to(x) for x in arc_ends)
 
-        self.wait_to(60+5.5)
+        #self.wait_to(60+5.5)
         self.play(
             ShowCreation(arcs_to, submobject_mode = "all_at_once"),
             *[
                 ShowCreation(arrow) for arrow in arrows_to
             ]
         )
-        self.wait_to(60+10.5)
+        #self.wait_to(60+10.5)
 
         def make_arrow_from(x, **kwargs):
             return make_arrow_to(-x, **kwargs).shift(x*RIGHT)
@@ -1393,7 +1418,7 @@ class OrderingScene(Scene):
             ]
         )
 
-        self.wait_to(60+30)
+        #self.wait_to(60+30)
         reals_g = VGroup(reals, empty_dot, single_real, arcs_to, arcs_from, arrows_to, arrows_from)
         bars.shift(UP)
 
@@ -1427,20 +1452,20 @@ class OrderingScene(Scene):
             Transform(bars, bars_ori),
             reals_g.shift, 2*DOWN,
         )
-        self.wait_to(60+35.5)
+        #self.wait_to(60+35.5)
 
         examples = VGroup(bars, bar_arrows, reals_g)
         self.play(examples.to_edge, LEFT)
 
         definition_items = VGroup(
-            TextMobject("$\\bullet$ hrana mezi každou dvojicí"),
-            TextMobject("$\\bullet$ žádné cykly"),
+            TextMobject("$\\bullet$ edge between every pair"),
+            TextMobject("$\\bullet$ no cycles"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         definition_items.to_edge(RIGHT)
 
-        self.wait_to(60+38.5)
+        #self.wait_to(60+38.5)
         self.play(FadeIn(definition_items[0]))
-        self.wait_to(60+44.3)
+        #self.wait_to(60+44.3)
         self.play(FadeIn(definition_items[1]))
 
         x1, x2 = 2.7, 1.4
@@ -1450,25 +1475,27 @@ class OrderingScene(Scene):
             make_arrow_from(x1+x2, tip_length = 0.25),
         )
         cycle.next_to(definition_items, DOWN, buff = 0.5)
-        self.wait_to(60+47)
+        #self.wait_to(60+47)
         self.play(ShowCreation(cycle))
 
-        self.wait_to(60+51)
+        #self.wait_to(60+51)
         self.play(FadeOut(cycle))
 
         definition_rect = SurroundingRectangle(definition_items, color = GREEN)
-        definition_label = TextMobject("formální definice").next_to(definition_rect, UP)
+        definition_label = TextMobject("formal definition").next_to(definition_rect, UP)
 
+        self.dither()
         self.play(
             ShowCreation(definition_rect),
             FadeIn(definition_label),
         )
-        self.wait_to(2*60+7.5)
+        self.dither(2)
+        #self.wait_to(2*60+7.5)
 
 class ExampleSummary(Scene):
     def construct(self):
 
-        title = TextMobject("Podmnožiny kartézského součinu").to_edge(UP)
+        title = TextMobject("Subsets of cartesian product").to_edge(UP)
         self.add(title)
 
         matching_dots = VGroup(Dot() for _ in range(6)).highlight(col_a)
@@ -1523,15 +1550,16 @@ class ExampleSummary(Scene):
         examples.arrange_submobjects(buff = 1)
         examples.shift((SPACE_HEIGHT-title.get_edge_center(DOWN)[1])/2*DOWN)
 
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(FadeIn(examples[0][0]))
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
         self.play(FadeIn(examples[0][1]))
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(FadeIn(examples[1][0]))
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(FadeIn(examples[1][1]))
-        self.wait_to(25)
+        #self.wait_to(25)
+        self.dither(2)
 
 class NextPart(Overview):
     def construct(self):
@@ -1545,14 +1573,14 @@ class NextPart(Overview):
         self.formal_world.highlight(DARK_GREY)
         self.arrow2.highlight(YELLOW)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             self.arrow1.highlight, YELLOW,
             self.formal_world.highlight, WHITE,
             self.arrow2.highlight, DARK_GREY,
             self.applications.highlight, DARK_GREY,
         )
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
 
 class PartBIntro(Scene):
     def construct(self):
@@ -1581,15 +1609,15 @@ class PartBIntro(Scene):
         product_label = TexMobject('A\\times B').next_to(table_rect, UP).highlight(YELLOW)
 
         self.play(FadeIn(sets))
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         self.play(
             ShowCreation(table_rect),
             FadeIn(product_label),
             FadeIn(table, submobject_mode = "lagged_start", run_time = 3),
         )
         questions = [
-            ("Co je uspořádaná dvojice?",),
-            ("Proč","$A\\times B$","existuje pro libovolné","$A$, $B$?",),
+            ("What is ordered pair?",),
+            ("Why is there","$A\\times B$","for any","$A$, $B$?",),
         ]
         questions = VGroup(TextMobject(*text) for text in questions)
         questions.arrange_submobjects(DOWN, aligned_edge = LEFT).next_to(table_rect, DOWN, buff = 0.5)
@@ -1597,16 +1625,17 @@ class PartBIntro(Scene):
         questions[1][3][2].highlight(col_b)
         questions[1][1].highlight(YELLOW)
 
-        self.wait_to(21)
+        #self.wait_to(21)
         self.play(FadeIn(questions[0], submobject_mode = "lagged_start", run_time = 2))
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         self.play(FadeIn(questions[1], submobject_mode = "lagged_start", run_time = 2))
-        self.wait_to(32)
+        self.dither(2)
+        #self.wait_to(32)
 
 class FormalPairIssues(Scene):
     def construct(self):
 
-        title = TextMobject("Uspořádaná dvojice").to_edge(UP)
+        title = TextMobject("Ordered pair").to_edge(UP)
         self.add(title)
 
         pair = TexMobject("(a,b)").shift(UP)
@@ -1618,9 +1647,9 @@ class FormalPairIssues(Scene):
         arrow.next_to(pair, UP)
 
         self.play(FadeIn(pair))
-        self.wait_to(2.5)
+        #self.wait_to(2.5)
         self.play(ShowCreation(box), FadeIn(box_label))
-        self.wait_to(9.7)
+        #self.wait_to(9.7)
         self.play(
             pair[1].shift, 0.3*UP,
             rate_func = there_and_back,
@@ -1632,25 +1661,26 @@ class FormalPairIssues(Scene):
             run_time = 0.5,
         )
         self.play(ShowCreation(arrow))
-        self.wait_to(14.5)
+        #self.wait_to(14.5)
 
-        ordering_text = TextMobject("Uspořádání").to_edge(RIGHT).shift(DOWN)
-        product_text = TextMobject("Kartézský součin").to_edge(RIGHT).shift(UP)
+        ordering_text = TextMobject("Ordering").to_edge(RIGHT).shift(DOWN)
+        product_text = TextMobject("Cartesian product").to_edge(RIGHT).shift(UP)
         ordering_arrow = Arrow(ordering_text, product_text)
         product_arrow = Arrow(product_text.get_edge_center(UP), title)
 
         self.play(FadeIn(ordering_text, submobject_mode = "lagged_start"))
-        self.wait_to(20)
+        #self.wait_to(20)
         self.play(ShowCreation(ordering_arrow), FadeIn(product_text))
-        self.wait_to(22.3)
+        #self.wait_to(22.3)
         self.play(ShowCreation(product_arrow))
-        self.wait_to(29)
+        #self.wait_to(29)
 
+        self.dither()
         self.play(FadeOut(VGroup(
             ordering_text, product_text,
             ordering_arrow, product_arrow,
         )))
-        self.wait_to(32)
+        #self.wait_to(32)
 
         box_points = [
             box.get_edge_center(direction)-direction*box.get_height()/2
@@ -1663,7 +1693,7 @@ class FormalPairIssues(Scene):
         for el, point in zip(elements, box_points): el.move_to(point, coor_mask = X_MASK)
 
         self.play(MoveFromSaved(elements))
-        self.wait_to(41.5)
+        #self.wait_to(41.5)
 
         elements.save_state()
         elements_in_pair.save_state()
@@ -1678,7 +1708,7 @@ class FormalPairIssues(Scene):
             elements[1].highlight, col_a,
             Transform(elements_in_pair, elements_in_pair_dest, path_arc = np.pi/2)
         )
-        self.wait_to(49.7)
+        #self.wait_to(49.7)
 
         self.play(
             elements.restore,
@@ -1687,9 +1717,10 @@ class FormalPairIssues(Scene):
 
         a_rect = Square(side_length = box.get_height()-0.3)
         a_rect.move_to(box_points[0])
-        self.wait_to(57)
+        #self.wait_to(57)
         self.play(ShowCreation(a_rect))
-        self.wait_to(60+7)
+        #self.wait_to(60+7)
+        self.dither()
 
         elements.save_state()
         elements_in_pair.save_state()
@@ -1700,17 +1731,18 @@ class FormalPairIssues(Scene):
             a_rect.move_to, box_points[1],
             Transform(elements_in_pair, elements_in_pair_dest, path_arc = np.pi/2)
         )
-        self.wait_to(60+12)
+        #self.wait_to(60+12)
 
         self.play(
             elements.restore,
             a_rect.restore,
             ApplyMethod(elements_in_pair.restore, path_arc = -np.pi/2),
         )
+        self.dither()
 
-        self.wait_to(60+27)
-        counter = Counter()
-        counter.count_from(5, self)
+        #self.wait_to(60+27)
+        #counter = Counter()
+        #counter.count_from(5, self)
 
         cd_pair = TexMobject("(c,d)")
         d_space = 0.15
@@ -1728,12 +1760,12 @@ class FormalPairIssues(Scene):
 
         b_rect = a_rect.copy().move_to(box_points[1])
 
-        self.wait_to(60+35.5)
+        #self.wait_to(60+35.5)
         self.play(
             FadeIn(b_rect),
             ReplacementTransform(elements, cd_in_box),
         )
-        self.wait_to(60+42.5)
+        #self.wait_to(60+42.5)
 
         right_box = SurroundingRectangle(cd_in_pair[1], color = WHITE)
         right_box.highlight(col_b)
@@ -1744,7 +1776,7 @@ class FormalPairIssues(Scene):
             ReplacementTransform(pair, cd_pair),
             FadeIn(right_box)
         )
-        self.wait_to(60+49.5)
+        #self.wait_to(60+49.5)
 
         cd_in_pair_dest = cd_in_pair.copy()
         for src, dest in zip(cd_in_pair, reversed(cd_in_pair_dest)):
@@ -1758,9 +1790,10 @@ class FormalPairIssues(Scene):
             cd_in_box[0].highlight, col_b,
             cd_in_box[1].highlight, col_a,
         )
-        self.wait_to(2*60+5)
+        #self.wait_to(2*60+5)
+        self.dither(2)
 
-        subtitle = TextMobject("Kuratovskiho definice").next_to(title, DOWN)
+        subtitle = TextMobject("Kuratovski definition").next_to(title, DOWN)
         self.play(
             FadeOut(VGroup(
                 cd_pair, right_box,
@@ -1774,8 +1807,8 @@ class FormalPairIssues(Scene):
 class FormalPairKuratowski(Scene):
     def construct(self):
 
-        title = TextMobject("Uspořádaná dvojice").to_edge(UP)
-        subtitle = TextMobject("Kuratovskiho definice").next_to(title, DOWN)
+        title = TextMobject("Ordered pair").to_edge(UP)
+        subtitle = TextMobject("Kuratovski definition").next_to(title, DOWN)
         self.add(title, subtitle)
 
         pair = TexMobject("(a,b)")
@@ -1800,13 +1833,13 @@ class FormalPairKuratowski(Scene):
         outer_g = VGroup(middle_el, outer_rect)
         outer_g.shift(2*DOWN)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(ReplacementTransform(ab_in_pair[0].copy(), a))
         self.play(ShowCreation(a_rect))
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
         self.play(ReplacementTransform(ab_in_pair.copy(), ab))
         self.play(ShowCreation(ab_rect))
-        self.wait_to(12)
+        #self.wait_to(12)
         self.play(ShowCreation(outer_rect))
 
         b_in_pair_dest = ab_in_pair[0].copy().move_to(ab_in_pair[1], coor_mask = X_MASK)
@@ -1816,14 +1849,14 @@ class FormalPairKuratowski(Scene):
         outer_g.save_state()
         b_dest = ab[0].copy().move_to(ab[1], coor_mask = X_MASK).highlight(col_b)
 
-        self.wait_to(31.8)
+        #self.wait_to(31.8)
         self.play(
             Transform(ab_in_pair[1], b_in_pair_dest),
             Transform(ab[1], b_dest),
         )
 
         a_dest = a.copy().move_to(ab).fade_to(col_b, 0.5)
-        self.wait_to(41.3)
+        #self.wait_to(41.3)
         self.play(Transform(ab, VGroup(a_dest)))
         self.remove(ab[1])
 
@@ -1839,10 +1872,11 @@ class FormalPairKuratowski(Scene):
         )
         dest.move_to(outer_rect)
 
-        self.wait_to(47.2)
+        #self.wait_to(47.2)
         self.play(Transform(src, dest))
         self.remove(ab, ab_rect)
-        self.wait_to(58.5)
+        #self.wait_to(58.5)
+        self.dither(2)
         ab[1].move_to(ab[0])
 
         self.play(
@@ -1851,36 +1885,37 @@ class FormalPairKuratowski(Scene):
         )
         one = TexMobject('1').next_to(a_rect, DOWN, buff = buff*2)
         two = TexMobject('2').next_to(ab_rect, DOWN, buff = buff*2)
-        self.wait_to(60+6.5)
+        #self.wait_to(60+6.5)
         self.play(FadeIn(one))
-        self.wait_to(60+8)
+        #self.wait_to(60+8)
         self.play(FadeIn(two))
 
-        self.wait_to(60+10.5)
+        #self.wait_to(60+10.5)
         self.play(FadeOut(ab_in_pair))
-        self.wait_to(60+13.5)
+        #self.wait_to(60+13.5)
         self.play(ReplacementTransform(a.copy(), ab_in_pair[0]))
-        self.wait_to(60+17.5)
+        #self.wait_to(60+17.5)
         self.play(ab[0].highlight, DARK_GREY)
         self.play(ReplacementTransform(ab[1].copy(), ab_in_pair[1]))
-        self.wait_to(60+42.5)
+        #self.wait_to(60+42.5)
+        self.dither(2)
 
 class ConstructionOverview(Scene):
     def construct(self):
 
-        title = TextMobject("Konstrukce kartézského součinu")
+        title = TextMobject("Construction of cartesian product")
         title.to_edge(UP)
         self.add(title)
 
         variants_data = [
             [
-                "sjednocení dvojice,\\\\",
-                "potenční množina,\\\\",
-                "vydělení"
+                "union of pair,\\\\",
+                "powerset,\\\\",
+                "selection"
             ],
             [
-                "nahrazení,\\\\",
-                "sjednocení"
+                "replacement,\\\\",
+                "union"
             ],
         ]
 
@@ -1900,35 +1935,37 @@ class ConstructionOverview(Scene):
             connections.append(Line(start, end, color = YELLOW, buff = 0.2))
         connections = VGroup(connections)
 
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(ShowCreation(connections[0]))
         axioms = variants[0]
         self.play(FadeIn(axioms, submobject_mode = "lagged_start", run_time = 2))
-        self.wait_to(7)
-        self.play(FocusOn2(axioms[1], scale = 1.1))
-        self.play(FocusOn2(axioms[2], scale = 1.1))
+        #self.wait_to(7)
+        #self.play(FocusOn2(axioms[1], scale = 1.1))
+        #self.play(FocusOn2(axioms[2], scale = 1.1))
+        self.dither(2)
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(ShowCreation(connections[1]))
         axioms = variants[1]
         self.play(FadeIn(axioms, submobject_mode = "lagged_start", run_time = 2))
-        self.wait_to(17)
-        self.play(FocusOn2(axioms[0], scale = 1.1))
+        #self.wait_to(17)
+        #self.play(FocusOn2(axioms[0], scale = 1.1))
+        self.dither(2)
 
-        self.wait_to(19)
+        #self.wait_to(19)
         self.play(
             VGroup(connections, title, variants[1]).behind_edge, UP,
             variants[0].to_corner, UP+LEFT,
         )
-        self.wait_to(20.5)
+        #self.wait_to(20.5)
 
 class BruteForceConstruction(Scene):
     def construct(self):
 
         axioms = TextMobject(
-            "sjednocení dvojice,\\\\",
-            "potenční množina,\\\\",
-            "vydělení",
+            "union of pair,\\\\",
+            "powerset,\\\\",
+            "selection",
             alignment = "\\raggedright",
         ).to_corner(UP+LEFT)
 
@@ -1953,10 +1990,10 @@ class BruteForceConstruction(Scene):
         self.play(FadeIn(elements_b), FadeIn(rect_b))
 
         elements_rect = SurroundingRectangle(VGroup(rect_a, rect_b), color = WHITE)
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(ShowCreation(elements_rect))
         self.play(Uncreate(rect_a), Uncreate(rect_b))
-        self.wait_to(7)
+        #self.wait_to(7)
         self.play(FocusOn2(axioms[0], scale = 1.1))
 
         buff = 0.2
@@ -2000,27 +2037,27 @@ class BruteForceConstruction(Scene):
         arrow_label = TexMobject("\\mathcal P").next_to(arrow)
         arrow_g = VGroup(arrow, arrow_label)
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(FocusOn2(axioms[1], scale = 1.1))
         
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         self.play(
             ShowCreation(arrow),
             FadeIn(arrow_label),
             ShowCreation(table_rect),
         )
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         self.play(
             FadeIn(table[0], submobject_mode = "lagged_start", run_time = 2)
         )
-        self.wait_to(22)
+        #self.wait_to(22)
         self.play(
             FadeIn(VGroup(table[1:]), submobject_mode = "lagged_start", run_time = 2)
         )
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
         self.play(ShowCreation(dots))
 
-        self.wait_to(31)
+        #self.wait_to(31)
         dots2 = dots.copy()
         table_g.save_state()
         table_g.scale(0.7, about_point = table_g.get_edge_center(LEFT))
@@ -2074,7 +2111,7 @@ class BruteForceConstruction(Scene):
             + 0.1*(RIGHT+DOWN)
         )
 
-        self.wait_to(39.8)
+        #self.wait_to(39.8)
         self.play(
             ShowCreation(expanded_rect),
             ReplacementTransform(table[0][0].copy(), expanded_a),
@@ -2086,14 +2123,14 @@ class BruteForceConstruction(Scene):
         eq = TexMobject('=').next_to(expanded)
         cur_pair.next_to(eq)
 
-        self.wait_to(43)
+        #self.wait_to(43)
         self.play(FadeIn(eq), FadeIn(cur_pair))
-        self.wait_to(47)
+        #self.wait_to(47)
         self.play(
             FadeOut(VGroup(eq, expanded)),
             cur_pair.restore,
         )
-        self.wait_to(50)
+        #self.wait_to(50)
         self.play(
             FadeIn(
                 VGroup(pairs_r1[1:], pairs_r2),
@@ -2101,13 +2138,14 @@ class BruteForceConstruction(Scene):
                 run_time = 2,
             ),
         )
-        self.wait_to(55.5)
+        #self.wait_to(55.5)
         self.play(ShowCreation(dots2))
 
-        self.wait_to(60+2.8)
+        #self.wait_to(60+2.8)
         self.play(FocusOn2(axioms[2], scale = 1.1))
 
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
+        self.dither()
 
         pairs.remove(dots2)
         pairs_rect.save_state()
@@ -2126,10 +2164,10 @@ class BruteForceConstruction(Scene):
         product_label[0].highlight(col_a)
         product_label[2].highlight(col_b)
         product_label.next_to(pairs_rect, UP, aligned_edge = RIGHT)
-        self.wait_to(60+18)
+        #self.wait_to(60+18)
         self.play(Write(product_label))
 
-        self.wait_to(60+26.5)
+        #self.wait_to(60+26.5)
         expanded.next_to(pairs_rect, UP, aligned_edge = LEFT).shift(LEFT)
         self.play(
             ReplacementTransform(VGroup(pairs_r1[0][1:3]).copy(), expanded_a[0]),
@@ -2139,7 +2177,8 @@ class BruteForceConstruction(Scene):
             FadeIn(expanded_ab[-1]),
             FadeIn(expanded_rect),
         )
-        self.wait_to(2*60+1)
+        #self.wait_to(2*60+1)
+        self.dither(2)
 
         everything = VGroup(
             expanded,
@@ -2150,8 +2189,8 @@ class BruteForceConstruction(Scene):
         )
 
         axioms2 = TextMobject(
-            "nahrazení,\\\\",
-            "sjednocení",
+            "replacement,\\\\",
+            "union",
             alignment = "\\raggedright",
         ).to_corner(UP+RIGHT)
 
@@ -2164,8 +2203,8 @@ class ReplacementConstruction(Scene):
     def construct(self):
 
         axioms = TextMobject(
-            "nahrazení,\\\\",
-            "sjednocení",
+            "replacement,\\\\",
+            "union",
             alignment = "\\raggedright",
         ).to_corner(UP+RIGHT)
         self.add(axioms)
@@ -2191,10 +2230,10 @@ class ReplacementConstruction(Scene):
         el_a = elements_a[0].copy()
         self.play(Write(el_a))
         self.play(FocusOn2(el_a))
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         el_b = elements_b[0].copy()
         self.play(FadeIn(el_b))
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(ShowCreation(arrows_b[0]), FadeIn(table[0][0]))
 
         for i in range(1,3):
@@ -2203,7 +2242,7 @@ class ReplacementConstruction(Scene):
                 ShowCreation(arrows_b[i]),
                 FadeIn(table[i][0]),
             )
-        self.wait_to(21)
+        #self.wait_to(21)
 
         rect_b = SurroundingRectangle(elements_b, buff = 0.3, color = col_b)
         set_b_label = TexMobject('B').highlight(col_b).next_to(rect_b, UP)
@@ -2219,14 +2258,15 @@ class ReplacementConstruction(Scene):
             SurroundingRectangle(VGroup(column), color = col_b)
             for column in zip(*table)
         )
-        self.wait_to(22.5)
+        #self.wait_to(22.5)
         self.play(ReplacementTransform(rect_b, column_rects[0]))
-        self.wait_to(31)
+        #self.wait_to(31)
 
+        self.dither()
         self.play(FadeOut(VGroup(arrows_b, elements_b, set_b_label)))
-        self.wait_to(34)
+        #self.wait_to(34)
         self.play(ShowCreation(arrows_a[0]))
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
         for i in range(1,3):
             self.play(Transform(el_a, elements_a[i]))
             self.play(
@@ -2235,7 +2275,7 @@ class ReplacementConstruction(Scene):
                 FadeIn(VGroup(row[i] for row in table))
             )
 
-        self.wait_to(43)
+        #self.wait_to(43)
         rect_a = SurroundingRectangle(elements_a, buff = 0.3, color = col_a)
         set_a_label = TexMobject('A').highlight(col_a).next_to(rect_a, LEFT)
         self.play(
@@ -2246,18 +2286,18 @@ class ReplacementConstruction(Scene):
         self.remove(el_a)
 
         product_rect = SurroundingRectangle(column_rects, buff = 0.2, color = WHITE)
-        self.wait_to(54.5)
+        #self.wait_to(54.5)
         self.play(ReplacementTransform(rect_a, product_rect))
 
-        self.wait_to(60+2)
+        #self.wait_to(60+2)
         self.play(
             FadeOut(VGroup(elements_a, set_a_label, arrows_a)),
             axioms[0].highlight, WHITE,
             Animation(product_rect),
         )
-        self.wait_to(60+8.5)
+        #self.wait_to(60+8.5)
         self.play(axioms[1].highlight, YELLOW)
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
         self.play(Uncreate(column_rects, submobject_mode = "all_at_once"))
 
         product_label = TexMobject("A\\times B")
@@ -2265,9 +2305,10 @@ class ReplacementConstruction(Scene):
         product_label[2].highlight(col_b)
         product_label.next_to(product_rect, DOWN, aligned_edge = RIGHT)
 
-        self.wait_to(60+15.5)
+        #self.wait_to(60+15.5)
         self.play(FadeIn(product_label))
-        self.wait_to(60+33)
+        #self.wait_to(60+33)
+        self.dither(2)
 
 class NextChapter(Scene):
     def construct(self):
@@ -2280,7 +2321,7 @@ class NextChapter(Scene):
 
         nine_in_row = naturals[9]
         nine = nine_in_row.copy()
-        self.wait_to(13.7)
+        #self.wait_to(13.7)
         self.play(
             nine_in_row.highlight, YELLOW,
             nine.center,
@@ -2294,4 +2335,4 @@ class NextChapter(Scene):
             GrowFromCenter(nine_set),
             ReplacementTransform(nine, nine_rect),
         )
-        self.wait_to(23)
+        #self.wait_to(23)

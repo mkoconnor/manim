@@ -1,3 +1,15 @@
+Reálná čísla a omega dvojka: Prohodit pořadí (asi v animaci)
+  FadeOut ineq (časem)
+Poset: Schovat maxima později
+
+Podmínku na řetězce pak ověříme tak, že:
+  si uvědomíme, že sjednocení konečně mnoha částečných řešení v ŘETĚZCI
+  (to samé v prvním důkazu s Zornovým lemmatem)
+  je stále částečné řešení, a ...
+
+WellOrderingPrinciple:
+  remove(ori_line) až po wait_to
+
 Combo of the transfinite recursion and the axiom of choice
 ==========================================================
 

@@ -31,14 +31,14 @@ import eost.deterministic
 
 class Chapter12OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 12\\\\Reálná čísla jako Dedekindovy řezy",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 12\\\\Real Numbers as Dedekind's cuts",
     }
 
 class Chapter12OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Čísla jsou svobodným výtvorem lidského ducha.",
+            "We are justified in calling numbers a free creation of the human mind.",
         ],
         "author" : "Richard Dedekind"
     }
@@ -46,7 +46,7 @@ class Chapter12OpeningQuote(OpeningQuote):
 class ChainProblem(Scene):
     def construct(self):
 
-        title = TextMobject("Úloha o nespočetném řetězci")
+        title = TextMobject("Problem of the uncountable chain")
         title.to_edge(UP)
         self.add(title)
 
@@ -112,7 +112,7 @@ class ChainProblem(Scene):
 
         base_set.to_edge(LEFT)
         base_label = TexMobject('3').next_to(base_set, DOWN)
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(
             FadeIn(base_label),
             FadeIn(base_elements),
@@ -120,19 +120,20 @@ class ChainProblem(Scene):
         )
         poset_rect = SurroundingRectangle(poset_elements, color = YELLOW)
         poset_label = TexMobject("\\mathcal P(3)").next_to(poset_rect, DOWN)
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(
             FadeIn(poset_label),
             FadeIn(poset_elements),
             ShowCreation(poset_rect),            
         )
 
-        self.wait_to(21.5)
+        #self.wait_to(21.5)
+        self.dither()
         self.play(
             FadeOut(poset_rect),
             ShowCreation(poset_edges),
         )
-        self.wait_to(32)
+        #self.wait_to(32)
 
         poset_elements_backup = poset_elements.copy()
         poset_elements.save_state()
@@ -148,18 +149,19 @@ class ChainProblem(Scene):
             poset_edges.highlight, DARK_GREY,
             MoveFromSaved(poset_elements)
         )
-        incomparable = TextMobject("neporovnatelné").highlight(RED)
+        incomparable = TextMobject("incomparable").highlight(RED)
         incomparable.add_background_rectangle()
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
         self.play(FadeIn(incomparable, submobject_mode = "lagged_start"))
 
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
+        self.dither()
         self.play(
             Transform(poset_elements, poset_elements_backup),
             poset_edges.restore,
             FadeOut(incomparable),
         )
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
 
         middle_edges = filter(lambda e: len(e.data[0]) == 2, poset_edges)
 
@@ -192,7 +194,7 @@ class ChainProblem(Scene):
             ApplyMethod(chain_elements.highlight, YELLOW, submobject_mode = "lagged_start"),
         )
 
-        self.wait_to(53)
+        #self.wait_to(53)
         for edge in middle_edges:
 
             poset_elements.highlight(GREY)
@@ -202,10 +204,11 @@ class ChainProblem(Scene):
             self.dither(0.5)
 
         brace = BraceDesc(poset_elements, "3+1", RIGHT)
-        self.wait_to(61.5)
+        #self.wait_to(61.5)
         self.play(brace.creation_anim())
 
-        self.wait_to(60+14.5)
+        #self.wait_to(60+14.5)
+        self.dither()
 
         self.play(FadeOut(VGroup(
             brace, poset_edges, poset_elements,
@@ -219,7 +222,7 @@ class ChainProblem(Scene):
             GrowFromCenter(poset_rect),
         )
 
-        self.wait_to(60+26.5)
+        #self.wait_to(60+26.5)
         self.play(poset_rect.set_fill, None, 0.1)
         continuum = TexMobject("\\mathfrak c").scale(2).next_to(poset_rect.get_corner(UP+LEFT), DOWN+RIGHT, buff = 1)
         self.play(Write(continuum))
@@ -240,19 +243,21 @@ class ChainProblem(Scene):
         chain.points = points
 
         chain.center()
-        self.wait_to(60+32.5)
+        #self.wait_to(60+32.5)
         self.play(ShowCreation(chain))
 
-        self.wait_to(2*60+1)
+        #self.wait_to(2*60+1)
+        self.dither(2)
         self.play(FadeOut(chain))
 
         bound = 3.5
         reals = NumberLine(x_min = -bound, x_max = bound).shift(0.5*DOWN)
         reals_label = TexMobject("\\mathbb R").next_to(reals, DOWN, aligned_edge = RIGHT)
-        self.wait_to(2*60+2.5)
+        #self.wait_to(2*60+2.5)
         self.play(ShowCreation(reals), FadeIn(reals_label))
 
-        self.wait_to(2*60+12)
+        self.dither()
+        #self.wait_to(2*60+12)
 
 def make_naturals():
     naturals = VGroup(TexMobject(str(n)) for n in range(18)).arrange_submobjects(buff = 0.5)
@@ -282,7 +287,7 @@ class NaturalsAddition(Scene):
 
         label_a = naturals[a].copy()
         label_b = naturals[b].copy()
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
         label_a.save_state()
         label_b.save_state()
         VGroup(label_a, label_b).arrange_submobjects(DOWN, buff=1).shift(LEFT)
@@ -297,7 +302,7 @@ class NaturalsAddition(Scene):
         set_a = VGroup(el_a, rect_a)
         set_b = VGroup(el_b, rect_b)
 
-        self.wait_to(31.5)
+        #self.wait_to(31.5)
         self.play(FadeIn(set_a), FadeIn(set_b))
 
         pairs_ab = VGroup(
@@ -325,12 +330,12 @@ class NaturalsAddition(Scene):
             pairs.scale(0.6)
             pairs.shift(src.get_edge_center(LEFT) - pairs.get_edge_center(LEFT))
 
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
         self.play(
             ReplacementTransform(pairs_src[0], pairs_ab[0]),
             Transform(rect_a, SurroundingRectangle(pairs_ab[0], color = WHITE, buff = 0.2)),
         )
-        self.wait_to(45)
+        #self.wait_to(45)
         self.play(
             ReplacementTransform(pairs_src[1], pairs_ab[1]),
             Transform(rect_b, SurroundingRectangle(pairs_ab[1], color = WHITE, buff = 0.2)),
@@ -352,12 +357,12 @@ class NaturalsAddition(Scene):
             labels.append(label_src)
             labels_dest.append(label_dest)
 
-        self.wait_to(51.5)
+        #self.wait_to(51.5)
         self.play(Transform(labels[0], labels_dest[0]))
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(Transform(labels[1], labels_dest[1]))
 
-        self.wait_to(60+3)
+        #self.wait_to(60+3)
 
         labels[1].save_state()
         union_label = VGroup(labels[0], TexMobject('\\cup'), labels[1])
@@ -373,7 +378,7 @@ class NaturalsAddition(Scene):
             MoveFromSaved(labels[1], path_arc = -np.pi/3),
         )
         union_rect = SurroundingRectangle(VGroup(set_a, set_b))
-        self.wait_to(60+6)
+        #self.wait_to(60+6)
         self.play(
             FadeIn(union_label[1]),
             ShowCreation(union_rect),
@@ -391,14 +396,17 @@ class NaturalsAddition(Scene):
 
         sum_rect = SurroundingRectangle(sum_el, color = GREY)
         sum_label = TexMobject("{}+{} = {}".format(a,b,a+b)).next_to(sum_rect, DOWN)
-        self.wait_to(60+9)
+        #self.wait_to(60+9)
         self.play(
             FadeIn(sum_rect),
             FadeIn(sum_el),
             ShowCreation(matching, submobject_mode = "all_at_once"),
         )
         self.play(Write(sum_label))
-        self.wait_to(60+20)
+
+        #self.wait_to(60+20)
+        self.dither(2)
+
         self.play(FadeOut(VGroup(
             sum_rect, sum_el, sum_label,
             pairs_ab,
@@ -437,7 +445,7 @@ class NaturalsMultiplication(Scene):
         product_label[0].highlight(col_a)
         product_label[2].highlight(col_b)
 
-        self.wait_to(1.5)
+        #self.wait_to(1.5)
         self.play(
             FadeIn(product_label),
             FadeIn(product_pairs),
@@ -450,7 +458,7 @@ class NaturalsMultiplication(Scene):
             random.shuffle(next_el)
             in_line += next_el
 
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         in_line = VGroup(in_line)
         in_line.save_state()
         in_line.arrange_submobjects()
@@ -481,10 +489,12 @@ class NaturalsMultiplication(Scene):
             FadeIn(aproduct_el),
             ShowCreation(matching, submobject_mode = "all_at_once"),
         )
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(FadeIn(aproduct_label))
 
-        self.wait_to(30.5)
+        self.dither(2)
+        #self.wait_to(30.5)
+
         self.play(FadeOut(VGroup(
             product_label, product_pairs, product_rect,
             aproduct_el, aproduct_rect, aproduct_label,
@@ -523,7 +533,7 @@ class Integers(Scene):
             MoveFromSaved(nat_gg),
             run_time = 1.5
         )
-        self.wait_to(5)
+        #self.wait_to(5)
 
         for pairs, group in zip(pairs_g, nat_gg):
             pairs.move_to(group, coor_mask = Y_MASK)
@@ -563,7 +573,7 @@ class Integers(Scene):
             pairs_g[0].restore, pairs_g[1].restore,
         )
 
-        self.wait_to(13)
+        #self.wait_to(13)
 
         pos, neg = nat_gg
         neg.save_state()
@@ -573,7 +583,7 @@ class Integers(Scene):
 
         self.play(MoveFromSaved(neg, path_arc = -np.pi), run_time = 1.5)
 
-        self.wait_to(20.2)
+        #self.wait_to(20.2)
 
         to_remove = neg[0][0]
         neg[0].remove(to_remove)
@@ -582,7 +592,7 @@ class Integers(Scene):
         to_remove.set_fill(opacity = 0)
         self.play(MoveFromSaved(to_remove))
 
-        self.wait_to(21.4)
+        #self.wait_to(21.4)
 
         pairs_g, rects, labels = VGroup(zip(pos, neg))
         center = rects.get_center()
@@ -621,7 +631,7 @@ class Integers(Scene):
             Transform(lines, lines_dest, remover = True)
         )
         self.add(integer_rect)
-        self.wait_to(29)
+        #self.wait_to(29)
 
         pos, neg = pairs_g
 
@@ -665,13 +675,13 @@ class Integers(Scene):
         )
         self.remove(pos, neg)
         self.add(numbers)
-        self.wait_to(39.5)
+        #self.wait_to(39.5)
 
         arithmetics = [
             "(a)+(b) = (a+b)",
             "(-a)+(-b) = -(a+b)",
-            "(-a)+(b) = (b-a)\hbox{ nebo }-(a-b)",
-            "(a)+(-b) = (a-b)\hbox{ nebo }-(b-a)",
+            "(-a)+(b) = (b-a)\hbox{ or }-(a-b)",
+            "(a)+(-b) = (a-b)\hbox{ or }-(b-a)",
             "0\cdot x = 0",
             "(a)\cdot(b) = (a\cdot b)",
             "(-a)\cdot(-b) = (a\cdot b)",
@@ -695,12 +705,13 @@ class Integers(Scene):
         rules_mob.arrange_submobjects(aligned_edge = UP, buff = 2).to_edge(DOWN)
 
         self.play(FadeIn(rules_mob, run_time = 3, submobject_mode = "lagged_start"))
-        self.wait_to(54)
+        self.dither(3)
+        #self.wait_to(54)
 
 class Fractions(Scene):
     def construct(self):
 
-        title = TextMobject("Racionální čísla").to_edge(UP)
+        title = TextMobject("Rational numbers").to_edge(UP)
         self.add(title)
 
         ratio = TexMobject("\\frac ab").scale(1.5)
@@ -714,7 +725,7 @@ class Fractions(Scene):
         VGroup(ratio, pair).arrange_submobjects(DOWN)
 
         self.play(Write(ratio))
-        self.wait_to(4)
+        #self.wait_to(4)
 
         lbracket = pair[0].copy().next_to(ratio[0], LEFT).set_fill(opacity = 0)
         rbracket = pair[-1].copy().next_to(ratio[-1], RIGHT).set_fill(opacity = 0)
@@ -723,16 +734,16 @@ class Fractions(Scene):
 
 
         restrictions = VGroup(
-            TextMobject("$a,b$ celá"),
+            TextMobject("$a,b$ integers"),
             TexMobject("b\\neq 0"),
-            TextMobject("základní tvar"),
+            TextMobject("basic form"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         restrictions.to_edge(RIGHT)
         restrictions[0][0].highlight(col_a)
         for i,j in ((0,2), (1,0)):
             restrictions[i][j].highlight(col_b)
 
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(FadeIn(VGroup(restrictions[:2]), submobject_mode = "lagged_start"))
         formulas = [
             "(a,b)*(c,d) = (a*c, b*d)",
@@ -752,10 +763,10 @@ class Fractions(Scene):
             elif char == ')': c = WHITE
             else: mob.highlight(c)
 
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(FadeIn(formulas_mob))
 
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
         self.play(FadeOut(VGroup(ratio, pair)))
 
         eq_fracs = TexMobject(r"\frac{-1}2=", r"\frac{-3}6 = \frac2{-4}")
@@ -784,20 +795,20 @@ class Fractions(Scene):
         ).highlight(col_b)
 
         self.play(Write(eq_fracs[1]))
-        self.wait_to(36)
+        #self.wait_to(36)
         self.play(Write(neq_pairs[1]))
 
-        self.wait_to(52)
+        #self.wait_to(52)
         self.play(FadeIn(restrictions[-1], submobject_mode = "lagged_start"))
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(FadeIn(eq_fracs[0]))
 
-        self.wait_to(60+7.25)
+        #self.wait_to(60+7.25)
         self.play(
             FadeIn(neq_pairs[0]),
             neq_pairs[1].highlight, DARK_GREY,
         )
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
 
         std_template = TextMobject("std")
 
@@ -820,7 +831,8 @@ class Fractions(Scene):
             Transform(inserted, inserted_dest),
             MoveFromSaved(formulas_mob),
         )
-        self.wait_to(60+49.5)
+        #self.wait_to(60+49.5)
+        self.dither(2)
 
         self.play(FadeOut(VGroup(
             restrictions, formulas_mob,
@@ -831,7 +843,7 @@ class Fractions(Scene):
 class Factorization(Scene):
     def construct(self):
 
-        title = TextMobject("Racionální čísla").to_edge(UP)
+        title = TextMobject("Rational numbers").to_edge(UP)
         self.add(title)
 
         pairs_a = VGroup(
@@ -842,30 +854,30 @@ class Factorization(Scene):
         ).arrange_submobjects(DOWN)
         pairs_a.shift(3*LEFT)
         rect_a = SurroundingRectangle(pairs_a, color = col_a, buff = 0.3)
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(FadeIn(pairs_a[0]))
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(FadeIn(pairs_a[1]))
-        self.wait_to(7)
+        #self.wait_to(7)
         self.play(FadeIn(pairs_a[2]))
         self.play(FadeIn(pairs_a[3]))
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         self.play(ShowCreation(rect_a))
 
         label_a = TexMobject("a = \\frac{-1}{2}")
         label_a[0].highlight(col_a)
         label_a.next_to(rect_a, DOWN)
 
-        self.wait_to(18.5)
+        #self.wait_to(18.5)
         self.play(Write(label_a[0]))
-        self.wait_to(24)
+        #self.wait_to(24)
         self.play(FadeIn(VGroup((label_a[1:]))))
         label_dest = TexMobject("a = \\frac{2}{-4}")
         label_dest[0].highlight(col_a)
         label_dest.shift(label_a[0].get_center() - label_dest[0].get_center())
         minus = label_dest.submobjects.pop(4)
         label_dest.submobjects.insert(2, minus)
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
         self.play(Transform(label_a, label_dest))
 
         pairs_b = VGroup(
@@ -880,7 +892,7 @@ class Factorization(Scene):
         label_b.next_to(rect_b, DOWN)
         group_b = VGroup(pairs_b, rect_b, label_b)
 
-        self.wait_to(46.5)
+        #self.wait_to(46.5)
         self.play(FadeIn(group_b))
 
         label_ab = TexMobject("a\cdot b")
@@ -905,7 +917,7 @@ class Factorization(Scene):
         eq = TexMobject("=").move_to(
             (rect_b.get_edge_center(RIGHT)+rect_ab.get_edge_center(LEFT))/2)
 
-        self.wait_to(49)
+        #self.wait_to(49)
         self.play(FadeIn(cdot), FadeIn(eq), Write(label_ab))
 
         sample_a = pairs_a[0].copy()
@@ -917,9 +929,9 @@ class Factorization(Scene):
         sample_b.move_to(pairs_ab[1])
         for i in 1,3: sample_b[i].highlight(col_b)
 
-        self.wait_to(54.7)
+        #self.wait_to(54.7)
         self.play(MoveFromSaved(sample_a, path_arc = -np.pi/3))
-        self.wait_to(57.3)
+        #self.wait_to(57.3)
         self.play(MoveFromSaved(sample_b))
 
         sample_a_dest = VGroup(
@@ -928,7 +940,7 @@ class Factorization(Scene):
         sample_b_dest = VGroup(
             pairs_ab[0][i] for i in (0,4,5,8,9)
         )
-        self.wait_to(59.7)
+        #self.wait_to(59.7)
         self.play(
             FadeIn(pairs_ab[0][3]), FadeIn(pairs_ab[0][7]), # dots
             Transform(sample_a, sample_a_dest),
@@ -936,17 +948,18 @@ class Factorization(Scene):
         )
         self.remove(sample_a, sample_b)
         self.add(pairs_ab[0])
-        self.wait_to(60+2.2)
+        #self.wait_to(60+2.2)
 
         self.play(
             ShowCreation(rect_ab),
             FadeIn(VGroup(pairs_ab[1:]), submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+16.5)
+        #self.wait_to(60+16.5)
 
+        self.dither(2)
         self.play(FadeOut(group_ab))
         plus = TexMobject('+').move_to(cdot)
-        self.wait_to(60+18)
+        #self.wait_to(60+18)
         self.play(Transform(cdot, plus))
         self.remove(cdot)
         self.add(plus)
@@ -979,17 +992,17 @@ class Factorization(Scene):
         samples.arrange_submobjects(DOWN, aligned_edge = RIGHT)
         samples.move_to(VGroup(pairs_ab[:2]))
 
-        self.wait_to(60+25.5)
+        #self.wait_to(60+25.5)
         self.play(
             MoveFromSaved(sample_a, path_arc = np.pi/3),
             MoveFromSaved(sample_b),
         )
-        self.wait_to(60+27.5)
+        #self.wait_to(60+27.5)
         self.play(
             FocusOn2(sample_a[-2]),
             FocusOn2(sample_b[-2]),
         )
-        self.wait_to(60+31)
+        #self.wait_to(60+31)
 
         sample_a_dest = VGroup(
             pairs_ab[0][i] for i in (0,1,2,5,6,7)
@@ -1005,13 +1018,14 @@ class Factorization(Scene):
         self.remove(sample_a, sample_b)
         self.add(pairs_ab[0])
 
-        self.wait_to(60+34.5)
+        #self.wait_to(60+34.5)
 
         self.play(
             ShowCreation(rect_ab),
             FadeIn(VGroup(pairs_ab[1:]), submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+59)
+        self.dither(2)
+        #self.wait_to(60+59)
 
 def gcd(a,b):
     while b>0:
@@ -1078,17 +1092,18 @@ class Extensions(Scene):
         )
 
         self.play(ShowCreation(naturals))
-        self.wait_to(6.8)
+        #self.wait_to(6.8)
         self.play(ShowCreation(integers))
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(*map(ShowCreation, nat_to_int))
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
 
         self.play(FadeIn(rationals, submobject_mode = "lagged_start"))
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(*map(ShowCreation, int_to_rat))
 
-        self.wait_to(32)
+        self.dither()
+        #self.wait_to(32)
         self.play(FadeOut(VGroup(nat_to_int, int_to_rat)))
 
         nat3_src = naturals[3]
@@ -1140,25 +1155,26 @@ class Extensions(Scene):
         rat_meaning.shift(UP)
 
         naturals.remove(nat3_src)
-        self.wait_to(33.8)
+        #self.wait_to(33.8)
         self.play(FadeOut(naturals), ReplacementTransform(nat3_src, nat3))
         self.play(
             FadeIn(VGroup(eqs[0], nat_elements), submobject_mode = "lagged_start"),
             ShowCreation(nat_rect),
         )
-        self.wait_to(39)
+        #self.wait_to(39)
         integers.remove(int3_src)
         self.play(FadeOut(integers), ReplacementTransform(int3_src, int3))
         self.play(FadeIn(VGroup(eqs[1], int_meaning), submobject_mode = "lagged_start"))
-        self.wait_to(45.5)
+        #self.wait_to(45.5)
         rationals[0].remove(rat3_src)
         self.play(FadeOut(rationals), ReplacementTransform(rat3_src, rat3))
         self.play(
             FadeIn(VGroup(eqs[2], rat_pairs), submobject_mode = "lagged_start"),
             ShowCreation(rat_rect),
         )
-        self.wait_to(60+19.5)
+        #self.wait_to(60+19.5)
 
+        self.dither()
         self.play(FadeOut(VGroup(examples, eqs, meanings)))
 
 class RealNumbers(Scene):
@@ -1210,14 +1226,14 @@ class RealNumbers(Scene):
         self.play(ShowCreation(self.numberline))
         numberline_ori = self.numberline
 
-        self.wait_to(6)
+        #self.wait_to(6)
         sqrt2 = self.make_irac()
         sqrt2.save_state()
         sqrt2.shift(0.5*UP)
         sqrt2.set_fill(opacity = 0)
         self.play(sqrt2.restore)
 
-        self.wait_to(12.7)
+        #self.wait_to(12.7)
 
         self.smaller = self.make_frac(1,1)
         self.bigger = self.make_frac(3,2)
@@ -1228,13 +1244,13 @@ class RealNumbers(Scene):
         self.bigger.shift(RIGHT*0.5).set_fill(opacity = 0)
         self.play(self.smaller.restore, self.bigger.restore)
 
-        self.wait_to(19)
+        #self.wait_to(19)
         self.scale_line(5, np.sqrt(2))
         self.change_approx(4,3,  3,2)
         self.scale_line(2, np.sqrt(2))
         self.change_approx(11,8,  13,9)
 
-        self.wait_to(25.3)
+        #self.wait_to(25.3)
 
         self.play(FadeOut(VGroup(self.smaller, self.bigger)))
 
@@ -1244,7 +1260,7 @@ class RealNumbers(Scene):
         )
         rat_dots.shift(0.2*DOWN)
         rat_dots.highlight(GREY)
-        self.wait_to(28)
+        #self.wait_to(28)
         self.play(FadeIn(rat_dots))
         split = sqrt2.get_center()[0]
         smaller_dots = VGroup(filter(lambda dot: dot.get_center()[0] < split, rat_dots))
@@ -1252,14 +1268,14 @@ class RealNumbers(Scene):
         smaller_dots.submobjects.reverse()
 
         rat_dots.save_state()
-        self.wait_to(29.8)
+        #self.wait_to(29.8)
         self.play(bigger_dots.shift, 0.1*DOWN)
-        self.wait_to(31)
+        #self.wait_to(31)
         self.play(bigger_dots.highlight, col_rat, submobject_mode = "one_at_a_time")
         self.play(bigger_dots.highlight, GREY)
 
         self.play(smaller_dots.highlight, col_rat, submobject_mode = "one_at_a_time")
-        self.wait_to(46.5)
+        #self.wait_to(46.5)
 
         smaller_ori = smaller_dots
         smaller_dots = smaller_dots.copy()
@@ -1268,10 +1284,11 @@ class RealNumbers(Scene):
         self.play(MoveFromSaved(smaller_dots))
         smaller_rect = SurroundingRectangle(smaller_dots, buff = 0.3, color = col_real)
         real_label = sqrt2[1].copy().next_to(smaller_rect)
-        self.wait_to(51.5)
+        #self.wait_to(51.5)
         self.play(ShowCreation(smaller_rect), FadeIn(real_label))
 
-        self.wait_to(60+20.5)
+        #self.wait_to(60+20.5)
+        self.dither()
 
         self.play(
             FadeOut(VGroup(
@@ -1289,17 +1306,17 @@ class RealNumbers(Scene):
         unselected = VGroup(smaller_dots[:])
         unselected.remove(*subset)
 
-        self.wait_to(60+22.5)
+        #self.wait_to(60+22.5)
         subset = VGroup(subset)
         subset.save_state()
         subset.highlight(col_rat)
         subset.shift(0.1*UP)
 
         reals_definition = VGroup(
-            TextMobject("Reálné číslo $=$ Podmnožina $\\mathbb Q$"),
-            TextMobject("$\\bullet$ s každým prvkem všechny menší,"),
-            TextMobject("$\\bullet$ není prázdná, ani celé $\\mathbb Q$,"),
-            TextMobject("$\\bullet$ nemá největší prvek."),
+            TextMobject("Real number $=$ Subset of $\\mathbb Q$"),
+            TextMobject("$\\bullet$ with every element, all the smaller,"),
+            TextMobject("$\\bullet$ not empty, not the whole $\\mathbb Q$,"),
+            TextMobject("$\\bullet$ no maximal element."),
         )
         reals_definition.arrange_submobjects(DOWN, aligned_edge = LEFT)
         reals_definition.to_corner(UP+LEFT)
@@ -1308,26 +1325,26 @@ class RealNumbers(Scene):
             FadeIn(reals_definition[0], submobject_mode = "lagged_start"),
             MoveFromSaved(subset),
         )
-        self.wait_to(60+31)
+        #self.wait_to(60+31)
 
         self.play(
             FadeIn(reals_definition[1], submobject_mode = "lagged_start"),
         )
 
-        self.wait_to(60+39.5)
+        #self.wait_to(60+39.5)
         smaller_dots.save_state()
         unselected.highlight(col_rat).shift(0.1*UP)
         self.play(MoveFromSaved(smaller_dots, submobject_mode = "one_at_a_time"))
-        self.wait_to(60+50.5)
+        #self.wait_to(60+50.5)
         self.play(
             FadeIn(reals_definition[2], submobject_mode = "lagged_start"),
         )
-        self.wait_to(60+56.5)
+        #self.wait_to(60+56.5)
         self.play(
             FadeIn(reals_definition[3], submobject_mode = "lagged_start"),
         )
 
-        self.wait_to(2*60+20.2)
+        #self.wait_to(2*60+20.2)
         bigger_ini = VGroup(bigger_dots[:8])
         pointer = TrianglePointer(color = col_real).scale(-1)
         bigger_ini.save_state()
@@ -1341,12 +1358,12 @@ class RealNumbers(Scene):
             pointer.restore,
             MoveFromSaved(bigger_ini, submobject_mode = "lagged_start"),
         )
-        self.wait_to(2*60+33)
+        #self.wait_to(2*60+33)
         bigger_ini[-1].save_state()
         bigger_ini[-1].shift(0.1*UP).highlight(GREY)
         self.play(MoveFromSaved(bigger_ini[-1]))
 
-        self.wait_to(2*60+43)
+        #self.wait_to(2*60+43)
 
 class RealsOperations(Scene):
     def construct(self):
@@ -1378,7 +1395,7 @@ class RealsOperations(Scene):
             ShowCreation(VGroup(dots_x, dots_y)),
             FadeIn(VGroup(x_label, y_label), submobject_mode = "one_at_a_time"),
         )
-        self.wait_to(9.3)
+        #self.wait_to(9.3)
 
         dots_xy = VGroup(dot for dot in dots
                          if float(dot.nom)/denom < self.x_num+self.y_num).copy()
@@ -1390,7 +1407,7 @@ class RealsOperations(Scene):
         self.play(FadeIn(sample_x_label), sample_x.highlight, YELLOW)
         self.play(sample_x.shift, 0.2*UP, rate_func = there_and_back, run_time = 0.5)
 
-        self.wait_to(12.5)
+        #self.wait_to(12.5)
         sample_y = next(dot for dot in reversed(dots_y) if dot.nom == 3)
         sample_y_label = TexMobject("\\frac 12").scale(0.8).next_to(sample_y, DOWN)
         self.play(FadeIn(sample_y_label), sample_y.highlight, YELLOW)
@@ -1400,7 +1417,7 @@ class RealsOperations(Scene):
         sample_xy_label = TexMobject("\\frac {11}{6}").scale(0.8).next_to(sample_xy, DOWN)
         sample_xy.highlight(YELLOW)
 
-        self.wait_to(15.5)
+        #self.wait_to(15.5)
         sample_src = VGroup(sample_x, sample_y).copy()
         label_src = VGroup(sample_x_label, sample_y_label).copy()
         self.play(
@@ -1411,7 +1428,7 @@ class RealsOperations(Scene):
         self.remove(label_src, sample_src)
         self.add(sample_xy, sample_xy_label)
 
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
 
         src = []
         dest = []
@@ -1430,7 +1447,8 @@ class RealsOperations(Scene):
         self.remove(src)
         self.add(dots_xy)
 
-        self.wait_to(48.5)
+        #self.wait_to(48.5)
+        self.dither()
 
         self.play(FadeOut(VGroup(
             dots_xy, xy_label,
@@ -1442,10 +1460,10 @@ class RealsOperations(Scene):
         minus_lot_x = TexMobject('-','1','000').next_to(arrow_x)
         minus_lot_y = minus_lot_x.copy().next_to(arrow_y)
 
-        self.wait_to(55.5)
+        #self.wait_to(55.5)
         self.play(ShowCreation(arrow_x), FadeIn(minus_lot_x))
         self.play(ShowCreation(arrow_y), FadeIn(minus_lot_y))
-        self.wait_to(59)
+        #self.wait_to(59)
 
         arrow_plus_lot = Arrow(ORIGIN, 1.5*RIGHT).to_edge(RIGHT, buff = 0.2)
         plus_lot = TexMobject('+','1','000000').next_to(arrow_plus_lot, LEFT)
@@ -1458,7 +1476,7 @@ class RealsOperations(Scene):
         )
         self.remove(*self.mobjects_from_last_animation)
         self.add(arrow_plus_lot, plus_lot)
-        self.wait_to(60+5.5)
+        #self.wait_to(60+5.5)
 
         dots_xy = VGroup(dot for dot in dots
                          if float(dot.nom)/denom < self.x_num+self.y_num).copy()
@@ -1467,7 +1485,8 @@ class RealsOperations(Scene):
 
         self.play(FadeIn(xy_label))
 
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
+        self.dither()
 
         self.play(FadeOut(VGroup(
             arrow_plus_lot, arrow_x, arrow_y,
@@ -1480,13 +1499,13 @@ class RealsOperations(Scene):
         x_negative.submobjects.reverse()
         y_negative.submobjects.reverse()
 
-        self.wait_to(60+14.7)
+        #self.wait_to(60+14.7)
         self.play(
             FadeOut(x_negative, submobject_mode = "one_at_a_time"),
             FadeOut(y_negative, submobject_mode = "one_at_a_time"),
         )
 
-        self.wait_to(60+17.5)
+        #self.wait_to(60+17.5)
         self.play(
             FadeIn(sample_x_label),
             FadeIn(sample_y_label),
@@ -1499,14 +1518,14 @@ class RealsOperations(Scene):
 
         sample_src = VGroup(sample_x, sample_y).copy()
         label_src = VGroup(sample_x_label, sample_y_label).copy()
-        self.wait_to(60+19.3)
+        #self.wait_to(60+19.3)
         self.play(
             Transform(sample_src, VGroup(sample_xy)),
             Transform(label_src, VGroup(sample_xy_label)),
         )
         self.remove(label_src, sample_src)
         self.add(sample_xy, sample_xy_label)
-        self.wait_to(60+24.9)
+        #self.wait_to(60+24.9)
 
         src = []
         dest = []
@@ -1524,12 +1543,13 @@ class RealsOperations(Scene):
         self.play(Transform(src, dest, submobject_mode = "lagged_start", run_time = 3))
         self.remove(src)
         self.add(xy_positive)
-        self.wait_to(60+31.4)
+        #self.wait_to(60+31.4)
 
         xy_negative = VGroup(dot for dot in reversed(dots_xy) if dot.nom < 0)
         self.play(FadeIn(xy_negative, submobject_mode = "one_at_a_time"))
 
-        self.wait_to(60+52)
+        self.dither(2)
+        #self.wait_to(60+52)
         self.play(FadeOut(VGroup(
             dots_xy, xy_label, sample_xy_label,
             x_positive, x_label, sample_x_label,
@@ -1581,7 +1601,7 @@ class RealSupremum(Scene):
         fset.arrange_submobjects( buff = 0.4)
         fset.shift(RIGHT*1.1)
 
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(ShowCreation(fset))
 
         pointer = TrianglePointer(color = YELLOW)
@@ -1589,20 +1609,20 @@ class RealSupremum(Scene):
         pointer.save_state()
         pointer.shift(1.5*LEFT)
         pointer.set_fill(opacity = 0)
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(pointer.restore)
 
         infset = OrdinalOmega(height = 0.5, x0 = -1.1, x1 = np.e)
         infset.highlight(col_real)
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(FadeOut(fset))
         self.play(FadeIn(infset))
         supremum = DashedLine(ORIGIN, DOWN, color = YELLOW).move_to(X_MASK*np.e)
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         self.play(pointer.next_to, supremum, UP, 0.1)
         self.play(ShowCreation(supremum))
 
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
 
         c1 = 0.6*DOWN
         c2 = 2*DOWN
@@ -1631,7 +1651,7 @@ class RealSupremum(Scene):
             FadeIn(infset_cuts, submobject_mode = "one_at_a_time"),
             run_time = 2,
         )
-        self.wait_to(33)
+        #self.wait_to(33)
 
         dest_point = infset_cuts[0].get_center()
         infset_cuts.add(
@@ -1652,7 +1672,7 @@ class RealSupremum(Scene):
         supremum_cut = infset_cuts[0]
         self.add(supremum_cut)
 
-        self.wait_to(39)
+        #self.wait_to(39)
 
 class Summary(Scene):
     def construct(self):
@@ -1672,7 +1692,7 @@ class Summary(Scene):
 
         VGroup(pi_dots, pi_rect, pi_label).to_edge(UP)
         self.play(Write(pi_label))
-        self.wait_to(5.3)
+        #self.wait_to(5.3)
         self.play(ShowCreation(pi_rect), FadeIn(pi_dots))
         
         rat_sample = next(dot for dot in reversed(pi_dots) if dot.nom == -3)
@@ -1682,7 +1702,7 @@ class Summary(Scene):
         rat_sample_label.next_to(pi_rect, DOWN, coor_mask = Y_MASK)
 
         rat_sample.save_state()
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(
             rat_sample.shift, 0.15*DOWN,
             FadeIn(rat_sample_label),
@@ -1701,7 +1721,7 @@ class Summary(Scene):
         pairs_g.next_to(rat_sample_label, DOWN)
         pairs_g.to_edge(LEFT)
 
-        self.wait_to(12)
+        #self.wait_to(12)
         self.play(
             ShowCreation(pairs_rect),
             FadeIn(pairs, submobject_mode = "lagged_start"),
@@ -1714,13 +1734,13 @@ class Summary(Scene):
         arrow = Arrow(pair_ori, pair)
         pair.shift(X_MASK*(arrow.get_center() - pair[2].get_center()))
 
-        self.wait_to(15.5)
+        #self.wait_to(15.5)
         self.play(
             ShowCreation(arrow),
             ReplacementTransform(pair_ori.copy(), pair),
         )
 
-        self.wait_to(17.5)
+        #self.wait_to(17.5)
         
         nom_pair = TexMobject("(2,1)")
         denom_pair = TexMobject("(4,0)")
@@ -1748,7 +1768,7 @@ class Summary(Scene):
             MoveFromSaved(pair[0]),
             ReplacementTransform(nom_pair_src, nom_pair),
         )
-        self.wait_to(22)
+        #self.wait_to(22)
 
         main_num = pair[-2][0]
         denom_pair.next_to(main_num.get_edge_center(LEFT), RIGHT,  buff = 0)
@@ -1769,7 +1789,8 @@ class Summary(Scene):
             ReplacementTransform(denom_pair_src, denom_pair),
         )
 
-        self.wait_to(51)
+        #self.wait_to(51)
+        self.dither(2)
 
         self.play(FadeOut(VGroup(
             nom_pair, denom_pair, pair,
@@ -1782,7 +1803,7 @@ class Summary(Scene):
 class ChainSolution(Scene):
     def construct(self):
 
-        title = TextMobject("Úloha o nespočetném řetězci")
+        title = TextMobject("Problem of the uncountable chain")
         title.to_edge(UP)
         #self.play(UnapplyMethod(title.behind_edge, UP))
         self.add(title)
@@ -1798,7 +1819,7 @@ class ChainSolution(Scene):
         reals_label = TexMobject("\\mathbb R")
         reals_label.next_to(reals.get_edge_center(RIGHT), LEFT, buff = 0)
         reals_label.shift(UP)
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
         self.play(ShowCreation(reals), FadeIn(reals_label))
 
         real_dots = VGroup(
@@ -1810,7 +1831,7 @@ class ChainSolution(Scene):
             dot.tip_to(reals.main_line.get_start())
             dot.set_fill(opacity = 0)
 
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(real_dots.restore)
 
         rat_lines = []
@@ -1820,14 +1841,17 @@ class ChainSolution(Scene):
             rat_lines.append(Line(line_start, line_end, color = col_rat))
 
         rat_lines = VGroup(rat_lines)
-        self.wait_to(11.2)
+        #self.wait_to(11.2)
         self.play(ShowCreation(rat_lines[0]))
         self.play(ShowCreation(rat_lines[1]))
 
         conversation = Conversation(self)
-        self.wait_to(19)
-        conversation.add_bubble("Ale ptali jsme se na $\\mathcal P(\\omega)$.")
-        self.wait_to(31)
-        conversation.add_bubble("Množiny $\\mathbb Q$ a $\\omega$ mají stejnou mohutnost.")
+        #self.wait_to(19)
+        conversation.add_bubble("But we discussed $\\mathcal P(\\omega)$.")
 
-        self.wait_to(67)
+        self.dither(2)
+        #self.wait_to(31)
+        conversation.add_bubble("Sets $\\mathbb Q$ and $\\omega$ are equipotent.")
+
+        self.dither(3)
+        #self.wait_to(67)

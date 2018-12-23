@@ -31,16 +31,16 @@ import importlib
 
 class Chapter9OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 9\\\\Axiomy",
+        "series_str" : "Essence of set theory",
+        "chapter_str" : "Chapter 9\\\\Axioms",
     }
 
 class Chapter9OpeningQuote(Scene):
     def construct(self):
         quote = [
-            "Na počátku bylo","slovo,\\\\",
-            "a to slovo bylo od","Matematika,\\\\",
-            "a to slovo bylo:","\\uv{množina}.",
+            "In the beginning was the","Word,\\\\",
+            "and the Word was by","Mathematician,\\\\",
+            "and the Word was:","``a set''.",
         ]
         quote = TextMobject(
             *quote,
@@ -78,7 +78,7 @@ def hide_arrows(arrows):
 class ReminderScene(Scene):
     def construct(self):
 
-        title = TextMobject("Formální svět množin").to_edge(UP)
+        title = TextMobject("Formal world of sets").to_edge(UP)
         edge_buff = DEFAULT_MOBJECT_TO_EDGE_BUFFER
         title_buff = DEFAULT_MOBJECT_TO_MOBJECT_BUFFER
         width = 2*(SPACE_WIDTH-edge_buff)
@@ -95,16 +95,16 @@ class ReminderScene(Scene):
         squares.arrange_submobjects(buff = 1)
         set_rect = SurroundingRectangle(squares, buff = 0.5)
 
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
         self.play(ShowCreation(set_rect))
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(ShowCreation(squares))
 
-        self.wait_to(13)
+        #self.wait_to(13)
 
         dashed_rect = Rectangle(width = width - 0.3, height = height - 0.3)
         dashed_rect.move_to(world_rect)
-        dashed_label = TextMobject("Třída všech množin")
+        dashed_label = TextMobject("Class of all sets")
         dashed_label.shift(
             dashed_rect.get_corner(RIGHT+DOWN)
             - dashed_label.get_corner(RIGHT+DOWN)
@@ -121,7 +121,8 @@ class ReminderScene(Scene):
             FadeIn(dashed_label),
         )
 
-        self.wait_to(21)
+        #self.wait_to(21)
+        self.dither()
         self.play(FadeOut(VGroup(dashed_rect, dashed_label)))
 
         elements = VGroup([dot_r_comp(sq.get_center()) for sq in squares])
@@ -134,7 +135,7 @@ class ReminderScene(Scene):
             for el in elements
         ])
 
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         hide_arrows(arrows)
         arrows.shift(shift*DOWN)
 
@@ -143,9 +144,9 @@ class ReminderScene(Scene):
             ReplacementTransform(squares, elements),
             ReplacementTransform(set_rect, container),
         )
-        self.wait_to(29.25)
+        #self.wait_to(29.25)
 
-        el_or_set_label = TextMobject("prvky","/","množiny")
+        el_or_set_label = TextMobject("elements","/","sets")
         el_or_set_label.next_to(container, DOWN)
         for sublab, col in zip(el_or_set_label, (WHITE, GRAY, YELLOW)):
             sublab.highlight(col)
@@ -154,7 +155,8 @@ class ReminderScene(Scene):
             submobject_mode = "lagged_start",
             run_time = 2,
         ))
-        self.wait_to(60 + 10)
+        #self.wait_to(60 + 10)
+        self.dither()
 
         self.play(
             title.behind_edge, UP,
@@ -166,16 +168,16 @@ class ReminderScene(Scene):
         )
 
 axiom_data = [
-    ("existence", "Existuje prázdná množina."),
-    ("extensionality", "Množina je určena pouze svými prvky."),
-    ("dvojice", "Pro libovolné prvky $x$, $y$\\\\existuje množina obsahující přesně je."),
-    ("sjednocení", "Můžeme sjednotit všechny prvky dané množiny."),
-    ("vydělení", "Z množiny můžeme vydělit podmnožinu jakýmkoli pravidlem."),
-    ("nekonečna", "Existuje množina přirozených čísel."),
-    ("potenční množiny", "K libovolné množině najdeme její potenční množinu."),
-    ("nahrazení", "Můžeme nahradit prvky\\\\v množině za jiné pomocí daného pravidla."),
-    ("výběru", "Můžeme provést\\\\nekonečně mnoho nahodilých výběrů najednou."),
-    ("fundovanosti", "Neexistují \\uv{divné} množiny."),
+    ("existence", "There is an empty set."),
+    ("extensionality", "A set is determined by its elements."),
+    ("pair", "For any two elements $x$, $y$,\\\\there is a set containing just them."),
+    ("union", "We can take the union of all elements in a set."),
+    ("selection", "We can select a subset from a set by a rule."),
+    ("infinity", "There is a set of natural numbers."),
+    ("powerset", "We can construct a powerset to any set."),
+    ("replacement", "We can replace elements\\\\in a set by a rule."),
+    ("choice", "We can make\\\\infinite number of incidental choices at once."),
+    ("regularity", "There are no ``weird'' sets."),
 ]
 
 class AxiomShortMobject(TextMobject):
@@ -184,7 +186,7 @@ class AxiomShortMobject(TextMobject):
     }
     def __init__(self, n, **kwargs):
         name = axiom_data[n][0]
-        TextMobject.__init__(self, "{}) Axiom {}".format(n, name), **kwargs)
+        TextMobject.__init__(self, "{}) Axiom of {}".format(n, name), **kwargs)
 
 class AxiomMobject(VMobject):
     CONFIG = {
@@ -196,7 +198,7 @@ class AxiomMobject(VMobject):
         else: newline = ""
         name, description = axiom_data[n]
         tex = TextMobject(
-            "{}) Axiom {}:{}".format(n, name, newline),
+            "{}) Axiom of {}:{}".format(n, name, newline),
             description,
             alignment = "\\raggedright",
         )
@@ -218,9 +220,9 @@ class FirstAxioms(Scene):
         self.play(axiom0.creation_anim())
 
         emptyset = Square(side_length = 0.5)
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(ShowCreation(emptyset))
-        self.wait_to(17.5)
+        #self.wait_to(17.5)
         emptyset.save_state()
         self.play(Transform(emptyset, dot_r_comp(emptyset.get_center())))
 
@@ -232,35 +234,35 @@ class FirstAxioms(Scene):
             for dest in tmp_rect.get_anchors()[:-1]
         )
         
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
         self.play(ShowCreation(arrow_in))
         self.play(ShowCreation(cross))
 
-        self.wait_to(22)
+        #self.wait_to(22)
         self.play(ShowCreation(arrows_out))
 
-        self.wait_to(29)
+        #self.wait_to(29)
         self.play(
             FadeOut(VGroup(
                 arrow_in, arrows_out, cross,
             )),
             emptyset.restore,
         )
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
         emptyset.mark_paths_closed = True
         emptyset2 = emptyset.copy().highlight(BLUE).shift(0.7*LEFT)
         emptyset_ori = emptyset.copy()
         self.play(ReplacementTransform(emptyset.copy(), emptyset2))
-        self.wait_to(39.2)
+        #self.wait_to(39.2)
         emptyset.save_state()
         emptyset.shift(0.7*RIGHT).highlight(RED)
         self.play(MoveFromSaved(emptyset))
         neq = TexMobject("\\neq")
         neq.move_to(VGroup(emptyset, emptyset2))
-        self.wait_to(41)
+        #self.wait_to(41)
         self.play(Write(neq))
 
-        self.wait_to(49)
+        #self.wait_to(49)
 
         self.play(
             FadeOut(neq),
@@ -269,7 +271,8 @@ class FirstAxioms(Scene):
         )
         axiom1 = AxiomMobject(1).next_to(axiom0, DOWN, aligned_edge = LEFT)
         self.play(axiom1.creation_anim())
-        self.wait_to(52)
+        #self.wait_to(52)
+        self.dither()
 
         self.play(FadeOut(emptyset))
         elements = VGroup(Dot() for _ in range(3))
@@ -279,9 +282,9 @@ class FirstAxioms(Scene):
         set1.shift(0.1*(DOWN+LEFT))
         set2.shift(0.1*(UP+RIGHT))
 
-        self.wait_to(54.5)
+        #self.wait_to(54.5)
         self.play(ShowCreation(set1), FadeIn(elements))
-        self.wait_to(66.5)
+        #self.wait_to(66.5)
         self.play(ShowCreation(set2))
 
         dot1 = dot_r_comp(1.3*DOWN+0.8*LEFT, color = GREEN)
@@ -292,7 +295,7 @@ class FirstAxioms(Scene):
             for el in elements
         )
         hide_arrows(arrows)        
-        self.wait_to(60+14)
+        #self.wait_to(60+14)
         self.play(
             arrows.restore,
             ReplacementTransform(set1, dot1),
@@ -304,7 +307,7 @@ class FirstAxioms(Scene):
             Arrow(el, dot_dest, color = BLUE)
             for el in elements
         )
-        self.wait_to(60+19)
+        #self.wait_to(60+19)
         self.play(
             Transform(VGroup(arrows[:3]), arrows_dest),
             Transform(VGroup(arrows[3:]), arrows_dest),
@@ -314,7 +317,7 @@ class FirstAxioms(Scene):
         self.remove(dot1, dot2, arrows)
         self.add(dot_dest, arrows_dest)
 
-        self.wait_to(60+34)
+        #self.wait_to(60+34)
 
         additional_arrows = []
         for hdir, dot in ((LEFT, elements[0]), (RIGHT, elements[-1])):
@@ -328,12 +331,13 @@ class FirstAxioms(Scene):
             ]
 
         additional_arrows = VGroup(additional_arrows)
-        self.play(ShowCreation(additional_arrows))
+        #self.play(ShowCreation(additional_arrows))
 
-        self.wait_to(60+38)
-        self.play(FadeOut(additional_arrows))
+        #self.wait_to(60+38)
+        #self.dither()
+        #self.play(FadeOut(additional_arrows))
 
-        self.wait_to(60+43.5)
+        #self.wait_to(60+43.5)
         axioms01 = VGroup(axiom0, axiom1)
         self.play(
             axioms01.behind_edge, UP,
@@ -341,8 +345,8 @@ class FirstAxioms(Scene):
         )
         self.remove(axioms01)
 
-        axiom_proposal = TextMobject("Každá konečná třída je množinou").to_corner(UP+LEFT)
-        self.wait_to(60+51)
+        axiom_proposal = TextMobject("Every finite class is a set").to_corner(UP+LEFT)
+        #self.wait_to(60+51)
         self.play(FadeIn(axiom_proposal, submobject_mode = "lagged_start", run_time = 2))
 
         sel_dots = VGroup(elements[1:] + [dot_dest])
@@ -350,12 +354,12 @@ class FirstAxioms(Scene):
             Circle(color = GREEN, radius = 0.2).shift(dot.get_center())
             for dot in sel_dots
         )
-        self.wait_to(60+56)
+        #self.wait_to(60+56)
         self.play(ShowCreation(rings))
         rect = SurroundingRectangle(rings)
-        self.wait_to(60+59)
+        #self.wait_to(60+59)
         self.play(ShowCreation(rect))
-        self.wait_to(2*60+1.5)
+        #self.wait_to(2*60+1.5)
 
         rect_dot = dot_r_comp(
             elements[-1].get_center()*X_MASK + dot_dest.get_center()*Y_MASK,
@@ -371,7 +375,8 @@ class FirstAxioms(Scene):
             arrows2.restore,
             ReplacementTransform(rect, rect_dot)
         )
-        self.wait_to(2*60+27)
+        #self.wait_to(2*60+27)
+        self.dither()
 
         picture = VGroup(axiom_proposal, elements, dot_dest, rect_dot, arrows_dest, arrows2)
         self.play(FadeOut(picture))
@@ -386,8 +391,8 @@ class SingletonsAndUnions(Scene):
 
     def prepare_ax_prop(self):
         ax_prop = VGroup(
-            TextMobject("Jednoprvkové množiny"),
-            TextMobject("Sjednocení dvojic"),
+            TextMobject("Singletons"),
+            TextMobject("Unions of pairs"),
         )
         ax_prop.arrange_submobjects(DOWN, aligned_edge = LEFT)
         ax_prop.to_corner(UP+LEFT)
@@ -414,37 +419,40 @@ class SingletonsAndUnions(Scene):
 
         dot = Dot()
         rect = SurroundingRectangle(dot, buff = 0.5)
-        self.wait_to(2)
+        #self.wait_to(2)
         self.play(ShowCreation(dot))
-        self.wait_to(5.9)
+        #self.wait_to(5.9)
         self.play(ShowCreation(rect))
 
-        self.wait_to(12)
+        #self.wait_to(12)
+        self.dither()
         self.play(
             FadeOut(VGroup(dot, rect)),
             FadeIn(ax_prop[1], run_time = 2, submobject_mode = "lagged_start"),
         )
 
         set1, set2 = self.show_set_pair()
-        self.wait_to(18.3)
+        #self.wait_to(18.3)
         set_u = self.play_union(set1, set2)
-        self.wait_to(25)
+        #self.wait_to(25)
+        self.dither()
         self.play(FadeOut(set_u))
 
         dots = VGroup(Dot() for _ in range(4)).arrange_submobjects(buff = 1.3)
-        self.wait_to(31)
+        #self.wait_to(31)
         self.play(ShowCreation(dots))
-        self.wait_to(35.8)
+        #self.wait_to(35.8)
         rects = VGroup(SurroundingRectangle(dot, buff = 0.5) for dot in dots)
         self.play(ShowCreation(rects))
 
         sets = VGroup(zip(rects, dots))
         cur_set = sets[0]
         for s,t in zip(sets[1:], (45, 48, 50.2)):
-            self.wait_to(t)
+            #self.wait_to(t)
             cur_set = self.play_union(cur_set, s)
 
-        self.wait_to(60+18)
+        #self.wait_to(60+18)
+        self.dither(2)
 
         self.play(
             FadeOut(cur_set),
@@ -490,18 +498,19 @@ class PairsAndUnions(SingletonsAndUnions):
 
         axiom2 = AxiomMobject(2, newline = False)
         axiom2.next_to(ax_prop, DOWN, aligned_edge = LEFT)
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(axiom2.creation_anim())
 
-        self.wait_to(12)
+        #self.wait_to(12)
         self.play(ShowCreation(superset))
 
         axiom3 = AxiomMobject(3)
         axiom3.next_to(axiom2, DOWN, aligned_edge = LEFT)
 
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
         self.play(axiom3.creation_anim())
-        self.wait_to(30)
+        #self.wait_to(30)
+        self.dither()
 
         rects = VGroup(s[0] for s in sets)
         rects.save_state()
@@ -509,7 +518,7 @@ class PairsAndUnions(SingletonsAndUnions):
             rect.highlight(BLACK)
             rect.scale_in_place(1.1)
         self.play(MoveFromSaved(rects, remover = True))
-        self.wait_to(41.5)
+        #self.wait_to(41.5)
 
         axiom2.save_state()
         axiom3.save_state()
@@ -535,9 +544,10 @@ class PairsAndUnions(SingletonsAndUnions):
         x_copy = x_g.copy().shift(1.5*RIGHT)
         rect = SurroundingRectangle(VGroup(x_g, x_copy), buff = 0.5)
 
-        self.wait_to(46)
+        self.dither()
+        #self.wait_to(46)
         self.play(ReplacementTransform(x_g.copy(), x_copy))
-        self.wait_to(60+1)
+        #self.wait_to(60+1)
         self.play(ShowCreation(rect))
 
         result = dot.copy().highlight(YELLOW).shift(1.3*DOWN)
@@ -547,13 +557,14 @@ class PairsAndUnions(SingletonsAndUnions):
             for src in (dot, x_copy[0])
         )
         hide_arrows(arrows)
-        self.wait_to(60+10.5)
+        #self.wait_to(60+10.5)
         self.play(
             ReplacementTransform(rect, result),
             arrows.restore,
         )
 
-        self.wait_to(60+19)
+        self.dither()
+        #self.wait_to(60+19)
         self.play(
             Transform(
                 VGroup(arrows[1], x_copy),
@@ -561,7 +572,8 @@ class PairsAndUnions(SingletonsAndUnions):
                 remover = True,
             )
         )
-        self.wait_to(60+22.8)
+        #self.wait_to(60+22.8)
+        self.dither()
         rect = SurroundingRectangle(x_g, buff = 0.5)
         arrows = VGroup(arrows[0])
         hide_arrows(arrows)
@@ -569,7 +581,7 @@ class PairsAndUnions(SingletonsAndUnions):
             MoveFromSaved(arrows, remover = True),
             ReplacementTransform(result, rect),
         )
-        self.wait_to(60+33.5)
+        #self.wait_to(60+33.5)
         self.play(FadeOut(VGroup(rect, x_g)))
 
 class AxiomOfSelection(Scene):
@@ -594,7 +606,7 @@ class AxiomOfSelection(Scene):
         rect = SurroundingRectangle(numbers_mob, buff = 0.3)
         rect.stretch_in_place(1.1, 0)
         label = TexMobject('A').highlight(YELLOW).next_to(rect, LEFT, buff = 0.3)
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(
             FadeIn(numbers_mob),
         )
@@ -603,9 +615,9 @@ class AxiomOfSelection(Scene):
             FadeIn(label),
         )
         shift = 2*DOWN
-        rule = TextMobject("Lichá čísla")
+        rule = TextMobject("Odd numbers")
         rule.move_to(label).shift(shift)
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(Write(rule))
 
         icons = []
@@ -627,12 +639,12 @@ class AxiomOfSelection(Scene):
         icons = VGroup(icons).next_to(rect, UP, coor_mask = Y_MASK)
         sat_numbers = VGroup(sat_numbers).copy()
         sat_icons = VGroup(sat_icons).copy()
-            
-        self.wait_to(15)
+
+        #self.wait_to(15)
         for icon in icons:
             self.play(ShowCreation(icon, run_time = 0.5))
 
-        self.wait_to(19)
+        #self.wait_to(19)
 
         satisfied = VGroup(sat_numbers, sat_icons)
         self.play(satisfied.shift, shift)
@@ -654,7 +666,8 @@ class AxiomOfSelection(Scene):
         ).shift(0.1*DOWN)
         B_label = TexMobject('B').highlight(ORANGE).next_to(B_rect, RIGHT)
 
-        self.wait_to(50)
+        self.dither()
+        #self.wait_to(50)
         self.play(
             FadeOut(VGroup(
                 rule, rect2, numbers_mob[-1], satisfied, icons,
@@ -663,19 +676,19 @@ class AxiomOfSelection(Scene):
             ReplacementTransform(rect, A_rect),
             ReplacementTransform(VGroup(numbers_mob[:-1]), A_dots),
         )
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(
             FadeIn(B_label),
             FadeIn(VGroup(dots[5:])),
             ShowCreation(B_rect),
         )
 
-        rule = TextMobject("prvky","B")
+        rule = TextMobject("elements of","B")
         rule[-1].highlight(ORANGE)
 
         shift = 2.2*DOWN
         rule.move_to(A_label).shift(shift+0.1*DOWN)
-        self.wait_to(58)
+        #self.wait_to(58)
         self.play(Write(rule))
 
         icons = VGroup([IconNo() for _ in range(2)]+[IconYes() for _ in range(3)])
@@ -683,11 +696,11 @@ class AxiomOfSelection(Scene):
             icon.scale(0.8).move_to(dot)
         icons.next_to(A_rect, UP, coor_mask = Y_MASK)
 
-        self.wait_to(60)
+        #self.wait_to(60)
         for icon in icons:
             self.play(ShowCreation(icon, run_time = 0.5))
 
-        self.wait_to(60+10)
+        #self.wait_to(60+10)
         intersection = VGroup(dots[2:5], icons[2:]).copy()
         self.play(
             intersection[0].shift, shift,
@@ -696,7 +709,8 @@ class AxiomOfSelection(Scene):
         i_rect = SurroundingRectangle(intersection[0], buff = 0.5)
         self.play(ShowCreation(i_rect))
 
-        self.wait_to(60+14)
+        #self.wait_to(60+14)
+        self.dither()
 
         axiom4.save_state()
         axioms = VGroup(AxiomShortMobject(n) for n in (0,2,3))
@@ -717,7 +731,7 @@ class AxiomOfSelection(Scene):
             axioms.restore,
             MoveFromSaved(axiom4),
         )
-        self.wait_to(60+24)
+        #self.wait_to(60+24)
 
 class InfiniteWorld(Scene):
     def construct(self):
@@ -759,9 +773,10 @@ class InfiniteWorld(Scene):
         self.dither()
 
         rect = SurroundingRectangle(VGroup(dots[::4]), buff = 0.3)
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(ShowCreation(rect))
-        self.wait_to(25.5)
+        #self.wait_to(25.5)
+        self.dither()
 
         axioms.save_state()
         axioms.shift(DOWN)
@@ -777,7 +792,7 @@ class InfiniteWorld(Scene):
         self.play(
             FadeOut(VGroup(dots, arrows, rect)),
             MoveFromSaved(axioms, remover = True),
-            series.restore,
+            #series.restore,
         )
 
 chapter4 = importlib.import_module('eost.04-well-ordering')
@@ -801,13 +816,13 @@ class LargeConstructionReminder(Scene):
             label[-i-1].highlight(GREEN)
 
         self.play(Write(p_powers[0]), ShowCreation(omega[0]))
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(ReplacementTransform(p_powers[0][0].copy(), p_powers[1][-2]))
         self.play(
             Write(VGroup(p_powers[1][:-2], p_powers[1][-1])),
             ShowCreation(omega[1]),
         )
-        self.wait_to(13)
+        #self.wait_to(13)
 
         for i in range(2,4):
             self.play(
@@ -816,15 +831,15 @@ class LargeConstructionReminder(Scene):
                 ReplacementTransform(p_powers[i-1].copy(), VGroup(p_powers[i][2:-1])),
             )
 
-        self.wait_to(16)
+        #self.wait_to(16)
         self.play(
             ShowCreation(VGroup(omega[i+1:])),
             ShowCreation(VGroup(p_powers[i+1:])),
         )
-        self.wait_to(20)
+        #self.wait_to(20)
 
         union_bar = omega[0].copy().highlight(YELLOW).next_to(omega)
-        union_label = TextMobject("Sjednocení").highlight(YELLOW).next_to(union_bar, UP)
+        union_label = TextMobject("Union").highlight(YELLOW).next_to(union_bar, UP)
 
         self.play(
             ShowCreation(union_bar),
@@ -832,7 +847,9 @@ class LargeConstructionReminder(Scene):
                 p_powers.copy(), VGroup(union_label),
             )
         )
-        self.wait_to(33)
+
+        self.dither()
+        #self.wait_to(33)
 
         self.play(
             series.behind_edge, UP,
@@ -862,7 +879,7 @@ class LargeConstructionAxioms(Scene):
         numbers_rect = SurroundingRectangle(numbers, color = GREEN)
         line1 = Line(*numbers_rect.get_anchors()[:2], color = GREEN)
         line2 = PolyLine(*reversed(numbers_rect.get_anchors()[2:]), color = GREEN)
-        self.wait_to(1.5)
+        #self.wait_to(1.5)
         self.play(
             ShowCreation(line1),
             ShowCreation(line2),
@@ -872,32 +889,33 @@ class LargeConstructionAxioms(Scene):
         self.add(numbers_rect)
 
         axiom5 = AxiomMobject(5).to_corner(UP+LEFT)
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(axiom5.creation_anim())
 
-        series = VideoSeries(num_videos = 16).to_edge(UP)
-        active = series[10]
-        active.remove(active[1])
-        active.add(TexMobject('11').replace(active, 1).scale_in_place(0.6))
-        series = VGroup(series[6:])
-        series.gradient_highlight(BLACK, BLUE)
-        active.highlight(YELLOW)
-        series.save_state()
-        series.behind_edge(UP)
+        #series = VideoSeries(num_videos = 16).to_edge(UP)
+        #active = series[10]
+        #active.remove(active[1])
+        #active.add(TexMobject('11').replace(active, 1).scale_in_place(0.6))
+        #series = VGroup(series[6:])
+        #series.gradient_highlight(BLACK, BLUE)
+        #active.highlight(YELLOW)
+        #series.save_state()
+        #series.behind_edge(UP)
 
-        self.wait_to(25)
-        self.play(
-            series.restore,
-            Animation(axiom5),
-        )
-        self.wait_to(36)
-        self.play(
-            series.behind_edge, UP,
-            Animation(axiom5),
-        )
-        self.remove(series)
+        #self.wait_to(25)
+        #self.play(
+        #    series.restore,
+        #    Animation(axiom5),
+        #)
+        #self.dither()
+        #self.wait_to(36)
+        #self.play(
+        #    series.behind_edge, UP,
+        #    Animation(axiom5),
+        #)
+        #self.remove(series)
 
-        self.wait_to(38)
+        #self.wait_to(38)
         self.play(ReplacementTransform(p_powers[0][0].copy(), p_powers[1][-2]))
         self.play(
             Write(VGroup(p_powers[1][:-2], p_powers[1][-1])),
@@ -911,17 +929,17 @@ class LargeConstructionAxioms(Scene):
                 if random.random() < 0.5: num.set_fill(opacity = 0)
         subset_rect = SurroundingRectangle(VGroup(numbers_g, subsets))
 
-        self.wait_to(41)
+        #self.wait_to(41)
         self.play(
             FadeIn(subset_rect),
             ReplacementTransform(VGroup(numbers_g).copy(), subsets),
         )
 
         axiom6 = AxiomMobject(6).next_to(axiom5, DOWN, aligned_edge = LEFT)
-        self.wait_to(43)
+        #self.wait_to(43)
         self.play(axiom6.creation_anim())
 
-        self.wait_to(54)
+        #self.wait_to(54)
 
         self.play(FadeOut(VGroup(
             subsets, numbers_g, subset_rect
@@ -937,7 +955,7 @@ class LargeConstructionAxioms(Scene):
             ShowCreation(VGroup(omega[i+1:])),
             ShowCreation(VGroup(p_powers[i+1:])),
         )
-        self.wait_to(60+8)
+        #self.wait_to(60+8)
 
         self.play(FadeOut(VGroup(axiom5, axiom6)))
         axiom3 = AxiomMobject(3).to_corner(UP+LEFT)
@@ -945,7 +963,7 @@ class LargeConstructionAxioms(Scene):
         axiom3.behind_edge(UP)
         self.play(axiom3.restore)
 
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
 
         buff = 0.2
         corner_ul = p_powers.get_corner(UP+LEFT)+buff*(UP+LEFT)
@@ -962,16 +980,16 @@ class LargeConstructionAxioms(Scene):
         ])
         self.play(ShowCreation(dashed_rect))
 
-        self.wait_to(60+29)
+        #self.wait_to(60+29)
         axiom7 = AxiomMobject(7, newline = False).next_to(axiom3, DOWN, aligned_edge = LEFT)
         self.play(axiom7.creation_anim())
 
-        self.wait_to(60+54)
+        #self.wait_to(60+54)
         self.play(FadeOut(dashed_rect))
 
         numbers = omega.add_descriptions(lambda n: TexMobject(str(n)),
                                         direction = DOWN)
-        self.wait_to(2*60+2)
+        #self.wait_to(2*60+2)
         self.play(ShowCreation(numbers))
 
         corner_dl = numbers.get_corner(DOWN+LEFT)+buff*(DOWN+LEFT)
@@ -981,7 +999,7 @@ class LargeConstructionAxioms(Scene):
             height = corner_ur[1] - corner_dl[1],
             color = YELLOW,
         ).move_to((corner_dl+corner_ur)/2)
-        self.wait_to(2*60+6.5)
+        #self.wait_to(2*60+6.5)
         self.play(ShowCreation(numbers_rect))
 
         rule = VGroup(
@@ -996,9 +1014,9 @@ class LargeConstructionAxioms(Scene):
         rule[1][1].highlight(col)
         rule.to_edge(LEFT)
 
-        self.wait_to(2*60+14.5)
+        #self.wait_to(2*60+14.5)
         self.play(FadeIn(rule[0]))
-        self.wait_to(2*60+16.5)
+        #self.wait_to(2*60+16.5)
         self.play(
             ShowCreation(rule[2]),
             FadeIn(rule[1]),
@@ -1017,32 +1035,32 @@ class LargeConstructionAxioms(Scene):
         for arrow in arrows[20:]:
             arrow.remove(arrow.tip)
         for i,t in enumerate((21.3, 23.8)):
-            self.wait_to(2*60 + t)
+            #self.wait_to(2*60 + t)
             self.remove(omega[i])
             self.play(ShowCreation(arrows[i]))
 
         i += 1
-        self.wait_to(2*60 + 25.8)
+        #self.wait_to(2*60 + 25.8)
         self.remove(omega[i])
         self.play(
             FadeOut(VGroup(omega[i+1:]), submobject_mode = "one_at_a_time"),
             ShowCreation(VGroup(arrows[i:])),
             run_time = 2,
         )
-        self.wait_to(2*60 + 30.5)
+        #self.wait_to(2*60 + 30.5)
 
         rect = numbers_rect
         numbers_rect = rect.copy()
         self.play(Transform(rect, p_powers_rect))
 
-        self.wait_to(2*60 + 38.5)
+        #self.wait_to(2*60 + 38.5)
 
         self.play(FocusOn2(axiom3[0], scale = 1.1))
 
         union_bar = omega[0].copy().highlight(YELLOW).next_to(omega)
-        union_label = TextMobject("Sjednocení").highlight(YELLOW).next_to(union_bar, UP)
+        union_label = TextMobject("Union").highlight(YELLOW).next_to(union_bar, UP)
 
-        self.wait_to(2*60 + 41)
+        #self.wait_to(2*60 + 41)
         self.play(
             Transform(
                 rect,
@@ -1056,25 +1074,25 @@ class LargeConstructionAxioms(Scene):
         self.play(
             ShowCreation(union_bar),
         )
-        self.wait_to(2*60+45)
+        #self.wait_to(2*60+45)
 
         self.play(
             FadeOut(VGroup(union_bar, union_label)),
             axiom3.behind_edge, UP,
         )
-        self.wait_to(2*60+48.5)
+        #self.wait_to(2*60+48.5)
         axiom1 = AxiomMobject(1)
         axiom1.to_corner(LEFT+UP)
         self.play(UnapplyMethod(axiom1.behind_edge, UP))
 
         rect = numbers_rect.copy()
-        self.wait_to(3*60+2)
+        #self.wait_to(3*60+2)
         self.play(FadeIn(rect))
         self.play(Transform(rect, p_powers_rect))
         self.dither()
         self.play(FadeOut(rect))
 
-        self.wait_to(3*60+12)
+        #self.wait_to(3*60+12)
         rule.save_state()
         rule.move_to(ORIGIN, coor_mask = X_MASK)
         self.play(
@@ -1087,10 +1105,10 @@ class LargeConstructionAxioms(Scene):
         number = rule[0]
         power = rule[1]
         arrow = rule[2]
-        self.wait_to(3*60+14.5)
+        #self.wait_to(3*60+14.5)
         self.play(FocusOn2(number))
         self.play(FocusOn2(power))
-        self.wait_to(3*60+24)
+        #self.wait_to(3*60+24)
 
         cancel_line = VGroup(
             Line(row.get_edge_center(LEFT), row.get_edge_center(RIGHT), color = RED)
@@ -1108,22 +1126,23 @@ class LargeConstructionAxioms(Scene):
             Arrow(number, p)
             for p in powers
         )
-        self.wait_to(3*60+27)
+        #self.wait_to(3*60+27)
         for power2 in powers: self.play(FadeIn(power2))
-        self.wait_to(3*60+36)
+        #self.wait_to(3*60+36)
         self.play(ShowCreation(arrows))
 
-        self.wait_to(3*60+45)
+        #self.wait_to(3*60+45)
         self.play(
             Uncreate(cancel_line),
             axiom1.set_fill, None, 1,
         )
-        self.wait_to(3*60+48.5)
+        #self.wait_to(3*60+48.5)
         self.play(
             Transform(arrows, VGroup(arrow), remover = True),
             Transform(powers, VGroup(power), remover = True),
         )
-        self.wait_to(4*60+11)
+        self.dither()
+        #self.wait_to(4*60+11)
 
         self.play(
             VGroup(axiom1, axiom7).behind_edge, UP,
@@ -1133,23 +1152,24 @@ class LargeConstructionAxioms(Scene):
 class AxiomOfChoice(Scene):
     def construct(self):
 
-        series = VideoSeries(num_videos = 16).to_edge(UP)
-        active = series[12]
-        active.remove(active[1])
-        active.add(TexMobject('13').replace(active, 1).scale_in_place(0.6))
-        active.highlight(YELLOW)
+        #series = VideoSeries(num_videos = 16).to_edge(UP)
+        #active = series[12]
+        #active.remove(active[1])
+        #active.add(TexMobject('13').replace(active, 1).scale_in_place(0.6))
+        #active.highlight(YELLOW)
 
         axiom8 = AxiomMobject(8, newline = False)
-        axiom8.next_to(series, DOWN, aligned_edge = LEFT)
+        axiom8.to_edge(UP)
+        #axiom8.next_to(series, DOWN, aligned_edge = LEFT)
         self.play(axiom8.creation_anim())
 
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
 
-        self.play(
-            UnapplyMethod(series.behind_edge, UP),
-            Animation(axiom8),
-        )
-        self.wait_to(19)
+        #self.play(
+        #    UnapplyMethod(series.behind_edge, UP),
+        #    Animation(axiom8),
+        #)
+        #self.wait_to(19)
 
         colors = [ORANGE, PURPLE, RED, BLUE]
 
@@ -1183,7 +1203,7 @@ class AxiomOfChoice(Scene):
                 for sq in sets
             ], run_time = 1),
         )
-        self.wait_to(25)
+        #self.wait_to(25)
 
         chosen = VGroup(sq[1][0] for sq in sets)
         chosen_circ = VGroup(
@@ -1191,7 +1211,7 @@ class AxiomOfChoice(Scene):
             for dot in chosen
         )
         self.play(ShowCreation(chosen_circ))
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
 
         chosen = VGroup(zip(chosen, chosen_circ)).copy()
         chosen.save_state()
@@ -1215,13 +1235,14 @@ class AxiomOfChoice(Scene):
             ShowCreation(chosen_rect),
             MoveFromSaved(chosen),
         )
-        self.wait_to(49)
+        self.dither()
+        #self.wait_to(49)
         self.play(
             FadeOut(VGroup(
                 chosen_g, sets_g, chosen_circ,
             )),
             VGroup(
-                series, axiom8,
+                axiom8,
             ).behind_edge, UP,
         )
 
@@ -1230,7 +1251,7 @@ class AxiomOfFoundation(Scene):
 
         axiom9 = AxiomMobject(9, newline = False).to_edge(UP)
         self.play(axiom9.creation_anim())
-        self.wait_to(6.8)
+        #self.wait_to(6.8)
 
         sq_out = Square(color = YELLOW).shift(2*LEFT)
         arrow = Arc(angle = -np.pi*1.5, start_angle = np.pi, color = BLUE)
@@ -1281,23 +1302,24 @@ class AxiomOfFoundation(Scene):
             sq.fade(darkness)
 
         for i,t in enumerate((13, 14.5, 16.5)):
-            self.wait_to(t)
+            #self.wait_to(t)
             self.play(ShowCreation(tunnel[i]))
         i += 1
-        self.wait_to(18.8)
+        #self.wait_to(18.8)
         self.play(FadeIn(VGroup(tunnel[i:]), submobject_mode = "one_at_a_time"))
 
-        self.wait_to(30)
+        #self.wait_to(30)
+        self.dither()
         self.play(FadeOut(VGroup(tunnel, sq_out, arrow, sq_in)))
 
         dots1 = VGroup(dot_r_comp() for _ in range(5)).arrange_submobjects(buff = 1)
         dots1.shift(1.5*UP)
         rect1 = SurroundingRectangle(dots1, buff = 0.5, color = YELLOW)
         
-        self.wait_to(32)
+        #self.wait_to(32)
         self.play(FadeIn(dots1), ShowCreation(rect1))
 
-        self.wait_to(35)
+        #self.wait_to(35)
         dot = dots1[1]
         pointer = TrianglePointer().next_to(rect1, UP)
         pointer.highlight(BLACK)
@@ -1310,18 +1332,18 @@ class AxiomOfFoundation(Scene):
         dots2 = dots1.copy().highlight(GREEN)
         VGroup(rect2, dots2).next_to(rect1, DOWN, buff = 0.5)
 
-        self.wait_to(38.5)
+        #self.wait_to(38.5)
         self.play(
             ReplacementTransform(dot.copy(), rect2),
             FadeIn(dots2),
         )
-        self.wait_to(57)
+        #self.wait_to(57)
 
         tunnel_backup = tunnel.copy()
         tunnel.to_corner(DOWN+LEFT)
         self.play(FadeIn(tunnel))
 
-        self.wait_to(60+5.5)
+        #self.wait_to(60+5.5)
         dots = []
         arrows = []
         shift = 2*RIGHT
@@ -1356,7 +1378,7 @@ class AxiomOfFoundation(Scene):
         dots = VGroup(dots)
         arrows = VGroup(arrows)
         rect = SurroundingRectangle(dots, buff = 0.5)
-        self.wait_to(60+18.5)
+        #self.wait_to(60+18.5)
         self.play(ShowCreation(rect))
 
         index = 3
@@ -1365,7 +1387,7 @@ class AxiomOfFoundation(Scene):
 
         pointer2.save_state()
         pointer2.shift(2*LEFT).highlight(BLACK)
-        self.wait_to(60+23.8)
+        #self.wait_to(60+23.8)
         self.play(pointer2.restore)
 
         square = SurroundingRectangle(
@@ -1373,10 +1395,10 @@ class AxiomOfFoundation(Scene):
             color = dots[index].color,
             buff = 0.4,
         )
-        self.wait_to(60+26)
+        #self.wait_to(60+26)
         self.play(ReplacementTransform(dots[index].copy(), square))
 
-        self.wait_to(60+37.5)
+        #self.wait_to(60+37.5)
         self.play(FadeOut(VGroup(pointer2, square)))
         cancel_line = Line(
             rect.get_edge_center(LEFT) + 0.1*UP,
@@ -1391,12 +1413,13 @@ class AxiomOfFoundation(Scene):
         tunnel.next_to(rect, UP, aligned_edge = LEFT, buff = 0.3)
         tunnel.fade(0.5)
         cross = Cross(color = RED).replace(tunnel).scale_in_place(1.1)
-        self.wait_to(60+42)
+        #self.wait_to(60+42)
         self.play(FadeIn(tunnel))
         self.play(ShowCreation(cross))
 
-        self.wait_to(60+46.5)
+        #self.wait_to(60+46.5)
 
+        self.dither()
         self.play(FadeOut(VGroup(
             pointer, rect1, dots1, rect2, dots2,
             tunnel, cross,
@@ -1446,12 +1469,12 @@ class VonNeumannUniverse(Scene):
         )
         trapezoid.gradient_highlight(GREEN, BLUE, average_color(PURPLE, BLACK))
 
-        all_sets_label = TextMobject("Všechny množiny")
+        all_sets_label = TextMobject("All sets")
         all_sets_label.next_to(ordinals.line, UP, aligned_edge = RIGHT)
         all_sets_label.shift(0.5*UP + 0.3*LEFT)
         universe.add(trapezoid, all_sets_label)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             ordinals.creation_anim(),
             ShowCreation(lines, submobject_mode = "all_at_once"),
@@ -1460,18 +1483,18 @@ class VonNeumannUniverse(Scene):
         )
         references = VGroup(
             TextMobject("Von Neumann universe"),
-            TextMobject("Fundované jádro"),
         )
         references.highlight(BLUE)
         references.arrange_submobjects(DOWN, aligned_edge = LEFT)
         references.next_to(axiom9, DOWN, buff = 0.5, aligned_edge = LEFT)
 
-        self.wait_to(17)
+        #self.wait_to(17)
         self.play(Write(references[0]))
-        self.wait_to(21)
-        self.play(FadeIn(references[1], submobject_mode = "lagged_start"))
+        #self.wait_to(21)
+        #self.play(FadeIn(references[1], submobject_mode = "lagged_start"))
 
-        self.wait_to(41)
+        #self.wait_to(41)
+        self.dither(2)
         self.play(
             FadeOut(axiom9[0][-1]),
             FadeOut(axiom9[1]),
@@ -1482,7 +1505,7 @@ class AxiomsReminder(Scene):
     def construct(self):
 
         axioms = VGroup(
-            TextMobject("{}) Axiom {}".format(i,name))
+            TextMobject("{}) Axiom of {}".format(i,name))
             for i, (name, description) in enumerate(axiom_data)
         )
         axioms.highlight(GREEN)
@@ -1493,7 +1516,7 @@ class AxiomsReminder(Scene):
         VGroup(axioms[:-1]).behind_edge(UP)
 
         self.play(axioms.restore)
-        self.wait_to(14.5)
+        #self.wait_to(14.5)
 
         for i in (1,3,5,6,7,8):
             self.play(
@@ -1501,7 +1524,8 @@ class AxiomsReminder(Scene):
                 submobject_mode = "lagged_start",
             )
 
-        self.wait_to(40.5)
+        self.dither(2)
+        #self.wait_to(40.5)
 
 class NextChapter(Scene):
     def construct(self):
@@ -1554,12 +1578,12 @@ class NextChapter(Scene):
         num_pair[3].highlight(YELLOW)
         num_pair.next_to(dots[x])
 
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(Write(num_pair))
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(FadeOut(num_pair))
 
-        self.wait_to(12.8)
+        #self.wait_to(12.8)
 
         v_connections = VGroup(
             Line(
@@ -1659,4 +1683,4 @@ class NextChapter(Scene):
         )
         self.remove(top_numbers, bot_numbers)
         self.add(numbers)
-        self.wait_to(21)
+        #self.wait_to(21)

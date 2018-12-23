@@ -207,7 +207,6 @@ class PrisonerScene(Scene):
         self.play(FadeIn(VGroup(*without_bubbles),
                          submobject_mode = "lagged_start",
                          run_time = 2))
-        self.dither()
         self.play(ReplacementTransform(bubbles_src, bubbles,
                   submobject_mode = "one_at_a_time",
                   run_time = 2))
@@ -244,7 +243,7 @@ class TwoSetTheoryRoles(Scene):
                   bubble[0].behind_edge, DOWN,
                   bubble[1].behind_edge, DOWN,
                   run_time = 2)
-        self.dither()
+        #self.dither()
 
         implications = TexMobject("\Rightarrow\Leftarrow")
         implications.arrange_submobjects(DOWN, buff = 0.5)
@@ -261,15 +260,15 @@ class TwoSetTheoryRoles(Scene):
         implications.remove(implications[1])
 
         self.revert_to_original_skipping_status()
-        self.dither()
+        #self.dither()
         self.play(FadeIn(contradiction, submobject_mode = "lagged_start"))
-        self.dither()
+        #self.dither()
 
         questionmarks = TextMobject("???")
         questionmarks.next_to(contradiction, buff = 0.5)
-        self.play(Write(questionmarks))
-        self.dither()
-        contradiction.add(questionmarks)
+        #self.play(Write(questionmarks))
+        #self.dither()
+        #contradiction.add(questionmarks)
 
         cross = Cross().set_color(RED)
         cross.scale((
@@ -465,20 +464,20 @@ class InfinityBasics(Scene):
         self.play(FadeIn(set_inf), GrowFromCenter(brace_inf.brace))
         self.dither()
         self.play(Write(brace_inf.desc))
-        self.dither()
-
-        self.revert_to_original_skipping_status()
-        self.play(FadeOut(VGroup(numbers, brace_inf)))
-
-        set0 = Square(side_length = 1).move_to(set_inf)
-        brace0 = BraceText(set0, "finite", UP)
-        self.play(ReplacementTransform(rect_inf, set0))
-        self.play(brace0.creation_anim())
-        self.dither()
-        self.play(brace0.change_desc, '0')
         self.dither(2)
 
-        self.play(FadeOut(VGroup(set0, brace0, answer, finite_def)), ReplacementTransform(question2, question1))
+        self.revert_to_original_skipping_status()
+        self.play(FadeOut(VGroup(numbers, brace_inf, rect_inf, answer, finite_def)), ReplacementTransform(question2, question1))
+
+        #set0 = Square(side_length = 1).move_to(set_inf)
+        #brace0 = BraceText(set0, "finite", UP)
+        #self.play(ReplacementTransform(rect_inf, set0))
+        #self.play(brace0.creation_anim())
+        #self.dither()
+        #self.play(brace0.change_desc, '0')
+        #self.dither(2)
+
+        #self.play(FadeOut(VGroup(set0, brace0, answer, finite_def)), ReplacementTransform(question2, question1))
         self.dither()
         self.play(Write(TextMobject("Not just a number...")))
         self.dither(3)
@@ -752,13 +751,13 @@ class InfGridColoring(Scene):
         column_colors = self.generate_colors(column, main_blue = False)
 
         self.play(TurnSquares(row, row_colors))
-        self.dither()
+        self.dither(2)
         self.play(TurnSquares(column, column_colors))
-        self.dither()
+        self.dither(3)
 
-        counter = Counter()
-        counter.count_from(5, self)
-        self.dither()
+        #counter = Counter()
+        #counter.count_from(5, self)
+        #self.dither()
 
         self.play(
             TurnSquares(self.squares, colors),

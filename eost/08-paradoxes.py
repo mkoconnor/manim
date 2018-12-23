@@ -31,17 +31,17 @@ import importlib
 
 class Chapter8OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 8\\\\ Paradoxy a formální teorie",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 8\\\\ Paradoxes, and formal theory",
     }
 
 class Chapter8OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Není náhoda, že se","všichni slavní logici","zbláznili."
+            "It is not a coincidence that all the famous logicians went mad."
         ],
         "highlighted_quote_terms" : {
-            "všichni slavní logici" : GREEN,
+            "all the famous logicians" : GREEN,
         },
         "author" : "Pavel Paták"
     }
@@ -62,7 +62,8 @@ class LargeOrdinalsScene(Scene):
 
         self.play(ShowCreation(ordinals_cnt))
 
-        self.wait_to(7)
+        #self.wait_to(7)
+        self.dither()
         self.play(ordinals_cnt.restore)
 
         self.remove(ordinals_cnt)
@@ -89,7 +90,8 @@ class LargeOrdinalsScene(Scene):
             ReplacementTransform(omega1_bars_src, omega1.bars),
         )
 
-        self.wait_to(11)
+        #self.wait_to(11)
+        self.dither()
 
         aleph1 = TexMobject("\\aleph_1","=|","\omega_1","|")
         aleph1[2].highlight(BLUE)
@@ -98,7 +100,8 @@ class LargeOrdinalsScene(Scene):
         aleph1.remove(aleph1[2])
 
         self.play(Write(aleph1))
-        self.wait_to(15)
+        #self.wait_to(15)
+        self.dither()
 
         ordinals_a1 = VGroup([omega1.copy() for _ in range(num)])
         
@@ -109,7 +112,8 @@ class LargeOrdinalsScene(Scene):
             FadeOut(VGroup(brace, aleph1[1:])),
             MoveFromSaved(aleph1[0]),
         )
-        self.wait_to(18.5)
+        #self.wait_to(18.5)
+        self.dither()
         aleph1 = aleph1[0]
 
         scale_center = np.array(ordinals_a1[0].line.get_start())
@@ -145,7 +149,8 @@ class LargeOrdinalsScene(Scene):
             ReplacementTransform(omega2_src, omega2),
         )
 
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
+        self.dither()
 
         aleph2 = TexMobject("\\aleph_2","=|","\omega_2","|")
         aleph2[2].highlight(BLUE)
@@ -154,7 +159,8 @@ class LargeOrdinalsScene(Scene):
         aleph2.remove(aleph2[2])
 
         self.play(Write(aleph2))
-        self.wait_to(28)
+        #self.wait_to(28)
+        self.dither()
 
         ordinal_fin = OrdinalFinite(7, x1 = SPACE_WIDTH+1).highlight(BLUE)
         ord_labels = VGroup([
@@ -173,11 +179,11 @@ class LargeOrdinalsScene(Scene):
         )
 
         for i,t in enumerate((29, 31, 35.5, 38)):
-            self.wait_to(t)
+            #self.wait_to(t)
             self.play(FadeIn(ord_labels[i]), ShowCreation(ordinal_fin[i]))
             if i >= 2: self.play(FadeIn(card_labels[i]))
 
-        self.wait_to(41)
+        #self.wait_to(41)
         self.play(ShowCreation(VGroup(ordinal_fin[4:], rate_func = rush_into)))
 
         omega = OrdinalOmega().highlight(BLUE)
@@ -208,7 +214,7 @@ class LargeOrdinalsScene(Scene):
             limit_g.restore,
         )
         self.remove(labels_to_fade)
-        self.wait_to(52)
+        #self.wait_to(52)
 
         plus1_bar = limit_bar.copy()
         plus1_label = TexMobject("\\omega_{\\omega+1}").highlight(BLUE).next_to(plus1_bar, UP)
@@ -216,7 +222,7 @@ class LargeOrdinalsScene(Scene):
         plus1_g.next_to(limit_g, coor_mask = X_MASK, buff = 0.5)
 
         self.play(FadeIn(plus1_label), ShowCreation(plus1_bar))
-        self.wait_to(55)
+        #self.wait_to(55)
 
         omega_pow = make_ordinal_power(2, q=(0.8, 0.9, 0.9)).highlight(BLUE)
         omega_pow_src = omega_pow.copy()
@@ -246,7 +252,8 @@ class LargeOrdinalsScene(Scene):
         )
         self.remove(plus1_label)
 
-        self.wait_to(59)
+        #self.wait_to(59)
+        self.dither()
 
         labels_to_fade = VGroup(label1, limit_g, pow_label)
         labels_to_fade.save_state()
@@ -274,7 +281,8 @@ class LargeOrdinalsScene(Scene):
             MoveFromSaved(pow_bar, remover = True),
             ReplacementTransform(omega_pow, omega1.bars),
         )
-        self.wait_to(60+7.5)
+        #self.wait_to(60+7.5)
+        self.dither()
 
         ordinal_fin = OrdinalFinite(6, x1 = SPACE_WIDTH+1).highlight(BLUE)
         omega1.save_state()
@@ -296,14 +304,15 @@ class LargeOrdinalsScene(Scene):
             ReplacementTransform(omega1_label, labels[0]),
             ReplacementTransform(omega1_bar, ordinal_fin[0]),
         )
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
         self.play(FadeIn(labels[2]), ShowCreation(ordinal_fin[2]))
-        self.wait_to(60+13)
+        #self.wait_to(60+13)
         self.play(ShowCreation(VGroup(ordinal_fin[3:]), rate_func = rush_into))
-        self.wait_to(60+21.5)
+        #self.wait_to(60+21.5)
+        self.dither(2)
 
         conversation = Conversation(self)
-        conversation.add_bubble("A co sjednotit všechny ordinály?")
+        conversation.add_bubble("What about the union of all the ordinals?")
 
         self.play(
             FadeOut(VGroup(labels, ordinal_fin)),
@@ -315,7 +324,7 @@ class CesareBuraltiParadox(Scene):
 
         self.force_skipping()
         conversation = Conversation(self)
-        conversation.add_bubble("A co sjednotit všechny ordinály?")
+        conversation.add_bubble("What about the union of all the ordinals?")
         self.revert_to_original_skipping_status()
 
         forti_pic = ImageMobject("BuraliForti1.jpg", use_cache = False)
@@ -337,35 +346,36 @@ class CesareBuraltiParadox(Scene):
         lines = VGroup([subord.line for subord in subordinals])
         bars = VGroup([subord.bars for subord in subordinals])
 
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(FadeIn(subordinals))
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         self.play(
             Transform(lines, lines_dest),
             Transform(bars, bars_dest),
         )
         self.remove(subordinals)
         self.add(ordinal_class)
-        self.wait_to(6)
+        #self.wait_to(6)
         conversation.add_bubble("Cesare Burali-Forti paradox")
 
         next_bar = ordinal_class.bars[0][0].copy().next_to(ordinal_class)
         next_bar.highlight(YELLOW)
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(ShowCreation(next_bar))
 
-        brace = BraceText(VGroup(ordinal_class, next_bar), "Nový ordinál", UP)
-        self.wait_to(15)
+        brace = BraceText(VGroup(ordinal_class, next_bar), "New ordinal number", UP)
+        #self.wait_to(15)
         self.play(brace.creation_anim())
 
         picture = VGroup(ordinal_class, brace, next_bar)
         picture.save_state()
         picture.next_to(forti_pic, coor_mask = X_MASK)
 
-        self.wait_to(29)
+        #self.wait_to(29)
         self.play(FadeIn(forti_pic))
 
-        self.wait_to(49)
+        self.dither(3)
+        #self.wait_to(49)
         self.play(*map(FadeOut, [
             picture,
             conversation.dialog,
@@ -390,23 +400,24 @@ class OrdinalsMotivation(Scene):
         for i,label in enumerate(p_powers):
             label[-i-1].highlight(GREEN)
 
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(Write(p_powers[0]))
-        self.wait_to(10)
+        #self.wait_to(10)
         self.play(ReplacementTransform(p_powers[0][0].copy(), p_powers[1][-2]))
         self.play(Write(VGroup(p_powers[1][:-2], p_powers[1][-1])))
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(ShowCreation(VGroup(p_powers[2:])))
 
         union_bar = omega[0].copy().highlight(YELLOW).next_to(omega)
-        union_label = TextMobject("Sjednocení").highlight(YELLOW).next_to(union_bar, UP)
+        union_label = TextMobject("Union").highlight(YELLOW).next_to(union_bar, UP)
 
-        self.wait_to(16)
+        #self.wait_to(16)
         self.play(ShowCreation(union_bar))
         self.play(ReplacementTransform(
             p_powers.copy(), VGroup(union_label),
         ))
-        self.wait_to(22)
+        self.dither(2)
+        #self.wait_to(22)
         self.play(FadeOut(VGroup(
             omega, p_powers, union_bar, union_label
         )))
@@ -441,7 +452,7 @@ class CantorParadox(Scene):
 
         all_sets = AllSetsPicture()
         rectangles, dots = all_sets
-        all_sets_label = TextMobject("Všech","ny"," množin","y", arg_separator = '')
+        all_sets_label = TextMobject("All","sets")
         all_sets_g = VGroup(all_sets_label, all_sets).arrange_submobjects(DOWN)
 
         self.play(
@@ -451,10 +462,10 @@ class CantorParadox(Scene):
         )
         self.play(FadeIn(all_sets_label, submobject_mode = "lagged_start"))
         self.add(all_sets_g)
-        self.wait_to(4)
+        #self.wait_to(4)
 
         union_rect = SurroundingRectangle(rectangles, buff = 0)
-        union_label = TextMobject("Sjednocení","všech","množin")
+        union_label = TextMobject("Union of","all","sets")
         union_label[0].highlight(YELLOW)
         union_label.next_to(union_rect, UP)
 
@@ -468,23 +479,16 @@ class CantorParadox(Scene):
         self.add(union_rect)
 
 
-        to_fade = VGroup(all_sets_label[1], all_sets_label[3])
-        to_fade.save_state()
-        to_fade.highlight(BLACK)
-        for m1, m2 in zip(to_fade, union_label[1:]):
-            m1.next_to(m2, buff = 0.05, coor_mask = X_MASK)
-
         union_label[0].save_state()
         union_label[0].highlight(BLACK)
         union_label[0].next_to(all_sets_label[0], LEFT, coor_mask = X_MASK)
         self.play(
-            MoveFromSaved(to_fade, remover = True),
             ReplacementTransform(
-                VGroup(all_sets_label[0::2]), VGroup(union_label[1:])
+                all_sets_label, VGroup(union_label[1:])
             ),
             union_label[0].restore,
         )
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
 
         union = VGroup(dots, union_rect)
         union_label2 = TexMobject('A').highlight(YELLOW)
@@ -514,7 +518,7 @@ class CantorParadox(Scene):
             - powerset_label[1].get_corner(DOWN+LEFT)
             + DEFAULT_MOBJECT_TO_MOBJECT_BUFFER*UP
         )
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(
             FadeIn(powerset_label[1]),
             ShowCreation(powerset_rect),
@@ -523,25 +527,26 @@ class CantorParadox(Scene):
 
         rectangles.save_state()
         rectangles[1].highlight(pws_col)
-        self.wait_to(18)
+        #self.wait_to(18)
+        self.dither()
         self.play(ReplacementTransform(powerset_rect.copy(), rectangles[1]))
 
-        self.wait_to(24)
+        #self.wait_to(24)
         self.play(FadeOut(rectangles[1]))
         rectangles.restore()
 
-        only_sets_text = TextMobject("Pouze\\\\množiny")
+        only_sets_text = TextMobject("Just sets")
         only_sets_arrow = Arrow(ORIGIN, 2*RIGHT)
         only_sets_g = VGroup(only_sets_text, only_sets_arrow).arrange_submobjects()
         only_sets_g.shift(powerset_rect.get_edge_center(LEFT) - only_sets_arrow.get_center())
 
-        self.wait_to(29)
+        #self.wait_to(29)
         self.play(
             FadeIn(only_sets_text),
             ShowCreation(only_sets_arrow),
         )
 
-        self.wait_to(31.5)
+        self.dither()
         self.play(
             FadeOut(union_label2),
             ReplacementTransform(union_rect, VGroup(rectangles[:4])),
@@ -549,13 +554,14 @@ class CantorParadox(Scene):
         )
         all_sets_rect = SurroundingRectangle(rectangles)
         all_sets_label = TexMobject('A').next_to(all_sets_rect, UP).highlight(YELLOW)
-        self.wait_to(35)
+        #self.wait_to(35)
         self.play(ShowCreation(all_sets_rect))
 
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
         self.play(Write(all_sets_label))
 
-        self.wait_to(56.5)
+        self.dither()
+        #self.wait_to(56.5)
         self.play(FadeOut(VGroup(
             all_sets,
             only_sets_g,
@@ -569,7 +575,9 @@ class CantorParadox(Scene):
         powerset_dest = Rectangle(width = w2, height = h).to_edge(RIGHT).highlight(pws_col)
 
         powerset_label = powerset_label[1]
-        self.wait_to(63.5)
+        #self.wait_to(63.5)
+        self.dither()
+        return
         self.play(
             all_sets_label.to_corner, UP+LEFT,
             powerset_label.to_corner, UP+RIGHT,
@@ -624,9 +632,9 @@ class DiagonalPrincipleRecall(Scene):
         x_var = TexMobject('x').move_to(cur_dot)
         line = Line(x_var, subset, buff = 0.2)
 
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(GrowFromCenter(x_var))
-        self.wait_to(9)
+        #self.wait_to(9)
         self.play(ShowCreation(line), FadeIn(subset))
 
         x_inside = x_var.copy().move_to(hdots[cur_dot.index])
@@ -634,9 +642,10 @@ class DiagonalPrincipleRecall(Scene):
         x_inside.save_state()
         x_inside.shift(UP)
         x_inside.set_fill(opacity = 0)
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(x_inside.restore)
-        self.wait_to(14)
+        #self.wait_to(14)
+        self.dither()
         self.play(FadeOut(VGroup(line, subset, x_inside)))
         self.play(ReplacementTransform(x_var, cur_dot))
 
@@ -656,7 +665,8 @@ class DiagonalPrincipleRecall(Scene):
         x_inside.shift(DOWN)
         x_inside.set_fill(opacity = 0)
         self.play(x_inside.restore)
-        self.wait_to(20)
+        #self.wait_to(20)
+        self.dither()
         self.play(FadeOut(VGroup(line, subset, x_inside)))
         self.play(ReplacementTransform(x_var, cur_dot))
 
@@ -665,12 +675,13 @@ class DiagonalPrincipleRecall(Scene):
         subset.restore()
 
         red_hdots = VGroup([hdots[dot.index] for dot in red_dots]).highlight(RED)
-        self.wait_to(24)
+        #self.wait_to(24)
+        self.dither()
         self.play(
             ReplacementTransform(VGroup(list(red_dots)).copy(), red_hdots),
         )
         self.play(ShowCreation(subset))
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
 
         subset_g = VGroup(subset, hdots)
         visible_g = VGroup(subset, red_hdots)
@@ -699,7 +710,8 @@ class DiagonalPrincipleRecall(Scene):
         visible_g.save_state()
         subset_g.move_to(cur_dot, coor_mask = Y_MASK)
         line = Line(cur_dot, subset, buff = 0.2)
-        self.wait_to(36)
+        #self.wait_to(36)
+        self.dither(2)
         self.play(
             FadeOut(ori_line),
             MoveFromSaved(visible_g),
@@ -713,29 +725,31 @@ class DiagonalPrincipleRecall(Scene):
         self.dither(0.2)
         cur_hdot.highlight(YELLOW)
         self.dither()
-        self.wait_to(39.5)
+        #self.wait_to(39.5)
 
         cur_hdot.highlight(RED)
         visible_g.save_state()
         subset_g.move_to(ORIGIN, coor_mask = Y_MASK)
 
         self.play(FadeOut(line), MoveFromSaved(visible_g))
-        self.wait_to(53.7)
+        #self.wait_to(53.7)
 
         cur_dot = vdots[-3]
         subset2 = subset.copy().move_to(cur_dot, coor_mask = Y_MASK)
         line = Line(cur_dot, subset2, buff = 0.2)
 
         self.play(ShowCreation(line))
-        self.wait_to(57)
+        self.dither()
+        #self.wait_to(57)
         self.play(Uncreate(line))
-        self.wait_to(59.5)
+        #self.wait_to(59.5)
         self.play(ReplacementTransform(cur_dot.copy(), subset2))
 
-        self.wait_to(60+11)
-        title = TextMobject("Russellův paradox").next_to(subset, UP)
+        #self.wait_to(60+11)
+        title = TextMobject("Russell's paradox").next_to(subset, UP)
         self.play(FadeIn(title, submobject_mode = "lagged_start"))
-        self.wait_to(60+20)
+        #self.wait_to(60+20)
+        self.dither(2)
 
         title.save_state()
         title.center()
@@ -751,32 +765,33 @@ class DiagonalPrincipleRecall(Scene):
 class RussellParadox(Scene):
     def construct(self):
 
-        title = TextMobject("Russellův paradox").to_edge(UP)
+        title = TextMobject("Russell's paradox").to_edge(UP)
         self.add(title)
 
-        set_inside = TextMobject("Množiny, které neobsahují samu sebe")
+        set_inside = TextMobject("Sets that does not contain themselves")
         set_rect = SurroundingRectangle(set_inside, buff = 0.8, color = RED) 
         self.play(FadeIn(set_inside), ShowCreation(set_rect))
 
         X_label = TexMobject('X').next_to(set_rect, UP, aligned_edge = LEFT)
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(Write(X_label))
 
-        bubble_q = ChatBubble("Obsahuje $X$ samu sebe?", True)
+        bubble_q = ChatBubble("Does $X$ contain itself?", True)
         bubble_q.save_state()
         bubble_q.stretch_about_point(0,1,SPACE_HEIGHT*DOWN)
         bubble_q.highlight(BLACK)
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
         self.play(ApplyMethod(bubble_q.restore, rate_func = rush_from))
 
-        self.wait_to(13.5)
+        self.dither(2)
+        #self.wait_to(13.5)
 
-        bubble_a = ChatBubble("Že by neobsahuje?", False)
+        bubble_a = ChatBubble("No?", False)
         bubble_a.save_state()
         bubble_a.stretch_about_point(0,1,SPACE_HEIGHT*DOWN)
         bubble_a.highlight(BLACK)
         self.play(ApplyMethod(bubble_a.restore, rate_func = rush_from))
-        self.wait_to(17)
+        #self.wait_to(17)
 
         X_label2 = X_label.copy()
         X_label2.shift(
@@ -789,23 +804,25 @@ class RussellParadox(Scene):
         X_label2.shift(UP)
         X_label2.set_fill(opacity = 0)
         self.play(X_label2.restore)
-        self.wait_to(25)
+        #self.wait_to(25)
 
+        self.dither(2)
         self.play(FadeOut(bubble_a))
 
-        bubble_a = ChatBubble("Tak obsahuje?", False)
+        bubble_a = ChatBubble("Or yes...", False)
         bubble_a.save_state()
         bubble_a.stretch_about_point(0,1,SPACE_HEIGHT*DOWN)
         bubble_a.highlight(BLACK)
         self.play(ApplyMethod(bubble_a.restore, rate_func = rush_from))
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
 
         X_label2.save_state()
         X_label2.shift(UP)
         X_label2.set_fill(opacity = 0)
         self.play(MoveFromSaved(X_label2, remover = True))
-        self.wait_to(61.5)
+        #self.wait_to(61.5)
 
+        self.dither(2)
         self.play(FadeOut(VGroup(
             bubble_q, bubble_a, title, X_label,
             set_rect, set_inside,
@@ -816,9 +833,9 @@ class ParadoxesGeneral(Scene):
     def construct(self):
 
         steps_str = [
-            "Všechny množiny určité vlastnosti",
-            "Hromadná operace",
-            "Nový prvek dané vlastnosti",
+            "All sets of certain property",
+            "Mass operation",
+            "New object of that property",
         ]
         steps = VGroup([TextMobject(step_str) for step_str in steps_str])
         steps.arrange_submobjects(DOWN, buff = 1.5)
@@ -829,13 +846,14 @@ class ParadoxesGeneral(Scene):
         self.play(FadeIn(steps[0], submobject_mode = "lagged_start"))
 
         ordinals = OrdinalClass().to_edge(DOWN)
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(FadeIn(ordinals))
-        brace = BraceText(ordinals, ["Typy dobře uspořádaných","množin"], UP)
+        brace = BraceText(ordinals, ["Types of well-ordered","sets"], UP)
         brace.desc[-1].highlight(YELLOW)
         self.play(brace.creation_anim())
 
-        self.wait_to(22)
+        #self.wait_to(22)
+        self.dither()
 
         self.play(FadeOut(VGroup(ordinals, brace)))
         self.play(
@@ -851,7 +869,7 @@ class ParadoxesGeneral(Scene):
         rect1 = SurroundingRectangle(all_sets1, buff = 0)
         rect2 = SurroundingRectangle(all_sets2)
 
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(FadeIn(all_sets1), FadeIn(all_sets2))
         rectangles = all_sets1[0]
         self.play(
@@ -861,7 +879,8 @@ class ParadoxesGeneral(Scene):
         self.remove(rectangles)
 
         self.play(ShowCreation(rect2))
-        self.wait_to(31)
+        #self.wait_to(31)
+        self.dither()
         self.play(FadeOut(VGroup(all_sets1[1], all_sets2, rect1, rect2)))
         self.play(
             ShowCreation(arrow2),
@@ -880,11 +899,13 @@ class ParadoxesGeneral(Scene):
         arrow3 = Arc(angle, radius = radius, start_angle = a0).shift(center)
         arrow3.add_tip()
         arrow3.highlight(RED)
-        contr_label = TextMobject("Spor!").next_to(arrow3)
+        contr_label = TextMobject("Conflict!").next_to(arrow3)
 
-        self.wait_to(37)
+        #self.wait_to(37)
         self.play(ShowCreation(arrow3), FadeIn(contr_label))
-        self.wait_to(52)
+        #self.wait_to(52)
+        self.dither(2)
+        return
 
         self.play(FadeOut(VGroup(
             arrow1, arrow2, arrow3, contr_label,
@@ -896,7 +917,7 @@ class ObjectsVsSets(Scene):
 
         axes = Axes(x_min = -2.2, x_max = 2.5)
         plane_rect = SurroundingRectangle(axes, color = WHITE)
-        labels = TextMobject("Body v rovině", "Formální svět množin")
+        labels = TextMobject("Points in plane", "Formal world of sets")
         labels.next_to(plane_rect, UP)
         plane_label, st_label = labels
         plane_label.move_to(plane_rect, coor_mask = X_MASK)
@@ -904,7 +925,7 @@ class ObjectsVsSets(Scene):
         plane_set.set_color(YELLOW)
         plane_set.set_fill(opacity = 0.3)
         plane_set.shift(0.7*LEFT+DOWN)
-        objects_l = TextMobject("objekty")
+        objects_l = TextMobject("objects")
         objects_l.shift(
             plane_rect.get_corner(UP+RIGHT)
             - objects_l.get_corner(UP+RIGHT)
@@ -955,7 +976,7 @@ class ObjectsVsSets(Scene):
         st_g.next_to(plane_rect, buff = 1)
 
         st_label.move_to(st_rect, coor_mask = X_MASK)
-        st_objects_l = TextMobject("\\uv{množiny}")
+        st_objects_l = TextMobject("``sets''")
         st_objects_l.shift(
             st_rect.get_corner(UP+RIGHT)
             - st_objects_l.get_corner(UP+RIGHT)
@@ -970,36 +991,36 @@ class ObjectsVsSets(Scene):
             FadeIn(points, submobject_mode = "lagged_start"),
         )
         self.play(FadeIn(plane_label, submobject_mode = "lagged_start"))
-        self.wait_to(8)
+        #self.wait_to(8)
 
         plane_set_fill = plane_set.copy().set_stroke(width = 0)
         plane_set_stroke = plane_set.copy().set_fill(opacity = 0)
         self.play(FadeIn(plane_set_fill), ShowCreation(plane_set_stroke))
         self.remove(plane_set_fill, plane_set_stroke)
         self.add(plane_set)
-        self.wait_to(13)
+        #self.wait_to(13)
         plane_set.save_state()
         plane_set.next_to(plane_rect, DOWN, aligned_edge = LEFT)
         self.play(MoveFromSaved(plane_set))
-        self.wait_to(28)
+        #self.wait_to(28)
 
         self.play(ShowCreation(st_rect), FadeIn(st_points))
         self.play(FadeIn(st_label, submobject_mode = "lagged_start"))
-        self.wait_to(42)
+        #self.wait_to(42)
 
-        plane_sets_l = TextMobject("množiny").next_to(plane_set)
+        plane_sets_l = TextMobject("sets").next_to(plane_set)
 
         self.play(FadeIn(objects_l, submobject_mode = "lagged_start"))
-        self.wait_to(44.5)
+        #self.wait_to(44.5)
         self.play(FadeIn(plane_sets_l, submobject_mode = "lagged_start"))
 
-        self.wait_to(51.5)
+        #self.wait_to(51.5)
 
         self.play(Write(st_objects_l))
 
         st_class_fill = st_class.copy().set_stroke(width = 0)
         st_class_stroke = st_class.copy().set_fill(opacity = 0)
-        self.wait_to(57)
+        #self.wait_to(57)
         self.play(
             FadeIn(st_class_fill),
             FadeIn(st_class_points),
@@ -1012,11 +1033,12 @@ class ObjectsVsSets(Scene):
 
         st_class_g.replace(plane_set)
         st_class_g.next_to(st_rect, DOWN, aligned_edge = LEFT)
-        st_class_l = TextMobject("třídy").next_to(st_class)
+        st_class_l = TextMobject("classes").next_to(st_class)
         self.play(MoveFromSaved(st_class_g))
-        self.wait_to(61.5)
+        #self.wait_to(61.5)
         self.play(Write(st_class_l))
-        self.wait_to(60+24)
+        #self.wait_to(60+24)
+        self.dither(2)
 
         st_points.save_state()
         st_objects_l.save_state()
@@ -1042,12 +1064,13 @@ class ObjectsVsSets(Scene):
             MoveFromSaved(st_points),
             MoveFromSaved(st_objects_l),
         )
-        self.wait_to(60+31.5)
+        self.dither()
+        #self.wait_to(60+31.5)
 
 class SetTheoryGraph(Scene):
     def construct(self):
 
-        title1 = VGroup(Dot(), TextMobject("\\uv{množiny}")).arrange_submobjects()
+        title1 = VGroup(Dot(), TextMobject("``sets''")).arrange_submobjects()
         title1.to_corner(UP+RIGHT)
         self.add(title1)
 
@@ -1056,7 +1079,7 @@ class SetTheoryGraph(Scene):
         A_label = TexMobject('A').next_to(A_dot, UP)
         B_label = TexMobject('B').next_to(B_dot, UP)
 
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(ShowCreation(A_dot), FadeIn(A_label))
         self.play(ShowCreation(B_dot), FadeIn(B_label))
 
@@ -1067,7 +1090,8 @@ class SetTheoryGraph(Scene):
         AB = VGroup(A_g, B_g)
         AB.save_state()
 
-        self.wait_to(31)
+        #self.wait_to(31)
+        self.dither()
         self.play(
             B_label.next_to, B_rect, UP,
             Transform(B_dot, B_rect),
@@ -1075,17 +1099,19 @@ class SetTheoryGraph(Scene):
         self.play(
             Transform(A_g, A_dest)
         )
-        self.wait_to(46)
+        self.dither()
+        #self.wait_to(46)
 
         self.play(AB.restore)
         arrow = Arrow(A_dot, B_dot, color = BLUE)
         self.play(ShowCreation(arrow))
 
-        title2 = VGroup(arrow.copy(), TextMobject("\\uv{je prvkem}"))
+        title2 = VGroup(arrow.copy(), TextMobject("``is an element of''"))
         title2.arrange_submobjects()
         title2.next_to(title1, DOWN, aligned_edge = RIGHT)
 
-        self.wait_to(55)
+        self.dither()
+        #self.wait_to(55)
 
         graph_points = [
             (11.52, -6.1 ),
@@ -1129,13 +1155,14 @@ class SetTheoryGraph(Scene):
             VGroup(AB, arrow).shift, 1.5*UP,
             FadeIn(graph_points)
         )
-        self.wait_to(59.5)
+        #self.wait_to(59.5)
         self.play(
             ShowCreation(title2[0]),
             FadeIn(title2[1], submobject_mode = "lagged_start"),
             FadeIn(graph_arrows)
         )
-        self.wait_to(60+19)
+        #self.wait_to(60+19)
+        self.dither(2)
 
         A_col = YELLOW
         B_col = RED
@@ -1162,7 +1189,8 @@ class SetTheoryGraph(Scene):
         A_rect.shift(0.1*(UP+LEFT))
         B_rect.shift(0.1*(DOWN+RIGHT))
 
-        self.wait_to(60+25)
+        #self.wait_to(60+25)
+        self.dither()
         A_rect.save_state()
         A_rect.scale(0)
         A_rect.set_stroke(width = 0)
@@ -1173,7 +1201,7 @@ class SetTheoryGraph(Scene):
             ApplyMethod(A_rect.restore),
             fg = [A_rect],
         )
-        self.wait_to(60+29)
+        #self.wait_to(60+29)
         B_rect.save_state()
         B_rect.scale(0)
         B_rect.set_stroke(width = 0)
@@ -1184,7 +1212,7 @@ class SetTheoryGraph(Scene):
             Animation(A_rect),
             fg = [A_rect, B_rect],
         )
-        self.wait_to(60+31)
+        #self.wait_to(60+31)
         self.show_rev_arrows(
             B_arrows[num:],
             FadeIn(VGroup(elements[num:])),
@@ -1192,15 +1220,17 @@ class SetTheoryGraph(Scene):
             Animation(B_rect),
             fg = [A_rect, B_rect],
         )
-        self.wait_to(60+39)
+        #self.wait_to(60+39)
         self.play(ShowCreation(arrow))
-        self.wait_to(60+42)
+        #self.wait_to(60+42)
+        self.dither()
         self.play(FadeOut(arrow))
-        self.wait_to(60+46)
+        #self.wait_to(60+46)
         
-        class_set = TextMobject("Třídy i množiny").next_to(VGroup(A_rect, B_rect), DOWN)
+        class_set = TextMobject("Classes and sets").next_to(VGroup(A_rect, B_rect), DOWN)
         self.play(FadeIn(class_set, submobject_mode = "lagged_start"))
-        self.wait_to(2*60+2)
+        #self.wait_to(2*60+2)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             title1, title2, A_arrows, B_arrows,
             A_dot, B_dot, A_rect, B_rect, A_label, B_label,
@@ -1229,14 +1259,14 @@ class SetTheoryGraph(Scene):
 
 class ProperClasses(Scene):
     def construct(self):
-        all_sets = TextMobject("Všechny množiny")
+        all_sets = TextMobject("All sets")
         ordinals = OrdinalClass()
         VGroup(all_sets, ordinals).arrange_submobjects(DOWN, buff = 1)
         ordinals_rect = SurroundingRectangle(ordinals, color = YELLOW, buff = 0.3)
         all_sets_rect = SurroundingRectangle(VGroup(ordinals, all_sets), color = RED, buff = 0.3)
         all_sets_rect.shift(0.05*(UP+LEFT))
         ordinals_rect.shift(0.05*(DOWN+RIGHT))
-        proper_classes = TextMobject("Vlastní třídy")
+        proper_classes = TextMobject("Proper classes")
         proper_classes.next_to(VGroup(all_sets_rect, ordinals_rect), DOWN)
         all_sets_rect_src = Rectangle(
             width = 2.1*SPACE_WIDTH,
@@ -1248,14 +1278,14 @@ class ProperClasses(Scene):
             FadeIn(all_sets, submobject_mode = "lagged_start"),
             ReplacementTransform(all_sets_rect_src, all_sets_rect),
         )
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(
             FadeIn(ordinals),
             FadeIn(ordinals_rect),
         )
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(Write(proper_classes))
-        self.wait_to(28)
+        #self.wait_to(28)
 
         self.play(FadeOut(VGroup(
             all_sets, all_sets_rect,
@@ -1270,11 +1300,12 @@ class WhatAreSets(Scene):
         brace = Brace(VGroup(series[8:]), DOWN)
         series.save_state()
         series.behind_edge(UP)
-        question = TextMobject("Co všechno jsou množiny?")
+        question = TextMobject("What can be a set")
         self.play(series.restore, GrowFromCenter(brace))
         self.play(Write(question))
 
-        self.wait_to(11.5)
+        self.dither()
+        #self.wait_to(11.5)
         self.play(
             FadeOut(brace),
             question.shift, 2*DOWN
@@ -1294,9 +1325,9 @@ class WhatAreSets(Scene):
 
         self.play(MoveToTarget(axiom_chap))
         axiom_text = [
-            "Axiomy teorie množin",
-            "$\\bullet$ Pravidla",
-            "$\\bullet$ Povolené konstrukce",
+            "Axioms of set theory",
+            "$\\bullet$ Rules",
+            "$\\bullet$ Allowed constructions",
         ]
         axiom_text = VGroup([TextMobject(text) for text in axiom_text])
         axiom_text.arrange_submobjects(DOWN, aligned_edge = LEFT)
@@ -1304,20 +1335,20 @@ class WhatAreSets(Scene):
         axiom_text.shift(tmp.get_center() - axiom_text[0].get_center())
 
         for ax,t in zip(axiom_text, (15, 18, 25)):
-            self.wait_to(t)
+            #self.wait_to(t)
             self.play(FadeIn(ax), submobject_mode = "lagged_start")
 
-        self.wait_to(39)
+        #self.wait_to(39)
         self.play(
             FadeOut(axiom_text),
             axiom_chap.restore,
         )
         objects = [
-            "Párování",
-            "Uspořádání",
-            "Ordinální čísla",
-            "Reálná čísla",
-            "Kardinální čísla",
+            "Matching",
+            "Ordering",
+            "Ordinal numbers",
+            "Real numbers",
+            "Cardinal numbers",
         ]
         objects = VGroup([TextMobject(text) for text in objects])
         objects.arrange_submobjects(DOWN)
@@ -1346,21 +1377,21 @@ class WhatAreSets(Scene):
             p0 = p0*Y_MASK + p1*X_MASK
             lines.append(Line(p0, p1, buff = 0.2))
 
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
         self.play(FadeIn(objects[2], submobject_mode = "lagged_start"))
-        self.wait_to(50)
+        #self.wait_to(50)
         self.play(
             ShowCreation(lines[2]),
             Transform(series[10], series_active[10]),
         )
 
-        self.wait_to(52)
+        #self.wait_to(52)
         self.play(
             FadeIn(objects[4]),
             ShowCreation(lines[4]),
             Transform(series[15], series_active[15]),
         )
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(
             FadeIn(objects[0]),
             ShowCreation(lines[0]),
@@ -1377,24 +1408,25 @@ class WhatAreSets(Scene):
             ShowCreation(lines[1]),
         )
 
-        self.wait_to(60+20)
+        self.dither(2)
+        #self.wait_to(60+20)
 
 class AxiomList(Scene):
     def construct(self):
 
         axiom_list = TextMobject(
-            """Axiomy
+            """Axioms
 ~
             0) Existence
-            1) Extensionalita
-            2) Dvojice
-            3) Sjednocení
-            4) Vydělení
-            5) Nekonečno
-            6) Potenční množina
-            7) Nahrazení
-            8) Výběr
-            9) Fundovanost""",
+            1) Extensionality
+            2) Pair
+            3) Union
+            4) Selection
+            5) Infinity
+            6) Powerset
+            7) Replacement
+            8) Choice
+            9) Regularity""",
             alignment="\\raggedright"
         )
 
@@ -1403,7 +1435,8 @@ class AxiomList(Scene):
         axiom_list.behind_edge(DOWN)
         self.play(
             axiom_list.restore,
-            run_time = 15,
+            run_time = 7,
             rate_func = None,
         )
-        self.wait_to(24)
+        #self.wait_to(24)
+        self.dither()

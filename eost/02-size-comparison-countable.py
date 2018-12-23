@@ -152,7 +152,7 @@ class FiniteFruitScene(Scene):
             apples_target.shift(LEFT*apples_target.get_center()[0])
             self.play(Uncreate(matching))
             self.play(Transform(apples, apples_target))
-            self.dither()
+            #self.dither()
             # Permute them
             apple_permutations=permute_animations(apples,move="up")
             pear_permutations=permute_animations(pears,move="down")
@@ -163,7 +163,7 @@ class FiniteFruitScene(Scene):
             if i == 1: permuted_apples[0], permuted_apples[-1] = permuted_apples[-1], permuted_apples[0]
             matching = get_matching(Group(*permuted_pears), Group(*permuted_apples))
             self.play(ShowCreation(matching))
-            self.dither()
+            #self.dither()
             self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
             self.play(FocusOn2(permuted_apples[-1], highlight_color = WHITE))
 
@@ -203,7 +203,7 @@ class InfiniteFruitScene(Scene):
 
         self.play(ShowCreation(apples),Write(apple_numbers))
         self.play(ShowCreation(pears),Write(pear_numbers))
-        self.dither()
+        #self.dither()
         apples.submobjects.reverse()
         pears.submobjects.reverse()
         apple_numbers.submobjects.reverse()
@@ -245,7 +245,7 @@ class InfiniteFruitScene(Scene):
         apple_numbers = apple_numbers_persp
         pear_numbers  = pear_numbers_persp
 
-        self.dither()
+        #self.dither()
 
         matching = make_ordinal_matching(
             Ordinal(*apples[1:]),
@@ -263,6 +263,7 @@ class InfiniteFruitScene(Scene):
         # Extra pear
         self.show_extra_fruit(pears, pears_ori, pear_numbers, pear_numbers_ori,
                               matching, apples[1:], pears[:-1], matching_straight)
+        self.dither()
 
         self.play(Transform(matching, matching_straight))
 
@@ -272,11 +273,11 @@ class InfiniteFruitScene(Scene):
 
         apple_box, apple_label = self.pack_into_box(apples, apple_numbers, UP, 'A', RED,
                                                     matching, apples, pears)
-        self.dither()
+        #self.dither()
 
         pear_box, pear_label = self.pack_into_box(pears, pear_numbers, DOWN, 'B', YELLOW,
                                                   matching, apples, pears)
-        self.dither()
+        #self.dither()
 
         self.move_labels_to_definition(apple_label, pear_label, definition[1])
 
@@ -300,8 +301,7 @@ class InfiniteFruitScene(Scene):
         self.add(finite_pears)
         finite_pears.submobjects.reverse()
         pears = finite_pears
-        self.revert_to_original_skipping_status()
-        self.dither()
+        #self.dither()
 
         def attempt(i0, i1, i2, remove = True):
             apple_indices = i0, i1, i2
@@ -310,7 +310,7 @@ class InfiniteFruitScene(Scene):
                 Group(*(apples.submobjects[-1-i] for i in apple_indices))
             )
             self.play(ShowCreation(matching), submobject_mode = "all_at_once")
-            self.dither()
+            #self.dither()
             if remove: self.remove(matching)
             else: return matching
 
@@ -358,7 +358,7 @@ class InfiniteFruitScene(Scene):
         self.darken(matching_shifted)
 
         self.play(Transform(matching, matching_shifted))
-        self.dither()
+        #self.dither()
         fruits_shifted = fruits_ori.copy()
         fruit_numbers_shifted = fruit_numbers_ori.copy()
 
@@ -391,7 +391,7 @@ class InfiniteFruitScene(Scene):
             fruit_numbers.restore,
             Transform(matching, matching_shifted),
         )
-        self.dither()
+        #self.dither()
 
     def pack_into_box(self, fruits, numbers, shift_dir, set_name, color,
                       matching, m1, m2):
@@ -443,7 +443,8 @@ class NaturalsSubsets(Scene):
         self.number_text = TextMobject("Natural Numbers").to_edge(UP)
         self.play(ShowCreation(self.numbers),Write(self.number_text))
 
-        self.show_matching(lambda n: 2*n, "Even", gradual_creation = True)
+        #self.show_matching(lambda n: 2*n, "Even", gradual_creation = True)
+        self.show_matching(lambda n: 2*n, "Even")
         self.dither()
 
         self.show_matching(lambda n: n ** 2, "Square")
@@ -518,16 +519,17 @@ class NotationScene(Scene):
                                             - aleph0_brace.get_tip())
 
 
-        self.play(Write(self.title))
-        self.dither()
+        #self.play(Write(self.title))
+        self.play(FadeIn(self.title), FadeIn(self.subtitle))
+        #self.dither()
         self.play(self.finite_brace.creation_anim())
         self.play(Write(self.sizes[0]))
-        self.dither()
-        self.play(Write(self.subtitle))
-        self.dither()
+        #self.dither()
+        #self.play(Write(self.subtitle))
+        #self.dither()
         self.play(self.infinite_brace.creation_anim())
         self.play(FadeIn(numbers), GrowFromCenter(aleph0_brace))
-        self.dither()
+        #self.dither()
         self.play(ReplacementTransform(aleph0_brace.copy(), self.sizes[1]))
         self.dither()
 
@@ -545,8 +547,8 @@ class NotationScene(Scene):
         self.play(Transform(subset, subset2))
         self.play(Transform(subset, subset3))
         self.dither()
-        self.play(FocusOn2(self.sizes[1][1]))
-        self.dither()
+        #self.play(FocusOn2(self.sizes[1][1]))
+        #self.dither()
         self.play(FadeOut(VGroup(subset, numbers, aleph0_brace)))
         self.play(self.countable_brace.creation_anim())
         self.dither()
@@ -743,6 +745,7 @@ class IntegersScene(Scene):
         )
         self.dither()
 
+        return
         conversation = Conversation(self)
         conversation.add_bubble("Hey, what happened to the merged zero?")
         self.dither()
@@ -799,7 +802,7 @@ class InfiniteTable(InftyPlusInfty):
             subodd_arranged.highlight(color)
 
             self.play(Transform(subeven, subeven_spaced))
-            if index < 2:
+            if False and index < 2:
                 self.play(Transform(subeven, subeven_arranged))
                 self.dither()
                 self.play(Transform(subodd, subodd_arranged))

@@ -1048,7 +1048,9 @@ class OrdinalRoles(Scene):
         ord1.highlight(WHITE)
         VGroup(*ord2[:3]).highlight(WHITE)
         self.all_bars = VGroup(ord1, ord2)
-        self.dither()
+        self.dither(2)
+        return
+
         self.play(*map(FadeOut, [successor, pointer, pointer_desc]))
         self.move_brace(ord1[:4], TextMobject("four"))
         self.dither()

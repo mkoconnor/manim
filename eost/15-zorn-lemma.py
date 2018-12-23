@@ -30,19 +30,19 @@ import importlib
 
 class Chapter15OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 15\\\\ Zornovo lemma",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 15\\\\ Zorn's lemma",
     }
 
 class Chapter15OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Axiom výběru","zjevně platí,","princip dobrého uspořádání","zjevně neplatí, a","Zornovo lemma","-- těžko říct."
+            "The","Axiom of Choice","is obviously true, the","Well–ordering theorem","is obviously false; and who can tell about","Zorn’s Lemma?"
         ],
         "highlighted_quote_terms" : {
-            "Axiom výběru" : GREEN,
-            "princip dobrého uspořádání" : ORANGE,
-            "Zornovo lemma" : YELLOW_D,
+            "Axiom of Choice" : GREEN,
+            "Well-ordering theorem" : ORANGE,
+            "Zorn's lemma?" : YELLOW_D,
         },
         "author" : "Jerry Bona"
     }
@@ -50,11 +50,11 @@ class Chapter15OpeningQuote(OpeningQuote):
 class ReminderScene(Scene):
     def construct(self):
 
-        title = TextMobject("Formální rekurze").to_edge(UP).scale(1.2)
+        title = TextMobject("Formal recursion").to_edge(UP).scale(1.2)
         title.to_edge(UP)
 
-        ind_title = TextMobject("Indukce")
-        ind_subtitle = TextMobject("$=$ důkaz sporem")
+        ind_title = TextMobject("Induction")
+        ind_subtitle = TextMobject("$=$ proof by contradiction")
         ordinal = OrdinalOmega(x0 = -3, x1 = 3)
         pointer = TrianglePointer().scale(-1).highlight(RED)
         ind_group = VGroup(ind_title, ind_subtitle, ordinal, pointer)
@@ -64,8 +64,8 @@ class ReminderScene(Scene):
         ind_group.add(ind_rect)
         ind_group.to_corner(DOWN+RIGHT)
 
-        unique_rules = TextMobject("Jednoznačný\\\\předpis").to_corner(LEFT+DOWN)
-        axiom_of_choice = TextMobject("Axiom\\\\výběru")
+        unique_rules = TextMobject("Unique\\\\instructions").to_corner(LEFT+DOWN)
+        axiom_of_choice = TextMobject("Axiom\\\\of Choice")
         axiom_of_choice.next_to(unique_rules, UP, buff = 1.5)
 
         p0 = ind_title.get_edge_center(UP)
@@ -92,7 +92,7 @@ class ReminderScene(Scene):
             arrow_ind, arrow_uniq, arrow_ac,
         )
         self.play(FadeIn(everything))
-        self.wait_to(11)
+        #self.wait_to(11)
 
         ordinal3 = OrdinalFiniteProd(OrdinalOmega, 3, x0 = -3, x1 = 3)
         ordinal3.shift(
@@ -105,16 +105,17 @@ class ReminderScene(Scene):
         self.play(
             ReplacementTransform(ordinal3_src, ordinal3)
         )
-        self.wait_to(19)
+        #self.wait_to(19)
 
         red_split = 3
         VGroup(ordinal3[0], ordinal3[1][:red_split]).highlight(GREEN)
         VGroup(ordinal3[2], ordinal3[1][red_split:]).highlight(RED)
         pointer_dest = pointer.copy()
         pointer_dest.move_to(ordinal3_src[1][red_split], coor_mask = X_MASK)
-        self.wait_to(20.5)
+        #self.wait_to(20.5)
         self.play(Transform(pointer, pointer_dest))
-        self.wait_to(28)
+        #self.wait_to(28)
+        self.dither(2)
 
         ind_group.remove(ordinal)
         ind_group.add(ordinal3)
@@ -138,17 +139,18 @@ def make_sets_AB():
 class IntroExample(Scene):
     def construct(self):
 
-        series = VideoSeries(num_videos = 16).to_edge(UP)
-        series[2].highlight(YELLOW)
-        series.save_state()
-        series.behind_edge(UP)
-        self.play(
-            series.restore
-        )
-        question = TextMobject("Jsou libovolné dvě množiny porovnatelné?")
-        question.next_to(series, DOWN, buff = 0.6)
+        #series = VideoSeries(num_videos = 16).to_edge(UP)
+        #series[2].highlight(YELLOW)
+        #series.save_state()
+        #series.behind_edge(UP)
+        #self.play(
+        #    series.restore
+        #)
+        question = TextMobject("Are any two sets comparable?")
+        #question.next_to(series, DOWN, buff = 0.6)
+        question.to_edge(UP)
         question.to_edge(LEFT)
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(FadeIn(question, submobject_mode = "lagged_start"))
         self.dither()
 
@@ -156,11 +158,11 @@ class IntroExample(Scene):
         label_A_ori = label_A.copy()
         label_B_ori = label_B.copy()
 
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(FadeIn(label_A), ShowCreation(set_A))
         self.play(FadeIn(label_B), ShowCreation(set_B))
 
-        self.wait_to(10)
+        #self.wait_to(10)
         p0 = set_B.get_start()
         p1 = set_B.get_end()
         dots_B = VGroup([
@@ -183,7 +185,8 @@ class IntroExample(Scene):
         self.remove(set_B)
         self.add(dots_B)
 
-        self.wait_to(15)
+        #self.wait_to(15)
+        self.dither()
         self.play(FadeOut(VGroup(matching)))
 
         #omega2 = VGroup(
@@ -217,7 +220,7 @@ class IntroExample(Scene):
         reals_size.remove(reals_l)
         reals_l.highlight(color_B)
 
-        self.wait_to(18.5)
+        #self.wait_to(18.5)
         self.play(
             FadeOut(dots_B),
             FadeIn(reals),
@@ -229,10 +232,10 @@ class IntroExample(Scene):
             ReplacementTransform(label_A, omega2_l),
         )
 
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         self.play(Write(omega2_size))
 
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
         self.play(Write(reals_size))
 
         inequalities = VGroup([
@@ -243,16 +246,16 @@ class IntroExample(Scene):
         inequalities.shift(0.5*shift_B)
 
         ineq = inequalities[0].copy()
-        self.wait_to(40.5)
+        #self.wait_to(40.5)
         self.play(FadeIn(ineq))
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
         self.play(Transform(ineq, inequalities[1]))
         self.play(Transform(ineq, inequalities[2]))
 
-        self.wait_to(48)
+        #self.wait_to(48)
         self.play(FadeOut(ineq))
 
-        self.wait_to(63.5)
+        #self.wait_to(63.5)
         self.play(
             FadeOut(VGroup(
                 omega2_size,
@@ -267,11 +270,12 @@ class IntroExample(Scene):
             ReplacementTransform(omega2_l, label_A_ori),
             ReplacementTransform(reals_l, label_B_ori),
             VGroup(
-                series,
+                #series,
                 question,
             ).behind_edge, UP,
         )
-        self.wait_to(66)
+        self.dither(2)
+        #self.wait_to(66)
 
 class MatchingConstruction(Scene):
     def construct(self):
@@ -311,29 +315,30 @@ class MatchingConstruction(Scene):
             for ordinal in (ordinal_fwd, ordinal_rev)
         ])
 
-        self.wait_to(2.5)
+        #self.wait_to(2.5)
         for i in range(6):
             self.play(ShowCreation(matching[0][i]), run_time = 0.5)
         self.play(ShowCreation(VGroup(matching[0][i+1:])))
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         for i in range(4):
             self.play(ShowCreation(matching[1][i]), run_time = 0.5)
         # 15.5
         self.play(ShowCreation(VGroup(matching[1][i+1:]))) # 16.5
 
-        self.wait_to(18.5)
+        #self.wait_to(18.5)
         self.remove(set_A)
         self.add(dots)
         ineq = TexMobject("\\leq")
         ineq.rotate(-np.pi/2)
         ineq.move_to((label_A.get_center()+ label_B.get_center())/2)
-        self.wait_to(20.5)
+        #self.wait_to(20.5)
         self.play(Write(ineq))
-        self.wait_to(26)
+        #self.wait_to(26)
+        self.dither(2)
 
         conversation = Conversation(self)
-        anim = conversation.add_bubble_anim("A co když ani jednu množinu nikdy nevyčerpáme?")
+        anim = conversation.add_bubble_anim("What if neither of them run out?")
 
         self.remove(dots, ineq)
         picture = VGroup(set_A, set_B, label_A, label_B, matching)
@@ -341,14 +346,15 @@ class MatchingConstruction(Scene):
             picture.shift, UP,
             anim,
         )
-        self.wait_to(42)
+        self.dither(2)
+        #self.wait_to(42)
 
         ordinals = OrdinalClass()
         ordinals.to_edge(UP)
         ordinals_l = TexMobject("\mathbb On").next_to(ordinals, LEFT, buff = 0.5)
 
         self.play(FadeOut(matching))
-        self.wait_to(44)
+        #self.wait_to(44)
         self.play(
             ordinals.creation_anim(),
             FadeIn(ordinals_l),
@@ -361,7 +367,7 @@ class MatchingConstruction(Scene):
             Arrow(p0 + 0.3*RIGHT*i, p1 + 1.3*RIGHT*i)
             for i in range(3)
         ])
-        self.wait_to(52)
+        #self.wait_to(52)
         self.play(ShowCreation(arrows))
 
         def random_point(line):
@@ -371,38 +377,39 @@ class MatchingConstruction(Scene):
             Line(random_point(set_A), random_point(set_B), stroke_width = 1)
             for _ in range(200)
         ])
-        self.wait_to(55)
+        #self.wait_to(55)
         self.play(ShowCreation(matching))
 
-        self.wait_to(59)
+        #self.wait_to(59)
 
         arrows_dest = arrows.copy()
         for arrow in arrows_dest: arrow.rotate_in_place(np.pi)
         self.play(Transform(arrows, arrows_dest, path_arc = np.pi))
 
-        self.wait_to(60+7)
+        #self.wait_to(60+7)
         rect = SurroundingRectangle(VGroup(set_A, set_B))
         self.play(ShowCreation(rect))
         rect_dest = SurroundingRectangle(ordinals)
 
-        self.wait_to(60+12.5)
+        #self.wait_to(60+12.5)
         self.play(Transform(rect, rect_dest))
 
-        contradiction = TextMobject("Spor").highlight(YELLOW)
+        contradiction = TextMobject("Contradiction").highlight(YELLOW)
         contradiction.next_to(rect, DOWN, aligned_edge = RIGHT)
         contradiction.shift(0.5*RIGHT)
-        self.wait_to(60+17)
+        #self.wait_to(60+17)
         self.play(Write(contradiction))
-        self.wait_to(60+47.5)
+        self.dither()
+        #self.wait_to(60+47.5)
 
 def make_zorn_lemma_box():
-    chain_condition = TextMobject("Každý","řetězec\\\\","má","horní mez")
+    chain_condition = TextMobject("Every","chain\\\\","has","upper bound")
     chain_condition[1].highlight(GREEN)
     chain_condition[3].highlight(YELLOW)
     consequence = TextMobject("$\\Rightarrow$", "Maximum")
     consequence.next_to(chain_condition, DOWN)
     zorn_lemma_rect = SurroundingRectangle(VGroup(chain_condition, consequence))
-    zorn_lemma_label = TextMobject("Zornovo lemma").highlight(YELLOW)
+    zorn_lemma_label = TextMobject("Zorn's lemma").highlight(YELLOW)
     zorn_lemma_label.next_to(zorn_lemma_rect, DOWN, aligned_edge = LEFT)
     zorn_lemma = VGroup(
         chain_condition,
@@ -570,7 +577,7 @@ class MatchingPoset(Scene):
             ShowCreation(set_lines),
             submobject_mode = "lagged_start",
         )
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             FadeOut(set_lines),
             FadeIn(VGroup(box1[2:])),
@@ -587,10 +594,10 @@ class MatchingPoset(Scene):
         self.remove(box1)
         self.add(box1)
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(ShowCreation(lines))
 
-        self.wait_to(27)
+        #self.wait_to(27)
 
         self.remove(labels)
         self.play(
@@ -601,7 +608,7 @@ class MatchingPoset(Scene):
         )
         layers_boxes[2].submobjects = layer2_ori
 
-        self.wait_to(33)
+        #self.wait_to(33)
 
         box_min = layers_boxes[0][0]
         zoom_min = self.make_zoom(box_min, buff = 0.7)
@@ -612,7 +619,7 @@ class MatchingPoset(Scene):
             ShowCreation(arrow_min),
             FadeIn(text_min),
         )
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
 
         box_max = layers_boxes[3][-1]
         zoom_max = [
@@ -627,7 +634,8 @@ class MatchingPoset(Scene):
             *[self.zoom_anim(zoomed) for zoomed in zoom_max]
         )
 
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
+        self.dither(2)
 
         self.play(
             FadeOut(VGroup(
@@ -648,7 +656,7 @@ class MatchingPoset(Scene):
             sm1.interpolate_color(sm2, sm1, 0.3)
         small_box.restore()
 
-        self.wait_to(60+14.5)
+        #self.wait_to(60+14.5)
         self.play(
             Transform(layers_boxes, layers_boxes_dest),
             lines_boxes.fade, 0.7,
@@ -656,10 +664,10 @@ class MatchingPoset(Scene):
         big_box = self.make_matching(small_box.code, mikro = False)
         big_box.move_to(small_box)
         big_box.to_edge(RIGHT)
-        self.wait_to(60+17.5)
+        #self.wait_to(60+17.5)
         self.play(ReplacementTransform(small_box.copy(), big_box))
 
-        self.wait_to(60+20.5)
+        #self.wait_to(60+20.5)
 
         box_index = 0
         for layer_index in range(1,4):
@@ -699,7 +707,7 @@ class MatchingPoset(Scene):
             self.remove(mline)
             self.play(ShowCreation(mline))
 
-        self.wait_to(60+34)
+        #self.wait_to(60+34)
         self.play(FadeOut(big_box))
 
         layers_dots = VGroup([
@@ -737,7 +745,7 @@ class MatchingPoset(Scene):
             for box, dot in zip(layer_boxes, layer_dots):
                 dot.highlight(rgb_to_color(box[0].stroke_rgb))
 
-        self.wait_to(60+35.5)
+        #self.wait_to(60+35.5)
 
         VGroup(lines_dots, layers_dots).move_to(layers_boxes)
         self.play(
@@ -746,7 +754,7 @@ class MatchingPoset(Scene):
             run_time = 2,
         )
 
-        self.wait_to(60+46.5)
+        #self.wait_to(60+46.5)
         poset = VGroup(layers_dots, lines_dots)
         self.play(poset.shift, 4*DOWN)
 
@@ -783,12 +791,12 @@ class MatchingPoset(Scene):
             last_dot = dot
 
         seq = VGroup(seq)
-        self.wait_to(60+50)
+        #self.wait_to(60+50)
         self.play(ShowCreation(seq, run_time = 2))
 
         zorn_lemma = make_zorn_lemma_box()
         chain_condition, consequence, zorn_lemma_rect, zorn_lemma_label = zorn_lemma
-        self.wait_to(2*60+16)
+        #self.wait_to(2*60+16)
         self.play(Write(chain_condition))
 
         chains = VGroup([self.make_abstract_chain() for i in range(5)])
@@ -796,7 +804,7 @@ class MatchingPoset(Scene):
         chains.shift(VGroup(seq_dots[-1], layers_dots[3][0]).get_corner(UP+LEFT)
                      - chains.get_corner(UP+LEFT))
 
-        self.wait_to(2*60+31)
+        #self.wait_to(2*60+31)
         self.play(ShowCreation(
             chains,
             submobject_mode = "lagged_start",
@@ -813,7 +821,7 @@ class MatchingPoset(Scene):
         upper_bounds.shift(0.5*UP)
         upper_bounds.set_fill(opacity = 0)
 
-        self.wait_to(2*60+44)
+        #self.wait_to(2*60+44)
         self.play(
             upper_bounds.restore,
             submobject_mode = "lagged_start",
@@ -832,7 +840,7 @@ class MatchingPoset(Scene):
         ordinal[1][0].remove(first_bar)
         limit_dot = Dot(first_bar.get_center(), color = YELLOW)
 
-        self.wait_to(3*60)
+        #self.wait_to(3*60)
         self.play(ShowCreation(first_bar), FadeIn(limit_dot))
 
         shift = DOWN*ordinal.get_height()
@@ -841,7 +849,7 @@ class MatchingPoset(Scene):
             poset, seq, chains, upper_bounds, first_bar, limit_dot
         )
 
-        self.wait_to(3*60 + 3)
+        #self.wait_to(3*60 + 3)
         self.play(picture.shift, shift)
         self.remove(poset)
         picture.remove(poset)
@@ -855,24 +863,25 @@ class MatchingPoset(Scene):
         maximum_l = TextMobject("Maximum")
         maximum_l.next_to(maximum_dot, UP, aligned_edge = LEFT)
 
-        self.wait_to(3*60 + 14)
+        #self.wait_to(3*60 + 14)
         self.play(
             GrowFromCenter(maximum_dot),
             FadeIn(maximum_l, submobject_mode = "lagged_start"),
         )
 
-        self.wait_to(3*60 + 19.5)
+        #self.wait_to(3*60 + 19.5)
         self.play(
             ReplacementTransform(maximum_l.copy(), consequence[1]),
             FadeIn(consequence[0]),
         )
-        self.wait_to(3*60 + 25.5)
+        #self.wait_to(3*60 + 25.5)
         self.play(
             ShowCreation(zorn_lemma_rect),
             Write(zorn_lemma_label),
         )
 
-        self.wait_to(3*60 + 36)
+        #self.wait_to(3*60 + 36)
+        self.dither(2)
         picture.add_to_back(ordinal)
         picture.add(maximum_dot, maximum_l)
         self.play(FadeOut(picture))
@@ -1039,7 +1048,7 @@ class ZornLemmaExample1(Scene):
 
         self.add(zorn_lemma)
 
-        self.wait_to(2)
+        #self.wait_to(2)
         self.play(
             FadeIn(label_A),
             FadeIn(label_B),
@@ -1047,7 +1056,7 @@ class ZornLemmaExample1(Scene):
             ShowCreation(set_B),
         )
         self.add_foreground_mobjects(dots_A, set_B)
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
         self.play(ShowCreation(VGroup(matching[0][:5]), submobject_mode = "all_at_once"))
         self.play(ShowCreation(VGroup(matching[0][5:], matching[1]), submobject_mode = "all_at_once"))
 
@@ -1055,7 +1064,7 @@ class ZornLemmaExample1(Scene):
         maximum_l_src = zorn_lemma[1][1]
         maximum_l = maximum_l_src.copy().next_to(rect, UP)
         arrow_conseq = Arrow(maximum_l_src, maximum_l)
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(
             ReplacementTransform(maximum_l_src.copy(), maximum_l),
             ShowCreation(arrow_conseq),
@@ -1063,15 +1072,16 @@ class ZornLemmaExample1(Scene):
         )
 
         condition = zorn_lemma[0][1]
-        to_verify = TextMobject("Ověřit").move_to(condition).move_to(ORIGIN, coor_mask = X_MASK)
+        to_verify = TextMobject("To check").move_to(condition).move_to(ORIGIN, coor_mask = X_MASK)
         arrow_cond = Arrow(to_verify, condition)
-        self.wait_to(19)
+        #self.wait_to(19)
         self.play(
             FadeIn(to_verify),
             ShowCreation(arrow_cond),
         )
 
-        self.wait_to(24)
+        #self.wait_to(24)
+        self.dither()
         self.play(FadeOut(VGroup(sets_AB, rect, arrow_conseq, maximum_l)))
         self.mini_sets = VGroup(matching[0], dots, set_B).scale(0.5)
 
@@ -1087,7 +1097,7 @@ class ZornLemmaExample1(Scene):
         dot2 = self.make_chain_dot(index2)
         matching2 = self.make_partial(index2)
 
-        self.wait_to(26.5)
+        #self.wait_to(26.5)
         self.play(
             FadeIn(matching1),
             FadeIn(matching2),
@@ -1098,13 +1108,13 @@ class ZornLemmaExample1(Scene):
         matching1.save_state()
         matching2.save_state()
         dest_point = (matching1.get_center() + matching2.get_center())/2 + LEFT
-        self.wait_to(30)
+        #self.wait_to(30)
         self.play(
             matching1.move_to, dest_point,
             matching2.move_to, dest_point,
         )
 
-        self.wait_to(34.5)
+        #self.wait_to(34.5)
         self.play(
             matching1.restore,
             matching2.restore,
@@ -1137,7 +1147,7 @@ class ZornLemmaExample1(Scene):
         matchings = VGroup(matchings)
         matchings_dest = VGroup(matchings_dest)
 
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
         self.play(
             Transform(chain_dots, VGroup(dot_union)),
             Transform(matchings, matchings_dest),
@@ -1158,7 +1168,7 @@ class ZornLemmaExample1(Scene):
         wrong_lines = VGroup([
             Line(dot_A.get_center(), p1, color = YELLOW) for p1 in points
         ])
-        self.wait_to(54.5)
+        #self.wait_to(54.5)
         for line in wrong_lines:
             self.play(ShowCreation(line))
         wrong_lines_copy = wrong_lines.copy()
@@ -1177,13 +1187,13 @@ class ZornLemmaExample1(Scene):
             dot_union.copy().highlight(WHITE).shift(DOWN*y_shift)
             for y_shift in y_shifts
         ]
-        self.wait_to(60+4)
+        #self.wait_to(60+4)
         for line, dot, y_shift in zip(wrong_lines, chain_dots, y_shifts):
             self.play(
                 line.shift, DOWN*y_shift,
                 ReplacementTransform(dot_union.copy(), dot),
             )
-        self.wait_to(60+8)
+        #self.wait_to(60+8)
 
         wrong_lines_copy2 = wrong_lines.copy()
         self.add(wrong_lines_copy2)
@@ -1194,7 +1204,8 @@ class ZornLemmaExample1(Scene):
         #    line.shift(d*(y_shifts[1]-y_shifts[0])/2 + LEFT)
 
         self.play(Transform(wrong_lines, wrong_lines_dest))
-        self.wait_to(60+26)
+        #self.wait_to(60+26)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             wrong_lines, wrong_lines_copy, wrong_lines_copy2,
             chain_dots,
@@ -1227,7 +1238,7 @@ class ZornLemmaGeneralUsage(Scene):
         zorn_lemma = make_zorn_lemma_box()
         self.add(zorn_lemma)
 
-        part_label = TextMobject("Částečná\\\\řešení")
+        part_label = TextMobject("Partial\\\\solutions")
         part_label.highlight(GREEN)
         part1 = Line(2*DOWN, UP+2*RIGHT, color = GREEN)
         part1.points[2][0] = part1.points[3][0]
@@ -1241,22 +1252,22 @@ class ZornLemmaGeneralUsage(Scene):
             Dot(interpolate(p0, p1, alpha), color=  YELLOW)
             for alpha in np.linspace(0,1,15)
         ])
-        label_sol = TextMobject("Řešení")
+        label_sol = TextMobject("Solutions")
         label_sol.highlight(YELLOW)
         label_sol.next_to(dots_sol, UP)
         poset = VGroup(
             part_label, part1, part2,
             dots_sol, label_sol,
         )
-        poset.shift(UP)
+        poset.shift(UP+0.3*RIGHT)
 
-        self.wait_to(0.5)
+        #self.wait_to(0.5)
         self.play(
             FadeIn(part_label),
             ShowCreation(part1),
             ShowCreation(part2),
         )
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             FadeIn(dots_sol),
             FadeIn(label_sol, submobject_mode = "lagged_start"),
@@ -1272,15 +1283,15 @@ class ZornLemmaGeneralUsage(Scene):
         chain_g.rotate(np.pi/2)
         chain_g.to_edge(RIGHT)
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(ShowCreation(chain))
 
         dots_compatible = VGroup(dots_chain[4:13:3])
         dots_compatible.set_fill(opacity = 1)
 
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         self.play(ShowCreation(dots_compatible))
-        comp_label = TextMobject("Kompatibilita").next_to(dots_compatible, LEFT)
+        comp_label = TextMobject("Compatibility").next_to(dots_compatible, LEFT)
         dot_center = Dot((dots_compatible[0].get_center() + dots_compatible[-1].get_center())/2)
         dots_compatible.save_state()
         self.play(
@@ -1290,7 +1301,7 @@ class ZornLemmaGeneralUsage(Scene):
         self.play(dots_compatible.restore)
 
         dot_union = Dot(chain.get_start(), color = YELLOW)
-        label_union = TextMobject("Sjednocení")
+        label_union = TextMobject("Union")
         label_union.highlight(YELLOW)
         label_union.next_to(dot_union, LEFT)
 
@@ -1298,7 +1309,7 @@ class ZornLemmaGeneralUsage(Scene):
             label_union.copy().next_to(dot, LEFT).set_fill(opacity = 0)
             for dot in dots_chain
         ])
-        self.wait_to(21)
+        #self.wait_to(21)
         self.play(
             Transform(label_union_src, VGroup(label_union)), 
             Transform(dots_chain, VGroup(dot_union)),
@@ -1307,12 +1318,14 @@ class ZornLemmaGeneralUsage(Scene):
         self.remove(label_union_src, dots_chain)
         self.add(label_union, dot_union)
 
-        self.wait_to(30)
+        #self.wait_to(30)
         conversation = Conversation(self)
-        conversation.add_bubble("V čem je to jednodušší než přímo použít rekurzi?")
-        self.wait_to(48)
-        conversation.add_bubble("Není třeba znát teorii množin.")
-        self.wait_to(60+11)
+        conversation.add_bubble("Why is it better than just recursion?")
+        self.dither(2)
+        #self.wait_to(48)
+        conversation.add_bubble("You don't need Set Theory")
+        self.dither(2)
+        #self.wait_to(60+11)
 
 class HowMathWorks(Scene):
 
@@ -1327,7 +1340,7 @@ class HowMathWorks(Scene):
         ordinal[0][0].highlight(GREEN)
 
         impl = TexMobject("\\Rightarrow").next_to(ordinal, DOWN)
-        zorn_lemma = TextMobject("Zornovo lemma").next_to(impl, DOWN)
+        zorn_lemma = TextMobject("Zorn's lemma").next_to(impl, DOWN)
         set_theory = VGroup(ordinal, impl, zorn_lemma)
         set_theory.move_to(cloud)
         set_theory.scale(0.8)
@@ -1348,7 +1361,7 @@ class HowMathWorks(Scene):
         )
 
         colors = [BLUE, PURPLE, ORANGE]
-        consequences = ["báze vektorového\\\\prostoru", "netriviální\\\\ultrafiltr", "kostra grafu"]
+        consequences = ["basis of\\\\a vector space", "non-trivial\\\\ultrafilter", "spanning tree"]
         boxes = VGroup([
             VGroup(
                 zorn_lemma.copy(),
@@ -1364,18 +1377,19 @@ class HowMathWorks(Scene):
         box0.move_to((box1.get_center() + box2.get_center())/2)
         box0.shift(1.5*DOWN)
 
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(ReplacementTransform(
             VGroup(zorn_lemma.copy()),
             VGroup([box[0] for box in boxes]),
         ))
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
 
         self.appear_box(box1)
         self.appear_box(box2)
         self.appear_box(box0)
 
-        self.wait_to(35)
+        self.dither(2)
+        #self.wait_to(35)
 
     def appear_box(self, box):
         stickman = box[-1]
@@ -1391,7 +1405,7 @@ class ZornLemmaToAC(Scene):
 
     def construct(self):
 
-        title = TextMobject("Axiom výběru").to_corner(LEFT+UP)
+        title = TextMobject("Axiom of Choice").to_corner(LEFT+UP)
         self.add(title)
 
         lines = OrdinalOmega(x0=0, x1 = 2.5, height = 1.5)
@@ -1408,12 +1422,12 @@ class ZornLemmaToAC(Scene):
             dot.move_to(line.get_end())
             dot.set_fill(opacity = 0)
 
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(dots.restore, run_time = 1.5)
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(ShowCreation(connections), run_time = 2)
 
-        self.wait_to(25.5)
+        #self.wait_to(25.5)
         partial = VGroup(
             lines.copy(),
             dots[:4],
@@ -1422,7 +1436,7 @@ class ZornLemmaToAC(Scene):
         partial.save_state()
         partial.to_edge(DOWN)
         partial.shift(UP+4*LEFT)
-        partial_l = TextMobject("Částečné\\\\výběry")
+        partial_l = TextMobject("Partial\\\\selections")
         partial_l.next_to(lines, DOWN, buff = 0.5)
 
         poset_line = Line(
@@ -1441,7 +1455,7 @@ class ZornLemmaToAC(Scene):
         maximum_l.next_to(connections, UP)
         maximum_l.highlight(YELLOW)
 
-        self.wait_to(36)
+        #self.wait_to(36)
         self.play(FadeIn(maximum_l, submobject_mode = "lagged_start"))
 
         chain = Line(1.7*UP, 2*DOWN, color = GREEN).to_edge(RIGHT)
@@ -1471,14 +1485,14 @@ class ZornLemmaToAC(Scene):
                 if i < index: conn.set_stroke(width = conn.ori_stroke_width)
                 else: conn.set_stroke(width = 0)
 
-        self.wait_to(48)
+        #self.wait_to(48)
         self.play(ShowCreation(chain))
         update_choice(chain_choice)
         chain_obj.save_state()
         chain_obj.shift(chain.get_end() - chain_dot.get_center())
         chain_preview.highlight(BLACK)
 
-        self.wait_to(50.5)
+        #self.wait_to(50.5)
         self.play(chain_obj.restore)
         self.dither()
         for _ in range(2):
@@ -1488,8 +1502,8 @@ class ZornLemmaToAC(Scene):
             )
             self.dither(0.5)
 
-        self.wait_to(57)
-        union_l = TextMobject("Sjednocení").next_to(chain_preview, UP)
+        #self.wait_to(57)
+        union_l = TextMobject("Union").next_to(chain_preview, UP)
         union_l.highlight(YELLOW)
         union_l.set_fill(opacity = 0)
         chain_obj.add(union_l)
@@ -1502,7 +1516,8 @@ class ZornLemmaToAC(Scene):
             UpdateFromFunc(chain_choice, update_choice),
             run_time = 1.5,
         )
-        self.wait_to(60+9.5)
+        self.dither()
+        #self.wait_to(60+9.5)
 
     def make_choice(self, lines, dotq = 0.3):
 
@@ -1526,9 +1541,9 @@ class WellOrderingPrinciple(Scene):
 
     def construct(self):
 
-        AC_title = TextMobject("Axiom výběru")
-        zorn_title = TextMobject("Zornovo lemma")
-        WOP_title = TextMobject("Princip dobrého uspořádání")
+        AC_title = TextMobject("Axiom of Choice")
+        zorn_title = TextMobject("Zorn's lemma")
+        WOP_title = TextMobject("Well-ordering principle")
         equivalents = VGroup(WOP_title, zorn_title)
         equivalents.arrange_submobjects(DOWN, buff = 1.5, aligned_edge = LEFT)
         VGroup(AC_title, equivalents).arrange_submobjects(buff = 2)
@@ -1542,12 +1557,13 @@ class WellOrderingPrinciple(Scene):
 
         self.play(ShowCreation(arrow_zorn))
 
-        self.wait_to(21.5)
+        #self.wait_to(21.5)
         self.play(
             ShowCreation(arrow_WOP),
             Write(WOP_title),
         )
-        self.wait_to(29)
+        #self.wait_to(29)
+        self.dither()
 
         WOP_title.save_state()
         WOP_title.center()
@@ -1562,10 +1578,10 @@ class WellOrderingPrinciple(Scene):
             ))
         )
 
-        self.wait_to(42)
+        #self.wait_to(42)
         reals = NumberLine()
         self.play(ShowCreation(reals))
-        self.wait_to(45.5)
+        #self.wait_to(45.5)
 
         omega1 = Omega1(color = BLUE)
         omega1_parts = VGroup(omega1.family_members_with_points())
@@ -1588,7 +1604,8 @@ class WellOrderingPrinciple(Scene):
         self.play(ReplacementTransform(
             real_parts, omega1_parts, path_arc = np.pi/2, run_time = 1.5))
 
-        self.wait_to(54)
+        self.dither()
+        #self.wait_to(54)
         self.play(ReplacementTransform(
             omega1_parts, real_parts_ori, path_arc = -np.pi/2))
 
@@ -1597,7 +1614,7 @@ class WellOrderingPrinciple(Scene):
         self.add(reals)
 
         ordinals = OrdinalClass(x0 = -6, x1 = 6).to_edge(DOWN)
-        self.wait_to(60+5)
+        #self.wait_to(60+5)
         self.play(
             ordinals.creation_anim()
         )
@@ -1634,7 +1651,7 @@ class WellOrderingPrinciple(Scene):
         random.shuffle(real_points)
 
         begin = 4
-        self.wait_to(60+8)
+        #self.wait_to(60+8)
         for real_point, ordinal_point in zip(real_points[:begin], ordinal_points[:begin]):
             self.play(Transform(real_point, ordinal_point))
 
@@ -1665,14 +1682,15 @@ class WellOrderingPrinciple(Scene):
             order_f = order_f,
         )
 
-        well_ordered = BraceText(real_points, "Dobře uspořádané", UP)
-        self.wait_to(60+24)
+        well_ordered = BraceText(real_points, "Well ordered", UP)
+        #self.wait_to(60+24)
         self.play(well_ordered.creation_anim())
 
-        self.wait_to(60+40)
+        self.dither(2)
+        #self.wait_to(60+40)
         self.play(FadeOut(well_ordered))
 
-        comparability = TextMobject("Porovnatelnost množin")
+        comparability = TextMobject("Comparability of sets")
         VGroup(comparability, AC_title).arrange_submobjects(buff = 2.5).shift(UP)
 
         arrow_comp = Arrow(
@@ -1685,20 +1703,20 @@ class WellOrderingPrinciple(Scene):
             AC_title.get_corner(RIGHT+UP)
         ).shift(AC_title.get_width()/2 * LEFT)
 
-        self.wait_to(60+42.5)
+        #self.wait_to(60+42.5)
         self.play(ShowCreation(arrow_comp), FadeIn(comparability))
-        self.wait_to(60+47.5)
+        #self.wait_to(60+47.5)
         self.play(ShowCreation(arrow_AC), FadeIn(AC_title))
         
-        hint_comp = TextMobject("(Kapitola 5)").next_to(comparability, DOWN)
-        self.wait_to(60+54.5)
-        self.play(FadeIn(hint_comp, submobject_mode = "lagged_start"))
+        hint_comp = TextMobject("(Chapter 5)").next_to(comparability, DOWN)
+        #self.wait_to(60+54.5)
+        #self.play(FadeIn(hint_comp, submobject_mode = "lagged_start"))
 
         omega2 = OrdinalFiniteProd(OrdinalOmega, 2, x0 = -2, x1 = 2, height = 0.7)
         omega2.next_to(AC_title, DOWN)
         omega2.highlight(DARK_GREY)
         
-        self.wait_to(60+58)
+        #self.wait_to(60+58)
         self.play(FadeIn(omega2))
         index_first = 3
         for bar in omega2[1][index_first+1:]:
@@ -1714,7 +1732,7 @@ class WellOrderingPrinciple(Scene):
         pointer.save_state()
         pointer.next_to(omega2[0][0], DOWN)
         pointer.set_fill(opacity = 0)
-        self.wait_to(2*60)
+        #self.wait_to(2*60)
         self.play(
             ShowCreation(bar),
             pointer.restore,
@@ -1739,5 +1757,6 @@ class WellOrderingPrinciple(Scene):
             pointer.next_to, omega2[0][index_first], DOWN,
             ShowCreation(bar),
         )
-        self.wait_to(2*60+27)
+        self.dither()
+        #self.wait_to(2*60+27)
 

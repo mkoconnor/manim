@@ -33,19 +33,19 @@ import importlib
 
 class Chapter11OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 11\\\\Formální čísla",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 11\\\\Formal Numbers",
     }
 
 class Chapter11OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Úlohu jsem vyřešil po dvoutýdením soustředění se na","prázdnou množinu.",
+            "Everything is nothing, with a twist.",
         ],
         "highlighted_quote_terms" : {
-            "prázdnou množinu." : GREEN,
+            "twist." : GREEN,
         },
-        "author" : "nejmenovaný řešitel"
+        "author" : "Kurt Vonnegut"
     }
 
 colors = [GREY, GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE]
@@ -57,7 +57,7 @@ def rect_color(n):
 class FirstAttempt(Scene):
     def construct(self):
 
-        title = TextMobject("Množiny").scale(1.2).to_edge(UP)
+        title = TextMobject("Sets").scale(1.2).to_edge(UP)
         self.play(Write(title))
 
         rect = Square(side_length = 0.5, color = rect_color(0))
@@ -66,16 +66,16 @@ class FirstAttempt(Scene):
             rect = SurroundingRectangle(rect, color = rect_color(c))
             rects.append(rect)
 
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         self.play(GrowFromCenter(rects[0]))
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(ShowCreation(rects[1]))
 
         naturals = VGroup(TexMobject(str(n)) for n in range(9))
         naturals.arrange_submobjects(buff = 1.2)
         naturals.to_corner(LEFT+DOWN).shift(RIGHT)
 
-        self.wait_to(11)
+        #self.wait_to(11)
         self.play(ShowCreation(naturals))
 
         nat_rects = VGroup(
@@ -88,14 +88,14 @@ class FirstAttempt(Scene):
                 rect.scale_to_fit_width(max_len)
         nat_rects.next_to(naturals, UP, coor_mask = Y_MASK)
 
-        self.wait_to(26)
+        #self.wait_to(26)
         self.play(
             FadeOut(rects[1]),
             ReplacementTransform(rects[0], nat_rects[0][0]),
         )
 
         for i,t in zip(range(1,3), (32, 36)):
-            self.wait_to(t)
+            #self.wait_to(t)
             self.play(
                 ReplacementTransform(
                     nat_rects[i-1].copy(),
@@ -104,7 +104,7 @@ class FirstAttempt(Scene):
             )
             self.play(ShowCreation(nat_rects[i][i]))
 
-        self.wait_to(39)
+        #self.wait_to(39)
         self.play(FadeIn(VGroup(nat_rects[i+1:])))
 
 
@@ -126,21 +126,22 @@ class FirstAttempt(Scene):
         omega_label = TexMobject("\\omega").next_to(omega_rects, UP)
         omega_p1_label = TexMobject("\\omega+1").next_to(omega_p1_rects, UP)
 
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(FadeIn(omega_label))
-        self.wait_to(59.5)
+        #self.wait_to(59.5)
         self.play(FadeIn(omega_rects))
-        self.wait_to(60.5)
+        #self.wait_to(60.5)
         self.play(FadeIn(VGroup(omega_p1_label, omega_p1_rects)))
 
         cross = Cross(color = RED).replace(ordinal_rects, stretch = True)
-        self.wait_to(60+22)
+        #self.wait_to(60+22)
         self.play(
             ordinal_rects.fade, 0.7,
             ShowCreation(cross),
         )
 
-        self.wait_to(60+24.5)
+        #self.wait_to(60+24.5)
+        self.dither()
 
         n = 4
         number_label = naturals[n]
@@ -156,7 +157,7 @@ class FirstAttempt(Scene):
         apples = VGroup(Apple(i) for i in range(n))
         apples.arrange_submobjects(buff = 0.4)
 
-        self.wait_to(60+32.5)
+        #self.wait_to(60+32.5)
         if self.skip_animations: self.add(apples)
         else:
             for apple in apples:
@@ -185,9 +186,9 @@ class FirstAttempt(Scene):
             Line(start, end, buff = 0.2)
             for start, end in zip(starts, ends)
         )
-        self.wait_to(60+37.5)
+        #self.wait_to(60+37.5)
         self.play(ShowCreation(matching))
-        self.wait_to(60+46)
+        #self.wait_to(60+46)
 
         end = number_rects.get_edge_center(UP)
         ends = [
@@ -213,7 +214,7 @@ class FirstAttempt(Scene):
             Transform(matching, matching_dest),
             MoveFromSaved(number_rects),
         )
-        self.wait_to(2*60+6)
+        #self.wait_to(2*60+6)
         self.play(
             title.behind_edge, UP,
             VGroup(apples, matching, number_rects, number_label).behind_edge, DOWN,
@@ -245,33 +246,33 @@ class NaturalsDefinition(Scene):
         self.play(
             FadeIn(naturals[0]), GrowFromCenter(sets[0]),
         )
-        self.wait_to(3.3)
+        #self.wait_to(3.3)
         self.play(
             Transform(sets[0].copy(), sets[1][0][0]),
             FadeIn(naturals[1]),
         )
-        self.wait_to(4.7)
+        #self.wait_to(4.7)
         self.play(ShowCreation(sets[1][1]))
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(
             FadeIn(naturals[2]),
             ShowCreation(sets[2][1]),
         )
-        self.wait_to(17.7)
+        #self.wait_to(17.7)
         self.play(FocusOn2(naturals[0]), run_time = 0.5)
         self.play(FocusOn2(naturals[1]), run_time = 0.5)
-        self.wait_to(20)
+        #self.wait_to(20)
         self.play(Transform(VGroup(sets[:2]).copy(), sets[2][0]))
 
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         self.play(
             FadeIn(naturals[3]),
             Transform(VGroup(sets[:3]).copy(), sets[3][0]),
         )
         self.play(ShowCreation(sets[3][1]))
 
-        self.wait_to(29)
+        #self.wait_to(29)
         for i in range(4, len(sets)):
             self.play(
                 FadeIn(naturals[i]),
@@ -280,11 +281,13 @@ class NaturalsDefinition(Scene):
             )
 
         conversation = Conversation(self)
-        conversation.add_bubble("Ááá, to se nedá představit!")
-        self.wait_to(38)
-        conversation.add_bubble("Nemusíš si to představovat takhle.")
+        conversation.add_bubble("Agrh, I cannot imagine that!")
+        self.dither(2)
+        #self.wait_to(38)
+        conversation.add_bubble("You don't have to draw it this way.")
+        self.dither(2)
 
-        self.wait_to(49.5)
+        #self.wait_to(49.5)
 
         n = 5
         number_text = TexMobject(str(n)).scale(1.5)
@@ -298,13 +301,14 @@ class NaturalsDefinition(Scene):
         number_rect.set_fill(opacity = 1)
 
         self.play(FadeIn(number_text))
-        self.wait_to(52.3)
+        #self.wait_to(52.3)
         self.play(
             GrowFromCenter(number_elements),
             number_rect.restore,
             Transform(number_text, number_rect.saved_state.copy(), remover = True),
         )
-        self.wait_to(59.5)
+        self.dither(2)
+        #self.wait_to(59.5)
 
 class Code(VMobject):
     def __init__(self, code, base_line = 0.5):
@@ -347,7 +351,7 @@ Set Theory ZFC
         st_code = Code(st_code_data)
 
         python_title = TextMobject("Python").next_to(python_code, UP, buff = 0.5)
-        st_title = TextMobject("Teorie množin").next_to(st_code, UP, buff = 0.5)
+        st_title = TextMobject("Set theory").next_to(st_code, UP, buff = 0.5)
         python = VGroup(python_code, python_title).to_edge(UP)
         st = VGroup(st_code, st_title).next_to(python, DOWN, buff = -0.5)
 
@@ -364,16 +368,21 @@ Set Theory ZFC
         self.dither(0.1)
         self.row = python_code[2]
         self.prepare_row()
-        self.wait_to(5.5)
+
+        self.dither()
+        #self.wait_to(5.5)
 
         self.write_row()
-        self.wait_to(14)
+
+        self.dither()
+        #self.wait_to(14)
 
         self.remove(self.cursor)
         self.dither(0.1)
         self.add(python_code[3])
 
-        self.wait_to(17)
+        self.dither()
+        #self.wait_to(17)
         self.row = python_code[4]
         self.prepare_row()
         self.dither()
@@ -387,20 +396,27 @@ Set Theory ZFC
             self.add(row)
             self.dither(0.1)
 
-        self.wait_to(28.5)
+        self.dither()
+        #self.wait_to(28.5)
 
         self.play(FadeIn(st_title, submobject_mode = "lagged_start"))
         self.add(st_code[0])
         self.dither(0.1)
         self.row = st_code[1]
         self.prepare_row()
-        self.wait_to(35.5)
+
+        self.dither()
+        #self.wait_to(35.5)
         self.write_row()
-        self.wait_to(37.3)
+
+        self.dither()
+        #self.wait_to(37.3)
         self.remove(self.cursor)
         self.dither(0.1)
         self.add(st_code[2])
-        self.wait_to(52)
+
+        self.dither()
+        #self.wait_to(52)
 
     def prepare_row(self):
         self.add(*self.row[:3])
@@ -445,11 +461,11 @@ class ExtensionToOrdinals(Scene):
         omega_label.next_to(omega_rect, UP+RIGHT).shift(DOWN)
 
         self.play(ShowCreation(omega_rect), FadeIn(omega_label))
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(ShowCreation(bars))
-        self.wait_to(6)
+        #self.wait_to(6)
         self.play(FadeIn(naturals))
-        self.wait_to(22)
+        #self.wait_to(22)
         
         omega_bar = bars[0].copy().next_to(bars)
         omega_src = VGroup(omega_rect, bars.copy(), naturals.copy())
@@ -476,7 +492,7 @@ class ExtensionToOrdinals(Scene):
             ShowCreation(omega_p1_rect),
             FadeIn(omega_p1_label),
         )
-        self.wait_to(28.9)
+        #self.wait_to(28.9)
 
         omega_p1_label.save_state()
         omega_p1_src = VGroup(omega_p1_rect, omega_p1_inside.copy())
@@ -498,13 +514,13 @@ class ExtensionToOrdinals(Scene):
         self.add(omega_p1_bar)
         self.dither()
 
-        self.wait_to(33)
+        #self.wait_to(33)
         self.play(FadeOut(VGroup(
             naturals, omega_label, omega_p1_label,
         )))
 
-        supremum_title = TextMobject("Supremum $=$ Sjednocení").to_edge(UP)
-        self.wait_to(37.5)
+        supremum_title = TextMobject("Supremum $=$ Union").to_edge(UP)
+        #self.wait_to(37.5)
         self.play(FadeIn(supremum_title))
 
         supremum = OrdinalFiniteProd(OrdinalOmega, 2, q = (0.8, 0.9, 0.9))
@@ -531,14 +547,14 @@ class ExtensionToOrdinals(Scene):
             ordinal.stretch(0.5 * 0.7**i, 1)
         ordinals.arrange_submobjects(DOWN, center = False, coor_mask = Y_MASK, buff = 0.1)
 
-        self.wait_to(40)
+        #self.wait_to(40)
         self.play(FadeIn(VGroup(
             ordinals[1:-1],
             submobject_mode = "lagged_start",
             run_time = 1.5,
         )))
 
-        self.wait_to(46.2)
+        #self.wait_to(46.2)
         ordinals.save_state()
 
         supremum[0].align_submobjects(ordinals[0][0])
@@ -550,7 +566,7 @@ class ExtensionToOrdinals(Scene):
                     bar.move_to(dest, coor_mask = X_MASK)
 
         self.play(MoveFromSaved(ordinals))
-        self.wait_to(48.2)
+        #self.wait_to(48.2)
         self.play(
             Transform(
                 ordinals,
@@ -565,7 +581,7 @@ class ExtensionToOrdinals(Scene):
             )
         )
         self.add(supremum)
-        self.wait_to(53)
+        #self.wait_to(53)
 
         self.play(FadeOut(supremum_title))
 
@@ -583,15 +599,15 @@ class Chapter5Reminder(Scene):
         cur_chap.add(cur_chap_num)
         cur_chap.highlight(YELLOW)
 
-        self.play(UnapplyMethod(series.behind_edge, UP))
+        #self.play(UnapplyMethod(series.behind_edge, UP))
 
         subord = VGroup(ordinal[0], ordinal[1][:3])
         brace = BraceDesc(subord, "\\omega+3", DOWN)
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(brace.creation_anim())
         ordinal.highlight(DARK_GREY)
         subord.highlight(WHITE)
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
 
         bar = ordinal[1][3].copy().highlight(YELLOW)
         pointer = TrianglePointer().next_to(bar, UP)
@@ -607,7 +623,7 @@ class Chapter5Reminder(Scene):
         self.remove(bar)
         ordinal[1][3].highlight(YELLOW)
 
-        self.wait_to(16)
+        #self.wait_to(16)
         subord_dest = VGroup(
             subord[0].copy(),
             [subord[1][0].copy() for _ in subord[1]],
@@ -637,13 +653,13 @@ class Chapter5Reminder(Scene):
             MoveFromSaved(brace, remover = True),
         )
 
-        self.wait_to(17.5)
+        #self.wait_to(17.5)
         self.play(
             Transform(subord, subord_dest),
             GrowFromCenter(brace2),
         )
 
-        self.wait_to(22)
+        #self.wait_to(22)
 
         subord.save_state()
         path_start = subord.get_center()
@@ -656,10 +672,10 @@ class Chapter5Reminder(Scene):
         )
         self.remove(brace2, subord)
 
-        self.wait_to(24)
+        #self.wait_to(24)
         self.play(
-            series.behind_edge, UP,
-            ordinal.highlight, WHITE,
+            #series.behind_edge, UP,
+            ordinal.highlight, DARK_GREY,
             FadeOut(pointer_g),
         )
 
@@ -679,16 +695,16 @@ class GraphView(Scene):
         ineq[2].move_to(b_bar, coor_mask = X_MASK)
         ineq[1].move_to(VGroup(ineq[0], ineq[2]), coor_mask = X_MASK)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         ordinal.highlight(DARK_GREY)
         self.play(FadeIn(ineq[0]), ShowCreation(a_bar_copy))
         self.play(FadeIn(ineq[2]), ShowCreation(b_bar_copy))
         self.remove(a_bar_copy, b_bar_copy)
         VGroup(a_bar, b_bar).highlight(WHITE)
 
-        self.wait_to(10)
+        #self.wait_to(10)
         self.play(Write(ineq[1]))
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
 
         alpha = ineq[0].copy()
         beta = ineq[2].copy()
@@ -708,9 +724,9 @@ class GraphView(Scene):
             MoveFromSaved(beta),
             ShowCreation(b_rect),
         )
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         self.play(MoveFromSaved(alpha))
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
 
         ab_arrow = Arrow(alpha, beta, color = BLUE)
         b_rect.save_state()
@@ -774,7 +790,7 @@ class GraphView(Scene):
 
             arrows.append(arrow)
 
-        self.wait_to(28)
+        #self.wait_to(28)
         arrows_mob = VGroup(arrow for arrow,i0,i1 in arrows)
         for i, (arrow, i0, i1) in enumerate(arrows):
             ordinal.highlight(DARK_GREY)
@@ -783,26 +799,27 @@ class GraphView(Scene):
             else: run_time = 0.5
             self.play(ShowCreation(arrow), run_time = run_time)
 
-        self.wait_to(37.5)
+        #self.wait_to(37.5)
         self.play(
             ordinal.highlight, WHITE,
             ShowCreation(ordering, submobject_mode = "all_at_once"),
             Animation(arrows_mob),
         )
 
-        self.wait_to(58.5)
+        #self.wait_to(58.5)
+        self.dither()
         self.play(FadeOut(VGroup(
             alpha, beta, ab_arrow, ineq,
         )))
 
-        title = TextMobject("Definice").to_edge(UP)
+        title = TextMobject("Definition").to_edge(UP)
         rect = SurroundingRectangle(VGroup(ordinal, ordering), buff = 0.2, color = WHITE)
-        ordinal_label = TextMobject("ordinální číslo").next_to(rect, UP)
+        ordinal_label = TextMobject("ordinal number").next_to(rect, UP)
 
-        self.wait_to(61)
+        #self.wait_to(61)
         self.play(FadeIn(title, submobject_mode = "lagged_start"))
         self.play(FadeIn(ordinal_label, submobject_mode = "lagged_start"))
-        self.wait_to(60+4.5)
+        #self.wait_to(60+4.5)
         self.play(
             ShowCreation(rect),
         )
@@ -813,22 +830,23 @@ class GraphView(Scene):
         arrow_outside = Arrow(dot_outside, bar, color = BLUE, buff = 0.1)
         cross = Cross(color = RED).scale(0.5).shift(dot_outside.get_center() + 0.5*UP)
 
-        self.wait_to(60+13.5)
+        #self.wait_to(60+13.5)
         self.play(FadeIn(dot_outside), ShowCreation(arrow_outside))
-        self.wait_to(60+16.2)
+        #self.wait_to(60+16.2)
         self.play(arrow_outside.highlight, DARK_GREY, ShowCreation(cross))
 
-        transitive_set = TextMobject("Tranzitivní množina")
+        transitive_set = TextMobject("Transitive set")
         transitive_set.next_to(rect, DOWN)
         transitive_set.next_to(cross, coor_mask = X_MASK)
-        self.wait_to(60+27.5)
+        #self.wait_to(60+27.5)
         self.play(FadeIn(transitive_set, submobject_mode = "lagged_start"))
 
-        self.wait_to(60+38)
+        self.dither(3)
+        #self.wait_to(60+38)
 
 class ConstructionsIntro(Scene):
     def prepare(self):
-        title = TextMobject("Konstrukce z axiomů").to_edge(UP)
+        title = TextMobject("Construction from axioms").to_edge(UP)
         omegas = TexMobject("\\omega", "\\omega_1").scale(1.5)
         omegas[0].shift(LEFT)
         omegas[1].shift(RIGHT)
@@ -844,26 +862,27 @@ class ConstructionsIntro(Scene):
 
         omegas, underlines = self.prepare()
 
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
         self.play(ShowCreation(underlines[0]))
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(ShowCreation(underlines[1]))
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
 
+        self.dither(2)
         self.play(FadeOut(underlines[1]), omegas[1].highlight, DARK_GREY)
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
 
 class ConstructionOmega(Scene):
     def construct(self):
 
-        axiom_name = TextMobject("Axiom nekonečna:")
+        axiom_name = TextMobject("Axiom of infinity:")
         axiom_name.to_corner(UP+LEFT)
         axiom_name.highlight(GREEN)
-        axiom_desc = TextMobject("Existuje množina přirozených čísel.")
+        axiom_desc = TextMobject("There is a set of natural numbers.")
         axiom_desc.next_to(axiom_name, DOWN, aligned_edge = LEFT)
 
         self.play(FadeIn(axiom_name, submobject_mode = "lagged_start"), Write(axiom_desc))
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
 
         naturals = VGroup(TexMobject(str(i)) for i in range(20))
         naturals.arrange_submobjects(buff = 0.5).to_edge(LEFT)
@@ -874,17 +893,19 @@ class ConstructionOmega(Scene):
 
         self.play(FadeIn(naturals), FadeIn(rect))
         self.play(Write(omega_label))
-        self.wait_to(22)
+        #self.wait_to(22)
 
         cancel_line = Line(
             axiom_desc.get_edge_center(LEFT), axiom_desc.get_edge_center(RIGHT),
             color = RED,
         )
+        self.dither(2)
         self.play(
             axiom_desc.highlight, DARK_GREY,
             ShowCreation(cancel_line),
         )
-        self.wait_to(33.5)
+        self.dither(2)
+        #self.wait_to(33.5)
 
         self.play(FadeOut(VGroup(
             axiom_desc, cancel_line, omega_g,
@@ -895,7 +916,7 @@ class ConstructionOmega(Scene):
         m_label = TexMobject("M").next_to(m_rect, UP)
         VGroup(m_rect, m_label).highlight(GREEN)
 
-        self.wait_to(37)
+        #self.wait_to(37)
         self.play(
             ShowCreation(m_rect),
             FadeIn(m_label),
@@ -909,7 +930,7 @@ class ConstructionOmega(Scene):
         empty_set.save_state()
         empty_set.shift(1.5*LEFT)
         empty_set.highlight(BLACK)
-        self.wait_to(39.8)
+        #self.wait_to(39.8)
         self.play(empty_set.restore)
 
         dots = VGroup(Dot() for _ in range(3)).arrange_submobjects(buff = 0.5)
@@ -924,13 +945,13 @@ class ConstructionOmega(Scene):
         x_gg = VGroup(x_g, x2_g, x2_rect)
         x_gg.shift(m_rect.get_corner(UP+RIGHT) - x_gg.get_corner(UP+RIGHT) + 0.1*(LEFT+DOWN))
 
-        self.wait_to(42)
+        #self.wait_to(42)
         self.play(FadeIn(dots), FadeIn(x_label), ShowCreation(x_rect))
-        self.wait_to(47.5)
+        #self.wait_to(47.5)
         self.play(
             ReplacementTransform(x_g.copy(), x2_g)
         )
-        self.wait_to(49.3)
+        #self.wait_to(49.3)
         self.play(Transform(x2_g[-1], x2_rect))
         x2_rect = x2_g[-1]
 
@@ -948,16 +969,16 @@ class ConstructionOmega(Scene):
         es_copy = empty_set.copy().move_to(nat_points[1])
         set_1 = SurroundingRectangle(es_copy, color = WHITE)
 
-        self.wait_to(56.8)
+        #self.wait_to(56.8)
         self.play(FocusOn2(empty_set))
-        self.wait_to(58)
+        #self.wait_to(58)
         self.play(FadeIn(set_1))
-        self.wait_to(60.5)
+        #self.wait_to(60.5)
         self.play(ReplacementTransform(empty_set.copy(), es_copy))
 
-        self.wait_to(60+7)
+        #self.wait_to(60+7)
         self.play(ReplacementTransform(VGroup(es_copy, set_1), naturals[1]))
-        self.wait_to(60+9.2)
+        #self.wait_to(60+9.2)
         self.play(ReplacementTransform(empty_set, naturals[0]))
 
         naturals_row = VGroup(naturals[0].copy())
@@ -966,7 +987,7 @@ class ConstructionOmega(Scene):
         nr_rect = SurroundingRectangle(naturals_row, color = WHITE)
         naturals_row.highlight(GREY)
         nr_g = VGroup(naturals_row, nr_rect)
-        self.wait_to(60+14.5)
+        #self.wait_to(60+14.5)
         self.play(FadeIn(nr_rect), FadeIn(naturals_row[0]))
 
         def update_m_height(point):
@@ -982,16 +1003,16 @@ class ConstructionOmega(Scene):
             cur_nat = naturals[i+1]
             cur_nat_dest = cur_nat.copy().next_to(naturals_row[-1])
             naturals_row.add(cur_nat_dest)
-            if i == 0: self.wait_to(60+17)
-            elif i == 1: self.wait_to(60+26)
+            #if i == 0: self.wait_to(60+17)
+            #elif i == 1: self.wait_to(60+26)
             self.play(
                 ReplacementTransform(cur_nat.copy(), cur_nat_dest, path_arc = -np.pi/2),
                 Transform(nr_rect, SurroundingRectangle(naturals_row, color = WHITE)),
             )
             nr_copy = nr_g.copy()
 
-            if i == 0: self.wait_to(60+23.5)
-            elif i == 1: self.wait_to(60+28)
+            #if i == 0: self.wait_to(60+23.5)
+            #elif i == 1: self.wait_to(60+28)
             nr_g.save_state()
             nr_g.move_to(nat_points[i+3], coor_mask = Y_MASK)
             naturals_row.highlight(GREY)
@@ -1010,7 +1031,7 @@ class ConstructionOmega(Scene):
             FadeIn(VGroup(naturals[i+3:])),
             ApplyMethod(nr_g.behind_edge, DOWN, remover = True),
         )
-        self.wait_to(60+36.2)
+        #self.wait_to(60+36.2)
 
         self.play(FadeOut(VGroup(
             axiom_name[-1], x_gg,
@@ -1026,7 +1047,7 @@ class ConstructionOmega(Scene):
             ordinal.move_to(point, coor_mask = Y_MASK)
 
         ordinals.next_to(naturals, buff = 1.5, coor_mask = X_MASK)
-        self.wait_to(60+45.5)
+        #self.wait_to(60+45.5)
         self.play(FadeIn(ordinals), submobject_mode = "lagged_start")
 
         apple = Apple().scale(0.8)
@@ -1039,13 +1060,14 @@ class ConstructionOmega(Scene):
 
         apple_g.next_to(m_rect.get_corner(UP+RIGHT), LEFT+DOWN)
 
-        self.wait_to(60+48.5)
+        #self.wait_to(60+48.5)
         self.play(FadeIn(apple_g))
 
-        axiom_sel = TextMobject("Axiom vydělení").to_corner(UP+RIGHT)
-        self.wait_to(60+52.5)
+        axiom_sel = TextMobject("Axiom of selection").to_corner(UP+RIGHT)
+        #self.wait_to(60+52.5)
         self.play(FadeIn(axiom_sel, submobject_mode = "lagged_start"))
-        self.wait_to(60+57)
+        #self.wait_to(60+57)
+        self.dither()
 
         m_rect.save_state()
         left_point = m_rect.get_edge_center(LEFT)
@@ -1063,9 +1085,10 @@ class ConstructionOmega(Scene):
             MoveFromSaved(m_rect),
         )
 
-        self.wait_to(2*60)
+        #self.wait_to(2*60)
         self.play(Write(omega_label))
-        self.wait_to(2*60+13.5)
+        self.dither(2)
+        #self.wait_to(2*60+13.5)
 
 class ConstructionsOverview2(ConstructionsIntro):
     def construct(self):
@@ -1081,7 +1104,8 @@ class ConstructionsOverview2(ConstructionsIntro):
             omegas[0].highlight, DARK_GREY,
             omegas[1].highlight, WHITE,
         )
-        self.wait_to(11)
+        self.dither()
+        #self.wait_to(11)
 
 class ProductPowerset(Scene):
     def construct(self):
@@ -1101,7 +1125,7 @@ class ProductPowerset(Scene):
 
         big_set_label = TexMobject("\\mathcal P(\\omega\\times\\omega)")
         big_set_label.next_to(omega_g, DOWN, coor_mask = Y_MASK)
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(Write(VGroup(big_set_label[2:-1])))
 
         angle = np.pi*0.3
@@ -1147,7 +1171,7 @@ class ProductPowerset(Scene):
         for arrow in double_arrows[20:]:
             arrow.submobjects = []
 
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(FadeIn(arcs), FadeIn(double_arrows))
 
         big_rect = Rectangle(width = 2*SPACE_WIDTH, height = 2*SPACE_HEIGHT, color = GREEN)
@@ -1158,12 +1182,12 @@ class ProductPowerset(Scene):
         big_rect.highlight(BLACK)
         big_rect.next_to(big_set_label, DOWN)
 
-        self.wait_to(25.5)
+        #self.wait_to(25.5)
         self.play(
             Write(VGroup(big_set_label[:2], big_set_label[-1])),
             big_rect.restore,
         )
-        self.wait_to(32)
+        #self.wait_to(32)
 
         graph = VGroup(
             bundle[:10-i]
@@ -1197,12 +1221,13 @@ class ProductPowerset(Scene):
             if fwd_tip: add_proportional_tip(edge)
             if back_tip: add_back_tip(edge)
 
+        self.dither()
         self.play(
             FadeOut(arcs),
             FadeOut(double_arrows),
             FadeIn(graph),
         )
-        self.wait_to(39.5)
+        #self.wait_to(39.5)
 
         graph.save_state()
         graph.scale(0.8)
@@ -1210,7 +1235,7 @@ class ProductPowerset(Scene):
         graph.shift(0.5*LEFT)
 
         self.play(MoveFromSaved(graph))
-        #self.dither()
+        self.dither(2)
 
         arc_template = arc_template_bak
         indices = range(len(omega_points))
@@ -1259,7 +1284,8 @@ class ProductPowerset(Scene):
         Z_fwd_labels_trunc = VGroup(Z_fwd_labels[:len(fwd_labels_src)])
         Z_back_labels_trunc = VGroup(Z_back_labels[:len(back_labels_src)])
 
-        self.wait_to(52)
+        #self.wait_to(52)
+        self.dither(2)
         self.play(
             FadeOut(omega_label, run_time = 1),
             Transform(arcs, Z_arcs),
@@ -1272,17 +1298,17 @@ class ProductPowerset(Scene):
         )
         self.add(Z_fwd_labels, Z_back_labels)
 
-        self.wait_to(59.8)
+        #self.wait_to(59.8)
         self.play(FadeOut(VGroup(seq, arcs)))
 
-        self.wait_to(60+6)
+        #self.wait_to(60+6)
 
         Z_sample = VGroup(Z_fwd, Z_back, Z_fwd_labels, Z_back_labels).copy()
         Z_sample.save_state()
         Z_sample.scale(0.7)
 
         ordering_rect = big_rect.copy().highlight(GREY)
-        ordering_label = TextMobject("Uspořádání").next_to(big_rect.get_edge_center(LEFT), RIGHT)
+        ordering_label = TextMobject("Ordering").next_to(big_rect.get_edge_center(LEFT), RIGHT)
         ordering_label.next_to(graph, DOWN, coor_mask = Y_MASK, buff = -0.1)
         ordering_rect.shift(0.2*RIGHT)
         ordering_rect.next_to(ordering_label, DOWN, coor_mask = Y_MASK, buff = 0.1)
@@ -1293,24 +1319,24 @@ class ProductPowerset(Scene):
             FadeIn(ordering_rect),
             MoveFromSaved(Z_sample),
         )
-
+        self.dither(2)
 
         rev_back = Z_fwd.copy().shift(4*LEFT)
         rev_back_labels = rev_back.add_descriptions(lambda n: TexMobject(str(2*n+1)),
                                                     direction = DOWN, size = 0.5)
         rev_back_labels_trunc = VGroup(rev_back_labels[:len(Z_back_labels)])
-        self.wait_to(60+17)
+        #self.wait_to(60+17)
         self.play(
             ReplacementTransform(Z_back, rev_back),
             ReplacementTransform(Z_back_labels, rev_back_labels_trunc),
         )
         self.add(rev_back_labels)
-        self.wait_to(60+26)
+        #self.wait_to(60+26)
 
         wo_sample = VGroup(Z_fwd, rev_back, Z_fwd_labels, rev_back_labels).copy()
         wo_sample.save_state()
         wo_sample.scale(0.7)
-        wo_label = TextMobject("Dobrá uspořádání").next_to(ordering_rect, UP, buff = 0.1)
+        wo_label = TextMobject("Well ordered").next_to(ordering_rect, UP, buff = 0.1)
         wo_label.to_edge(RIGHT)
         wo_rect = ordering_rect.copy().highlight(WHITE)
         wo_rect.shift(-wo_rect.get_edge_center(LEFT) * X_MASK + 0.1*DOWN)
@@ -1321,7 +1347,8 @@ class ProductPowerset(Scene):
             MoveFromSaved(wo_sample),
         )
 
-        self.wait_to(60+36)
+        #self.wait_to(60+36)
+        self.dither(2)
 
         to_up = VGroup(
             big_set_label, graph, ordering_label, wo_label,
@@ -1359,7 +1386,7 @@ class ProductPowerset(Scene):
             Transform(omega2_src, omega2_g),
         )
 
-        self.wait_to(60+39.5)
+        #self.wait_to(60+39.5)
 
 class OrderingToOrdinal(Scene):
     def construct(self):
@@ -1386,39 +1413,39 @@ class OrderingToOrdinal(Scene):
 
         self.add(omega2, nat_labels)
 
-        self.wait_to(13.2)
+        #self.wait_to(13.2)
 
-        rect = SurroundingRectangle(VGroup(nat_labels[0][:4]))
-        self.play(FadeIn(rect))
-        self.wait_to(18)
-        self.play(
-            Transform(rect, SurroundingRectangle(VGroup(ord_labels[0][:4])))
-        )
-        self.play(FadeOut(rect))
+        #rect = SurroundingRectangle(VGroup(nat_labels[0][:4]))
+        #self.play(FadeIn(rect))
+        #self.wait_to(18)
+        #self.play(
+        #    Transform(rect, SurroundingRectangle(VGroup(ord_labels[0][:4])))
+        #)
+        #self.play(FadeOut(rect))
 
-        self.wait_to(22.5)
+        #self.wait_to(22.5)
         rect = Square(side_length = 0.5).next_to(nat_labels[0][0], LEFT)
         self.play(GrowFromCenter(rect))
-        self.wait_to(25)
+        #self.wait_to(25)
         self.play(rect.next_to, ord_labels[0][0], LEFT)
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(ReplacementTransform(rect, ord_labels[0][0]))
 
-        for i in range(1,4):
+        for i in range(1,5):
             rect = SurroundingRectangle(VGroup(nat_labels[0][:i]))
-            if i == 1: self.wait_to(29)
-            elif i == 2: self.wait_to(35)
+            #if i == 1: self.wait_to(29)
+            #elif i == 2: self.wait_to(35)
             if i == 1: self.play(FadeIn(rect))
             else: self.add(rect)
 
-            if i == 1: self.wait_to(31.5)
+            #if i == 1: self.wait_to(31.5)
             self.play(Transform(rect, SurroundingRectangle(VGroup(ord_labels[0][:i]))))
-            if i == 1: self.wait_to(33.5)
+            #if i == 1: self.wait_to(33.5)
             self.play(ReplacementTransform(rect, ord_labels[0][i]))
 
         self.play(ShowCreation(VGroup(ord_labels[0][i+1:])))
 
-        self.wait_to(43)
+        #self.wait_to(43)
         poly_points = [
             nat_labels[0].get_edge_center(LEFT) * X_MASK + 0.2*LEFT,
             nat_labels[0].get_corner(LEFT+DOWN) + 0.2*LEFT + 0.3*DOWN,
@@ -1433,13 +1460,13 @@ class OrderingToOrdinal(Scene):
         poly_dest = Polygon(*poly_dest_points, color = YELLOW)
 
         self.play(FadeIn(poly))
-        self.wait_to(46.5)
+        #self.wait_to(46.5)
         self.play(Transform(poly, poly_dest))
-        self.wait_to(49.5)
+        #self.wait_to(49.5)
         self.play(ReplacementTransform(poly, ord_labels[1][0]))
-        self.wait_to(51)
+        #self.wait_to(51)
         self.play(ShowCreation(VGroup(ord_labels[1][1:])))
-        self.wait_to(54)
+        #self.wait_to(54)
 
         end_point = Dot(omega2.get_edge_center(RIGHT), radius = 0)
         rect = SurroundingRectangle(VGroup(nat_labels, end_point))
@@ -1453,7 +1480,7 @@ class OrderingToOrdinal(Scene):
         omega1 = Omega1(color = GREY)
         omega1.scale(0.7)
         omega1.to_corner(UP+RIGHT)
-        self.wait_to(59)
+        #self.wait_to(59)
         self.play(
             FadeOut(VGroup(ord_labels, rect)),
             FadeIn(omega1),
@@ -1473,14 +1500,14 @@ class OrderingToOrdinal(Scene):
         bar.highlight(YELLOW)
         self.add(bar)
 
-        self.wait_to(60+3)
+        #self.wait_to(60+3)
 
         omega2_g = VGroup(omega2, nat_labels)
         omega2_g.save_state()
         omega2_g.scale(0.7).to_corner(UP+LEFT)
         arrow = Arrow(omega2, omega1)
         self.play(MoveFromSaved(omega2_g))
-        self.wait_to(60+6.5)
+        #self.wait_to(60+6.5)
         self.play(ShowCreation(arrow))
 
         omega_p1 = OrdinalOmega()
@@ -1500,7 +1527,7 @@ class OrderingToOrdinal(Scene):
         arrow2 = Arrow(omega_p1, omega1_2)
 
         assignment2 = VGroup(omega_p1_g, omega1_2, arrow2)
-        self.wait_to(60+10)
+        #self.wait_to(60+10)
         self.play(FadeIn(assignment2))
 
         ldots = TexMobject("\\vdots").next_to(omega_p1_g, DOWN)
@@ -1510,16 +1537,17 @@ class OrderingToOrdinal(Scene):
 
         rect = SurroundingRectangle(VGroup(omega2_g, omega_p1_g), color = WHITE, buff = 0.2)
         rect.stretch_about_point(2*SPACE_HEIGHT / rect.get_height(), 1, rect.get_edge_center(UP))
-        self.wait_to(60+25.5)
+        #self.wait_to(60+25.5)
         self.play(ReplacementTransform(Rectangle(width = 2*SPACE_WIDTH+1, height = 2*SPACE_HEIGHT+1), rect))
 
-        self.wait_to(60+33.5)
+        #self.wait_to(60+33.5)
         rect_dest = SurroundingRectangle(omega1, color = WHITE, buff = 0.2)
         rect_dest.stretch_about_point(2*SPACE_HEIGHT / rect_dest.get_height(), 1,
                                       rect_dest.get_edge_center(UP))
         self.play(Transform(rect, rect_dest))
 
-        self.wait_to(60+47.5)
+        self.dither(2)
+        #self.wait_to(60+47.5)
 
 class Omega1Finish(Scene):
     def construct(self):
@@ -1528,41 +1556,43 @@ class Omega1Finish(Scene):
         omega1_label = TexMobject("\\omega_1").next_to(omega1, LEFT)
         self.add(omega1, omega1_label)
 
-        finite_brace = BraceText(omega1.bars[0], "konečné", UP)
-        aleph0_brace = BraceText(VGroup(omega1.bars[1:], omega1.line), "mohutnost $\\aleph_0$", DOWN)
+        finite_brace = BraceText(omega1.bars[0], "finite", UP)
+        aleph0_brace = BraceText(VGroup(omega1.bars[1:], omega1.line), "cardinality $\\aleph_0$", DOWN)
 
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(finite_brace.creation_anim())
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(aleph0_brace.creation_anim())
         self.remove(omega1)
         omega1 = Omega1(color = YELLOW)
         self.add(omega1)
         omega1.bars[0].highlight(GREY)
 
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
 
         omega = OrdinalOmega(height = 0.5, x1 = 0)
         omega.next_to(finite_brace.brace, UP)
         omega_label = TexMobject("\\omega").next_to(omega, UP)
 
+        self.dither()
         self.play(
             FadeOut(finite_brace.desc),
             FadeIn(omega),
             FadeIn(omega_label),
         )
 
-        self.wait_to(21)
+        #self.wait_to(21)
         omega_dest = omega1.bars[0].copy().highlight(WHITE)
         self.play(Transform(omega.copy(), omega_dest, remover = True))
         omega1.bars[0].highlight(WHITE)
 
-        self.wait_to(48)
+        #self.wait_to(48)
+        self.dither(3)
 
 class NextChapter(Scene):
     def construct(self):
 
-        #title = TextMobject("Úloha o nespočetném řetězci")
+        #title = TextMobject("Problem of the uncountable chain")
         #title.to_edge(UP)
         #self.add(title)
 
@@ -1710,5 +1740,6 @@ class NextChapter(Scene):
         reals = NumberLine(x_min = -bound, x_max = bound).shift(0.5*DOWN)
         reals_label = TexMobject("\\mathbb R").next_to(reals, DOWN, aligned_edge = RIGHT)
         self.play(ShowCreation(reals), FadeIn(reals_label))
+        self.dither()
 
-        self.wait_to(19.5)
+        #self.wait_to(19.5)

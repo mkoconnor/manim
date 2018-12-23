@@ -98,9 +98,9 @@
 . bude mimo jiné i hromada balastu navíc.
 .
 . Toho se snadno ale zbavíme axiomem vydělení. Pravidlo pro
-. vydělení jednoduše řekne, že chceme jenom ty prvky, které do skalárního
+. vydělení jednoduše řekne, že chceme jenom ty prvky, které do kartézského
 . součinu patří. Takže po jednom sjednocení, dvojité potenční množině, a
-. jednom vydělení máme skalární součin.
+. jednom vydělení máme kartézský součin.
 .
 . Drobná vada na kráse této konstrukce je, že v ní musíme jít do hloubky
 . definice uspořádané dvojice. Kdybychom si zvolili jinou definici

@@ -316,7 +316,7 @@ class TurtlesRace2(TurtlesRace):
             TexMobject("\\alpha","=","10+\\alpha\\quad", "\\hbox{for infinite $\\alpha$}"),
             TexMobject("\\alpha","<","\\alpha+10"),
         )
-        question = self.make_question
+        question = self.make_question()
         for fs in [formulas, formulas2]:
             for formula in fs:
                 formula[0].set_color(GREEN)
@@ -769,9 +769,9 @@ class TurtleAchilesRace(RunnerScene):
                                    '\\omega^2\\cdot2', achiles_ord[2]))
         self.dither()
 
-        self.play(FocusOn2(self.turtle_desc[1]))
-        self.dither()
-        self.play(FocusOn2(self.achiles_desc[1]))
+        #self.play(FocusOn2(self.turtle_desc[1]))
+        #self.dither()
+        #self.play(FocusOn2(self.achiles_desc[1]))
         self.dither()
 
 
@@ -1021,15 +1021,15 @@ class SpiralScene(RunnerScene):
         self.play(self.global_step(1,2))
         self.play(self.global_step(2))
         self.dither()
-        self.play(FocusOn2(self.turtle_desc[1]))
-        self.dither()
-        self.play(FocusOn2(self.achiles_desc[1]))
-        self.dither()
+        #self.play(FocusOn2(self.turtle_desc[1]))
+        #self.dither()
+        #self.play(FocusOn2(self.achiles_desc[1]))
+        #self.dither()
         self.play(self.global_step(3))
         self.dither()
-        self.play(FocusOn2(self.turtle_desc[1]))
-        self.dither()
-        self.play(FocusOn2(self.achiles_desc[1]))
+        #self.play(FocusOn2(self.turtle_desc[1]))
+        #self.dither()
+        #self.play(FocusOn2(self.achiles_desc[1]))
         self.dither()
         for i in range(4,7):
             self.play(self.global_step(i))

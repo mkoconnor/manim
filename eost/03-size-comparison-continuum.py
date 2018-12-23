@@ -280,7 +280,8 @@ class FinitePowerSetScene(Scene):
         self.play(FadeIn(VGroup(*[desc_size_PX[0]]+desc_size_PX[5:8])))
         self.dither()
         self.play(FadeIn(VGroup(*desc_size_PX[8:])))
-        self.dither()
+        self.dither(2)
+        return
 
         arrows_possib = VGroup()
         descs_possib = VGroup()
@@ -778,8 +779,8 @@ class RealToSubset(Scene):
         arrow = Arrow(ORIGIN, UP)
         arrow.next_to(question[2][1], DOWN)
         note.next_to(arrow, DOWN)
-        self.play(ShowCreation(arrow), FadeIn(note))
-        self.dither()
+        #self.play(ShowCreation(arrow), FadeIn(note))
+        #self.dither()
 
     def index_info(self, mobj, value):
         result = TexMobject(str(value))
@@ -1040,39 +1041,39 @@ class CantorBernsteinScene(Scene):
 
         for seq in both_sided:
             self.simultaneously_connect(seq)
-        self.dither()
-
-        self.play(*(self.unhighlight_seqs(one_sided_down+both_sided+cycles)))
-        self.dither()
-        self.play(*(self.unhighlight_seqs(one_sided_up) +
-                    self.highlight_seqs(one_sided_down)))
-        self.dither()
-        self.play(*(self.unhighlight_seqs(one_sided_down) +
-                    self.highlight_seqs(both_sided+cycles)))
-        self.dither()
-
+#        self.dither()
+#
+#        self.play(*(self.unhighlight_seqs(one_sided_down+both_sided+cycles)))
+#        self.dither()
+#        self.play(*(self.unhighlight_seqs(one_sided_up) +
+#                    self.highlight_seqs(one_sided_down)))
+#        self.dither()
+#        self.play(*(self.unhighlight_seqs(one_sided_down) +
+#                    self.highlight_seqs(both_sided+cycles)))
+#        self.dither()
+#
         self.play(*(self.unhighlight_seqs(both_sided+cycles) +
                     self.highlight_seqs(one_sided_up)))
-        self.dither()
+#        self.dither()
         self.remove_matching(one_sided_up)
-        self.dither()
+#        self.dither()
         self.play(*(self.unhighlight_seqs(one_sided_up) +
                     self.highlight_seqs(one_sided_down)))
-        self.dither()
+#        self.dither()
         self.remove_matching(one_sided_down)
-        self.dither()
+#        self.dither()
         self.play(*(self.unhighlight_seqs(one_sided_up) +
                     self.highlight_seqs(both_sided+cycles)))
-        self.dither()
+#        self.dither()
         self.remove_matching(both_sided+cycles)
-        self.dither()
+#        self.dither()
 
         self.play(*self.highlight_seqs(one_sided))
         to_center_anim = []
         for seq in components:
             to_center_anim.append(self.to_center(seq))
         self.play(*to_center_anim)
-        self.dither()
+        self.dither(2)
 
         #self.revert_to_original_skipping_status()
 

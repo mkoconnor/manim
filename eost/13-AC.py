@@ -33,22 +33,24 @@ import importlib
 
 class Chapter13OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 13\\\\Axiom výběru",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 13\\\\Axiom of Choice",
     }
 
 class Chapter13OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Axiom výběru potřebujeme k tomu, abychom si z~nekonečně mnoho párů ponožek mohli vzít nekonečně mnoho ponožek, ale ne nekonečně mnoho párů.",
+            "To choose one sock from each of infinitely many pairs of","socks","requires the Axiom of Choice, but for","shoes","the Axiom is not needed.",
         ],
+        "socks" : GREEN,
+        "shoes" : YELLOW,
         "author" : "Bertrand Russell"
     }
 
 class AxiomRecallSelExt(Scene):
     def construct(self):
 
-        title = TextMobject("Axiomy").to_edge(UP)
+        title = TextMobject("Axioms").to_edge(UP)
         self.play(UnapplyMethod(title.behind_edge, UP))
 
         dots = VGroup(Dot() for _ in range(8)).arrange_submobjects(buff = 0.5)
@@ -70,16 +72,16 @@ class AxiomRecallSelExt(Scene):
         rect = SurroundingRectangle(VGroup(dots, icons), buff = 0.3)
         VGroup(dots, subset_dots, icons, rect).to_edge(LEFT).shift(1.0*UP)
 
-        selection_title = TextMobject("Vydělení").next_to(rect, UP)
+        selection_title = TextMobject("Selection").next_to(rect, UP)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             Write(selection_title),
             ShowCreation(rect),
             FadeIn(dots),
         )
         self.play(ShowCreation(icons))
-        self.wait_to(8.2)
+        #self.wait_to(8.2)
 
         subset_dots.save_state()
         subset_dots.shift(1.5*DOWN)
@@ -88,7 +90,7 @@ class AxiomRecallSelExt(Scene):
         self.play(MoveFromSaved(subset_dots))
         self.play(ShowCreation(subset_rect))
 
-        self.wait_to(11)
+        #self.wait_to(11)
 
         subset = VGroup(subset_dots, subset_rect)
         subset2 = subset.copy()
@@ -98,11 +100,11 @@ class AxiomRecallSelExt(Scene):
 
         subsets = VGroup(subset, subset2)
         eq = TexMobject('=').move_to(subsets)
-        ext_title = TextMobject("Extensionalita").next_to(subsets)
+        ext_title = TextMobject("Extensionality").next_to(subsets)
         
         self.play(FadeIn(ext_title, submobject_mode = "lagged_start"))
 
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(MoveFromSaved(subset2_dots))
         self.play(ShowCreation(subset2_rect))
         self.play(Write(eq))
@@ -112,15 +114,16 @@ class AxiomRecallSelExt(Scene):
         singleton = VGroup(x.copy(), SurroundingRectangle(x, buff = 0.2))
         y = Dot().next_to(x, buff = 0.2)
         pair = VGroup(x.copy(), y.copy(), SurroundingRectangle(VGroup(x,y), buff = 0.2))
-        small_sets_label = TextMobject("Existence\\\\Dvojice")
+        small_sets_label = TextMobject("Existence\\\\Pair")
         small_sets = VGroup(small_sets_label, emptyset, singleton, pair).arrange_submobjects(DOWN)
         small_sets.to_edge(RIGHT, buff = 2)
 
-        self.wait_to(20.5)
+        #self.wait_to(20.5)
         self.play(FadeIn(small_sets_label, submobject_mode = "lagged_start"))
         self.play(FadeIn(VGroup(small_sets[1:]), submobject_mode = "lagged_start"))
 
-        self.wait_to(30)
+        #self.wait_to(30)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             subsets, eq,
             dots, rect, icons,
@@ -133,7 +136,7 @@ chapter4 = importlib.import_module('eost.04-well-ordering')
 class AxiomRecallBigSet(Scene):
     def construct(self):
 
-        title = TextMobject("Axiomy").to_edge(UP)
+        title = TextMobject("Axioms").to_edge(UP)
         self.add(title)
 
         omega = OrdinalOmega(q=(0.8, 0.9, 0.9)).shift(LEFT)
@@ -146,7 +149,7 @@ class AxiomRecallBigSet(Scene):
         naturals = VGroup(TexMobject(str(i)) for i in range(20))
         naturals.arrange_submobjects(buff = 0.5)
         nat_rect = SurroundingRectangle(naturals, buff = 0.2, color = GREEN)
-        inf_ax = TextMobject("Nekonečno").next_to(nat_rect, DOWN, aligned_edge = LEFT)
+        inf_ax = TextMobject("Infinity").next_to(nat_rect, DOWN, aligned_edge = LEFT)
         VGroup(naturals, nat_rect, inf_ax).to_corner(DOWN+LEFT)
 
         self.play(
@@ -155,16 +158,16 @@ class AxiomRecallBigSet(Scene):
             ShowCreation(nat_rect),
         )
 
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
 
         self.play(ReplacementTransform(nat_rect.copy(), p_powers[0]))
         self.play(ShowCreation(omega[0]))
         #self.add(omega, p_powers)
 
-        powerset_ax = TextMobject("Potenční množina").next_to(p_powers[0], UP, buff = 0.5)
+        powerset_ax = TextMobject("Powerset").next_to(p_powers[0], UP, buff = 0.5)
         powerset_ax.to_edge(LEFT)
 
-        #self.wait_to(6.5)
+        ##self.wait_to(6.5)
         self.play(FadeIn(powerset_ax))
 
         #self.play(ReplacementTransform(p_powers[0][0].copy(), p_powers[1][-2]))
@@ -184,9 +187,9 @@ class AxiomRecallBigSet(Scene):
             ShowCreation(VGroup(omega[i+1:])),
             ShowCreation(VGroup(p_powers[i+1:])),
         )
-        self.wait_to(11)
+        #self.wait_to(11)
 
-        replacement_ax = TextMobject("Nahrazení")
+        replacement_ax = TextMobject("Replacement")
         replacement_ax.next_to(powerset_ax.get_corner(DOWN+LEFT), UP+RIGHT)
         replacement_ax.save_state()
         powerset_ax.save_state()
@@ -197,24 +200,25 @@ class AxiomRecallBigSet(Scene):
 
         self.play(replacement_ax.restore, MoveFromSaved(powerset_ax))
 
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         rect = SurroundingRectangle(VGroup(p_powers, omega[-1].copy().scale_in_place(0)), color = GREEN)
         
         self.play(ReplacementTransform(nat_rect, rect))
 
         union_bar = omega[0].copy().highlight(YELLOW)
-        union_label = TextMobject("Sjednocení").highlight(YELLOW).next_to(union_bar, UP)
+        union_label = TextMobject("Union").highlight(YELLOW).next_to(union_bar, UP)
         VGroup(union_bar, union_label).next_to(rect, coor_mask = X_MASK)
 
         union_src = []
         for p_power in p_powers: union_src += p_power.submobjects
         union_src = VGroup(union_src).copy()
 
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
         self.play(ReplacementTransform(union_src, union_label))
         self.play(ShowCreation(union_bar))
 
-        self.wait_to(26)
+        #self.wait_to(26)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             naturals, inf_ax,
             omega, p_powers, rect,
@@ -224,10 +228,10 @@ class AxiomRecallBigSet(Scene):
 class AxiomChoiceIntro(Scene):
     def construct(self):
 
-        title = TextMobject("Axiomy").to_edge(UP)
+        title = TextMobject("Axioms").to_edge(UP)
         self.add(title)
 
-        regularity_ax = TextMobject("Fundovanost")
+        regularity_ax = TextMobject("Regularity")
         regularity_ax.to_edge(RIGHT, buff = 1).shift(1.5*UP)
 
         colors = [PURPLE, RED, ORANGE, YELLOW, GREEN, BLUE]
@@ -269,7 +273,7 @@ class AxiomChoiceIntro(Scene):
 
         sets_rect = SurroundingRectangle(subsets, buff = 0.2, color = WHITE)
         
-        choice_ax = TextMobject("Axiom výběru").next_to(sets_rect, UP)
+        choice_ax = TextMobject("Axiom of Choice").next_to(sets_rect, UP)
         chosen = VGroup(random.choice(dots) for (dots, rect) in subsets)
 
         chosen_circ = VGroup(
@@ -277,15 +281,15 @@ class AxiomChoiceIntro(Scene):
             for dot in chosen
         )
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(Write(choice_ax))
         self.play(ShowCreation(sets_rect))
-        self.wait_to(15)
+        #self.wait_to(15)
         self.play(FadeIn(subsets, submobject_mode = "lagged_start"))
-        self.wait_to(21)
+        #self.wait_to(21)
         self.play(ShowCreation(chosen_circ))
 
-        self.wait_to(25)
+        #self.wait_to(25)
 
         chosen2 = chosen.copy()
         chosen2.save_state()
@@ -296,23 +300,23 @@ class AxiomChoiceIntro(Scene):
         self.play(MoveFromSaved(chosen2))
         self.play(ShowCreation(chosen_rect))
 
-        self.wait_to(28)
+        #self.wait_to(28)
         self.play(FadeOut(VGroup(regularity_ax, omega_rects, cross)))
 
-        AC_desc = TextMobject("Lze provést\\\\","nekonečně mnoho\\\\","nahodilých výběrů\\\\","najednou.",
+        AC_desc = TextMobject("We can make\\\\","infinite number of\\\\","incidental choices\\\\","at once.",
                               alignment = "\\hsize = 0.4\\hsize\\raggedright")
         AC_desc.next_to(ORIGIN).shift(0.5*UP)
-        #self.wait_to(37.5)
+        ##self.wait_to(37.5)
         self.play(Write(AC_desc))
 
-        self.wait_to(38)
+        #self.wait_to(38)
         self.play(FocusOn2(AC_desc[1], scale = 1.1))
-        self.wait_to(39.5)
+        #self.wait_to(39.5)
         self.play(FocusOn2(AC_desc[2], scale = 1.1))
 
-        self.wait_to(50.5)
+        #self.wait_to(50.5)
         self.play(FadeOut(VGroup(chosen2, chosen_rect, chosen_circ)))
-        self.wait_to(54.5)
+        #self.wait_to(54.5)
 
         chosen2_center = chosen2.get_center()
         chosen2 = VGroup(chosen[0].copy())
@@ -322,10 +326,10 @@ class AxiomChoiceIntro(Scene):
         chosen_set = VGroup(chosen2, chosen_rect)
 
         self.play(MoveFromSaved(chosen2, path_arc = -0.3*np.pi))
-        self.wait_to(60 + 5.5)
+        #self.wait_to(60 + 5.5)
         self.play(ShowCreation(chosen_rect))
 
-        self.wait_to(60 + 12)
+        #self.wait_to(60 + 12)
         for i in range(1, len(chosen)):
             dot = chosen[i].copy()
             dot.save_state()
@@ -351,7 +355,7 @@ class AxiomChoiceIntro(Scene):
             self.add(dot)
             chosen_rect.replace(VGroup(chosen_rect.copy(), dot_rect), stretch = True)
 
-        self.wait_to(60 + 22)
+        #self.wait_to(60 + 22)
 
         self.play(
             FadeIn(next_sets, submobject_mode = "lagged_start"),
@@ -375,29 +379,29 @@ class AxiomChoiceIntro(Scene):
             for dot in chosen
         )
 
-        self.wait_to(60 + 29.3)
+        #self.wait_to(60 + 29.3)
         self.play(ShowCreation(chosen_circ, submobject_mode = "all_at_once"))
-        self.wait_to(60 + 31.5)
+        #self.wait_to(60 + 31.5)
         self.play(MoveFromSaved(chosen2))
-        self.wait_to(60 + 34)
+        #self.wait_to(60 + 34)
 
         AC_desc.save_state()
         self.play(AC_desc.to_edge, DOWN)
 
-        replacement_ax = TextMobject("Axiom nahrazení").move_to(choice_ax)
+        replacement_ax = TextMobject("Axiom of Replacement").move_to(choice_ax)
         chosen_rect = SurroundingRectangle(chosen2, buff = 0.3, color = YELLOW)
         replacement_ax.next_to(chosen_rect, buff = 0.5, aligned_edge = UP)
-        replacement_rule = TextMobject("Pravidlo").next_to(replacement_ax, DOWN)
+        replacement_rule = TextMobject("Rule").next_to(replacement_ax, DOWN)
         replacement_rule.highlight(YELLOW)
 
         self.play(FadeIn(replacement_ax))
-        self.wait_to(60 + 37)
+        #self.wait_to(60 + 37)
         self.play(Write(replacement_rule))
-        self.wait_to(60 + 47)
+        #self.wait_to(60 + 47)
 
         self.play(ReplacementTransform(sets_rect.copy(), chosen_rect))
 
-        self.wait_to(2*60+6)
+        #self.wait_to(2*60+6)
 
         chosen = []
         for subset in subsets:
@@ -412,16 +416,17 @@ class AxiomChoiceIntro(Scene):
             MoveFromSaved(chosen_circ),
             MoveFromSaved(chosen2),
         )
-        self.wait_to(2*60+8)
+        #self.wait_to(2*60+8)
         self.play(
             FadeOut(VGroup(replacement_ax, replacement_rule)),
             AC_desc.restore,
         )
 
-        self.wait_to(2*60+11)
+        #self.wait_to(2*60+11)
         conversation = Conversation(self)
-        conversation.add_bubble("Takže výsledek axiomu výběru vypadá náhodně?")
-        self.wait_to(2*60+41)
+        conversation.add_bubble("So the outcome of AC looks random?")
+        self.dither(2)
+        #self.wait_to(2*60+41)
 
 class Prisoner(SVGMobject):
     CONFIG = {
@@ -474,42 +479,43 @@ class Prisoner(SVGMobject):
 class ExamplesIntro(Scene):
     def construct(self):
 
-        title = TextMobject("Příklady").to_edge(UP)
+        title = TextMobject("Examples").to_edge(UP)
         self.add(title)
         self.play(UnapplyMethod(title.behind_edge, UP))
 
         prisoners = VGroup(Prisoner() for _ in range(5)).arrange_submobjects()
         prisoners.shift(UP)
-        hats_title = TextMobject("Klobouky").next_to(prisoners, UP, aligned_edge = LEFT)
+        hats_title = TextMobject("Hats").next_to(prisoners, UP, aligned_edge = LEFT)
 
         unm_line = DashedLine(LEFT, RIGHT, color = "#FF00FF")
         unm_brace = BraceText(unm_line, "?", UP)
-        unm_title = TextMobject("Neměřitelná množina")
+        unm_title = TextMobject("Unmeasurable set")
         unmeasurable = VGroup((unm_line, unm_brace), unm_title)
         unmeasurable.arrange_submobjects(RIGHT, buff = 0.5).shift(DOWN)
 
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(
             FadeIn(prisoners, submobject_mode = "lagged_start"),
         )
-        self.wait_to(5)
+        #self.wait_to(5)
 
         self.play(
             ShowCreation(unm_line),
             unm_brace.creation_anim(),
         )
-        self.wait_to(7.3)
+        #self.wait_to(7.3)
 
         self.play(
             FadeIn(hats_title, submobject_mode = "lagged_start"),
         )
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.play(FadeIn(unm_title, submobject_mode = "lagged_start", run_time = 2))
 
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
 
+        self.dither()
         self.play(FadeOut(VGroup(title, prisoners, hats_title, unmeasurable)))
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
 
 def make_prisoners():
     corner = DOWN+RIGHT
@@ -575,42 +581,44 @@ class PrisonersTale(Scene):
         grid.next_to(prisoners, UP)
         grid.to_edge(RIGHT)
 
-        self.wait_to(1.8)
+        #self.wait_to(1.8)
         self.play(ShowCreation(grid))
 
         self.play(UnapplyMethod(prisoners.behind_edge, DOWN))
 
-        self.wait_to(16.5)
+        #self.wait_to(16.5)
+        self.dither(2)
 
         self.play(
             FadeOut(grid),
             prisoners.behind_edge, DOWN,
         )
 
-        self.wait_to(18.3)
+        #self.wait_to(18.3)
         prisoners, labels = make_prisoners()
         self.play(UnapplyMethod(prisoners.behind_edge, DOWN))
 
         eye_cone = prisoners[2].eye_cone()
         hidden_hats = VGroup(p.hat for p in prisoners[:3])
         hidden_hats.save_state()
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
         self.play(
             ShowCreation(eye_cone[0]),
             ShowCreation(eye_cone[1]),
             hidden_hats.set_fill, BLACK,
         )
 
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
         self.play(ShowCreation(labels))
         
-        self.wait_to(36.5)
+        #self.wait_to(36.5)
 
+        self.dither(2)
         self.play(
             FadeOut(eye_cone),
             hidden_hats.restore,
         )
-        self.wait_to(38)
+        #self.wait_to(38)
 
         bubbles = VGroup(p.bubble for p in prisoners)
         bubbles.save_state()
@@ -621,17 +629,17 @@ class PrisonersTale(Scene):
         )
 
         rules = VGroup(
-            TextMobject("Konečně chyb $\Rightarrow$ všichni volní"),
-            TextMobject("Nekonečně chyb $\Rightarrow$ všichni mrtví"),
+            TextMobject("Finite number of errors $\Rightarrow$ amnesty"),
+            TextMobject("Infinite number of errors $\Rightarrow$\\\\mass execution"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         rules.next_to(king).to_edge(UP)
 
-        self.wait_to(41)
+        #self.wait_to(41)
         self.play(FadeIn(rules[0], submobject_mode = "lagged_start", run_time = 2))
-        self.wait_to(46)
+        #self.wait_to(46)
         self.play(FadeIn(rules[1], submobject_mode = "lagged_start", run_time = 2))
 
-        self.wait_to(52.5)
+        #self.wait_to(52.5)
 
         def rate_func(x):
             x *= np.pi*5
@@ -639,20 +647,21 @@ class PrisonersTale(Scene):
 
         self.play(ApplyMethod(VGroup(head, crown).shift, 0.2*DOWN, run_time = 1.5, rate_func = rate_func))
 
-        self.wait_to(60+3)
+        #self.wait_to(60+3)
 
-        one_half = TexMobject("\\frac12")
-        self.play(Write(one_half))
+        #one_half = TexMobject("\\frac12")
+        #self.play(Write(one_half))
 
-        self.wait_to(60+12)
+        #self.wait_to(60+12)
 
+        self.dither(2)
         self.play(
             king.behind_edge, LEFT,
             #VGroup(labels, prisoners).behind_edge, DOWN,
             FadeOut(VGroup(bubbles, rules, one_half)),
-            VGroup(p.hat for p in prisoners).set_fill, BLACK,
+            #VGroup(p.hat for p in prisoners).set_fill, BLACK,
         )
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
 
 class SimpleStrategy(Scene):
     def construct(self):
@@ -667,19 +676,19 @@ class SimpleStrategy(Scene):
         index = 2
         prisoner = prisoners[index]
         eye_cone = prisoner.eye_cone()
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             ShowCreation(eye_cone[0]),
             ShowCreation(eye_cone[1]),
             VGroup(hats[index+1:], fill_opacity = 0.5).set_fill, BLUE,
         )
-        self.wait_to(7.5)
+        #self.wait_to(7.5)
 
         prisoner.bubble.save_state()
         prisoner.show_bubble(BLUE)
         self.play(MoveFromSaved(prisoner.bubble))
 
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
 
         bubbles = VGroup(p.bubble for p in prisoners[index+1:])
         bubbles.save_state()
@@ -687,7 +696,8 @@ class SimpleStrategy(Scene):
 
         self.play(MoveFromSaved(bubbles, submobject_mode = "one_at_a_time"))
 
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
+        self.dither()
         self.play(
             FadeOut(VGroup(prisoner.bubble, bubbles, eye_cone)),
             hats.restore,
@@ -726,11 +736,11 @@ class HatsSet(Scene):
         for bar in next_bars:
             bar.move_to(prisoners[-1].hat, coor_mask = Y_MASK)
 
-        self.wait_to(2.2)
+        #self.wait_to(2.2)
         self.play(seq.restore)
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
         self.play(Transform(seq, seq_ordinal))
-        self.wait_to(10)
+        #self.wait_to(10)
 
         big_rect = Rectangle(width = 1.9*SPACE_WIDTH, height = 1.9*SPACE_HEIGHT)
         prisoners.save_state()
@@ -757,7 +767,7 @@ class HatsSet(Scene):
             FadeIn(seqs[0]),
             FadeIn(seqs[1][0]),
         )
-        self.wait_to(22.3)
+        #self.wait_to(22.3)
 
         seqs = VGroup(seqs[0][0], seqs[1][0], seqs[0][1], seqs[1][1])
         classes = VGroup(SurroundingRectangle(seq, buff = 0, color = GREEN) for seq in seqs)
@@ -767,7 +777,7 @@ class HatsSet(Scene):
             MoveFromSaved(seqs),
             FadeIn(classes),
         )
-        self.wait_to(24.2)
+        #self.wait_to(24.2)
 
         seq = seqs[-1]
         rect = classes[-1]
@@ -793,7 +803,7 @@ class HatsSet(Scene):
             color = GREEN,
         )
         arrow = Arrow(ORIGIN, RIGHT*2, color = GREEN).next_to(edge, buff = 0)
-        self.wait_to(27.5)
+        #self.wait_to(27.5)
         self.play(ShowCreation(edge))
         self.play(ShowCreation(arrow))
 
@@ -801,9 +811,8 @@ class HatsSet(Scene):
         dots.arrange_submobjects(buff = 1)
         dots.next_to(big_rect.get_edge_center(UP), DOWN, buff = 0.5)
 
-        self.wait_to(39)
+        #self.wait_to(39)
         self.play(FadeOut(VGroup(edge, arrow)))
-        #self.wait_to()
 
         seqs.save_state()
         seq2.save_state()
@@ -821,14 +830,16 @@ class HatsSet(Scene):
         self.seqs = seqs
         self.dots = dots
 
-        self.wait_to(47)
+        #self.wait_to(47)
         self.expand_dot(2)
-        self.wait_to(56)
+        #self.wait_to(56)
+        self.dither()
         self.hide_dot()
         self.expand_dot(1)
-        self.wait_to(60+12)
+        self.dither()
+        #self.wait_to(60+12)
         self.hide_dot()
-        self.wait_to(60+14)
+        #self.wait_to(60+14)
 
         prisoners.restore()
         prisoners.next_to(big_rect.get_edge_center(DOWN), UP)
@@ -843,27 +854,29 @@ class HatsSet(Scene):
         prisoners.save_state()
         VGroup(prisoners, eye_cone).behind_edge(DOWN)
         self.play(prisoners.restore, eye_cone.restore)
+        self.dither(2)
 
-        self.wait_to(60+16.5)
+        #self.wait_to(60+16.5)
         expand_anim = self.expand_dot_anim(3)
         arrows = VGroup(self.make_arrow(pr) for pr in prisoners)
         self.play(expand_anim, ShowCreation(arrows[index]))
+        self.dither()
 
-        self.wait_to(60+25.5)
+        #self.wait_to(60+25.5)
         self.play(
             hidden_hats.restore,
             FadeOut(eye_cone),
         )
 
-        self.wait_to(60+30)
+        #self.wait_to(60+30)
         remaining_arrows = VGroup(arrows.submobjects)
         remaining_arrows.remove(arrows[index])
         self.play(ShowCreation(remaining_arrows))
 
-        self.wait_to(60+34.5)
+        #self.wait_to(60+34.5)
         self.play(FadeOut(arrows))
 
-        self.wait_to(60+36)
+        #self.wait_to(60+36)
         seq = self.interior[2]
         seq_ori = seq.copy()
         seq.save_state()
@@ -885,20 +898,20 @@ class HatsSet(Scene):
         arrow.next_to(edge, buff = 0)
         arrow.shift(0.2*UP)
         edge_g = VGroup(edge, arrow)
-        self.wait_to(60+38.5)
+        #self.wait_to(60+38.5)
         self.play(ShowCreation(edge_g))
 
-        self.wait_to(60+54)
+        #self.wait_to(60+54)
 
         self.play(FadeOut(edge_g))
 
-        self.wait_to(60+55.5)
+        #self.wait_to(60+55.5)
         self.play(Transform(seq, seq_ori))
         corner = seq.get_corner(UP+LEFT)
         arrow = Arrow(corner+(UP+LEFT), corner, color = ORANGE)
         self.play(ShowCreation(arrow))
 
-        self.wait_to(2*60+4)
+        #self.wait_to(2*60+4)
 
         self.interior.remove(self.interior[2])
         self.interior_collapsed.remove(self.interior_collapsed[2])
@@ -916,7 +929,7 @@ class HatsSet(Scene):
         seq_ori = seq.copy()
         arrow_ori = arrow.copy()
 
-        self.wait_to(2*60+6)
+        #self.wait_to(2*60+6)
         for i in reversed(range(3)):
             arrow.save_state()
             arrow.next_to(self.dots[i], DOWN)
@@ -926,9 +939,9 @@ class HatsSet(Scene):
                 dest.set_color(src.color)
             self.play(MoveFromSaved(arrow), MoveFromSaved(seq))
 
-        AC_title = TextMobject("Axiom výběru")
+        AC_title = TextMobject("Axiom of Choice")
         AC_arrow = Arrow(ORIGIN, 1.5*DOWN, color = WHITE)
-        repr_text = TextMobject("reprezentanti").highlight(ORANGE)
+        repr_text = TextMobject("representatives").highlight(ORANGE)
         repr_rect = SurroundingRectangle(repr_text, color = WHITE)
         repr_g = VGroup(repr_text, repr_rect)
         AC_g = VGroup(AC_title, AC_arrow, repr_g).arrange_submobjects(DOWN)
@@ -936,36 +949,36 @@ class HatsSet(Scene):
         AC_g.move_to((seq.get_edge_center(RIGHT) + big_rect.get_edge_center(RIGHT))/2)
         AC_g.next_to(self.dots, DOWN, coor_mask = Y_MASK, buff = 1)
 
-        self.wait_to(2*60+24)
+        #self.wait_to(2*60+24)
         self.play(FadeIn(AC_title, submobject_mode = "lagged_start"))
-        self.wait_to(2*60+28)
+        #self.wait_to(2*60+28)
         self.play(ShowCreation(AC_arrow))
         self.play(FadeIn(repr_text, submobject_mode = "lagged_start"))
-        self.wait_to(2*60+31.5)
+        #self.wait_to(2*60+31.5)
         self.play(ShowCreation(repr_rect))
 
-        self.wait_to(2*60+34)
+        #self.wait_to(2*60+34)
         repr_g.save_state()
         repr_g.next_to(VGroup(prisoners[3:]), UP, buff = 0, coor_mask = Y_MASK)
         self.play(
             FadeOut(VGroup(AC_title, AC_arrow, arrow, seq)),
             MoveFromSaved(repr_g),
         )
-        self.wait_to(2*60+58.8)
+        #self.wait_to(2*60+58.8)
 
         circ = Circle(radius = 0.2, color = WHITE)
         circ.rotate(np.pi/2)
         circ.stretch(-1, 0)
         circ.shift(self.dots[-1].get_center())
         self.play(ShowCreation(circ))
-        self.wait_to(3*60+5)
+        #self.wait_to(3*60+5)
         arrow = arrow_ori
         seq = seq_ori
         self.play(ShowCreation(arrow), FadeIn(seq))
 
-        self.wait_to(3*60+14)
+        #self.wait_to(3*60+14)
         self.play(FadeOut(big_rect))
-        self.wait_to(3*60+23.5)
+        #self.wait_to(3*60+23.5)
 
         mathologer_pic = ImageMobject("mathologer-ac.jpg")
         mathologer_pic.scale(1./3)
@@ -975,8 +988,9 @@ class HatsSet(Scene):
         mathologer = VGroup(mathologer_pic, mathologer_label)
         mathologer.to_edge(LEFT)
         self.play(UnapplyMethod(mathologer.behind_edge, RIGHT))
+        self.dither(2)
 
-        self.wait_to(3*60+40)
+        #self.wait_to(3*60+40)
         #self.play(FadeOut(VGroup(circ, seq, arrow, self.dots, repr_g, prisoners)))
 
     def make_arrow(self, pr):
@@ -1045,7 +1059,7 @@ class HatsSet(Scene):
 class MeasureIntro(Scene):
     def construct(self):
 
-        title = TextMobject("Obsah").to_edge(UP)
+        title = TextMobject("Area").to_edge(UP)
         self.play(Write(title))
 
         triangle = Polygon(UP, DOWN+2*RIGHT, DOWN+LEFT)
@@ -1071,18 +1085,19 @@ class MeasureIntro(Scene):
         )
         crazy_set.next_to(areas_classical, DOWN, buff = 0.5)
 
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(ShowCreation(triangle))
         self.play(Write(triangle_label))
-        self.wait_to(10)
+        #self.wait_to(10)
 
         self.play(ShowCreation(circ))
         self.play(Write(circ_label))
 
-        self.wait_to(16)
+        #self.wait_to(16)
         self.play(ShowCreation(crazy_set))
 
-        self.wait_to(26)
+        #self.wait_to(26)
+        self.dither()
         self.play(FadeOut(VGroup(
             triangle, triangle_label,
             circ, circ_label,
@@ -1094,14 +1109,14 @@ set_shift = 0.2*UP
 class MeasureProperties(Scene):
     def construct(self):
 
-        title = TextMobject("Obsah").to_edge(UP)
+        title = TextMobject("Area").to_edge(UP)
         self.add(title)
 
         reals = NumberLine()
         self.play(ShowCreation(reals))
-        self.wait_to(4)
+        #self.wait_to(4)
 
-        subtitle = TextMobject("Míra").next_to(reals, UP).to_edge(LEFT)
+        subtitle = TextMobject("Measure").next_to(reals, UP).to_edge(LEFT)
         self.play(Write(subtitle))
 
         interval1 = Line(-3*X_MASK, -1*X_MASK).shift(set_shift).highlight(YELLOW)
@@ -1110,13 +1125,13 @@ class MeasureProperties(Scene):
         interval1_label = TexMobject('2').next_to(interval1, UP).highlight(YELLOW)
         interval2_label = TexMobject('3').next_to(interval2, UP).highlight(YELLOW)
 
-        self.wait_to(13)
+        #self.wait_to(13)
         self.play(ShowCreation(interval1))
         self.play(Write(interval1_label))
 
-        self.wait_to(17)
+        #self.wait_to(17)
         self.play(ShowCreation(interval2), FadeIn(interval2_label))
-        self.wait_to(19)
+        #self.wait_to(19)
 
         union_label = TexMobject('2+3').highlight(YELLOW)
         union_center = (interval1.get_corner(UP+RIGHT) + interval2.get_corner(LEFT))/2
@@ -1126,7 +1141,7 @@ class MeasureProperties(Scene):
             FadeIn(union_label[1]),
             ReplacementTransform(interval2_label[0], union_label[2]),
         )
-        #self.wait_to(20)
+        ##self.wait_to(20)
 
         union_label2 = TexMobject('5').highlight(YELLOW).next_to(union_center, UP)
         self.play(ReplacementTransform(union_label, union_label2))
@@ -1136,19 +1151,19 @@ class MeasureProperties(Scene):
             DashedLine(-1*X_MASK,  0*X_MASK),
             DashedLine( 3*X_MASK,  4*X_MASK),
         ).shift(set_shift).highlight(YELLOW)
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(ShowCreation(added_points))
 
         union_label = TexMobject('\geq 5').next_to(union_center, UP)
         union_label[-1].highlight(YELLOW)
 
-        self.wait_to(29)
+        #self.wait_to(29)
         self.play(
             FadeIn(union_label[0]),
             ReplacementTransform(union_label2[0], union_label[1]),
         )
 
-        self.wait_to(32.5)
+        #self.wait_to(32.5)
         self.play(FadeOut(VGroup(added_points, union_label, interval1, interval2)))
 
         rec_set = []
@@ -1174,24 +1189,24 @@ class MeasureProperties(Scene):
         rec_set.shift(0.2*UP)
         rec_set.highlight(BLACK)
 
-        self.wait_to(34)
+        #self.wait_to(34)
         self.play(rec_set.restore)
 
         rec_set_label = TexMobject("4").highlight(YELLOW).next_to(rec_set, UP)
         self.play(FadeIn(rec_set_label))
 
-        #self.wait_to(35)
+        ##self.wait_to(35)
         self.play(rec_set.shift, 3*LEFT)
-        self.wait_to(39)
+        #self.wait_to(39)
         self.play(rec_set_label.shift, 3*LEFT)
-        self.wait_to(47)
+        #self.wait_to(47)
 
         rec_set.save_state()
         rec_set.arrange_submobjects(DOWN, coor_mask = Y_MASK)
         rec_set.next_to(reals, DOWN, coor_mask = Y_MASK)
 
         self.play(MoveFromSaved(rec_set, run_time = 2))
-        self.wait_to(50)
+        #self.wait_to(50)
 
         rec_set_folded = []
         for i in range(rec_set_layers):
@@ -1210,12 +1225,13 @@ class MeasureProperties(Scene):
 
         self.play(ReplacementTransform(rec_set, rec_set_folded_in_rows))
 
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(ReplacementTransform(rec_set_folded_in_rows, rec_set_folded))
 
-        self.wait_to(60+9)
+        #self.wait_to(60+9)
+        self.dither(2)
 
-        next_title = TextMobject("Neměřitelná množina").to_edge(UP)
+        next_title = TextMobject("Unmeasurable set").to_edge(UP)
         next_title.save_state()
         next_title.shift(DOWN)
         next_title.set_fill(opacity = 0)
@@ -1231,7 +1247,7 @@ class MeasureProperties(Scene):
 class UnmeasurableOverview(Scene):
     def construct(self):
 
-        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        title = TextMobject("Unmeasurable set").to_edge(UP)
         reals = NumberLine()
         self.add(title, reals)
 
@@ -1239,14 +1255,14 @@ class UnmeasurableOverview(Scene):
         subinterval.submobjects = subinterval.submobjects[::2]
         subinterval.shift(set_shift)
 
-        AC_label = TextMobject("Axiom výběru").next_to(subinterval, UP, buff = 0.5)
+        AC_label = TextMobject("Axiom of Choice").next_to(subinterval, UP, buff = 0.5)
         self.play(FadeIn(AC_label, submobject_mode = "lagged_start"))
 
         numbers = reals.get_number_mobjects()
         zero_i = len(numbers)//2
         zero = numbers[zero_i]
         two = numbers[zero_i+2]
-        self.wait_to(4)
+        #self.wait_to(4)
         self.play(
             ShowCreation(subinterval),
             FadeIn(VGroup(zero, two), submobject_mode = "one_at_a_time"),
@@ -1266,36 +1282,37 @@ class UnmeasurableOverview(Scene):
         copies.arrange_submobjects(DOWN, coor_mask = Y_MASK)
         copies.next_to(reals, DOWN, coor_mask = Y_MASK)
 
-        self.wait_to(10)
+        #self.wait_to(10)
         self.play(
             FadeOut(VGroup(zero, two)),
             ReplacementTransform(VGroup(subinterval), copies),
         )
 
-        self.wait_to(14)
+        #self.wait_to(14)
         copies.save_state()
         for src, dest in zip(shifts, copies): dest.move_to(src, coor_mask = X_MASK)
         self.play(MoveFromSaved(copies, run_time = 2))
 
-        self.wait_to(17)
+        #self.wait_to(17)
         self.play(ReplacementTransform(copies, shifts))
 
-        self.wait_to(22)
+        #self.wait_to(22)
+        self.dither()
         self.play(FadeOut(VGroup(AC_label, shifts)))
 
 class UnmeasurableConstruction(Scene):
     def construct(self):
 
-        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        title = TextMobject("Unmeasurable set").to_edge(UP)
         reals = NumberLine()
         self.add(title, reals)
 
-        classes_desc = TextMobject("Skupinky modulo $\\mathbb Q$")
+        classes_desc = TextMobject("Groups modulo $\\mathbb Q$")
         classes_desc.next_to(title, DOWN, buff = 0.5)
         classes_desc.to_edge(LEFT)
 
         self.play(FadeIn(classes_desc))
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
 
         dot_pair = VGroup(
             Dot(np.sqrt(3) * X_MASK),
@@ -1310,13 +1327,13 @@ class UnmeasurableConstruction(Scene):
         self.play(MoveFromSaved(dot_pair))
 
         double_arrow = DoubleArrow(*dot_pair, color = WHITE)
-        rat_desc = TextMobject("racionální").next_to(double_arrow, UP)
-        self.wait_to(9)
+        rat_desc = TextMobject("rational").next_to(double_arrow, UP)
+        #self.wait_to(9)
         self.play(
             ShowCreation(double_arrow),
             FadeIn(rat_desc),
         )
-        self.wait_to(12.5)
+        #self.wait_to(12.5)
 
         denom = 6
         nominators = range(-1-int((SPACE_WIDTH+2)*denom), int((SPACE_WIDTH+2)*denom)+2)
@@ -1340,12 +1357,12 @@ class UnmeasurableConstruction(Scene):
         real_sample = Dot(np.sqrt(2)*X_MASK, color = YELLOW)
         sample_label = TexMobject("\\sqrt2").next_to(real_sample, DOWN)
         sample_label.highlight(YELLOW)
-        self.wait_to(20)
+        #self.wait_to(20)
         self.play(
             ApplyMethod(real_sample.shift, 0.2*DOWN, rate_func = there_and_back),
             FadeIn(sample_label)
         )
-        self.wait_to(24)
+        #self.wait_to(24)
 
         shifted_label = TexMobject("\\sqrt 2"," + \\mathbb Q")
         shifted_label[0].highlight(YELLOW)
@@ -1365,7 +1382,7 @@ class UnmeasurableConstruction(Scene):
             FadeIn(VGroup(shifted_label[1:])),
             ReplacementTransform(sample_label, shifted_label[0]),
         )
-        self.wait_to(27)
+        #self.wait_to(27)
 
         self.play(FadeOut(VGroup(dot_pair, double_arrow, rat_desc)))
 
@@ -1406,7 +1423,8 @@ class UnmeasurableConstruction(Scene):
             dot.highlight(ORANGE)
             self.play(ApplyMethod(dot.shift, 0.3*UP), rate_func = there_and_back)
 
-        self.wait_to(34.5)
+        #self.wait_to(34.5)
+        self.dither()
 
         centers = [dot.get_center() for dot in representants]+[SPACE_HEIGHT*DOWN]
         for y in (interpolate(centers[0], centers[1], 0.5),
@@ -1434,7 +1452,7 @@ class UnmeasurableConstruction(Scene):
         repr_label = TexMobject('R').highlight(ORANGE).next_to(representants, UP)
         self.play(Write(repr_label))
 
-        self.wait_to(42)
+        #self.wait_to(42)
         self.play(FadeOut(classes_desc))
 
         #print([dot.get_center()[0] for dot in representants])
@@ -1452,7 +1470,7 @@ repr_x = [ # exported from previous scene
 class TranslateDisjoint(Scene):
     def construct(self):
 
-        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        title = TextMobject("Unmeasurable set").to_edge(UP)
         reals = NumberLine()
 
         denom = 6
@@ -1488,7 +1506,7 @@ class TranslateDisjoint(Scene):
             for dots in (dots1, dots2)
         ).copy().highlight(ORANGE)
 
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
         self.play(
             FadeIn(dots1),
             ReplacementTransform(sample1.copy(), approx[0], path_arc = -np.pi/10),
@@ -1498,11 +1516,11 @@ class TranslateDisjoint(Scene):
             ReplacementTransform(sample2.copy(), approx[1], path_arc = np.pi/10),
         )
 
-        self.wait_to(7)
+        #self.wait_to(7)
         neq = TexMobject("\\neq").move_to(approx)
         self.play(Write(neq))
 
-        self.wait_to(17)
+        #self.wait_to(17)
 
         copies = VGroup(repr_dots.copy() for _ in range(2))
         copies[0][-2].highlight(YELLOW)
@@ -1520,7 +1538,7 @@ class TranslateDisjoint(Scene):
             dots.save_state()
             dots.shift(apr.get_center() - sample.get_center())
 
-        self.wait_to(20)
+        #self.wait_to(20)
         self.play(MoveFromSaved(copies2[0]))
         self.play(MoveFromSaved(copies2[1]))
 
@@ -1540,11 +1558,11 @@ class TranslateDisjoint(Scene):
                 submobject_mode = "one_at_a_time",
             ))
 
-        self.wait_to(28)
+        #self.wait_to(28)
         hl_set(copies2[0])
         hl_set(copies2[1])
 
-        self.wait_to(33)
+        #self.wait_to(33)
         self.play(FadeOut(VGroup(
             dots1, dots2, sample1, sample2,
             approx, neq,
@@ -1554,7 +1572,7 @@ class TranslateDisjoint(Scene):
 class MeasureContradiction(Scene):
     def construct(self):
 
-        title = TextMobject("Neměřitelná množina").to_edge(UP)
+        title = TextMobject("Unmeasurable set").to_edge(UP)
         reals = NumberLine()
 
         denom = 6
@@ -1580,12 +1598,12 @@ class MeasureContradiction(Scene):
         rat_dots_label.next_to(rat_dots, DOWN).to_edge(RIGHT)
         rat_dots_g = VGroup(rat_dots, rat_dots_label)
         rat_dots_g.to_edge(DOWN)
-        self.wait_to(5.5)
+        #self.wait_to(5.5)
         self.play(ShowCreation(rat_dots), FadeIn(rat_dots_label))
 
         brace = BraceDesc(small_rats, "\\aleph_0", UP, buff = 0.1)
         self.play(brace.creation_anim())
-        self.wait_to(10.5)
+        #self.wait_to(10.5)
         self.play(brace.shift_brace, rat_dots)
 
         r_copies = VGroup(repr_dots.copy() for _ in small_rats)
@@ -1595,7 +1613,7 @@ class MeasureContradiction(Scene):
 
         r_copies.shift(DOWN)
 
-        self.wait_to(15)
+        #self.wait_to(15)
         self.play(
             FadeOut(brace),
         )
@@ -1604,23 +1622,24 @@ class MeasureContradiction(Scene):
             brace.creation_anim(),
             FadeIn(r_copies),
         )
-        self.wait_to(24)
+        #self.wait_to(24)
 
         r_copies.save_state()
         for dots in r_copies: dots.shift(dots.x * RIGHT)
         self.play(MoveFromSaved(r_copies))
 
-        self.wait_to(29)
+        #self.wait_to(29)
         r_copies.save_state()
         center = r_copies.get_center()
         for dots in r_copies: dots.move_to(center, coor_mask = Y_MASK)
         self.play(MoveFromSaved(r_copies))
 
-        self.wait_to(32)
+        #self.wait_to(32)
         lt_2_label = TexMobject("\leq 2").next_to(r_copies, UP)
         self.play(Write(lt_2_label))
+        self.dither(2)
 
-        self.wait_to(41)
+        #self.wait_to(41)
         r_copies_col = VGroup(repr_dots.copy() for _ in rat_dots)
         start_x = r_copies[0].x
         end_x = r_copies[-1].x
@@ -1646,7 +1665,7 @@ class MeasureContradiction(Scene):
         )
         r_copies = r_copies_dest
 
-        self.wait_to(45.5)
+        #self.wait_to(45.5)
         r_copies_dest = r_copies_col.copy()
         x_coor = [dot.get_center()[0] for dot in rat_dots]
         x_coor.sort(key = lambda x: (x % 2, x))
@@ -1658,7 +1677,7 @@ class MeasureContradiction(Scene):
             ApplyMethod(VGroup(reversed(rat_dots[:zero_i])).highlight, YELLOW, submobject_mode = "one_at_a_time"),
         )
 
-        self.wait_to(47.5)
+        #self.wait_to(47.5)
         self.play(
             FadeOut(brace),
             Transform(r_copies, r_copies_dest),
@@ -1681,10 +1700,10 @@ class MeasureContradiction(Scene):
         x_dot.shift(LEFT)
         x_dot.set_fill(opacity = 0)
 
-        self.wait_to(60+10.5)
+        #self.wait_to(60+10.5)
         self.play(x_dot.restore, FadeIn(x_label))
 
-        self.wait_to(60+15)
+        #self.wait_to(60+15)
 
         x_class = dots_template.copy().shift(x_repr * X_MASK)
         x_class.next_to(repr_label, UP, coor_mask = Y_MASK)
@@ -1696,7 +1715,7 @@ class MeasureContradiction(Scene):
             MoveFromSaved(x_label),
             Transform(x_dot, x_class[shift_index].copy().highlight(YELLOW)),
         )
-        self.wait_to(60+17.5)
+        #self.wait_to(60+17.5)
 
         x_class[zero_i].highlight(YELLOW)
         self.play(x_class[zero_i].shift, 0.2*UP, rate_func = there_and_back)
@@ -1706,29 +1725,31 @@ class MeasureContradiction(Scene):
         self.remove(dot)
         repr_dots[x_in_r].highlight(YELLOW)
 
-        self.wait_to(60+24)
+        #self.wait_to(60+24)
 
         repr_copy_x = repr_dots.copy()
         self.play(repr_copy_x.shift, shift)
 
         rect = SurroundingRectangle(r_copies[copy_index])
-        self.wait_to(60+30)
+        #self.wait_to(60+30)
         self.play(
             ShowCreation(rect),
             r_copies[copy_index][x_in_r].highlight, YELLOW,
         )
 
-        self.wait_to(60+37)
+        self.dither(2)
+        #self.wait_to(60+37)
 
 class FindingCause(Scene):
     def construct(self):
 
-        title = TextMobject("Co za to může?").to_edge(UP)
+        title = TextMobject("What to blame?").to_edge(UP)
         self.play(FadeIn(title, submobject_mode = "lagged_start"))
 
-        self.wait_to(5)
+        #self.wait_to(5)
         conversation = Conversation(self)
-        conversation.add_bubble("Ta podmínka se spočetným rozdělením.")
+        conversation.add_bubble("The countable decomposition")
+        self.dither(2)
         self.add_foreground_mobjects(conversation.dialog)
 
         rec_set = []
@@ -1786,9 +1807,9 @@ class FindingCause(Scene):
 
         self.play(ShowCreation(dots))
 
-        self.wait_to(19)
+        #self.wait_to(19)
         self.play(FadeOut(rec_set_folded), FadeOut(dots))
-        conversation.add_bubble("Ne tak docela, Banach-Tarskiho paradox.")
+        conversation.add_bubble("But there is the Banach-Tarski paradox.")
 
         banach_tarski_pic = ImageMobject("vsauce-banach-tarski.png")
         banach_tarski_pic.scale(1./3)
@@ -1797,37 +1818,40 @@ class FindingCause(Scene):
         banach_tarski_label.next_to(banach_tarski_pic, RIGHT)
         banach_tarski = VGroup(banach_tarski_pic, banach_tarski_label)
         banach_tarski.next_to(conversation.dialog, UP)
-        self.wait_to(21)
+        #self.wait_to(21)
         self.play(UnapplyMethod(banach_tarski.behind_edge, RIGHT))
 
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
+        self.dither(2)
         self.play(
             FadeOut(VGroup(banach_tarski_label, conversation.dialog)),
             FadeOut(banach_tarski_pic),
         )
 
         conversation = Conversation(self)
-        conversation.add_bubble("Tak axiom výběru?")
-        self.wait_to(47)
+        conversation.add_bubble("So the Axiom of Choice?")
+        self.dither(2)
+        #self.wait_to(47)
         conversation2 = Conversation(self, start_answer = True)
-        conversation2.add_bubble("Nebo jenom blbá intuice.")
-        self.wait_to(53)
+        conversation2.add_bubble("Or just bad intuition.")
+        self.dither(2)
+        #self.wait_to(53)
 
 class ChoiceStatus(Scene):
     def construct(self):
 
-        title = TextMobject("Axiom výběru").to_edge(UP)
+        title = TextMobject("Axiom of Choice").to_edge(UP)
         self.add(title)
         items = VGroup(
-            TextMobject("$\\bullet$ Býval kontroverzní, dnes přijímaný"),
-            TextMobject("$\\bullet$ Nedá se dokázat ani vyvrátit"),
+            TextMobject("$\\bullet$ used to be controversial,"),
+            TextMobject("$\\bullet$ independent of other axioms"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT, buff = 0.4)
         items.next_to(title, DOWN, buff = 0.5).to_edge(LEFT)
 
         self.play(FadeIn(items[0], submobject_mode = "lagged_start"))
-        self.wait_to(12)
+        #self.wait_to(12)
 
-        stamp_text = TextMobject("Dokázáno")
+        stamp_text = TextMobject("Proven")
         stamp_rect = SurroundingRectangle(stamp_text, buff = 0.2)
         stamp_bg = BackgroundRectangle(stamp_rect)
         stamp = VGroup(stamp_bg, stamp_rect, stamp_text)
@@ -1842,7 +1866,7 @@ class ChoiceStatus(Scene):
         self.play(
             FadeInZoomOut(stamp, about_point = stamp.get_center()),
         )
-        self.wait_to(34.5)
+        #self.wait_to(34.5)
 
         chapter14 = importlib.import_module('eost.14-formal-recursion-cz')
         make_jumps = chapter14.make_jumps
@@ -1856,4 +1880,5 @@ class ChoiceStatus(Scene):
         for i in range(14): self.play(ShowCreation(jumps[i], run_time = 0.5))
         self.play(ShowCreation(VGroup(jumps[i+1:])))
 
-        self.wait_to(51.5)
+        self.dither(2)
+        #self.wait_to(51.5)

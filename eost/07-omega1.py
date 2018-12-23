@@ -78,9 +78,9 @@ class CardinalsOrdinalsRecap(chapter2.NotationScene):
         card_prod.next_to(card_sum, DOWN)
         card_prod.shift((card_sum[-1].get_center() - card_prod[-1].get_center()) * X_MASK)
         self.play(Write(card_sum))
-        self.dither()
+        #self.dither()
         self.play(Write(card_prod))
-        self.dither()
+        #self.dither()
 
         ordinal_dest = ordinal.copy()
         ordinal_bg_dest = ordinal_bg.copy()
@@ -138,7 +138,7 @@ class Supremum(Scene):
             self.play(ShowCreation(omega_times_3))
             self.play(ShowCreation(omega_pow_3))
             self.play(FadeIn(dots))
-            self.dither()
+            #self.dither()
 
         result = OrdinalFiniteProd(OrdinalOmega, 5, x1 = 8)
         result_stretched = result.copy()
@@ -196,16 +196,16 @@ class Supremum(Scene):
         self.remove(mrg_ordinals)
         self.add(result)
         if fast_play: return result
-        self.dither()
+        #self.dither()
         brace = BraceDesc(result, "\\omega_1", UP)
         self.play(brace.creation_anim())
-        self.dither()
+        #self.dither()
 
         conversation = Conversation(self)
         conversation.add_bubble("You've said in chapter 5 that taking all ordinals is forbidden.")
-        self.dither()
+        self.dither(2)
         conversation.add_bubble("We are using just the countable ones.")
-        self.dither()
+        self.dither(2)
 
         self.add_foreground_mobjects(conversation.dialog)
         self.play(FadeOut(VGroup(brace, result)))
@@ -230,13 +230,13 @@ class Reorderings(Scene):
         omega_plus_5.shift(shift)
         omega_src = LimitSubOrdinal(omega[5:])
         five_src = VGroup(*omega[:5])
-        self.dither()
+        #self.dither()
         self.play(
             ReplacementTransform(omega_src, omega_plus_5[0]),
             ReplacementTransform(five_src, omega_plus_5[1], path_arc = np.pi/2),
         )
         self.add_to_list(omega_plus_5)
-        self.dither()
+        #self.dither()
 
         omega_times_2 = OrdinalFiniteProd(OrdinalOmega, 2)
         omega_times_2.shift(shift)
@@ -260,7 +260,7 @@ class Reorderings(Scene):
         self.remove(*self.mobjects_from_last_animation)
         self.add(omega_times_2)
         self.add_to_list(omega_times_2)
-        self.dither()
+        #self.dither()
 
         omega = omega_ori
         self.play(
@@ -301,12 +301,12 @@ class Omega1Intro(Supremum):
         omega1_src[1].next_to(supremum, buff = 0)
         omega1_src[1].add_to_back(*supremum.submobjects)
 
-        self.dither()
+        #self.dither()
         self.play(
             ReplacementTransform(omega1_src, omega1),
             omega1_brace.shift_brace, omega1,
         )
-        self.dither()
+        #self.dither()
         self.revert_to_original_skipping_status()
 
         countable_point = Dot(2*RIGHT)
@@ -324,13 +324,13 @@ class Omega1Intro(Supremum):
         brace_label = countable_label.copy()
         brace.put_at_tip(brace_label)
 
-        self.dither()
+        #self.dither()
         self.play(
             FadeIn(countable_label),
             FadeIn(countable_point),
             ShowCreation(countable_arrow),
         )
-        self.dither()
+        #self.dither()
         self.play(
             GrowFromCenter(brace),
             ReplacementTransform(countable_label, brace_label),
@@ -407,7 +407,7 @@ class AnalogyOmega(chapter5.OrdinalByRecursion):
             GrowFromCenter(finite_brace),
             ReplacementTransform(label, brace_label),
         )
-        self.dither()
+        #self.dither()
 
         terminal_segment_brace = BraceText(
             Line(omega[fin_index+1].get_center()+DOWN,
@@ -459,6 +459,7 @@ class LeastInfinite(Scene):
         ]).copy()
         self.al_subset_inf = self.omega.copy()
         self.shifted_subset_inf = self.subset_inf.copy()
+        self.subset_inf.shift(shift*UP)
         VGroup(self.al_subset_inf, self.shifted_subset_inf).shift(shift*DOWN)
         self.brace_inf = BraceText(self.al_subset_inf, "equal")
 
@@ -472,9 +473,9 @@ class LeastInfinite(Scene):
             VGroup(self.omega, self.omega_brace).shift, shift*UP,
             Transform(self.subset_fin, self.shifted_subset_fin)
         )
-        self.dither()
+        #self.dither()
         self.play(Transform(self.subset_fin, self.al_subset_fin))
-        self.dither()
+        #self.dither()
 
         self.play(self.brace_fin.creation_anim())
         self.dither()
@@ -485,7 +486,7 @@ class LeastInfinite(Scene):
 
         self.play(Transform(self.subset_inf, self.shifted_subset_inf))
         self.play(Transform(self.subset_inf, self.al_subset_inf))
-        self.dither()
+        #self.dither()
        
         self.play(self.brace_inf.creation_anim())
         self.dither()
@@ -541,7 +542,7 @@ class LeastUncountable(Scene):
         self.play(Transform(self.count_subset, self.shifted_count_subset))
         self.dither()
         self.play(Transform(self.count_subset, self.al_count_subset))
-        self.dither()
+        #self.dither()
         self.play(self.count_brace.creation_anim())
         self.dither()
 
@@ -562,7 +563,7 @@ class LeastUncountable(Scene):
         unc_subset = VGroup(unc_initial, unc_line)
         self.play(VGroup(unc_initial, unc_line).shift, 2*shift*DOWN)
         self.revert_to_original_skipping_status()
-        self.dither()
+        #self.dither()
 
         al_unc_subset = Omega1().shift(shift*DOWN)
         al_unc_line, al_unc_initial = al_unc_subset
@@ -595,14 +596,14 @@ class LeastUncountable(Scene):
                 VGroup(unc_initial[ini_index+1:]),
             )
         )
-        self.dither()
+        #self.dither()
         self.remove(*self.mobjects_from_last_animation)
         unc_subset = al_unc_subset
         self.add(unc_subset)
 
         unc_brace = BraceText(unc_subset, "equal")
         self.play(unc_brace.creation_anim())
-        self.dither()
+        #self.dither()
 
         cardinality = TexMobject("|","\\omega_1", "|=\\aleph_1")
         cardinality.shift(self.omega1_brace.desc.get_center()
@@ -642,7 +643,7 @@ class ContinuumHypothesis(Scene):
         why_not_answer.next_to(arrow, DOWN, aligned_edge = LEFT)
         why_not_answer.shift(0.5*LEFT)
 
-        self.dither()
+        #self.dither()
         self.play(ShowCreation(arrow), FadeIn(why_not_answer))
 
         self.dither()
@@ -695,9 +696,9 @@ class UnboundedOmega(LeastInfinite):
         self.play(Transform(subset, self.shifted_subset_inf))
         self.play(Transform(subset, self.al_subset_inf))
 
-        self.dither()
+        #self.dither()
         self.play(Transform(subset, self.shifted_subset_inf))
-        self.dither()
+        #self.dither()
 
         self.subset = subset
         self.brace = None
@@ -771,20 +772,20 @@ class UnboundedOmega1(LeastUncountable):
         
         subset = self.al_count_subset
         self.play(FadeIn(subset))
-        self.dither()
+        #self.dither()
         self.play(self.count_brace.creation_anim())
         self.dither()
         self.play(
             Transform(subset, self.shifted_count_subset),
             self.count_brace.shift_brace, self.shifted_count_subset,
         )
-        self.dither()
+        #self.dither()
 
         supremum = Line(ORIGIN, DOWN).next_to(subset, buff = 0)
         supremum.set_color(YELLOW)
         self.play(ShowCreation(supremum))
 
-        self.dither()
+        #self.dither()
 
         identity = TexMobject("\\aleph_0\\cdot\\aleph_0 = \\aleph_0")
         identity.next_to(supremum, buff = 1)
@@ -792,7 +793,7 @@ class UnboundedOmega1(LeastUncountable):
 
         supremum_in_ori = supremum.copy()
         supremum_in_ori.move_to(self.omega1, coor_mask = Y_MASK)
-        self.dither()
+        #self.dither()
         self.play(ReplacementTransform(supremum.copy(), supremum_in_ori))
 
         self.dither()
@@ -816,10 +817,10 @@ class UnboundedOmega1(LeastUncountable):
         self.play(ShowCreation(seq))
 
         supremum.next_to(seq, buff = 0)
-        self.dither()
+        #self.dither()
         self.play(ShowCreation(supremum))
 
-        self.dither()
+        #self.dither()
         self.play(FadeOut(VGroup(seq, supremum)))
 
         seq = OrdinalOmega(x0 = -1, x1 = 4)
@@ -878,7 +879,7 @@ class SemiOpen(VMobject):
 class IntervalMul(Scene):
     def construct(self):
 
-        # self.force_skipping()
+        self.force_skipping()
         
         # left-closed, right-open, two intervals
         
@@ -915,11 +916,12 @@ class IntervalMul(Scene):
 
         # left-open, right-closed, two intervals
 
+        self.revert_to_original_skipping_status()
         self.play(
             FadeIn(interval1),
             FadeIn(interval2),
         )
-        self.dither()
+        #self.dither()
 
         self.play(
             interval2.move_to, RIGHT,
@@ -931,10 +933,10 @@ class IntervalMul(Scene):
         interval = SemiOpen(2*RIGHT, 2*LEFT)
         self.remove(interval1, interval2)
         self.add(interval)
-        self.dither()
+        #self.dither()
         interval_dest = SemiOpen(RIGHT, LEFT)
         self.play(Transform(interval, interval_dest))
-        self.dither()
+        #self.dither()
 
         # left-open, right-closed, omega
 
@@ -1084,20 +1086,22 @@ class IntervalMul(Scene):
                    submobject_mode = "lagged_start"),
             Transform(interval, intervals2[3]),
         )
-        self.dither()
+        self.dither(2)
 
-        conversation = Conversation(self)
-        conversation.add_bubble("Shouldn't the result be longer than the first factor?")
-        self.dither()
-        conversation.add_bubble("Interval is not well-ordered.")
-        self.dither()
+        self.play(FadeOut(VGroup(omega_cdot_2, interval)))
 
-        self.play(FadeOut(VGroup(omega_cdot_2, interval, conversation.dialog)))
+        #conversation = Conversation(self)
+        #conversation.add_bubble("Shouldn't the result be longer than the first factor?")
+        #self.dither()
+        #conversation.add_bubble("Interval is not well-ordered.")
+        #self.dither()
+
+        #self.play(FadeOut(VGroup(omega_cdot_2, interval, conversation.dialog)))
 
 class LongLine(Scene):
     def construct(self):
 
-        self.force_skipping()
+        #self.force_skipping()
 
         interval_template = SemiOpen()
         interval_template.shift(0.8*DOWN)
@@ -1177,7 +1181,6 @@ class LongLine(Scene):
 
         # sequence and supremum
 
-        self.revert_to_original_skipping_status()
         seq_start = OrdinalFiniteProd(OrdinalOne, 8, x0 = 0, x1 = 8, height = 0.5)
         seq_dest = OrdinalOmega(height = 0.5, x0 = -1.5)
         seq_g = VGroup(seq_start, seq_dest)

@@ -176,43 +176,47 @@ class PowerSetsScene(Scene):
         )
         # self.skip_animations = False
         self.play(
-            *map(FadeOut,
-                 [omega, p_omega,
-                  powerset_desc, powerset_arrow,
-                  big_ineq,
-                 ]))
-
-        inequality = VGroup(
-            TexMobject("|X|"),
-            self.ineq.copy(),
-            TexMobject("|\\mathcal P(X)|")
-        )
-        inequality.arrange_submobjects(
-            buff = self.ineq_seq_buff,
-        )
-        quantifier = TextMobject("For all sets $X$, ").next_to(inequality,direction=LEFT)
-        universal_statement = VGroup(quantifier,inequality).center()
-        universal_statement.shift(
-            (0,self.ineq_seq.get_center()[1]-universal_statement.get_center()[1],0)
-        )
-        self.play(
-            FadeIn(quantifier),
+            FadeOut(VGroup(
+                omega, p_omega,
+                powerset_desc, powerset_arrow,
+                big_ineq,
+            )),
             ReplacementTransform(
                 VGroup(omega_desc, self.ineq, p_omega_desc),
-                inequality
-            ))
-        self.dither()
-        self.play(FadeOut(quantifier))
-        self.play(
-            ReplacementTransform(
-                inequality,
-                self.ineq_seq
-            ))
+                self.ineq_seq,
+            ),
+        )
+
+        #inequality = VGroup(
+        #    TexMobject("|X|"),
+        #    self.ineq.copy(),
+        #    TexMobject("|\\mathcal P(X)|")
+        #)
+        #inequality.arrange_submobjects(
+        #    buff = self.ineq_seq_buff,
+        #)
+        #quantifier = TextMobject("For all sets $X$, ").next_to(inequality,direction=LEFT)
+        #universal_statement = VGroup(quantifier,inequality).center()
+        #universal_statement.shift(
+        #    (0,self.ineq_seq.get_center()[1]-universal_statement.get_center()[1],0)
+        #)
+        #self.play(
+        #    FadeIn(quantifier),
+        #    ReplacementTransform(
+        #        VGroup(omega_desc, self.ineq, p_omega_desc),
+        #        inequality
+        #    ))
+        #self.dither()
+        #self.play(FadeOut(quantifier))
+        #self.play(
+        #    ReplacementTransform(
+        #        inequality,
+        #        self.ineq_seq
+        #    ))
         self.dither()
 
         for _ in range(3): self.extend_ineq_seq()
 
-        # self.skip_animations = True
         # integer powers at the center of scene
         self.p_power = None
         self.make_p_power_with_brace(2)
@@ -537,19 +541,22 @@ class RecursionScene(Scene):
             Write(lim_step_title)
         )
 
-        self.play(
-            title[0].highlight, DARK_GREY,
-            *map(FadeOut, [
-                succ_steps, succ_steps_desc, next_ordinal[0],
-            ]))
+        #self.play(
+        #    title[0].highlight, DARK_GREY,
+        #    *map(FadeOut, [
+        #        succ_steps, succ_steps_desc, next_ordinal[0],
+        #    ]))
 
-        self.dither(3)
-        self.play(
-            title[0].highlight, WHITE,
-            FadeOut(naturals_desc),
-            FadeIn(next_ordinal))
+        #self.dither(3)
+        #self.play(
+        #    title[0].highlight, WHITE,
+        #    FadeOut(naturals_desc),
+        #    FadeIn(next_ordinal))
 
-        self.dither(3)
+        self.dither()
+        self.play(FadeOut(VGroup(
+            succ_steps, succ_steps_desc, next_ordinal[0], naturals_desc,
+        )))
         omega_pow2_src = VGroup(naturals, next_ordinal)
 
 
@@ -579,6 +586,9 @@ class RecursionScene(Scene):
         self.play(*map(FadeOut, [
             mob for mob in self.get_top_level_mobjects() if mob.get_center()[1] > 0
         ]))
+        self.dither(2)
+        return
+
         series = VideoSeries()
         series.to_edge(UP)
         self.play(FadeIn(

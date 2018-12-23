@@ -29,18 +29,17 @@ import eost.deterministic
 
 class Chapter14OpeningTitle(OpeningTitle):
     CONFIG = {
-        "series_str" : "Esence teorie množin",
-        "chapter_str" : "Kapitola 14\\\\ Formální rekurze",
+        "series_str" : "Essence of Set Theory",
+        "chapter_str" : "Chapter 14\\\\ Formal Recursion",
     }
 
 class Chapter14OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Pokud už víte, co znamená","rekurze,","držte si to v paměti. V opačném případě najděte někoho, kdo stojí blíže k~Douglasu Hofstadterovi a zeptejte se jej, co je to","rekurze."
+            "If you already know what","recursion","is, just remember the answer. Otherwise, find someone who is standing closer to Douglas Hofstadter than you are; then ask him or her what","recursion","is."
         ],
         "highlighted_quote_terms" : {
-            "rekurze," : GREEN,
-            "rekurze." : GREEN,
+            "recursion" : GREEN,
         },
         "author" : "Andrew Plotkin"
     }
@@ -57,7 +56,7 @@ class Intro(Scene):
         ordinal_bg.highlight(DARK_GREY)
 
         self.play(ShowCreation(ordinal_bg))
-        self.wait_to(4.5)
+        #self.wait_to(4.5)
         ordinal_fg[0][0].highlight(GREEN)
         ordinal_fg[1][0].highlight(YELLOW)
 
@@ -67,7 +66,7 @@ class Intro(Scene):
         self.play(ShowCreation(ordinal_fg[1]))
         self.remove(ordinal_bg)
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
 
         def make_nat_index(n):
             return TexMobject(str(n))
@@ -119,7 +118,7 @@ class Intro(Scene):
         self.play(ShowCreation(p_powers0))
         self.play(ShowCreation(p_powers1))
 
-        self.wait_to(21.5)
+        #self.wait_to(21.5)
 
         series = VideoSeries(num_videos = 16).to_edge(UP)
         series.save_state()
@@ -129,13 +128,13 @@ class Intro(Scene):
             VGroup(ordinal, indices, p_powers).shift, DOWN,
         )
 
-        brace_infinity = BraceText(series[:7], "Teorie\\\\nekonečna")
-        brace_formal = BraceText(series[7:14], "Základy\\\\matematiky")
+        brace_infinity = BraceText(series[:7], "Theory of\\\\Infinity")
+        brace_formal = BraceText(series[7:14], "Foundations\\\\of mathematics")
         self.play(
             brace_infinity.creation_anim(),
             brace_formal.creation_anim(),
         )
-        self.wait_to(26)
+        #self.wait_to(26)
 
         p0 = brace_infinity.desc.get_edge_center(RIGHT)
         p1 = brace_formal.desc.get_edge_center(LEFT)
@@ -144,11 +143,12 @@ class Intro(Scene):
         self.play(ShowCreation(arrow_left))
         self.play(ShowCreation(arrow_right))
 
-        self.wait_to(33.5)
+        #self.wait_to(33.5)
         self.play(
             VGroup(series[14:16]).highlight, YELLOW
         )
-        self.wait_to(62)
+        self.dither()
+        #self.wait_to(62)
 
 dec_seq_color = ORANGE
 
@@ -182,14 +182,14 @@ class NaiveProof(Scene):
         pixel_size = SPACE_WIDTH*2 / self.camera.pixel_shape[1]
 
         line = Line(6*LEFT, 4*RIGHT, color=BLUE)
-        line_l = TextMobject("Uspořádaná množina")
+        line_l = TextMobject("Ordered set")
         line_l.shift(1.5*UP)
 
         self.play(
             ShowCreation(line),
             FadeIn(line_l, submobject_mode = "lagged_start"),
         )
-        self.wait_to(3)
+        #self.wait_to(3)
 
         line.put_start_and_end_on(4*LEFT, 4*RIGHT)
         line_beg = Line(6*LEFT, 4*LEFT, color = BLUE)
@@ -197,10 +197,10 @@ class NaiveProof(Scene):
         fadeout.target_mobject.shift(2*DOWN)
 
         self.play(fadeout)
-        self.wait_to(6.5)
+        #self.wait_to(6.5)
 
         pointer_o = TrianglePointer(color = YELLOW).scale(-1)
-        pointer_l = TextMobject("Není nejmenší")
+        pointer_l = TextMobject("Not minimal")
         pointer = VGroup(pointer_o, pointer_l)
         pointer.arrange_submobjects(DOWN)
         pointer.next_to(line,DOWN, buff=0)
@@ -210,7 +210,7 @@ class NaiveProof(Scene):
         self.play(pointer.shift, 2*LEFT)
         self.play(pointer.shift, 1*LEFT)
 
-        self.wait_to(12)
+        #self.wait_to(12)
         fadeout = FadeOut(pointer)
         fadeout.target_mobject.shift(1*LEFT)
         self.play(fadeout)
@@ -218,9 +218,10 @@ class NaiveProof(Scene):
         jumps = make_jumps(3,-4)
         self.play(ShowCreation(jumps), run_time = 1.5)
 
-        self.wait_to(18)
+        #self.wait_to(18)
+        self.dither()
         self.play(FadeOut(jumps))
-        self.wait_to(21)
+        #self.wait_to(21)
 
         pointer.move_to(jumps[0].get_anchors()[0], coor_mask = X_MASK)
         pointer_o.save_state()
@@ -228,18 +229,18 @@ class NaiveProof(Scene):
         pointer_o.shift(0.5*DOWN)
         pointer_o.set_fill(YELLOW, opacity = 0)
         self.play(pointer_o.restore)
-        self.wait_to(25)
+        #self.wait_to(25)
         self.play(FadeIn(pointer_l, submobject_mode = "lagged_start"))
 
-        self.wait_to(27)
+        #self.wait_to(27)
         self.play(ShowCreation(jumps[0]))
 
         pointer_dest = pointer.copy()
         pointer_dest.move_to(jumps[0].get_anchors()[1], coor_mask = X_MASK)
 
-        self.wait_to(28.5)
+        #self.wait_to(28.5)
         self.play(Transform(pointer, pointer_dest))
-        self.wait_to(30.5)
+        #self.wait_to(30.5)
         self.play(ShowCreation(jumps[1]))
         for i in range(2,4):
             pointer_dest = pointer.copy()
@@ -257,13 +258,15 @@ class NaiveProof(Scene):
             ShowCreation(VGroup(jumps[4:])),
         )
 
-        self.wait_to(41)
+        #self.wait_to(41)
         conversation = Conversation(self, start_answer = True)
-        conversation.add_bubble("Nemůžeš mít důkaz s nekonečně kroky.")
-        self.wait_to(54)
-        conversation.add_bubble("Cože? Vždyť to děláme pořád!")
+        conversation.add_bubble("Proof cannot have infinite number of steps")
+        self.dither(2)
+        #self.wait_to(54)
+        conversation.add_bubble("What? We are doing it all the time.")
 
-        self.wait_to(59.5)
+        #self.wait_to(59.5)
+        self.dither(2)
         self.play(FadeOut(VGroup(
             line,
             line_l,
@@ -310,7 +313,7 @@ class CantorTheorem(chapter2.CantorDiagonal):
             self.seq_to_match_line(seq, line)
             self.sequences.submobjects.append(seq)
 
-        self.wait_to(3.8)
+        #self.wait_to(3.8)
         for line, seq in zip(matching, self.sequences)[:3]:
             self.play(ShowCreation(line), FadeIn(VGroup(seq), submobject_mode = "lagged_start"))
 
@@ -319,9 +322,10 @@ class CantorTheorem(chapter2.CantorDiagonal):
             FadeIn(VGroup(zip(*self.sequences[3:])), submobject_mode = "all_at_once"),
         )
 
-        self.wait_to(14.3)
+        #self.wait_to(14.3)
         missing_seq = self.apply_diag_argument(times = [18, 23])
-        self.wait_to(41)
+        #self.wait_to(41)
+        self.dither()
 
 class Riddle(Scene):
     def construct(self):
@@ -344,28 +348,29 @@ class Riddle(Scene):
             Transform(jumps, jumps_dest),
             Animation(line),
         )
-        self.wait_to(3)
+        #self.wait_to(3)
         self.play(Write(arrow_l))
 
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
 
-        for jump in jumps_base[:8]:
+        for jump in jumps_base[:3]:
             self.play(ShowCreation(jump))
 
         self.play(ShowCreation(VGroup(jumps_base[3:])))
 
-        self.wait_to(23.5)
+        #self.wait_to(23.5)
 
         conversation = Conversation(self, start_answer = True)
-        conversation.add_bubble("Nápověda: Použij indukci místo rekurze.")
-        self.wait_to(25.5)
+        conversation.add_bubble("Hint: Use induction instead of recursion")
+        #self.wait_to(25.5)
 
+        self.dither(2)
         self.play(FadeOut(VGroup(jumps_base, arrow, arrow_l, jumps)))
         jumps = jumps_base
 
-        first_step = TextMobject("Platí pro","$n=0$")
-        ind_step = TextMobject("Platí pro","$n \Rightarrow n+1$")
-        result = TextMobject("Platí pro","všechna $n$")
+        first_step = TextMobject("Holds for","$n=0$")
+        ind_step = TextMobject("Holds for","$n \Rightarrow n+1$")
+        result = TextMobject("Holds for","all $n$")
 
         VGroup(
             first_step[1][0],
@@ -377,11 +382,11 @@ class Riddle(Scene):
         ind_step.to_corner(UP+LEFT).shift(0.8*DOWN)
         result.to_corner(UP+RIGHT)
 
-        self.wait_to(30)
+        #self.wait_to(30)
         self.play(Write(first_step))
-        self.wait_to(33.5)
+        #self.wait_to(33.5)
         self.play(Write(ind_step))
-        self.wait_to(40)
+        #self.wait_to(40)
         self.play(
             Transform(first_step.copy(), result),
             Transform(ind_step.copy(), result),
@@ -389,9 +394,9 @@ class Riddle(Scene):
         self.remove(*self.mobjects_from_last_animation)
         self.add(result)
 
-        self.wait_to(44.5)
+        #self.wait_to(44.5)
 
-        ind_statement = TextMobject("Existuje klesající posloupnost o","$n$","krocích")
+        ind_statement = TextMobject("There is a decreasing sequence of size","$n$")
         ind_statement.highlight(ORANGE)
         ind_statement[1].highlight(YELLOW)
         ind_statement.to_corner(UP+LEFT)
@@ -403,11 +408,11 @@ class Riddle(Scene):
                 first_step, ind_step, result
             ).set_fill, None, 0.3
         )
-        self.wait_to(52)
+        #self.wait_to(52)
 
         first_tick = IconYes().next_to(first_step, buff = 0.5)
         self.play(first_step.set_fill, None, 1)
-        self.wait_to(54)
+        #self.wait_to(54)
         self.play(ShowCreation(first_tick))
 
         pointer = TrianglePointer(color = YELLOW).scale(-1)
@@ -415,10 +420,10 @@ class Riddle(Scene):
         pointer_dest = pointer.copy()
         pointer.set_fill(opacity=0)
         pointer_dest.next_to(jumps[0].get_anchors()[0], DOWN, buff=0)
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(Transform(pointer, pointer_dest))
 
-        self.wait_to(58.5)
+        #self.wait_to(58.5)
 
         jumps_l = TexMobject("n").highlight(YELLOW)
         jumps_l.move_to(VGroup(jumps[:5])).shift(UP)
@@ -429,21 +434,21 @@ class Riddle(Scene):
             first_tick.fade, 0.3,
         )
 
-        self.wait_to(60+1)
+        #self.wait_to(60+1)
         self.play(pointer.next_to, jumps[5].get_anchors()[0], DOWN, 0)
-        self.wait_to(60+3.5)
+        #self.wait_to(60+3.5)
         self.play(ShowCreation(jumps[5]))
         jumps_l_dest = TexMobject("n+1").highlight(YELLOW)
         jumps_l_dest.move_to(VGroup(jumps[:6])).shift(UP)
-        self.wait_to(60+4.7)
+        #self.wait_to(60+4.7)
         self.play(Transform(jumps_l, jumps_l_dest))
-        self.wait_to(60+6.5)
+        #self.wait_to(60+6.5)
 
         ind_tick = IconYes().next_to(ind_step, buff = 0.5)
         self.play(ShowCreation(ind_tick))
 
         result_tick = IconYes().next_to(result, LEFT, buff = 0.5)
-        self.wait_to(60+9.2)
+        #self.wait_to(60+9.2)
         self.play(
             Transform(first_tick, result_tick),
             Transform(ind_tick, result_tick),
@@ -452,9 +457,11 @@ class Riddle(Scene):
         )
         self.remove(first_tick, ind_tick)
         self.add(result_tick)
-        self.wait_to(60+17.5)
+        #self.wait_to(60+17.5)
+        self.dither()
 
-        bubble_anim = conversation.add_bubble_anim("To jsme si pomohli, vždyť je to totéž")
+        bubble_anim = conversation.add_bubble_anim("How that helped?")
+        self.dither()
         self.play(
             FadeOut(VGroup(line, jumps[:6], jumps_l, pointer)),
             bubble_anim,
@@ -472,20 +479,21 @@ class Riddle(Scene):
 
         infinite_proof.next_to(ind_statement, DOWN, aligned_edge = LEFT)
 
-        self.wait_to(60+20)
+        #self.wait_to(60+20)
         self.play(Write(infinite_proof[0]))
-        self.wait_to(60+25)
+        #self.wait_to(60+25)
         self.play(Write(infinite_proof[1]))
 
-        self.wait_to(60+27)
+        #self.wait_to(60+27)
         self.play(
             FadeIn(VGroup(infinite_proof[2:]),
                    submobject_mode = "lagged_start",
                    run_time = 2,
         ))
-        self.wait_to(60+30)
-        conversation.add_bubble("Indukce je důkaz sporem.")
-        self.wait_to(60+39.5)
+        #self.wait_to(60+30)
+        conversation.add_bubble("Induction is a proof by contradiction")
+        #self.wait_to(60+39.5)
+        self.dither(2)
 
 class Contradiction(Scene):
     def construct(self):
@@ -496,7 +504,7 @@ class Contradiction(Scene):
         seq_g = VGroup(seq, rect, rect_l)
         seq_g.to_corner(UP+LEFT)
         self.play(FadeIn(seq_g))
-        self.wait_to(8.5)
+        #self.wait_to(8.5)
 
         ticks = VGroup([
             IconYes().move_to(obj)
@@ -512,22 +520,23 @@ class Contradiction(Scene):
         VGroup(ticks, ticks_fade, cross).shift(DOWN)
 
         conversation = Conversation(self, start_answer = True)
-        conversation.add_bubble("Existuje klesající posloupnost vaší délky?")
-        
-        self.wait_to(22.5)
+        conversation.add_bubble("Is there a decreasing sequence of your length?")
+        self.dither(3)
+
+        #self.wait_to(22.5)
         self.play(ReplacementTransform(seq[0].copy(), ticks))
-        self.wait_to(30)
+        #self.wait_to(30)
         seq_g.add(ticks, ticks_fade, cross)
 
         self.play(seq_g.to_edge, RIGHT, -1.2, run_time = 1.5)
-        self.wait_to(47)
+        #self.wait_to(47)
 
         crosses = VGroup([
             IconNo().move_to(obj)
             for obj in seq[-1][-7:]
         ]).shift(DOWN)
         self.play(ShowCreation(crosses))
-        self.wait_to(52)
+        #self.wait_to(52)
         self.play(FadeOut(seq))
 
         self.remove(ticks, ticks_fade)
@@ -557,7 +566,7 @@ class Contradiction(Scene):
             ReplacementTransform(cross_br_ori, cross_br),
             ReplacementTransform(crosses, cross)
         )
-        self.wait_to(56)
+        #self.wait_to(56)
 
         tick_br = Brace(Line(corner_l, mid), DOWN).highlight(GREEN)
         tick = IconYes()
@@ -571,19 +580,19 @@ class Contradiction(Scene):
         split[0].highlight(GREEN).next_to(cross_br, LEFT, coor_mask = X_MASK)
         split[1].highlight(RED).next_to(tick_br, RIGHT, coor_mask = X_MASK)
 
-        self.wait_to(60+5.5)
+        #self.wait_to(60+5.5)
         self.play(Write(split[1]))
-        self.wait_to(60+11)
+        #self.wait_to(60+11)
         self.play(FadeIn(split[0]))
 
         split_impl = TexMobject("n-1", "\\Rightarrow", "n")
         VGroup(split_impl[0], split_impl[2]).highlight(GREEN)
-        contr_l = TextMobject("Spor!").highlight(YELLOW)
+        contr_l = TextMobject("Contradiction!").highlight(YELLOW)
         contr = VGroup(split_impl, contr_l).arrange_submobjects(buff = 0.5)
 
-        self.wait_to(60+16)
+        #self.wait_to(60+16)
         self.play(Write(VGroup(split_impl, contr_l)))
-        self.wait_to(60+30)
+        #self.wait_to(60+30)
 
         tick_br_dest = Brace(Line(corner_l, corner_r), DOWN).highlight(GREEN)
         tick_dest = tick.copy()
@@ -599,14 +608,16 @@ class Contradiction(Scene):
             Transform(tick, tick_dest),
             FadeOut(split)
         )
-        self.wait_to(60+38.5)
+        #self.wait_to(60+38.5)
         self.play(FadeOut(conversation.dialog))
         conversation1 = Conversation(self)
         conversation2 = Conversation(self, start_answer = True)
-        conversation1.add_bubble("Hotovo?")
-        self.wait_to(60+43)
-        conversation2.add_bubble("Zdaleka ne")
-        self.wait_to(60+52)
+        conversation1.add_bubble("Done?")
+        #self.wait_to(60+43)
+        self.dither()
+        conversation2.add_bubble("Not by far")
+        #self.wait_to(60+52)
+        self.dither(2)
 
     def make_swift_seq(self,
                        dist1 = 1,
@@ -696,12 +707,12 @@ class Crisis(Scene):
             for i in range(1,len(numbers))
         ])
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             *map(ShowCreation, subjumps)
         )
 
-        self.wait_to(19.5)
+        #self.wait_to(19.5)
 
         base_rect = SurroundingRectangle(subjumps[-1], color = GREEN)
         self.x1 = subjumps[-1].get_corner(LEFT+DOWN)[0]
@@ -715,7 +726,7 @@ class Crisis(Scene):
         cur_set = sets[4]
         self.play(ShowCreation(cur_set))
 
-        #self.wait_to(24)
+        ##self.wait_to(24)
         for _ in range(3):
             cur_jumps = subjumps[3]
             jumps_dest = self.random_jumps(cur_jumps.copy())
@@ -728,83 +739,86 @@ class Crisis(Scene):
 
         self.play(Transform(cur_jumps, reg_jumps[3]))
 
-        self.wait_to(28)
+        #self.wait_to(28)
         self.play(
             FadeIn(VGroup(sets[:4], sets[5:])),
             Transform(subjumps, reg_jumps),
         )
 
         axioms = VGroup(
-            TextMobject("Nahrazení"),
-            TextMobject("Výběr"),
+            TextMobject("Replacement"),
+            TextMobject("Choice"),
         )
         axioms.arrange_submobjects(DOWN, aligned_edge = LEFT)
         axioms.to_corner(UP+LEFT)
 
-        self.wait_to(39.5)
+        #self.wait_to(39.5)
         self.play(Write(axioms[0]))
         
-        self.wait_to(42)
+        #self.wait_to(42)
         self.play(FadeIn(num_rect))
 
-        self.wait_to(44.5)
+        #self.wait_to(44.5)
         sets_rect = SurroundingRectangle(sets, buff = 0.2)
         self.play(ReplacementTransform(num_rect, sets_rect))
 
-        self.wait_to(51.5)
+        #self.wait_to(51.5)
         self.play(
             axioms[0].highlight, DARK_GREY,
             Write(axioms[1]),
         )
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(
             FadeOut(sets),
             subjumps.highlight, ORANGE,
             submobject_mode = "lagged_start",
         )
-        self.wait_to(60+10)
+        #self.wait_to(60+10)
 
         jumps = subjumps
         jumps_dest = jumps.copy()
         for seq in jumps_dest: seq.move_to(ORIGIN, coor_mask = Y_MASK)
-        jumps.save_state()
+        #jumps.save_state()
 
-        self.play(Transform(jumps, jumps_dest))
+        #self.play(Transform(jumps, jumps_dest))
 
-        self.wait_to(60+16.4)
-        self.play(jumps.restore)
+        #self.wait_to(60+16.4)
+        #self.play(jumps.restore)
         self.play(FadeOut(axioms))
 
         ordinal = OrdinalOmega(x0 = -6.5, x1 = -2)
         ordinal = VGroup([bar[0] for bar in ordinal])
-        self.wait_to(60+26.5)
+        #self.wait_to(60+26.5)
         self.play(ShowCreation(ordinal))
         one = ordinal[0].copy().next_to(ordinal)
         self.play(ShowCreation(one), run_time = 0.5)
         ordinal.add(one)
         self.ordinal = ordinal
 
-        self.wait_to(60+30.5)
+        #self.wait_to(60+30.5)
         self.last_seq = None
         self.show_ordinal_jumps(1)
 
-        self.wait_to(60+33.3)
+        #self.wait_to(60+33.3)
         self.show_ordinal_jumps(5)
         self.show_ordinal_jumps(10)
-        self.wait_to(60+39.5)
+        #self.wait_to(60+39.5)
         self.show_ordinal_jumps(20, 1)
 
         conversation = Conversation(self)
-        self.wait_to(60+44.5)
-        conversation.add_bubble("Tak to jsme prohráli :-(")
-        self.wait_to(60+55.5)
+        #self.wait_to(60+44.5)
+        conversation.add_bubble("So we have lost :-(")
+        self.dither(2)
+        #self.wait_to(60+55.5)
         self.play(
             FadeOut(VGroup(self.ordinal, self.last_seq)),
-            conversation.add_bubble_anim("Vinu nese nejednoznačnost"),
+            conversation.add_bubble_anim("Blame the ambiguity"),
         )
-        self.wait_to(2*60+7)
+        #self.wait_to(2*60+7)
         self.play(Transform(jumps, jumps_dest), Animation(conversation.dialog))
-        self.wait_to(2*60+17)
+
+        self.dither(2)
+        #self.wait_to(2*60+17)
         self.play(FadeOut(VGroup(
             numbers,
             sets_rect,
@@ -865,10 +879,10 @@ class RealExample(Scene):
         line_shift = DOWN
         line.shift(line_shift)
         self.play(ShowCreation(line))
-        self.wait_to(3)
+        #self.wait_to(3)
 
-        rule_t = TextMobject("Pravidla").highlight(YELLOW)
-        rule1 = TextMobject("Začátek: 4")
+        rule_t = TextMobject("Rules").highlight(YELLOW)
+        rule1 = TextMobject("Start: 4")
         rule2 = TexMobject("x\\to\\frac x2")
         VGroup(
             rule1[-1],
@@ -884,7 +898,7 @@ class RealExample(Scene):
             Write(rule_t),
             ShowCreation(rule_rect)
         )
-        self.wait_to(8)
+        #self.wait_to(8)
         self.play(Write(rule1))
         self.play(Write(rule2))
 
@@ -903,15 +917,15 @@ class RealExample(Scene):
             for i,num in enumerate(numbers)
         ])
 
-        self.wait_to(15)
+        #self.wait_to(15)
         for i in range(2):
             cur_jumps = VGroup(jumps[:i+1]).copy()
 
-            if i == 1: self.wait_to(23)
+            #if i == 1: self.wait_to(23)
             for jump in cur_jumps:
                 self.play(ShowCreation(jump))
 
-            if i == 0: self.wait_to(20)
+            #if i == 0: self.wait_to(20)
             self.play(
                 ReplacementTransform(cur_jumps, subjumps[i]),
                 FadeIn(numbers[i]),
@@ -926,9 +940,9 @@ class RealExample(Scene):
         jumps_rect = SurroundingRectangle(subjumps, buff = 0.5)
         jumps.next_to(subjumps, DOWN, aligned_edge = RIGHT)
         subjumps.add(jumps)
-        self.wait_to(29)
+        #self.wait_to(29)
         self.play(ShowCreation(jumps_rect))
-        self.wait_to(36)
+        #self.wait_to(36)
 
         jumps_dest = subjumps.copy()
         for seq in jumps_dest:
@@ -943,14 +957,16 @@ class RealExample(Scene):
         self.remove(subjumps)
         self.add(jumps)
 
-        self.wait_to(42.5)
+        #self.wait_to(42.5)
 
         conversation = Conversation(self)
-        conversation.add_bubble("A co když to nejsou reálná čísla?")
+        conversation.add_bubble("What to do in the general case?")
+        self.dither(2)
 
-        self.wait_to(57)
-        conversation.add_bubble("Použijeme axiom výběru.")
-        self.wait_to(60+6)
+        #self.wait_to(57)
+        conversation.add_bubble("Use the Axiom of Choice.")
+        self.dither(2)
+        #self.wait_to(60+6)
 
 class AxiomOfChoice(Scene):
     def construct(self):
@@ -967,12 +983,12 @@ class AxiomOfChoice(Scene):
         self.play(ShowCreation(line))
 
         dot = Dot(2*RIGHT, color = BLUE)
-        self.wait_to(3.5)
+        #self.wait_to(3.5)
         self.play(dot.shift, UP)
 
         dec_jumps = self.make_jumps_from(dot)
         self.add_foreground_mobjects(dot)
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(ShowCreation(dec_jumps, submobject_mode = "all_at_once"))
         for jump in dec_jumps:
             jump.points = jump.points[::-1]
@@ -994,7 +1010,7 @@ class AxiomOfChoice(Scene):
         ])
         dots = VGroup([ Dot(p, color = BLUE) for p in points ])
 
-        self.wait_to(9.5)
+        #self.wait_to(9.5)
         self.add_foreground_mobjects(dots)
         self.play(FadeOut(line))
         line.highlight(DARK_GREY)
@@ -1008,7 +1024,7 @@ class AxiomOfChoice(Scene):
             for dot in dots_dest
         ])
         line.set_stroke(width = 0)
-        self.wait_to(11.5)
+        #self.wait_to(11.5)
         self.play(
             ReplacementTransform(VGroup(line), lines),
             Transform(dots, dots_dest),
@@ -1021,10 +1037,10 @@ class AxiomOfChoice(Scene):
             self.make_jumps_from(dot)
             for dot in dots
         ])
-        self.wait_to(14)
+        #self.wait_to(14)
         self.play(ShowCreation(dec_jumps, submobject_mode = "all_at_once"))
 
-        ac_title = TextMobject("Axiom\\\\výběru", alignment="\\raggedright")
+        ac_title = TextMobject("Axiom\\\\of Choice", alignment="\\raggedright")
         ac_title.to_corner(DOWN+LEFT)
 
         #for row in dec_jumps:
@@ -1054,7 +1070,7 @@ class AxiomOfChoice(Scene):
             [line]+row[:i]+row[i+1:]
             for line, row, i in zip(lines, dec_jumps, sel_index)
         ])
-        self.wait_to(19)
+        #self.wait_to(19)
         self.play(
             Write(ac_title),
             unselected.highlight, DARK_GREY,
@@ -1066,7 +1082,7 @@ class AxiomOfChoice(Scene):
             height = dec_jumps.get_height()+1,
             color = GREEN,
         )
-        rules_t = TextMobject("Pravidla").highlight(GREEN)
+        rules_t = TextMobject("Rules").highlight(GREEN)
         rules_t.to_corner(UP+LEFT, buff = 0.5)
         dots_dest = dots.copy()
         selected_dest = selected.copy() # .highlight(ORANGE)
@@ -1084,13 +1100,13 @@ class AxiomOfChoice(Scene):
         rec_start.next_to(dots_dest[-2], DOWN, buff = 0.1)
         rec_start = VGroup([
             rec_start,
-            TextMobject("Začátek").next_to(rec_start, aligned_edge = UP),
+            TextMobject("Start").next_to(rec_start, aligned_edge = UP),
         ])
 
         rect_dest = SurroundingRectangle(VGroup(
             dots_dest, selected_dest, rules_t, rec_start,
         ), buff = 0.2, color = GREEN)
-        self.wait_to(25)
+        #self.wait_to(25)
         self.play(
             FadeIn(rules_t),
             FadeOut(ac_title),
@@ -1104,7 +1120,7 @@ class AxiomOfChoice(Scene):
         rec_start[0].shift(0.5*DOWN)
         rec_start[0].set_fill(opacity = 0)
 
-        self.wait_to(29.5)
+        #self.wait_to(29.5)
         self.play(
             rec_start[0].restore,
             FadeIn(rec_start[1]),
@@ -1114,7 +1130,7 @@ class AxiomOfChoice(Scene):
         dot = rec_start[0].copy()
         self.foreground_mobjects = []
 
-        self.wait_to(37)
+        #self.wait_to(37)
 
         jumps = []
         play_jump = True
@@ -1147,7 +1163,7 @@ class AxiomOfChoice(Scene):
         jumps = VGroup(jumps)
         jumps_inf = jumps.copy()
 
-        self.wait_to(48)
+        #self.wait_to(48)
 
         numbers = VGroup([
             TexMobject(str(i+1))
@@ -1191,17 +1207,19 @@ class AxiomOfChoice(Scene):
 
         jumps_rect = SurroundingRectangle(jumps, buff = 0.3)
 
-        self.wait_to(58)
+        #self.wait_to(58)
         self.play(ShowCreation(jumps_rect))
+        self.dither(2)
 
         omega = VGroup(TexMobject("\\omega")).move_to(numbers)
         omega.move_to(jumps_inf, coor_mask = Y_MASK)
-        self.wait_to(60+7.5)
+        #self.wait_to(60+7.5)
         self.play(
             ReplacementTransform(numbers, omega),
             ReplacementTransform(jumps, jumps_inf),
         )
-        self.wait_to(60+36)
+        self.dither(2)
+        #self.wait_to(60+36)
 
     def make_jumps_from(self, obj):
         start = obj.get_center()
@@ -1231,7 +1249,7 @@ class AxiomOfChoice(Scene):
 class Summary(Scene):
     def construct(self):
 
-        title = TextMobject("Rekurze").to_edge(UP).scale(1.2)
+        title = TextMobject("Recursion").to_edge(UP).scale(1.2)
         title.to_edge(UP)
         self.add(title)
 
@@ -1240,8 +1258,8 @@ class Summary(Scene):
         seq.next_to(title, DOWN)
         self.play(ShowCreation(seq))
 
-        ind_title = TextMobject("Indukce")
-        ind_subtitle = TextMobject("$=$ důkaz sporem")
+        ind_title = TextMobject("Induction")
+        ind_subtitle = TextMobject("$=$ proof by contradiction")
         ind_ordinal = OrdinalOmega(x0 = -3, x1 = 3)
         ind_pointer = TrianglePointer().scale(-1).highlight(RED)
         ind_group = VGroup(ind_title, ind_subtitle, ind_ordinal, ind_pointer)
@@ -1251,8 +1269,8 @@ class Summary(Scene):
         ind_group.add(ind_rect)
         ind_group.to_corner(DOWN+RIGHT)
 
-        unique_rules = TextMobject("Jednoznačný\\\\předpis").to_corner(LEFT+DOWN)
-        axiom_of_choice = TextMobject("Axiom\\\\výběru")
+        unique_rules = TextMobject("Unique\\\\instructions").to_corner(LEFT+DOWN)
+        axiom_of_choice = TextMobject("Axiom\\\\of Choice")
         axiom_of_choice.next_to(unique_rules, UP, buff = 1.5)
 
         p0 = ind_title.get_edge_center(UP)
@@ -1269,7 +1287,7 @@ class Summary(Scene):
         p1 = unique_rules.get_edge_center(UP)
         arrow_ac = Arrow(p0,p1)
 
-        self.wait_to(5)
+        #self.wait_to(5)
         self.play(
             FadeIn(ind_title),
             ShowCreation(arrow_ind),
@@ -1284,7 +1302,7 @@ class Summary(Scene):
             FadeIn(ind_ordinal),
             ShowCreation(ind_rect),
         )
-        self.wait_to(13.5)
+        #self.wait_to(13.5)
         red_split = 10
         VGroup(ind_ordinal[:red_split]).highlight(GREEN)
         VGroup(ind_ordinal[red_split:]).highlight(RED)
@@ -1292,7 +1310,7 @@ class Summary(Scene):
         ind_pointer.save_state()
         ind_pointer.move_to(ind_ordinal[-1], coor_mask = X_MASK)
         ind_pointer.set_fill(opacity = 0)
-        self.wait_to(16)
+        #self.wait_to(16)
         self.play(ind_pointer.restore)
 
         ind_ordinal3 = OrdinalFiniteProd(OrdinalOmega, 3, x0 = -3, x1 = 3)
@@ -1302,7 +1320,7 @@ class Summary(Scene):
         ind_ordinal3_src = VGroup(ind_ordinal3[1:]).copy()
         ind_ordinal3_src.scale_about_point(0, ind_ordinal3.get_edge_center(RIGHT))
         ind_ordinal3_src.add_to_back(ind_ordinal.copy())
-        self.wait_to(24.5)
+        #self.wait_to(24.5)
         self.remove(ind_ordinal)
         self.play(
             ReplacementTransform(ind_ordinal3_src, ind_ordinal3)
@@ -1315,7 +1333,7 @@ class Summary(Scene):
         pointer_dest.move_to(ind_ordinal3_src[1][red_split], coor_mask = X_MASK)
         self.play(Transform(ind_pointer, pointer_dest))
 
-        self.wait_to(35.5)
+        #self.wait_to(35.5)
         self.play(ShowCreation(VGroup(seq[seq_begin:])))
 
         last_bar = ind_ordinal[0].copy().next_to(ind_ordinal)
@@ -1325,7 +1343,7 @@ class Summary(Scene):
         pointer_dest = ind_pointer.copy()
         pointer_dest.move_to(last_bar, coor_mask = X_MASK)
 
-        self.wait_to(38.5)
+        #self.wait_to(38.5)
         self.play(
             ReplacementTransform(ind_ordinal3[0], ind_ordinal),
             ReplacementTransform(
@@ -1335,12 +1353,12 @@ class Summary(Scene):
             Transform(ind_pointer, pointer_dest),
         )
 
-        self.wait_to(50)
+        #self.wait_to(50)
         self.play(
             FadeIn(unique_rules),
             ShowCreation(arrow_uniq),
         )
-        self.wait_to(56)
+        #self.wait_to(56)
         self.play(
             FadeIn(axiom_of_choice),
             ShowCreation(arrow_ac),
@@ -1358,7 +1376,7 @@ class Summary(Scene):
         rect_dest = rect.copy().scale(scale)
         rect_dest.set_fill(BLACK, 0.9)
 
-        label = TextMobject("(transfinitní)", "Rekurze", "s výběrem")
+        label = TextMobject("(transfinite)", "Recursion", "with choice")
         label.scale(1.2)
         label.arrange_submobjects(DOWN)
         label_src = VGroup(label[0].copy(), title, label[2].copy())
@@ -1367,14 +1385,16 @@ class Summary(Scene):
         label_src[2].set_fill(opacity = 0)
         label_src[2].next_to(title, DOWN)
 
-        self.wait_to(60+4.5)
+        #self.wait_to(60+4.5)
+        self.dither(3)
         self.play(
             picture.scale, scale,
             Transform(rect, rect_dest),
             ReplacementTransform(label_src, label),
             run_time = 2,
         )
-        self.wait_to(60+23)
+        self.dither()
+        #self.wait_to(60+23)
 
 class NextChapter(Scene):
     def construct(self):
@@ -1704,7 +1724,8 @@ class NextChapter(Scene):
             GrowFromCenter(maximum_dot),
             FadeIn(maximum_l, submobject_mode = "lagged_start"),
         )
-        self.wait_to(20)
+        self.dither(2)
+        #self.wait_to(20)
 
     def make_matching(self, code, mikro = True):
 

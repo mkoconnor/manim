@@ -1,3 +1,7 @@
+Factorization -- blik cdot
+Extensions -- "odpovídající těm přirozeným" by mělo sestrojit šipky
+Text v Reals: nemá nejmenší -> nemá největší
+
 Reálná čisla coby Dedekindovy řezy
 ==================================
 
@@ -58,7 +62,7 @@ Reálná čisla coby Dedekindovy řezy
 . Nakonec najdeme přesně jedno přirozené číslo stejné mohutnosti,
 . a tohle přirozené čislo označime jako součet.
 
-:------------------------ NaturalsAddition ---------------------------------
+:------------------------ NaturalsMultiplication ---------------------------------
 .
 . S násobením to pak je podobné, jenom místo sjednocení sestrojíme
 . kartézský součin. Opět najdeme přirozené číslo stejné mohutnosti, a to
