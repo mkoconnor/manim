@@ -391,7 +391,7 @@ class InfinityBasics(Scene):
         self.play(ReplacementTransform(question, question2))
         self.dither()
 
-        answer = TextMobject("That what is not","finite").scale(1.3)
+        answer = TextMobject("That which is not","finite").scale(1.3)
         answer.next_to(question2, DOWN, buff = 0.5)
         answer_ori = answer.copy()
         answer_ori.shift(DOWN)

@@ -531,7 +531,7 @@ class MatchingScene(Scene):
         definition_items = VGroup(
             TextMobject("$\\bullet$ subset of", "$A\\times B$"),
             TextMobject("$\\bullet$ everything from", "$A$", "once on left"),
-            TextMobject("$\\bullet$ everything from", "$B$", "once of right"),
+            TextMobject("$\\bullet$ everything from", "$B$", "once on right"),
         ).arrange_submobjects(DOWN, aligned_edge = LEFT)
         definition_items[0][1][0].highlight(col_a)
         definition_items[0][1][-1].highlight(col_b)
@@ -1228,7 +1228,7 @@ class DirectedGraphs(Scene):
         product_label = TexMobject("V\\times V")
         VGroup(product_label[::2]).highlight(GREEN)
         product_label.next_to(compl_graph[1][1], aligned_edge = UP)
-        subset_label = TextMobject("subset").next_to(product_label, UP)
+        subset_label = TextMobject("subset of").next_to(product_label, UP)
 
         self.play(FadeOut(VGroup(vertices_rect, vertices_label, example_pair)))
         self.play(ShowCreation(compl_graph), FadeIn(product_label))

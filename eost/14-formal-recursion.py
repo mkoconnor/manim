@@ -460,7 +460,7 @@ class Riddle(Scene):
         #self.wait_to(60+17.5)
         self.dither()
 
-        bubble_anim = conversation.add_bubble_anim("How that helped?")
+        bubble_anim = conversation.add_bubble_anim("How did that help?")
         self.dither()
         self.play(
             FadeOut(VGroup(line, jumps[:6], jumps_l, pointer)),
