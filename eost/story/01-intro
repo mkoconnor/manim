@@ -62,8 +62,7 @@ Outline
 . it gives a solid framework for mathematics in general.
 . As it turns out, following our intuitions about infinity
 . can easily lead to paradoxes,
-. as when a set being an element of itself implies it can't be itself 
-(is it a paraphrase of Russell's Paradox? I couldn't understand)
+. as when a set is an element of itself if and only if it is not.
 . Mathematicians had to develop a formal axiomatic framework
 . to deal with these problems.
 . And it turned out that their solution was so universal
