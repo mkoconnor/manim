@@ -14,85 +14,74 @@ Outline
 * uncountability: infinite sequences of 0,1
 
 :------------------- FiniteFruitScene ----------------------------------
-. Let's say we have a few apples and a few pears, and we'd like to know
-. which fruit we have more of. If we're not dealing with infinity, this is
-. a problem for elementary school students: all you need to do is count up
-. the number of apples and the number of pears, and since 5 is bigger than 4,
+. Let's start with a problem for an elementary school.
+. We have a few apples and a few pears, and we'd like to know
+. which fruit we have more of. We were taught to do it in this way. We
+. count the number of apples: 1, 2, 3, 4, 5, we count the number of
+. pears: 1, 2, 3, 4, and since 5 is bigger than 4,
 . there are more apples than pears.
 .
-. But what if you're not in elementary school yet and you don't know how to
-. count up to big numbers like four? Well, it's easy to count to one, so if you
-. match up pairs of one apple and one pear, and keep doing that until you can't
-. make any more pears, you can see that there's one extra apple left. So if
-. you don't know how to count to big numbers, by pairing up you know that
-. there's more apples than pears.
+. However, to move forward, let's forget about our knowledge gained in
+. elementary school. What if we cannot count? How to determine which
+. fruit we have more of? Well, there is another method, let's just
+. pair up the apples with the pears. After we build such pairs, there
+. is one apple left, so there are more apples than pears.
+
+. That is not all of that. If we reorder the apples and the pears and
+. try another matching, we get one apple left again. Let's try it one
+. more time, ... again one apple left. Isn't that amazing?
 .
-. And even if we reorder the fruits, or try a different pairing, we still know
-. that there's one more apple. Isn't that great?
-.
-. Well, it isn't great, because we can count. Five and four are small numbers,
-. so 5 apples minus 4 pears means there will always be one extra apple,
-. no matter how you match up the pairs. At least, until we meet infinity...
+. Well, it isn't, because we can count. We know that
+. 5 apples minus 4 pears equals one extra apple.  % agrh, not sure how to say this in English well.
+. There is nothing surprising about it at all.
+. At least, until we meet infinity...
 
 :----------------- InfiniteFruitScene -----------------------------------
-. Let's say we have an infinite number of apples and an infinite number of pears.
-. How do we know which fruit we have more of? You can't just count to infinity
-. one by one because it would take an infinite amount of time. But pairing up
-. apples and pears is still possible with an infinite number of them: all we
-. need to do is to give a formula for which apples and which pears to pair up.
-. For example, we can say that apple number 1 pairs to pear number 1, and apple
-. number two pairs to pear number two, and so on, and we're left with zero unpaired fruits. So by
-. using pairs, we can still define "equal size" for infinite sets.
+. Imagine an infinite number of apples, every apple next to one
+. natural number, and an infinite number of pears, again aligned to
+. natural numbers.
 .
-. But with infinity, you don't know that every possible way to match
-. fruits will give the same result. For example, if we connect the pear at
-. number 0 to the apple at number 1, the pear at
-. number 1 to the apple at number 2, and so on, there is one extra
-. apple at position zero that isn't paired. So if we choose this pairing, we'd
-. think that there's more apples than pears.
-.
-. And similarly, if we reverse the pairing, we can find another one that leaves
-. one extra pear. That's why infinity minus infinity is
-. undefined: depending on how you match up pairs, you can define it as any
-. number of extra fruits you want.
+. So there should be the same amount of them, right? Indeed, there is
+. a natural matching between the fruits. However, we can choose
+. another matching. We join the pear number zero with the apple number
+. one, the pear number one with the apple number two and so
+. on. Sudennly, there is one apple left, so seems that there is more
+. apples that pears.
 
-. So how should we choose a pairing? We can clearly tell
-. what the best pairing should be: it's a pairing the fewest unpaired things.
-. If we can reach zero unpaired things, the two sets are the same size. So
-. let's use that to redefine "equal size" for infinite sets:
+. And by an analogous trick, we can make it so that it seems like
+. there is more pears that apples. What to do with that?
+. A reasonable solution is the following definition.
 
 . :{"Definition"}
-. Let's say we have two sets, $A$ and $B$.
+. Consider two sets, $A$ and $B$.
 . :{Boxes around apples and pears}
 . If there is any pairing between $A$ and $B$ such that every element
 . of $A$ and every element of $B$ is used exactly once, we say that
-. these two sets have the same size, even if that size is infinite.
-
-. By the way, we write the size of a set the same way that that we
-. write absolute value, so when you see
-. :{$|A|=|B|$}
-. it means the size of $A$ equals the size of $B$.
+. these two sets have the same size.
+. We denote the size of a set the same way that we
+. write absolute value, and in the context of infinite sets, we
+. rather talk about cardinality of a set than of its size.
+. So we can read that as:
+. "The cardinality of A equals the cardinality of B"
 .
-. If, on the other hand, it's impossible to pair up these sets together,
+. Only if it is impossible to pair up these sets together,
 . :{Finite number of pears, matching attempts}
-. and no matter how we try, we can't just match the elements of the set
-. $B$ with a part of the set $A$, we say that the size of $A$ is bigger
-. than the size of $B$. This might seem boring, but proving that making pairs
-. is impossible can be a useful way to prove one set is bigger than another.
+. and no matter how we try, we leave out some elements of the set $A$,
+. we say that the size of $A$ is bigger
+. than the size of $B$.
 
 :---------------------- NaturalsSubsets --------------------------
-. But this definition leads us to several surprising observations. Take
+
+. This definition leads us to several surprising observations. Take
 . the set of all natural numbers, and think about the set containing
 . all even numbers, which is a subset of the natural numbers. Intuitively,
 . there are less even numbers than both even and odd numbers combined.
-. After all, to make the even numbers from the natural numbers, you have
-. to discard all the odd ones. But there's an easy way to pair up the
+. But there's an easy way to pair up the
 . two sets such that no numbers are left over.
 . :{|natural numbers|=|even natural numbers|}
-. We can just match every number with twice that number: one
-. with two, two with four, three with six, and so on. No numbers are left out,
-. because if there was such a number, you could just multiply or divide by two
-. to find the other number in the pair. So, somewhat unintuitively, there's the
+. We can just match every number with twice that number: zero with
+. zero, one with two, two with four, and so on. So, somewhat
+. unintuitively, there's the 
 . same amount of even numbers as there are natural numbers.
 .
 . In the same way, you can prove that many subsets of the integers have

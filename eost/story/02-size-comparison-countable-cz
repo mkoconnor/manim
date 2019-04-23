@@ -29,7 +29,7 @@ posazenou u jednoho přirozeného čísla.
 
 Takže by jich mělo být stejně, že? A opravdu, můžeme přirozeně
 popárovat tyhle hrušky s jablky. Ale co když se rozhodneme pro jiné
-párování? Spojíme hrušku 0 s jablkem 1, hrušku 1 j jablkem 2 a tak dál.
+párování? Spojíme hrušku 0 s jablkem 1, hrušku 1 s jablkem 2 a tak dál.
 Najednou máme jedno jablko navíc, takže by mělo být víc jablek než
 hrušek.
 
