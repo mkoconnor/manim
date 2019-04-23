@@ -73,14 +73,16 @@ Outline
 . but it also constitutes the very foundations of mathematics.
 :---------------------------ChapterList------------------------------
 . In the first few videos, we'll start with some intuition for infinity;
-. Then we'll use that intuition to present the problems
-. and to solve them by introducing a framework in terms of a few axioms;
-. And we'll finish with some more advanced tools of set theory,
-. like the principle of maximality.
+. Then we'll take a look to the paradoxed mentioned before
+. and solve them by introducing a framework in terms of a few axioms;
+. We'll finish with some more advanced tools of set theory,
+. such as the principle of maximality.
+
 :--------------------------InfinityBasics-----------------------------
 . To begin thinking about infinity, we first have to define it.
 . What do we mean by a rotated number eight?
-. Actually, this question is too vague for us to answer. We won't even use the infinity symbol in this series!
+. Actually, this question is too vague for us to answer.
+. We won't even use the infinity symbol in this series!
 . Instead, we'll try to define "infinite size":
 . what's something infinitely big?
 . Of course, there's a cheap answer:
@@ -100,7 +102,7 @@ Outline
 . *very natural*
 . According to this definition of infinite sets,
 . in which we defined what infinite definitely isn't,
-. the answer to our question is that the size of something infinitely big can't just be a large natural number.
+. it can't just be a large natural number.
 . Actually, the whole study of infinity
 . rely on the fact that infinite sets behave in unexpected ways,
 . and this is precisely what our studies are concerned with.
