@@ -44,7 +44,8 @@ nekonečna a základy matematiky.
 :---------------------------ChapterList------------------------------
 V prvních sedmi kapitolách začneme s naivní teorií nekonečna. Pak se
 podíváme na zmíněné paradoxy a řešení prostřednictvím axiomů. Sérii
-zakončíme pár netriviálními nástroji teorie množin jako je Zornovo lemma.
+zakončíme pár netriviálními nástroji teorie množin jako je třeba
+Zornovo lemma.
 
 :--------------------------InfinityBasics-----------------------------
 Pro začátek teorie nekonečna si musíme ujasnit, co pro nás nekonečno
@@ -52,16 +53,17 @@ znamená. Teda vedle toho, že je to symbol položené osmičky. A
 popravdě, tuhle otázku vlastně nezodpovíme. Odpovíme si na jinou
 otázku: co je nekonečné.
 Inu, nekonečné je samosebou to, co není konečné.
-Tahle odpověď byla poněkud laciná.
+Tahle odpověď byla tak trochu laciná.
 Ale konečnost už můžeme popsat celkem jednoduše, Konečná množina je
 taková jejíž počet prvků můžeme vyjádřit přirozeným číslem. Množina
-sestávající se z pěti prvků je konečná. Množina o sto prvcích je stále
+sestávající se z pěti prvků je konečná. Množina o sto prvcích je taky
 konečná. Ale množina všech přirozených čísel je moc velká na to,
 abychom její velikost vyjádřili přirozeným číslem, je tedy nekonečná.
 
-I prázdná množina je konečná, proto považujeme nulu taky za přirozené
+I prázdná množina je konečná, proto taky budeme považovat
+nulu za přirozené
 číslo. To je v jiných oborech poněkud neobvyklé, ale v teorii množin
-se to ukazuje býti velmi přirozené.
+se to ukazuje být velmi přirozené.
 
 Na základě naší definice nekonečné množiny aspoň víme, co nekonečno
 rozhodně není. Není to jen velké přirozené čislo. Celé studium
@@ -72,15 +74,15 @@ co jsme zvyklí z konečného světa. Zamysleme se nad následující úlohou.
 Máme mřížku pět krát pět, a barvíme ji dvěma barvami -- žlutou a
 modrou. Když obarvíme každý řádek z větší části na modro, stále se
 může stát, že některé sloupečky budou více žluté než modré. Ale ne
-všechny. Když opravíme ostatní sloupečky, aby byly z větší části
-žluté, zase se nám pokazí některé modré řádky.
+všechny. Když opravíme ty ostatní sloupečky, aby byly z větší části
+žluté, zase se nám rozbijou některé modré řádky.
 
 Ono se opravdu nedá zařídit, aby ve všech řádcích převažoval modrá a
 ve všech sloupečcích žlutá. Jednoduše proto, že v tabulce nemůže být
 víc modrých políček než žlutých a současně víc žlutých políček než
 modrých.
 
-Ale co když si vezmeme nekonečnou mřížku? Je možné obarvit ji tak, aby
+Ale co když si vezmeme nekonečnou mřížku? Dá se ji obarvit, aby
 každý řádek obsahoval pouze konečný počet žlutých čtverečků a každý
 sloupec jenom konečný počet modrých čtverečků. Doporučujeme si tady
 pozastavit video a zamyslet se nad tím. Můžete si na pomoc vzít tužku

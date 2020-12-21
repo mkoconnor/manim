@@ -1,238 +1,96 @@
 Set size comparison and countable sets
+======================================
 
 Quote: The Infinite! No other question has ever moved so profoundly the spirit of man; no other idea has so fruitfully stimulated his intellect; yet no other concept stands in greater need of clarification -- David Hilbert
 
-Outline
-=======
-* link to hotel infinity?
-* how to compare finite sets without computation? by matching their elements
-* problems with infinity: ``omega is less than omega''
-* $2\times\omega = \omega$
-* $\omega\times \omega = \omega$
-* rationals are countable
-* finite sets of rationals are countable
-* uncountability: infinite sequences of 0,1
-
 :------------------- FiniteFruitScene ----------------------------------
-. Let's start with a problem for an elementary school.
-. We have a few apples and a few pears, and we'd like to know
-. which fruit we have more of. We were taught to do it in this way. We
-. count the number of apples: 1, 2, 3, 4, 5, we count the number of
-. pears: 1, 2, 3, 4, and since 5 is bigger than 4,
-. there are more apples than pears.
-.
-. However, to move forward, let's forget about our knowledge gained in
-. elementary school. What if we cannot count? How to determine which
-. fruit we have more of? Well, there is another method, let's just
-. pair up the apples with the pears. After we build such pairs, there
-. is one apple left, so there are more apples than pears.
+Let's start with a problem for an elementary school. We have a few apples and a few pears, and we'd like to know which fruit we have more of. We were taught to do it in this way. We count the number of apples: 1, 2, 3, 4, 5, we count the number of pears: 1, 2, 3, 4, and since 5 is bigger than 4, there are more apples than pears.
 
-. That is not all of that. If we reorder the apples and the pears and
-. try another matching, we get one apple left again. Let's try it one
-. more time, ... again one apple left. Isn't that amazing?
-.
-. Well, it isn't, because we can count. We know that
-. 5 apples minus 4 pears equals one extra apple.  % agrh, not sure how to say this in English well.
-. There is nothing surprising about it at all.
-. At least, until we meet infinity...
+However, to move forward, let's forget about our knowledge gained in elementary school. What if we cannot count? How to determine which fruit we have more of? Well, there is another method, let's just pair up the apples with the pears. After we build such pairs, there is one apple left, so there are more apples than pears.
+
+That is not all of that. If we reorder the apples and the pears and try another matching, we get one apple left again. Let's try it one more time, ... again one apple left. It looks like magic, doesn't it?
+
+Well, not really, because we can count. We know that 5 apples minus 4 pears give that there is one apple more. It doesn't seem surprising at all. At least, until we meet infinity...
 
 :----------------- InfiniteFruitScene -----------------------------------
-. Imagine an infinite number of apples, every apple next to one
-. natural number, and an infinite number of pears, again aligned to
-. natural numbers.
-.
-. So there should be the same amount of them, right? Indeed, there is
-. a natural matching between the fruits. However, we can choose
-. another matching. We join the pear number zero with the apple number
-. one, the pear number one with the apple number two and so
-. on. Sudennly, there is one apple left, so seems that there is more
-. apples that pears.
+Imagine an infinite number of apples, every apple next to one natural number, and an infinite number of pears, again aligned to natural numbers.
 
-. And by an analogous trick, we can make it so that it seems like
-. there is more pears that apples. What to do with that?
-. A reasonable solution is the following definition.
+So there should be the same amount of them, right? Indeed, there is a natural matching between the fruits. However, we can also choose another matching. We join pear number zero with apple number one, pear number one with apple number two, and so on. Suddenly, there is one apple left, so it seems that there are more apples than pears.
 
-. :{"Definition"}
-. Consider two sets, $A$ and $B$.
-. :{Boxes around apples and pears}
-. If there is any pairing between $A$ and $B$ such that every element
-. of $A$ and every element of $B$ is used exactly once, we say that
-. these two sets have the same size.
-. We denote the size of a set the same way that we
-. write absolute value, and in the context of infinite sets, we
-. rather talk about cardinality of a set than of its size.
-. So we can read that as:
-. "The cardinality of A equals the cardinality of B"
-.
-. Only if it is impossible to pair up these sets together,
-. :{Finite number of pears, matching attempts}
-. and no matter how we try, we leave out some elements of the set $A$,
-. we say that the size of $A$ is bigger
-. than the size of $B$.
+And by an analogous trick, we can make it so that it seems like there are more pears than apples. What to do with that? A reasonable solution is the following definition.
+
+:{"Definition"}
+Consider two sets, $A$ and $B$.
+:{Boxes around apples and pears}
+Whenever there is any matching between $A$ and $B$ such that every element of $A$ and every element of $B$ is used exactly once, we say that these two sets have the same size. We denote the size of a set the same way that we write the absolute value, and in the context of infinite sets, we rather talk about the cardinality of a set than of its size. So we can read that as:
+"The cardinality of A equals the cardinality of B"
+
+Only if there is no way to pair up these sets together,
+:{Finite number of pears, matching attempts}
+and no matter how we try, we leave out some elements of the set $A$, we say that the size of $A$ is bigger than the size of $B$.
 
 :---------------------- NaturalsSubsets --------------------------
 
-. This definition leads us to several surprising observations. Take
-. the set of all natural numbers, and think about the set containing
-. all even numbers, which is a subset of the natural numbers. Intuitively,
-. there are less even numbers than both even and odd numbers combined.
-. But there's an easy way to pair up the
-. two sets such that no numbers are left over.
-. :{|natural numbers|=|even natural numbers|}
-. We can just match every number with twice that number: zero with
-. zero, one with two, two with four, and so on. So, somewhat
-. unintuitively, there's the 
-. same amount of even numbers as there are natural numbers.
-.
-. In the same way, you can prove that many subsets of the integers have
-. the same number if items as the integers themselves. For example, we can
-. look at square numbers by matching one with one, two with four, three with
-. nine, and so on. Or if we take just prime numbers, we can
-. match then zero with two, one with three, two with five, and so on. If
-. we take any infinite subset of natural numbers, however sparse, the
-. size will still be the same.
+This definition leads us to several surprising observations. Take the set of all the natural numbers, and think about the set containing all even numbers. Intuitively, there are less even numbers than both even and odd numbers combined. But there's an easy way to pair up the two sets such that no number remains.
+:{|natural numbers|=|even natural numbers|}
+We can just match every number with twice that number: zero with zero, one with two, two with four, and so on. So, somewhat unintuitively, there's the same amount of even numbers as there are natural numbers.
+
+In the same way, you can prove that many subsets of the integers have the same number of elements as the integers themselves. For example, we can look at square numbers or prime numbers...
+Actually, if we take any infinite subset of natural numbers, no matter how sparse, the size will still be the same.
 
 :------------------------- NotationScene -----------------------------
-. Let's introduce
-. :{upbrace: finite sizes}
-. some notation now. Sizes of finite sets are determined by natural
-. numbers, zero, one, two and so on. In general, sizes are measured by
-. so called cardinal numbers, or simply cardinals.
-. Now, we have introduced an infinite cardinal number, the size of the
-. set of natural numbers.
-. it is called Aleph 0. The inventor of set theory, George Cantor
-. established aleph, the first letter of Hebrew alphabet for the notation.
-. Perhaps he considered both latin and greek alphabets too
-. mainstream...
-.
-. We already showed that Aleph 0 is the least infinite
-. size because every infinite part of it is still of the same
-. size. That's why there is the zero at the subscript.
-. All
-. :{downbrace: countable sizes}
-. these sizes are called "countable" meaning that natural numbers are
-. enough for counting its elements even though we may need all natural
-. numbers. During the rest of this chapter we will mainly investigate
-. the properties of the size aleph 0 and countability.
-.
+Let's introduce
+:{upbrace: finite sizes}
+some notation now. Sizes of finite sets are determined by natural numbers, zero, one, two, and so on. In general, cardinalities are measured by so-called cardinal numbers, or simply cardinals. Now, we have introduced an infinite cardinal number, the size of the set of natural numbers. it is called Aleph 0. The inventor of set theory, George Cantor established aleph, the first letter of the Hebrew alphabet for notation. Perhaps he considered both Latin and Greek alphabets too mainstream...
+
+We have already shown that Aleph 0 is the least infinite size because every infinite part of it is still of the same size. That's why there is the zero at the subscript.
+:{downbrace: countable sizes}
+All these sizes are called "countable" meaning that natural numbers are enough for counting its elements even though we may need all natural numbers. In the rest of this chapter, we will primarily investigate the properties of the size aleph 0.
+
 :-------------------- InftyPlusInfty -----------------------------------
-. We will show the notation on the example with even numbers. We already
-. know that the set of even numbers can be matched with natural numbers,
-. that means that the number of even numbers is aleph 0. Similarly, the
-. set of odd numbers has the size aleph 0. So there are two sets of size
-. aleph 0 which altogether gives again a set of size aleph 0, the set of
-. all naturals.
-.
-. But for size comparison, the particular elements does not really
-. matter. Just because we know that there are some sets of size aleph 0
-. which altogether have again the size aleph 0, we can generalize this
-. fact to whatsoever two sets with size aleph 0. They can be again our
-. sets of apples and pears. Each of them has the size aleph 0 but
-. altogether they still have the size aleph 0. So aleph 0 plus aleph 0
-. is still the same size aleph 0. Alternatively speaking, the union of
-. two countable sets is still countable. There is a meaningful
-. example.
-.
+
+Let's demonstrate the notation on the example with even numbers. We already know that the set of even numbers can be matched with natural numbers, which means that there are Aleph 0 of even numbers. Similarly, there are Aleph 0 of odd numbers. So there are two sets of size aleph 0 which altogether gives again a set of size aleph 0, the set of all naturals.
+
+But for size comparison, the particular elements do not matter. Just because we know that there are some sets of size aleph 0 which altogether have again the size aleph 0, we can generalize this fact to whatsoever two sets with size aleph 0. They can be again our sets of apples and pears. Each of them has the size aleph 0 but all together they still have the size aleph 0. So aleph 0 plus aleph 0 is still the same size, aleph 0. Alternatively speaking, the union of two countable sets is still countable.
+
+There is a meaningful example.
+
 :--------------------- IntegersScene --------------------------------
-. The number of non-positive integers, zero, minus one, minus
-. two and so on, is aleph 0. They are just natural numbers reflected by
-. the point zero. And there are aleph 0 of natural numbers. So the
-. number of all integers is still Aleph 0.
-.
-. Q:"Hey, what happened to the merged zero?"
-. Technically, the size could be less than aleph zero because two zeros
-. were merged to one
-. A:"The size is still countable infinite."
-. but there is just one infinite countable cardinal number, the
-. Aleph 0. So the size is still the same in our case.
-.
+The number of non-positive integers, zero, minus one, minus two, and so on, is aleph 0. They are just natural numbers reflected by point zero. And there are aleph 0 of natural numbers. So the number of all integers is still Aleph 0.
+
+Q: "Hey, what happened to the merged zero?"
+Technically, the size could be less than Aleph 0 because two zeros were merged into one
+A: "The size is still countable infinite."
+but there is just one infinite countable cardinal number, the Aleph 0. So the size is still the same in our case.
+
 :--------------------- InfiniteTable -----------------------------
-. All right, the set of all natural numbers, can be
-. divided into two sets of the same size, odd
-. numbers and even numbers. We can go on and partition even numbers to
-. numbers divisible by four and the others. All these three sets are
-. infinite countable, thus of size aleph 0, so aleph 0 times three is
-. still aleph 0. Let's continue and partition numbers divisible by 4 to
-. those which are divisible by 8 and those which are not. Then partition
-. the numbers divisible by 8 to those which are divisible by sixteen and
-. the others. And so on.
-.
-. We end up with an infinite table of natural numbers. Every number
-. occurs here exactly once with the exception of missing zero which has
-. disappered somewhere in infinity. Nevertheless, the size of every row
-. is aleph 0, there are aleph 0 rows. But all elements altogether are
-. just natural numbers without zero, that is there are aleph 0 of
-. them. That shows that aleph 0 times aleph 0 is still aleph zero. More
-. generaly, the union of countable sets is still countable.
-.
-. In this case, we can even directly describe the matching.
-. You may noticed that there are powers of two at the first column, two
-. to the power of zero, one, two, in general two to the power of 'r' where
-. 'r' denotes the index of the row.
-. And similarly, there are all odd numbers in the first row, so we can
-. desribe them as 2c plus 1 where c denotes the index of the column
-. begining with zero.
-. What's more, any item of the table is just the product of the
-. appropriate elements in the first row and the first column.
-.
-. So if we write the positions instead of the numbers
-. and rearrange them back into the original line,
-. we see a matching between pairs and all natural numbers except zero
-. given by the formula 2^r * (2c+1).
-.
-. To tune it into perfectness, we tweak the formula
-. by shifting by one to the left so we cover even the missing zero. Not
-. just there is a matching between pairs of natural numbers and natural
-. numbers. It can be even realized by a relatively simple formula.
-.
+All right, the set of all the natural numbers can be divided into two sets of the same size, odd numbers, and even numbers. We can go on and split the even numbers into numbers divisible by four and the others. Let's continue and separate numbers divisible by 4, then those which are divisible by 8, and so on...
+
+We end up with an infinite table of natural numbers. Every number occurs here exactly once except for missing zero which has disappeared somewhere in infinity. Nevertheless, the size of every row is aleph 0, there are aleph 0 rows. But all elements altogether are just natural numbers without zero, that is there are aleph 0 of them. That shows that aleph 0 times aleph 0 is still aleph zero. More generally, the union of countable sets is still countable.
+
+In this case, we can even directly describe the matching. You may have noticed that there are powers of two at the first column, two to the power of zero, one, two, in general, two to the power of 'r' where 'r' denotes the index of the row in zero-based indexing. And similarly, there are all odd numbers in the first row, so we can describe them as 2c plus 1 where c denotes the index of the column in zero-based indexing.
+What's more, any item of the infinite matrix is just the product of the appropriate elements in the first row and the first column. This is a bit magical property, you can pause the video and ponder why it happened.
+
+So if we write the positions instead of the numbers and rearrange them back into the original line, we see a matching between pairs and all the natural numbers except zero given by the formula 2^r * (2c+1).
+
+To tune it into perfectness, we tweak the formula by shifting by one to the left so we cover even the missing zero. Not only there is a matching between pairs of natural numbers and natural numbers. It can be even realized by a relatively simple formula.
+Cool, isn't it?
+
 :---------------------- RationalsScene -------------------------------
-. Let's see this in mathematical practice again. We already know that
-. the size of all integers is aleph 0. Similarly, the set of all
-. integers divided by two is of the same size. The same holds for
-. integers divided by three, integers divided by four and so on.
-.
-. What if we merge all of these sets? The line becomes pretty
-. full. There are actually all rational numbers. Every number of a form
-. an integer divided by a non-zero natural number were in some of our
-. rows so it is in the resulting set. Therefore, the size of all
-. rational numbers is aleph 0 as well. And again, technically, some
-. points got merged but aleph zero is the only countable infinite
-. cardinal number, so the size cannot be anything else.
-.
-. Q:"Are all sets countable?"
-. Considering all this you could be under the impression that actually every set
-. can be countable.
-. A:"Of course not ;-)"
-. But in that case, the notion of countability and aleph 0 would be
-. quite useless, don't you think?
-. In fact, there is a whole variety of
-. uncountable cardinals and the aleph 0 is just the first of infinite
-. cardinals, by no means the last one. A famous example of an
-. uncountable set is the set of all real numbers. While the line seems
-. to be filled by rational numbers, the vast majority of it is in fact
-. still missing.
-.
-. But real numbers are a bit technical so for now let's see another
-. famous example.
-.
+Let's see this in real mathematics again. We already know that the size of all integers is aleph 0. Similarly, the set of all integers divided by two is of the same size. The same holds for integers divided by three, and so on.
+
+What if we merge all of these sets? The line becomes pretty full. There are actually all rational numbers. Every number of a form an integer divided by a non-zero natural number were in some of our rows so it is in the resulting set. Therefore, the size of all rational numbers is aleph 0 as well. And again, technically, some points got merged but aleph zero is the only countable infinite cardinal number, so the size cannot be anything else.
+
+Q: "Are all sets countable?"
+Considering all this, you could be under the impression that every set could be countable.
+A: "Of course not ;-)"
+But that would leave the notion of countability and aleph 0 pretty pointless, don't you think? In fact, there is an entire variety of uncountable cardinals and the aleph 0 is just the first of infinite cardinals, by no means the last one. A classical example of an uncountable set is the set of all real numbers. While the line seems to be filled by rational numbers, the vast majority of it is still missing.
+
+But real numbers are a bit technical so for now, let's look at another classical example.
+
 :-------------------- CantorDiagonal -----------------------------
-. The number of all infinite sequences of zeros and ones
-. is uncountable. Indeed, whenever we make an atempt of matching natural
-. numbers with such sequences we can find a sequence we have missed by
-. the following procedure. Look at the digits on the diagonal, that is
-. the digit at the position zero of the sequence matched with zero, then
-. the digit at the position one of the sequence matched with number one,
-. and so on. Finally, we invert the sequence, that is replace the zeros
-. with ones and vice versa. This sequence cannot be in in our list
-. because the diagonal is blocking all possible rows. And it is not the
-. only sequence missing, it would not be problem since aleph 0 plus one
-. is still aleph zero. But if we add it, we can find another one by the
-. same procedure. In fact, the vast majority of sequences is missing, an
-. uncountable cardinal number of them.
-.
-. The procedure of finding missing sequence is called Cantor's diagonal
-. argument and in the next chapter we will explore it in more detail and
-. more generality. You can also expect the explanation of the technical
-. details of real numbers together with another key set-theoretical tool
-. making set size comparison cleaner, the Cantor-Bernstein theorem. See
-. you then.
+The set of all infinite sequences of zeros and ones is uncountable. Indeed, whenever we try to match natural numbers with such sequences we can find a sequence we have missed by the following procedure. We look at the digits on the diagonal, that is the first digit of the first sequence, the second digit of the second sequence, and so on. Finally, we invert the sequence, we replace the zeros with ones, and vice versa. This sequence cannot be in our list because the diagonal is blocking all possible rows.
+
+And it is not the only sequence missing, it would not be a problem since Aleph 0 plus one is still Aleph 0. But if we add it, we can find another one with the same procedure. In fact, the vast majority of sequences are still missing, an uncountable cardinal number of them.
+
+The procedure of finding a missing sequence is called Cantor's diagonal argument. In the next chapter, we will explore it in more detail and more generality. You can also expect the technical details of the cardinality of real numbers together with another key set-theoretical tool making set comparison cleaner, the Cantor-Bernstein theorem. See you then.

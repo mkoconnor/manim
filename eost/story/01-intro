@@ -1,145 +1,43 @@
-some quotes: http://www.maths.qmul.ac.uk/~pjc/comb/quotes.html
-
 The infinite world
 ==================
 
 Quote: Set theory has a dual role in mathematics. In pure mathematics, it is the place where questions about infinity are studied. Although this is a fascinating study of permanent interest, it does not account for the importance of set theory in applied areas. There the importance stems from the fact that set theory provides an incredibly versatile toolbox for building mathematical models of various phenomena. (Jon Barwise, Lawrence Moss)
 
-Outline
-=======
-
-* Who is it good for?
-  * People who would like to have a better understanding of popular paradoxical examples with infinity, or to see the solution of the Russel's paradox
-  * Mathematicians who are using set theoretical tools such as cardinalities / Zorn's lemma and would like to understand it.
-  * Students of a set-theoretical course drowning in formalisms.
-* Scheme
-  * A visual, intuitive approach, originally motivated by a construction of as large set as possible, chapters~\ref{set-size-comparison}--\ref{omega1}
-  * Link to appropriate amount of formalism and motivation behind it, chapters~\ref{paradoxes}--\ref{formal-recursion}
-  * Standard but non-trivial tools of set theory, chapters~\ref{zorn-lemma}--\ref{cardinals}
-* distant from applied math
-* creating a new world for mathematicians
-* fun fact: Czech slang abbreviation of set theory is ``darkness''
-* so why to study it?
-  * it is wonderful, people like the idea of an ideal infinite world
-  * it is solid, it gives you boundaries what can be proven and what cannot
-* corresponding two roles of set theory
-  * the theory of infinity
-  * foundation of mathematics
-* basic principles
-  * infinity is actual
-  * infinity is not just a large number
-* example: infinite grid can be colored blue-yellow in such a way that
-  * every row contains just finite number of blue cells
-  * every column contains just finite number of yellow cells
-  * that would not be possible if infinity were just a large finite number
 
 :------------------------CantorScene-----------------------------------
-. Hi, and welcome to Essence of set theory!
-. Because the video targets an audience as diverse and broad as I can get, let's first outline what it's all about.
-. Set theory, which in Czech is sometimes humorously slang abbreviated as TeMno ('darkness'),
-. is a mathematical discipline founded in the nineteenth century by George Cantor.
-. At its core, set theory is the study of infinity;
-. or rather, infinite sets, to be precise.
+
+Hi, and welcome to the Essence of set theory! Because the video targets an audience as diverse and broad as I can get, let's first outline what it's all about. Set theory is a mathematical discipline founded in the nineteenth century by George Cantor. At its core, set theory is the study of infinity; or rather, infinite sets, to be precise.
 :------------------------HotelScene-----------------------------
-. If you have ever heard some cool things about infinity,
-. like how an infinite number of buses each with an infinite amount of people
-. can fit into a single hotel with an infinite number of rooms,
+If you have ever heard some cool stuff about infinity, such as how an infinite number of buses each with an infinite amount of people can fit into a single hotel with an infinite number of rooms,
 :-----------------------PrisonersScene-----------------------------
-. or how an infinite number of prisoners wearing colored hats
-. are able to coordinate their actions such that almost all of them can, correctly,
-. guess their own hat color,
-. you'll find that these are, indeed, things strongly connected to set theory.
+or how an infinite number of prisoners wearing colored hats can coordinate their actions such that almost all of them can, correctly, guess their own hat color, you'll find that these are, indeed, things strongly connected to set theory.
 :----------------------TwoSetTheoryRoles---------------------------
-. To be honest, understanding infinity is actually
-. the main reason why we study set theory:
-. to a mathematician, infinity is beautiful!
-. It is a concept that provides to a mathematician a whole, amazing world just for the sake of his ideas.
-. Of course, that means if you're a practically oriented person
-. who wants to see its direct applications in the real world, sorry;
-. You won't meet infinity walking down the street.
-. Still,
-. there is also another reason why set theory is important:
-. it gives a solid framework for mathematics in general.
-. As it turns out, following our intuitions about infinity
-. can easily lead to paradoxes,
-. as when a set is an element of itself if and only if it is not.
-. Mathematicians had to develop a formal axiomatic framework
-. to deal with these problems.
-. And it turned out that their solution was so universal
-. that it covers virtually any mathematical field.
-.
-. Therefore set theory actually plays two roles in mathematics:
-. not only is it the theory of infinity,
-. but it also constitutes the very foundations of mathematics.
+To be honest, understanding infinity is the main reason why we study set theory: to a mathematician, infinity is beautiful! It is a concept that provides a mathematician a whole, amazing world just for the sake of his ideas. Of course, that means if you're a practically oriented person who wants to see its direct applications in the real world, sorry; You won't meet infinity walking down the street.
+
+Still, there is also another reason why set theory is important: it gives a solid framework for mathematics in general. As it turns out, following our intuitions about infinity can easily lead to paradoxes, as when a set is an element of itself if and only if it is not. Mathematicians had to develop a formal axiomatic framework to deal with these problems. And it turned out that their solution was so universal that it covers virtually any mathematical field.
+
+Therefore set theory actually plays two roles in mathematics: not only is it the theory of infinity, but it also constitutes the very foundations of mathematics.
 :---------------------------ChapterList------------------------------
-. In the first few videos, we'll start with some intuition for infinity;
-. Then we'll take a look to the paradoxed mentioned before
-. and solve them by introducing a framework in terms of a few axioms;
-. We'll finish with some more advanced tools of set theory,
-. such as the principle of maximality.
+In the first few videos, we'll start with some intuition for infinity; Then we'll take a look at the paradoxes mentioned before and solve them by introducing a framework in terms of a few axioms; We'll finish with some more advanced tools of set theory, such as the principle of maximality.
 
 :--------------------------InfinityBasics-----------------------------
-. To begin thinking about infinity, we first have to define it.
-. What do we mean by a rotated number eight?
-. Actually, this question is too vague for us to answer.
-. We won't even use the infinity symbol in this series!
-. Instead, we'll try to define "infinite size":
-. what's something infinitely big?
-. Of course, there's a cheap answer:
-. something infinitely big is something not finitely big.
-. But "finitely big" is easy to define:
-. a finitely big set is just a set where its number of elements
-. can be expressed as a natural number.
-. A set of five elements is finite.
-. A set of one million elements is finite too.
-. But the set of all natural numbers
-. is too big to be measured by a finite natural number.
-. Therefore, it is infinite in size.
-. Even an empty set is finite:
-. it has zero elements!
-. That's why we consider zero as a natural number.
-. This may be somewhat unusual in other fields, but in set theory, it turns out to be...
-. *very natural*
-. According to this definition of infinite sets,
-. in which we defined what infinite definitely isn't,
-. it can't just be a large natural number.
-. Actually, the whole study of infinity
-. rely on the fact that infinite sets behave in unexpected ways,
-. and this is precisely what our studies are concerned with.
-. Consider the following problem:
+To begin thinking about infinity, we first have to define it. What do we mean by a rotated number eight? This question is actually too vague for us to answer. We won't even use the infinity symbol in this series! Instead, we'll try to define "infinite size": what's something infinitely big?
+
+Of course, there's a cheap answer: something infinitely big is something not finitely big. But "finitely big" is easy to define: a finitely big set is just a set where its number of elements can be expressed as a natural number. A set of five elements is finite. A set of one hundred elements is finite too. But the set of all the natural numbers is too big to be measured by a finite natural number. Therefore, it is infinite in size.
+
+Even an empty set is finite: it has zero elements! That's why we consider zero as a natural number this may be somewhat unusual in other fields, but in set theory, it turns out to be... very natural. According to this definition of infinite sets, in which we defined what infinite isn't, it can't just be a large natural number. The whole study of infinity relies on the fact that infinite sets behave in unexpected ways, and this is precisely what our studies are concerned with.
+
+Consider the following problem:
 :---------------------------GridColoring-------------------------------
-. Consider the following problem:
-. We have a grid of size five by five
-. and we are coloring it using two colors, yellow and blue.
-. If we color it in such a way that all the rows are predominantly blue,
-. it may happen that some of the columns are predominantly yellow,
-. but definitely not all of them!
-. Even if we change the remaining columns so that they are predominantly yellow,
-. we will unavoidably break some of the grid's rows.
-. It is really an impossible task to carefully choose grid colors
-. in such a configuration in which the all the rows are predominantly blue
-. and, at the same time, all the columns are predominantly yellow.
-. This happens for the simple reason that we cannot fill the table in such a way
-. that there are more blue squares than yellow ones
-. at the same time there are more yellow squares than blue ones!
-. But what if we pick an infinite grid?
-. In this case, there exists a colorization of the grid
-. such that every row contains only a finite number of yellow squares,
-. and every column contains only a finite number of blue ones.
-. I recommend you to pause the video and think about it for a while.
-. You can take your paper and pencil for help.
+We have a grid of size five by five and we are coloring it using two colors, yellow and blue. If we color it in such a way that all the rows are predominantly blue, some of the columns may happen to be predominantly yellow, but for sure not all of them! Even if we change the remaining columns so that they are predominantly yellow, we will unavoidably break some of the grid's rows. It is an impossible task to carefully choose grid colors in such a configuration in which all the rows are predominantly blue and, at the same time, all the columns are predominantly yellow. This happens for the simple reason that we cannot fill the table in such a way that there are more blue squares than yellow ones at the same time there are more yellow squares than blue ones! But what if we pick an infinite grid? In this case, there exists a colorization of the grid such that every row contains only a finite number of yellow squares, and every column contains only a finite number of blue ones. I recommend you to pause the video and think about it for a while. You can take your paper and pencil for help.
 ...
 ..[wait for 10 seconds]
 ...
-. Here it comes the solution:
-. Do you see?!
-. Every row is mostly blue and contains only a finite number of yellow squares
-. and every column is mostly yellow and contains only a finite number of blue squares.
-. The impossible task in the finite world
-. just became possible for the infinite grid.
-. And that is just the beginning.
-.
-. In the next chapter...
-. We will learn how to compare sizes of infinite
-sets.
-. See you then!
+Here comes the solution:
+Do you see it?!
+Every row is mostly blue and contains only a finite number of yellow squares and every column is mostly yellow and contains only a finite number of blue squares. The impossible task in the finite world just became possible for the infinite grid.
+And that is just the beginning.
+
+In the next chapter...
+We will learn how to compare the sizes of infinite sets.
+See you then!

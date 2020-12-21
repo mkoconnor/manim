@@ -21,7 +21,7 @@ Pro jakékoli číslo n můžeme sestrojit n-krát iterovanou potenci
 omegy. Můžeme ji aplikovat sedmnáctkrát. Či dokonce
 gogoolplexkrát. Ale je to to nejlepší, čeho můžeme dosáhnout?
 
-Ne. Máme přeci k dispozici nekonečno. Můžeme vzít všechny tyhle
+Není. Máme přeci k dispozici nekonečno. Můžeme vzít všechny tyhle
 množiny omega, P omega, P P omega, a tak dál najednou, 
 :--------FirstLimitStep-------
 a sjednotit je. Formálně bychom to zapsali takto -- sjednocení všech
@@ -42,7 +42,7 @@ množina předchozího výsledku.
 
 Ale transfinitní rekurze umí jednu věc navíc. Může nějak nakombinovat
 výsledky sesbírané v předchozích krocích, i když nemáme k dispozici
-žádný bezprostředně předchozí. Máme tak dva druhy limitních kroků. Ten
+žádný bezprostředně předchozí krok. Máme tak dva druhy limitních kroků. Ten
 obyčejný se nazývá izolovaný krok a ten, který se použije v okamžiku,
 kdy nemáme žádného bezprostředního předchůdce se nazývá limitní. Takže
 v našem případě by izolovaný krok byla potence, a limitní krok je
@@ -82,7 +82,7 @@ krok?
 :------OmegaPlusZScene--------
 Vezměme si následující příklad. Jedna nekonečná rostoucí posloupnost a
 jedna oboustranně nekonečná posloupnost za ní. Tato množina má první
-prvek, takže máme kam přiřadit omegu. Každý prvek má následníka, takže
+prvek, takže máme kam přiřadit omegu. A každý prvek má následníka, takže
 máme, kam přiřadit P omega, P P omega, a tak dál. Ale... co teď?
 
 Teď bychom chtěli provést limitní krok, ale nemáme žádnou další rysku,
@@ -103,7 +103,7 @@ počátečního úseku. Následník prázdného počátečního úseku je pak p�
 první prvek množiny, takže i základ rekurze je uspokojený touto podmínkou.
 
 :----------WellOrderingCondition-----
-Má to jen jeden háček, ve skutečnosti neexistuje žádná množina, která
+Má to jenom jeden háček, ve skutečnosti neexistuje žádná množina, která
 by tuto podmínku splňovala. Celou množinu totiž můžeme taky považovat
 za její počáteční úsek, a pak v ní pochopitelně žádného následníka
 nenajdeme.
@@ -162,11 +162,12 @@ ověřit, že se v dané množině nenachází žádná nekonečná klesající
 posloupnost.
 
 Když si ale sami vyhledáte definici dobrého uspořádání, pravděpodobně
-najdete následující: Ne jen každý koncový úsek, ale úplně každá
+byste našli něco takového: Ne jen každý koncový úsek, ale úplně každá
 neprázdná podmnožina musí mít nejmenší prvek.
-Tak si můžete sami rozmyslet, že význam je pořád stejný, není to až
+Tak si můžete sami zkusit rozmyslet, že význam je pořád stejný, není to až
 tak těžké.
 
 :-------ordinal-test.OrdinalAsIndex---------
 V dalším díle se podíváme na ordinální čísla a naučíme se s dobře
-uspořádanými množinami indexovat prvky. Nashle příště.
+uspořádanými množinami indexovat prvky jiných dobře uspořádaných množin.
+Nashle příště.

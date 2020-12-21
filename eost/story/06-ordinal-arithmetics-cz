@@ -9,7 +9,7 @@ V minulé kapitole jsme si zavedli ordinální čísla coby typy dobře
 uspořádaných množin a vysvětlili jejich význam coby indexů. Tahle
 kapitola o ordinální aritmetice možná není až tolik esenciální.
 Ordinální sčítání a násobení jsou méně důležité operace než operace
-suprema a přičtení jedničky, z minulého dílu. Ale považujeme za
+suprema a přičtení jedničky, z minulého dílu. Považujeme ale za
 užitečné si ordinály trochu lépe osvojit než se pustíme do ordinálu
 omega1, který je mnohem důležitější, ale současně mnohem méně
 představitelný.
@@ -20,7 +20,7 @@ ordinály nazývali omega plus jedna, omega plus dva, a tak dál.
 Když chceme sečíst dva ordinály, například omega a tři, tak je
 prostě umístíme za sebe. To je docela jednoduché a přirozené. Jenže
 skutečnost, že ordinály reprezentují uspořádání může i za jisté ne
-tolik přirozené chování ordinálního sčítání. Konkrétně, záleží na
+tolik přirozené vlastnosti ordinálního sčítání. Konkrétně, záleží na
 pořadí.
 
 Ordinál omega plus tři je opravdu o tři kroky delší než omega. Ale
@@ -56,7 +56,7 @@ nevytrhne, ale co náskok omega?
 Když Gordon doběhne na omegu, Steve už je pryč
 :--------------------------TurtlesRace2-------------------------------
 na bodě omega plus omega. Označíme tento bod stručně jako omega krát
-dva. Když Gordon doběhne na omega krát dva, Steve je na omega plus
+dva. Když Gordon doběhne na omega krát dva, Steve je na omega krát
 tři. Zkuste si zastavit video a zamyslet se. Povede se Gordonovi
 dohnat Steva?
 
@@ -105,7 +105,7 @@ Je to podobné jako se sčítáním. Může se stát, že výsledek nebude vět�
 než druhý činitel, ale určitě bude větší než ten první, pokud teda
 nenásobíme jedničkou nebo nulou.
 
-Zkusme se teď na ten opačný součin podívat jako na závod. To odpovídá
+Zkusme se teď na ten opačný součin podívat taky jako na závod. To odpovídá
 nějakému superhrdinovi,
 :------------------------AchilesScene-------------------------------
 dejme tomu Achileovi, jehož skoky jsou dlouhé omega. Začíná na bodě
@@ -132,10 +132,10 @@ Achilea?
 [wait for 10 seconds]
 
 :----------------------------ToSpiralScene-----------------------------
-Dobrá, podíváme se, jak to je, ale k tomu potřebujeme vidět celou
+No dobrá, podíváme se, jak to je, ale k tomu potřebujeme vidět celou
 situaci s trochu většího nadhledu.
 :--------------------------SpiralScene--------------------------------
-Po dalším kroku je želva na omegakrát dva plus jedna, zatímco Achiles
+Po dalším kroku je želva na omega krát dva plus jedna, zatímco Achiles
 už je na omega na druhou plus omega. Po dalších omega krocích je želva
 na omega krát tři, zatímco Achiles je na omega na druhou krát
 tři. Želva stále potřebuje omega na druhou kroků, ale se dostala na
@@ -144,7 +144,7 @@ bod omega na druhou, ale Achiles je tou dobou už na omega na třetí.
 Achiles je stále jedno kolo před želvou. Když želva doběhne na omega
 na třetí, Achiles už je je na omega na čtvrtou. A závod
 poračuje. Nicméně už asi tušíte, jak to chodí. všechny tyhle konečné
-mocniny omegy mají svoje supremum, nazvaně, nepříliš překvapivě, omega
+mocniny omegy mají svoje supremum, nazvané, nepříliš překvapivě, omega
 na omega. Oba naši závodníci se jen současně blíží k tomuto supremu,
 takže to je ten bod, na kterém želva dohoní Achilea.
 
@@ -174,7 +174,8 @@ Aleph 0. A tak dál, každá konečná mocnina omegy je spočetná.
 
 A omega na omega není nic jiného než supremum těchto spočetných
 ordinálů. Supremum je něco jako sjednocení, takže i celé omega na
-omega je jenom spočený ordinál, přesněji ordinál mohutnosti Aleph 0.
+omega je jenom spočený ordinál, abychom byli přesnější,
+ordinál mohutnosti Aleph 0.
 
 Zjevně není žádná legrace se dostat k nespočetným ordinálům. Ani
 ordinální mocnina tomu popravdě moc nepomáhá. Přesto se v dalším díle

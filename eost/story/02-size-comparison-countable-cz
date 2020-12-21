@@ -15,7 +15,7 @@ popárovat jablka s hruškami. Když sestavíme takové dvojičky, vyzbude
 nám jedno jablko, takže máme víc jablek než hrušek.
 
 A to není všechno, když jablka a hrušky přeuspořádáme a zkusíme jiné
-popárování, vyzbude zase jadno jablko. Tak ještě jednou. Zase jedno
+popárování, vyzbude zase jadno jablko. Hm, tak ještě jednou. Zase jedno
 jablko navíc. No, není to šokující?
 
 No není. Prostě proto, že umíme počítat. Víme, že 5 jablek minus 4
@@ -24,7 +24,7 @@ přinejmenšim než potkáme nekonečno...
 
 :----------------- InfiniteFruitScene -----------------------------------
 Dejme tomu, že máme nekonečně mnoho jablek, každé posazené u jednoho
-přirozeného čísla, a stejně tak nekonečně mnoho hrušek, každou
+přirozeného čísla, a stejně tak nekonečně mnoho hrušek, každou taky
 posazenou u jednoho přirozeného čísla.
 
 Takže by jich mělo být stejně, že? A opravdu, můžeme přirozeně
@@ -44,7 +44,7 @@ absolutní hodnotou, a v kontextu nekonečných množin jí spíše
 nazýváme mohutností. Takže to můžeme přečíst: mohutnost $A$ se
 rovná mohutnost $B$.
 
-Teprve, když není šance ty dvě množiny popárovat a vždycky nám
+Teprve, když není vůbec žádná šance ty dvě množiny popárovat a vždycky tam
 přebudou nějaké prvky množiny $A$, říkáme, že mohutnost $A$ je větší
 než mohutnost $B$.
 
@@ -74,7 +74,7 @@ chvílí jsme si uvedli jednu nekonečnou mohutnost, mohutnost množiny
 přirozených čísel, ta se značí aleph 0. Zakladatel teorie množin,
 Georg Cantor pro tuto mohutnost zavedl symbol aleph, první písmeno
 hebrejské abecedy, snad proto, že se mu latinka a řecká abeceda zdály
-už příliš profláklé...
+už příliš profláknuté...
 
 Už jsme si ukázali, že Aleph 0 je nejmenší nekonečné kardinální číslo,
 protože každá nekonečná podmnožina bude mít stále mohutnost Aleph 0. To
@@ -82,13 +82,13 @@ je důvod, proč má Aleph 0 v indexu tu nulu.
 
 Všechna tato kardinální čísla se nazývají "spočetná" v tom smyslu, že
 přirozená čisla postačují k počítání všech jejich prvků, i když na to
-můžeme vypotřebovat všechny.
+můžeme vypotřebovat všechna.
 Ve zbytku této kapitoly se budeme primárně zabývat vlastnostmi tohoto
 kardinálního čísla.
 
 :-------------------- InftyPlusInfty -----------------------------------
 
-Značení si ještě jednou demonstrujeme na příkladu se sudými čísly. Už
+Značení si demonstrujeme na příkladu se sudými čísly. Už
 víme, že množina všech sudých čísel má mohutnost Aleph 0. Stejně tak
 množina všech lichých čisel má mohutnost Aleph 0.
 Takže máme dvě množiny mohutnosti Aleph 0, které dohromady dávají
@@ -140,11 +140,11 @@ A podobně v prvním sloupci máme samá lichá čísla, takže je můžeme
 vyjádřit jako 2c+1, kde c je index sloupečku.
 Ba co víc, každé číslo v tabulce je součinem odpovídajících čísel
 v~prvním sloupci a řádku. Tahle vlastnost je docela kouzelná, můžete
-si zastavit video a rozmyslet si, proč tomu tak je.
+si zastavit video a rozmyslet si, proč tomu tak vlastně je.
 
 Takže, když na místo čísel zapíšeme jejich pozici v tabulce, a
 přesuspořádáme je zpátky do přímky, dostáváme párování mezi dvojicemi
-[r, c] a všemi přirozenými čísly s výjimou nuly dané vzorečkem
+[r, c] a přirozenými čísly s výjimou nuly dané vzorečkem
 2^r * (2c+1).
 
 Abychom to doladili k dokonalosti, zbývá párování posunout o jedna a
@@ -172,9 +172,9 @@ Q:"Takže jsou všechny množiny spočetné?"
 Všechny tyhle přiklady by mohly zanechat dojem, že je vlastně spočetné
 všechno.
 A:"Jesně, že ne ;-)"
-Ale pak by byla terminologie spočetnosti poněkud zbytečná, nemyslíte?
+Ale pak by byla terminologie spočetnosti poněkud zbytečná, nepřijde vám?
 Ve skutečnosti existuje celá řada nespočetných kardinálních čísel, a
-Aleph 0 je jenom první nekonečný kardinál, v žádném případě největší.
+Aleph 0 je jenom první nekonečný kardinál, v žádném případě ne největší.
 
 Slavným příkladem nespočetné množiny je množina všech reálných
 čisel. I když přímka vypadá zcela zaplněna racionálními čísly, valná
@@ -184,8 +184,8 @@ Ale reálná čísla jsou trochu technická, tak si teď ukážeme jiný slavný
 příklad.
 
 :-------------------- CantorDiagonal -----------------------------
-Počet všech nekonečných posloupností jedniček a nul je
-nespočetný. Vskutku, kdykoli se pokusíme popárovat přirozená čísla
+Množina všech nekonečných posloupností jedniček a nul je
+nespočetná. Vskutku, kdykoli se pokusíme popárovat přirozená čísla
 s takovými posloupnostmi, můžeme následujícím postupem najít
 posloupnost, kterou jsme opoměli. Podíváme se na cifry na
 úhlopříčce, tedy první cifra první posloupnosti, druhá cifra druhé

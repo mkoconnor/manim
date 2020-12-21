@@ -3,241 +3,76 @@ Set size comparison and continuum
 
 Quote: Some infinities are bigger than other infinities. -- John Green
 
-Outline
-=======
-* $\P(X) = {}$labeling X by 0,1
-* $|\R| = \P(\omega)$?, injections to both sides
-* Cantor-Bernstein (graph proof),
-* excercise: $\R^2 = \R$
-* unanswered questions: Are every two sets comparable? Are reals the least uncountable set?
-* Cantor's theorem in general,  $|\P(X)| > |X|$.
-* $\P(\P(\P(\omega))) > \P(\P(\omega)) > \P(\omega) > \omega$
-
 :-------------------------RecapChapter2------------------------------
-. In the last video, we have shown several sets of the size aleph 0 --
-. natural numbers, prime numbers, integers, rational numbers, and one
-. bigger set, the set of all infinite sequences of zeros and ones. The
-. current chapter is devoted primarily to this particular bigger size.
-.
-. First of all, an infinite sequence of zeros and ones is in a sense the
-. same thing as a subset of the set of all natural numbers. The set of
-. all natural numbers is called omega in set theory context.
-. Indeed, we can interpret the sequence as a mask.
-. Ones simply represents the naturals included in that subset and zeros
-. represents the omited numbers.
-. And vice versa, any set of natural numbers can be encoded into
-. such a mask by writing ones to the positions of occuring numbers and
-. zeros to the rest.
-.
-. More formally, this translation defines a matching
-. between infinite binary sequences and subsets of omega. Any binary
-. sequence is matched with a subset of omega and vice versa. So we
-. have actually proved that the set of all subsets of omega has the same
-. size as the set of all infinite sequences of zeros and ones. In fact,
-. a procedural description of matching is quite common in set theory
-. since is difficult to construct a matching of unimaginably large sets
-. otherwise.
-. 
-. Moreover, the operation of taking all subsets of a set is pretty
-. common procedure in set theory.
+In the last video, we have shown several sets of the size aleph 0 -- natural numbers, prime numbers, integers, rational numbers, and one bigger set, the set of all infinite sequences of zeros and ones. The current chapter is devoted primarily to this particular bigger size.
+
+First of all, an infinite sequence of zeros and ones is in a sense the same thing as a subset of the set of all the natural numbers. The set of all the natural numbers is called omega in the set theory context. Indeed, we can interpret the sequence as a mask. Ones simply represent the naturals included in that subset and zeros represent the omitted numbers. And vice versa, any set of natural numbers can be encoded into such a mask by writing ones to the positions of occurring numbers and zeros to the rest.
+
+More formally, this translation defines a matching between infinite binary sequences and subsets of omega. Any binary sequence is matched with a subset of omega and vice versa. We have actually proved that the set of all subsets of omega has the same size as the set of all infinite sequences of zeros and ones. In fact, a procedural description of matching is quite common in set theory since is difficult to construct a matching of unimaginably large sets otherwise.
+
+Moreover, the operation of taking all subsets of a set is a pretty common procedure in set theory.
 :-----------FinitePowerSetScene--------------
-. Take a set X, for example the set of numbers 0,1,2, and
-. consider all the subsets, that is the empty set, three subsets
-. containing just one element, three subsets containing two elements and
-. the set itself, and pack it to another set.
-. The operation is denoted by a caligraphic P, meaning
-. power-set.  Thus, the resulting set is denoted P of X.
-. 
-. The reason for such a name is inspired by the behavior in finite case.
-. We started with a set of size three, and the resulting set have 8
-. elements, that is 2 to the power of three. That is not a coincidence,
-. we can decide whether to include the number zero, that are two cases,
-. whether to include the number one, again two cases, and whether to
-. include the number two.  So the total number of subsets is two times two
-. times two, that is two to the power of three.
-. It applies in general. If there is a finite set of n
-. elements, we can decide for each of them whether to include it, or
-. not, and the size of the powerset is then two to the power of n.
-.
-. In finite case, it is obvious that powerset creates bigger sets, two to
-. the power of n is much larger than n, right? One is less than two,
-. four is less than sixteen, ten is less than one thousand and twenty
-. four.
-. From the last video we
-. know that that the power-set overcomes even the countability, the
-. powerset of omega is larger than omega. Does that hold in general?
-. Is the power-set of arbitrarily large set larger than the original
-. set?
-. 
-. In fact, the Cantor's diagonal argument was general enough to cover
-. all possible sets. But let's see it from the power-set perspective to
-. make it more universal and to see different forms of the same idea.
-.
+Take a set X, for example, the set of numbers 0,1,2, and consider all the subsets, that is the empty set, three subsets containing just one element, three subsets containing two elements, and the set itself, and pack it into another set. The operation is denoted by a calligraphic P, meaning power-set.  Thus, the resulting set is denoted P of X.
+
+We started with a set of size three, and the resulting set has 8 elements, that is 2 to the power of three. That is not a coincidence, For a subset, we can decide whether to include the number zero, that are two cases, whether to include the number one, again two cases, and whether to include the number two.  So the total number of subsets is two times two times two, that is two to the power of three. It applies in general. If there is a finite set of n elements, we can decide for each of them whether to include it, or not, and the size of the powerset is then two to the power of n.
+
+In the finite case, it is obvious that powerset creates bigger sets, two to the power of n is much larger than n, right? One is less than two, four is less than sixteen, ten is less than one thousand and twenty-four.
+From the last video, we know that that the power-set overcomes even the countability, the powerset of omega is larger than omega. Does that hold in general? Is the power-set of an arbitrarily large set larger than the original set?
+
+In fact, Cantor's diagonal argument was general enough to cover all possible sets. But let's see it from the power-set perspective to make it more universal and to see different forms of the same idea.
+
 :-----------CantorRevisited--------------
-. Take the power-set of a set, say omega, and consider a matching of
-. natural numbers with members of the power-set, that is subsets of
-. omega. We want to find a missing subset in that matching.
-. 
-. Some numbers are matched with a set that contains it. For example the
-. set matched with zero contains zero, the set matched with three
-. contains three.  Other numbers are missing in their corresponding
-. subset: One is missing in the set matched with one, two is missing in
-. the set matched with two, and so on.
-.
-. Now, take the set of all missing elements, let's denote it say M as missing.
-. This cannot be matched with any number like zero which is contained in
-. the matched subset because such a number is missing in M. And on the
-. other hand, it cannot be matched even with any number missing in the
-. matched subset, like two, because such a number is contained by M.
-. Of course, the subset M is a subset of omega, it is hiding somewhere
-. in the powerset of omega, it just managed to avoid the matching.
-.
-. The idea is actually the same as saying that the
-. diagonal is blocking any position of the set but we don't need to be
-. able to draw it for this kind of reasoning.
-. We have divided elements to "contained"
-. and "missing" and taken the set of all missing ones.
-. So the power-set is a general
-. tool for making infinite sets bigger. And it serves for the finite
-. case as well, so we could say that the Cantor's diagonal argument
-. provides a proof that two to the power of n is bigger than n. But it
-. is kinda overkill, don't you think?
-. 
-. In the next chapter we will explore the possibility of making large
-. sets with the powerset but for now, the size of P of omega will
-. suffice.
-.
+Take the power-set of a set, say omega, and consider some matching of natural numbers with members of the power-set, that is subsets of omega. We want to find a missing subset in that matching.
+
+Some numbers are matched with a set that contains them. For example, the set matched with zero contains zero, the set matched with three contains three.  Other numbers are missing in their corresponding subset: One is missing in the set matched with one, two is missing in the set matched with two, and so on.
+
+Now, take the set of all the missing elements, let's denote it say M. It cannot be matched with any number like zero which is contained in the matched subset because such a number is missing in M. And on the other hand, it cannot be matched even with any number missing in the matched subset, like two, because every such a number is contained by M. Of course, the subset M is a subset of omega, it is hiding somewhere in the powerset of omega, it just managed to avoid the matching.
+
+The idea is still the same as saying that the diagonal is blocking any position in the last video. We are just using a bit different language, and the advantage now is that we don't need to draw the setup. We have divided elements into "contained" and "missing" and have taken the set of all missing ones.
+
+So the power-set is a general tool for making infinite sets bigger. It actually works for the finite case as well, so we could say that Cantor's diagonal argument provides proof that two to the power of n is bigger than n. But it is kinda overkill, don't you think?
+
+In the next chapter, we will explore making really large sets with the powerset but for now, the size of P of omega will suffice.
+
 :-----------------------SubsetToReal---------------------------------
-. Another famous example of an uncountable set is the set of all real
-. numbers. In the rest of the chapter we will see how the size of all
-. reals, usually called continuum and denoted by a fraktur c,
-. and the size of the powerset of omega are connected.
-.
-. The reason why reals are uncountable is actually simple.
-. We already know that a subset can be transformed into an infinite
-. sequence of zeros and ones.
-. And such a thing can be simply transformed into a real number by
-. writing zero point before it.
-. If we managed to enumerate all real numbers by naturals, we would
-. cover even those special real numbers matched with subsets of
-. omega. That cannot happen since we know that the powerset of omega is
-. uncountable, so the real line have to be uncountable too.
-.
-. It seems that the real line is actually larger than the powerset of
-. omega since we have matched all subsets of omega with a negligible
-. amount of real numbers. But to be sure, we have to check all possible
-. matchings between reals and the powerset of omega to see whether there
-. is one covering all real numbers.
-.
-. One example of such a matching is the following.
-. Take a real number, say minus one and half..
-.
+The other famous example of an uncountable set is the set of all real numbers. In the rest of the chapter, we will look at how the size of all reals, usually called continuum and denoted by a fraktur c, and the size of the powerset of omega are connected.
+
+The reason why reals are uncountable is actually simple. We already know that a subset can be transformed into an infinite sequence of zeros and ones. And such a thing can be simply transformed into a real number by writing zero and point before it. If we managed to enumerate all real numbers by naturals, we would cover even those special real numbers matched with subsets of omega. That cannot happen since we know that the powerset of omega is uncountable, so the real line has to be uncountable too.
+
+It seems that the real line is larger than the powerset of omega since we have matched all subsets of omega with a negligible amount of real numbers. But to be sure, we have to check all possible matchings between reals and the powerset of omega to see whether there is a matching covering all real numbers.
+
+One example of such a matching is the following. Take a real number, say minus one and a half.
+
 :-------------------------RealToSubset-----------------------------
-.
-. Any such number can be described by a decimal representation. It is
-. a finite or infinite sequence of characters from a small list --
-. there are ten digits, decimal mark and a possible minus sign.
-. These symbols can be encoded into numbers from zero to eleven.
-. If we packed these numbers into a set now, we would lose the ordering
-. of these characters. But we can fix that with a little trick, to
-. every encoded character we add a number of hundreds signalizing its
-. position. So the first encoded character remains the same, the
-. second one is changed to one hundred and one, the third is changed
-. to two hundreds and eleven and the last one transforms into three
-. hundreds and five.
-.
-. And the same procedure works even for real numbers with infinite
-. decimal expansion, just the resulting set is infinite too.
-. 
-. Now, all real numbers are covered by this green matching but some subsets are
-. missing this time. For example, forty two is never in a subset constructed
-. in this way.  So it seems that reals form a smaller set than P of
-. omega until we check all possible matchings to check whether they are
-. not equal. It is tempting to say that there is just one possible
-. outcome, the sizes of the two sets have to be equal since a set cannot
-. be smaller and bigger at the same time, right?
-.
-. But having the same size is just our shortcut for an existence of a
-. perfect matching between these two sets which cover both of them.
-. We are not guarranteed that whatever definition
-. of bigger and smaller sets we make up will work as we expect. We could
-. see a paradoxical behaviour even with countable sets. Now, it is true
-. that a set cannot be greater and smaller at the same time but it
-. desires a justification.
-.
+
+Any such number can be described by a decimal representation. It is a finite or infinite sequence of characters from a small list -- there are ten digits, a decimal mark, and a possible minus sign. These symbols can be encoded into numbers from zero to eleven. If we packed these numbers into a set now, we would lose the ordering of these characters, there is no ordering in an ordinary set. But we can fix that with a little trick, to every encoded character we add hundreds signalizing its position. So the first encoded character remains the same, the second one is changed to one hundred and one, the third is changed to two hundred and eleven and the last one transforms into three hundred and five.
+
+And the same procedure works even for real numbers with infinite decimal expansion, just the resulting set is infinite too.
+
+Now, all real numbers are covered by this green matching but some subsets are missing this time. For example, forty-two is never in a subset constructed this way.  So now it seems that reals form a smaller set than P of omega until we check all possible matchings to check whether they are not equal. It is tempting to say that there is just one possible outcome, the sizes of the two sets have to be equal since a set cannot be smaller and bigger at the same time, right?
+
+But having the same size is just our shortcut for the existence of perfect matching between these two sets which cover both of them. We are not guaranteed that whatever definition of bigger and smaller sets we make up will work the way we expect. We could see a paradoxical behavior even with countable sets. Well, it is true that a set cannot be greater and smaller at the same time but it desires a justification.
+
 :----------------------CantorBernsteinScene------------------------
-. We have a green matching which covers all reals but not all subsets of omega.
-. And then another red matching covering all subsets of omega
-. but not all reals. We would like to somehow
-. combine these two matchings so that every real number will be
-. connected with just one subset of omega.
-. 
-. The trouble-makers are primarily such elements that are not covered by
-. one of the matching, for example the real number five which is not of
-. the form zero point and then some zeros and ones. So we need the other
-. matching assigning it the one-element set containing 5. That means
-. that we cannot use the appropriate red connection between the
-. singleton containing 5 and the real number zero point zero zero zero
-. zero zero one. So we have to take the green connection from that
-. real number again. By this procedure, we take an infinite journey from
-. a point not covered by the red matching by the steps which are
-. guaranteed to exist. That is green step from reals to subsets and red
-. step from subsets to reals. On this path we are forced to use green
-. connections.
-.
-. The infinite path is isolated from any other matching edges because
-. every point in the path can be connected by at most one green edge
-. and one red edge and both of them are already in the path. The only
-. exception is the first point which was chosen so that there is no red
-. line matching it.
-.
-. Similarly, if we start with a point which not covered by the green
-. matching, we find a path on which we are forced to take the green
-. connections.
-. For every uncovered red or green point, there is a corresponding
-. infinite sequence of forced matching lines.
-. Technically, there is an infinite amount of such sequences. But
-. there is no difference in the reasoning and showing all of them
-. would make the picture too messy, so we have just five of them here.
-.
-. But even after isolation of these sequences, the matching is not
-. completely analyzed. Just that every remaining point is connected by
-. both red and green matching, so we can choose the matching we like,
-. for example the green one.
-.
-. There can be in a cycle path. Or some both-sided infinite
-. paths. Nevertheless, we can just use the green matching for these
-. types.
-.
-. So the proof goes as follows. Divide the whole picture into three
-. types of components. One-sided infinite paths starting at the top,
-. one-sided infinite paths starting at the bottom, and the rest, that is
-. both-sided sequences and cycles. In the first case take green edges, in
-. the second take red edges and in the third one take say again green
-. edges. By merging these components together, we have extracted a
-. single matching between our two sets which covers both sides.
-.
-. In general, this is the proof of so called Cantor-Bernstein theorem
-. which exactly states that a set cannot be smaller than another and
-. bigger than it at the same time. But there still can be some unclear
-. stuff around the set comparison.
-. Namely we should not be sure yet whether
-. every two sets are comparable, that is whether we can allways find a
-. matching of one of them to a part of the other. And another natural
-. question is to ask whether the cardinal number continuum, which
-. measures the real line or the power set of omega, is the smallest
-. uncountable cardinal. The answer to the first question is "Yes" but we
-. need the set theory built for the proof so you can expect it in the
-. end of the series.
-. 
-. The second question is tricky, it is called the continuum hypothesis
-. and it is open, that is no one knows the truth. But in this case, it
-. is open in another sense than other famous open problems like Riemann
-. hypothesis, or P-NP problem. Usual open problems are open because
-. nobody solved them yet. But the continuum hypothesis is proven to be
-. open forever. However the proof of unsolvability of the continuum
-. hypothesis is too advanced for this series at all.
-.
+We have a green matching which covers all reals but not all subsets of omega. And then another red matching covering all subsets of omega but not all reals. We would like to somehow combine these two matchings so that every real number will be connected with just one subset of omega.
+
+The trouble-makers are primarily such elements that are not covered by one of the matchings, for example, the real number five which is not of the form zero point, and then some zeros and ones. So we need the other matching assigning it the one-element set containing 5. That means that we cannot use the appropriate red connection between the singleton containing 5 and the real number zero point zero zero zero zero zero one. So we have to take the green connection from that real number again. By this procedure, we take an infinite journey from a point not covered by the red matching by the steps which are guaranteed to exist. That is a green step from reals to subsets and a red step from subsets to reals. On this path, we are forced to use green connections.
+
+Such infinite paths are isolated from each other because every point in the path can be connected by at most one green edge and one red edge and both of them are already in the path.
+
+Similarly, if we start with a point not covered by the green matching, we find a path on which we are forced to take the green connections. For every uncovered red or green point, there is a corresponding infinite sequence of forced matching lines. Actually, there is an infinite amount of such sequences. But there is no difference in the reasoning and showing all of them would make the picture too messy.
+
+But even after isolating these sequences, the matching is not completely analyzed. Just that every remaining point is now connected by both red and green matching.
+
+There can be a cycle path. Or some both-sided infinite paths. Nevertheless, we can use for example green matching for these nodes.
+
+So the proof goes as follows. Divide the whole picture into three types of components. One-sided infinite paths starting at the top, one-sided infinite paths starting at the bottom, and the rest, that is both-sided sequences and cycles. In the first case take green edges, in the second take red edges, and in the third one take say again green edges. By merging these components, we have extracted a single matching between our two sets which covers both sides.
+
+In general, this is the proof of the so-called Cantor-Bernstein theorem which exactly states that a set cannot be smaller than another and bigger than it at the same time. But there still can be some unclear stuff around the set comparison.
+:------------------- RemainingQuestions --------------------------
+Namely, we should not be sure yet whether every two sets are comparable, that is whether we can always find a matching of one of them to a part of the other. And another natural question is to ask whether the cardinal number continuum, which measures the real line or the power set of omega, is the smallest uncountable cardinal. The answer to the first question is "Yes" but we need the set theory built for the proof so you can expect it at the end of the series.
+
+The second question is tricky, it is called the continuum hypothesis and it is open, that is no one knows the truth. But in this case, it is open in another sense than other famous open problems like the Riemann hypothesis, or the P-NP problem. Usual open problems are open because nobody solved them yet. But the continuum hypothesis is proven to be open forever. However, the proof of the unsolvability of the continuum hypothesis is too advanced for this series at all.
+
 :04----------------------FirstLimitStep------------------------
-. In the next chapter, we will look at the idea of constructing a large
-. set by transfinite recursion. See you then.
+In the next chapter, we will look at the idea of constructing a large set by transfinite recursion. See you then.

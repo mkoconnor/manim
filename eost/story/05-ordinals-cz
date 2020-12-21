@@ -1,5 +1,5 @@
-Je jenom jedno opravdové dobré uspořádání
-=========================================
+Ordinální čisla
+===============
 
 Citát: Všechno je to vlastně docela triviální. Co není triviální, je to pochopit. -- Luděk Zajíček
 
@@ -13,15 +13,15 @@ než jiné. To znamená, že transfinitní rekurze na nich bude v jistém
 smyslu běžet déle. Na úvod tohoto dílu se blíže podíváme na tohle
 srovnání.
 
-Uvažme dvě dobře uspořádané množiny a spusťme na obou transfinitní
-rekurzi současně. Takže na obou množinách provedeme současně založíme
-základ rekurze, současně provedeme první limitní krok, druhý limitní
+Uvažíme dvě dobře uspořádané množiny a spusťme na obou transfinitní
+rekurzi současně. Takže na obou množinách současně založime
+základ rekurze, současně provedeme první izolovaný krok, druhý izolovaný
 krok, a tak dál.
 Zastavíme v okamžiku, kdy jedna z těchto množin je celá použita. Buď
 rekurze zaplnila druhou množinu a vlastní počáteční úsek té první,
 nebo naopak, první množina je celá proběhnuta a zbyly některé rysky té
 druhé, nebo transfinitní rekurze proběhne obě dvě celé množiny
-najednou.
+současně.
 
 Tato současná rekurze nám dokonce dala něco víc, než jen výsledek. Pro
 každý zpracovaný prvek první množiny tu je odpovídající prvek druhé
@@ -35,7 +35,7 @@ ordinály.
 Tady je ještě jedna varianta, jak se na záležitost dívat.
 :---------------------OrdinalMatching---------------------------
 Když existuje párování mezi dvěmi dobře uspořádanými množinami A a B,
-které zachovává uspořádání, neboli se nekříží, říkáme, že jejich type
+které zachovává uspořádání, neboli se nekříží, říkáme, že jejich typ
 je stejné ordinální číslo.
 :{type(A) = type(B)}
 Existence takového uspořádání je ekvivalentní tomu, že lze dané dvě
@@ -82,11 +82,11 @@ vypadne se souběžné transfinitní rekurze.
 A dále jsou různé motivace za abstrakcí velikostí množin a ordinálních
 typů. Kardinální čísla jsme zavedli, abychom mohli studovat velikosti
 rozličných běžných množin jako jsou přirozená čísla, celá čísla,
-racionální čísla, reálná čísla, a tak dál. Ale účelem ordinálů není
+racionální čísla, reálná čísla, a tak podobně. Ale účelem ordinálů není
 klasifikovat existující dobře uspořádané množiny. Spíše jde o to
 vytáhnout z dobře uspořádaných množin jejich podstatu. Chceme se
-zaměřit na to důležité -- to je samotné dobré uspořádání, ne jeho
-nosná množina.
+zaměřit na to důležité -- to je samotné dobré uspořádání,
+a nezajímá nás jeho nosná množina.
 
 Takže od teď budeme používat ordinály namísto dobře uspořádaných
 množin. Budeme je kreslit úplně stejně a jejich význam bude prakticky
@@ -121,14 +121,14 @@ reprezentaci výsledného ordinálu, byla zvolena množina přirozených
 
 Pak pokračujeme dalšími izolovanými kroky a dostáváme omega plus
 jedna, omega plus dva, omega plus tři, a tak dál. A v limitním kroku
-opět použijeme supremum, a dostaneme ordinál nazvaný, docela
-očekávaně, omega plus omega.
+opět použijeme supremum, a dostaneme ordinál, kterému se,
+ne příliš překvapivě, řiká omega plus omega.
 Technicky bychom tedy měli vzít supremum všech ordinálů, i těch
 konečných, ale nezpůsobí to žádný rozdíl, a nevešly se nám na
 obrazovku.
 
 :----------------------OrdinalRoles---------------------------
-Není to něco, čím bychom mohli stavět obrovské ordinály, protože pro
+Jako, není to něco, čím bychom mohli stavět obrovské ordinály, protože pro
 dlouhý výsledný ordinál potřebujeme v první řadě dlouhou dobře
 uspořádanou množinu, na které rekurze poběží. Ale jde o to, že se nám
 povedlo očíslovat prvky nosné dobře uspořádané množiny ordinálními
@@ -142,8 +142,8 @@ prvního prvku přes omega izolovaných kroků plus tři. Takže tento
 indexový význam ordinálu počítá uspořádaný počet izolovaných kroků od
 první rysky.
 
-Alternativně můžeme každý tento izolovaný krok ztotožnit s jeho
-počátečním bodem. V tom okamžiku se na ordinál omega plus tři dííváme
+Nebo taky můžeme tyhle izolované kroky ztotožnit s jejich
+počátečními body. V takovém případě se na ordinál omega plus tři díváme
 jako na počáteční úsek nosné množiny, a bod přiřazený danému ordinálu
 je následník tohoto počátečního úseku.
 
@@ -151,10 +151,10 @@ To je trochu odlišné od řadových, čili ordinálních, číslovek
 v přirozeném jazyce. Může to být trochu matoucí. Když mluvíme
 přirozeným jazykem o čtvrtém prvku, myslíme tím, že vezmeme počáteční
 úsek o čtyřech prvcích, a vybereme si ten poslední. Jenže takový
-přístup v teorii množin nemůže fungovat. Některé počáteční úseky, jako
+přístup v teorii množin nemůže moc dobře fungovat. Některé počáteční úseky, jako
 třeba omega nemají poslední prvek. Proto je vhodnější ztotožnit
 počáteční úsek s jeho následníkem, který zaručeně existuje díky
-dobrému uspořádání, i když to na první pohled může působit
+dobrému uspořádání, i když to na první pohled může působit trochu
 nepřirozeně.
 
 Dobrá, ordinály můžeme vnímat ve dvou významech, buď coby typy dobře
@@ -181,11 +181,11 @@ protože jsme to tak zrovna potřebovali. Obvyklé zavedení suprema
 vypadá následovně:
 
 :---------------------SupremumReal-------------------------
-Vezmeme si podmnožinu reálných čísel, například uzavřený interval od
+Vezmeme si nějakou podmnožinu reálných čísel, například uzavřený interval od
 minus dvou a půl do dvou a půl. Tahle množina má svoje maximum, bod
 dva a půl. Ale ne každá v reálných číslech množina má maximum. Třeba
 ten samý interval, ale otevřený, žádné maximum nemá, protože v ní bod
-dva a půl neleží. Ale je to skoro maximum, jenom je bohužel mimo tu
+dva a půl prostě neleží. Ale je to skoro maximum, jenom je bohužel těsně mimo tu
 množinu. Tak to nazveme supremum, jakousi náhradu za maximum.
 Přesná definice může vypadat takto. Když má množina maximum, je
 supremum ono maximum. Když žádné maximum nemá, je supremum první prvek

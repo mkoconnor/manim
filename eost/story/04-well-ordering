@@ -5,186 +5,63 @@ Quote:
   To infinity and beyond!
   -- Buzz Lightyear
 
-Outline
-=======
-* Creation of large sets by transfinite recursion
-  * isolated and limit steps
-* well-ordered sets: what is the sufficient and necessary condition for transfinite recursion?
-  * infinite decreasing sequence makes trouble (example of positive reals)
-  * we need to be able to continue from any initial segment
-  * i.e. every non-empty terminal segment has to have the first element
-  * it is actually equivalent
-  * usual definition of well ordering
-
 :-------PowerSetsScene-------
-.
-. In previous chapters we have seen that when we take the set of all
-. natural numbers, take all possible subsets of it and pack it to a new
-. set, we get a bigger set than the set of all
-. natural numbers itself. The set of all
-. natural numbers is usually denoted by the Greek letter omega. Taking the
-. set of all possible subsets is denoted by the
-. calligraphic letter P which is short for "power set". So
-. P of omega is bigger than omega. Let's try to construct
-. as large a set as possible. We have also shown that the power set
-. is a universal tool for making sets bigger. So P of P of omega is even
-. bigger than P of omega, and P of P of P of omega is even bigger.
-.
-. For any natural number $n$, we can construct a set created by $n$ iterated
-. applications of P.
-.
-. :{"So let's find a big integer"}
-. Does it mean that for finding a large infinite number, we need to find
-. a large finite number?
-. :{"Integers are too small."}
-. No, because we live in the infinite world. We
-. are not limited by natural numbers.
-.
-. We can just take all of them at once as well as all the appropriate sets
 
+In the previous chapters we have seen that when we take the set of all the natural numbers, take all possible subsets of it, and pack it into a new set, we get a set strictly bigger than the set of all the natural numbers itself. The set of all the natural numbers is denoted by the lowercase Greek letter omega. Taking the set of all possible subsets is denoted by the calligraphic letter P which is short for "power set". So P of omega is bigger than omega. Let's try to construct as large a set as possible. We have also shown that the powerset is a universal tool for making sets bigger. So P of P of omega is even bigger than P of omega, and P of P of P of omega is even bigger.
+
+For any natural number $n$, we can construct a set created by $n$ iterated applications of P. We apply it 17 times, or even googolplex times. But is it the best we can achieve?
+
+Of course not, we have infinity. We can take all these sets omega, P omega, P P omega, and so on at once
 :--------FirstLimitStep-------
-. and merge them. This merging is called the
-. union and using that we get a set which is even bigger than all the
-. preceding. But we are not finished yet. We can again take the power
-. set, and again, and again, and so on, and then the union...
-.
-. The process happening here is called transfinite recursion
-. and you can meet it ... TODO
+and take their union. We can write this formally like this -- the union of all the powersets applied i times to omega where i goes through all the natural numbers. In short, we will denote the union as U, and it is a set strictly bigger than all of the previous ones. But we are not finished yet. We can again take the power set, and again, and again, and so on, and again the union...
+
+The process happening here is called transfinite recursion and it is one of the key concepts of set theory.
 
 :------OrdinaryRecursion------
-. An ordinary recursion is just something living on natural numbers. We
-. define the thing we start with, in our case omega, it is called the
-. base case.
-. And then we define the recursive step, it is in our case taking the
-. power set of the previous set.
-. But transfinite recursion can do one more, it can combine the data
-. collected in previous steps even if there is no immediately preceding
-. one. There are two types of limit steps, the usual one is called the
-. successor step, and the one which cannot rely on a previous value is
-. called the limit step.
-. So in our case, the base case of the transfinite recursion is omega,
-. the successor step is taking the power set, and the limit step is the
-. union of all previous values.
-. But the key question here is: What is the thing that transfinite
-. recursion live on? The usual recursion is simple, it lives on natural
-. numbers, but what about the transfinite one? In fact this question is
-. quite tricky. On one hand, whenever we begin to see a pattern in the
-. transfinite resursion, we can take the limit step and overcome it. On
-. the other hand, transfinite recursion does not work on everything, it
-. fails, for example on positive real numbers.
-. 
-. So in this chapter and several following ones we will focus on the
-. mysterious world of transfinite recursion. A better understaning of
-. what we can afford here will help us to produce the super large-sets
-. which we wanted at the beginning.
+An ordinary recursion lives on natural numbers. We define the thing we start with, in our case omega, it is called the base case. And then we define the recursive step, it is in our case taking the power set of the previous set.
+
+But transfinite recursion can do more, it can also combine the data collected in previous steps even if there is no immediately preceding step. So there are two types of limit steps, the usual one is called the successor step, and the one applied if there is no previous value is called the limit step. So in our case, the successor step is taking the power set, and the limit step is the union of all previous values.
+
+But the key question here is: What is the thing that transfinite recursion lives on? The usual recursion is simple, it lives on natural numbers, but what about the transfinite one? In fact, this question is quite tricky. On one hand, whenever we begin to see a pattern in the transfinite recursion, we can take the limit step and overcome it. On the other hand, transfinite recursion does not work on everything, it fails, for example on positive real numbers.
+
+So in this chapter and several following ones we will focus on the mysterious world of transfinite recursion. A better understanding of what we can afford here will help us to produce the super large-sets which we wanted at first, but we will find it interesting and useful also in other ways.
 
 :---------RealsProblems-------
-. Let's see why we cannot proceed by transfinite recursion on positive
-. reals. At first, we need to start with the base case somewhere. But
-. for any positive real number, no matter how small, we can find a smaller one.
-. That is, we need a minimal element in the set. This is not so big
-. issue yet, we can fix it by adding zero and taking positive reals with
-. zero.
-.
-. So we can assign omega to the point zero on the real axis now. But... what next?
-. If we take any other real number for P of omega, we inevitably skip an infinite
-. amount of real numbers between zero and our chosen number. That is a
-. problem, not just that the set itself has to contain a minimal element
-. but even every element have to have a successor in it.
-.
-. This assures us that we can run the successor step every time. But
-. what about the limit step?
+Let's see why we cannot proceed by transfinite recursion on positive reals. At first, we need to start with the base case somewhere. But for any positive real number, no matter how small, we can find a smaller one. That is, we need a minimal element in the set. This is not an issue yet, we can fix it by adding zero and taking positive reals with zero.
+
+So we can assign omega to the point zero on the real axis now. But... what next? If we take any other real number for P of omega, we inevitably skip an infinite, even uncountable, amount of real numbers between zero and our chosen number. That is a problem, not just that the set itself has to contain a minimal element but even every element has to have a successor in it.
+
+This assures us that we can run the successor step every time. But what about the limit step?
 :------OmegaPlusZScene--------
-. Take the following example:
-. one infinite
-. increasing sequence and a two-sided infinite sequence behind it. The
-. set itself has a first element, so we can assign omega. Every element
-. here has a successor, so we can run successor steps and get P
-. omega, P P omega and so on... But what next?
-. Now we should run the
-. limit step, but there is no next bar which can be assigned to
-. it. Again, whenever we assign the union to a bar here, we skip
-. infinitely many previous elements.
-.
-. So it does not suffice that every element has a successor. We need
-. to have a successor of any initial segment.
-. Whenever we take a set of elements with assigned values from the
-. beginning, there have to be the next element.
-.
-. This condition actually covers the previous ones. We can get a
-. successor of any by finding the successor of the corresponding initial
-. segment.
-. And even the empty set can be considered as an empty initial segment,
-. so the base case is covered as well.
+Take the following example: one infinite increasing sequence and a two-sided infinite sequence behind it. The set contains its first element, so we can assign omega. Every element here has a successor, so we can run successor steps and get P omega, P P omega, and so on... But what next? Now we should run the limit step, but there is no next bar that can be assigned to it. Again, whenever we assign the union to a bar here, we skip infinitely many previous elements.
+
+So it does not suffice that every element has a successor. We need to have a successor of any initial segment. Whenever we take a set of elements with assigned values from the beginning, there has to be the next element.
+
+This condition actually covers the previous ones. We can get a successor of any element by finding the successor of the corresponding initial segment. And even the empty set can be considered as an empty initial segment. The successor of the empty initial segment is the first element of the set, so the base case is covered as well.
 
 :----------WellOrderingCondition-----
-. Unfortunately, there is a little issue, no set can meet the required
-. condition. The whole set can be always considered as an
-. initial segment and there is no successor then. 
-. So let's simplify the problem and accept
-. such sets that transfinite
-. recursion can run through all of its elements even though the set does
-. not cover the complete world of the transfinite recursion.
-. In this simplification, the last element, if there is one, does not
-. have to have a successor anymore.
-. So we require the successor just from such initial segments that
-. does not cover everything, they are called the proper ones.
-.
-. Any set satisfying such a condition is called a well-ordered
-. set. These are those on which transfinite recursion can run.
-. When
-. we want to construct a large set by the transfinite recursion, it
-. suffices to find a well-ordered set long enough.
-.
-. In the rest of the chapter we will look at alternative views of the
-. condition of well ordering.
+Unfortunately, there is a little issue, no set can meet the required condition. The entire set can be always considered as its own initial segment and the set cannot contain its successor as all its elements are already in the initial segment. So let's simplify the problem and accept such a set that transfinite recursion can run through all of its elements even though the set does not need to cover the complete world of the transfinite recursion.
+
+In this simplification, the last element, if there is one, does not have to have a successor anymore. The transfinite recursion simply stops on it. So we require the successor just from such initial segments that do not cover everything, they are called the proper initial segments.
+
+Any set satisfying such a condition is called a well-ordered set. These are sets that transfinite recursion can run over. So if we want to construct a large set by the transfinite recursion, it suffices to find a well-ordered set long enough.
+
+In the rest of the chapter, we will look at alternative views of the condition of well-ordering.
 
 :------------ConditionTerminalScene------------
-. At first, instead of looking at proper initial segments it may be useful to
-. look at its complements. There is no official name for the opposite of
-. initial segments but we will call them terminal segments in this
-. series.
-.
-. From this point of view, proper initial segments correspond to
-. non-empty terminal segments.
-. And a successor of an initial segment corresponds to the first element
-. of appropriate terminal segments.
-. So a set is well ordered if and only if
-. all non-empty terminal segments have their first elements.
+At first, instead of looking at proper initial segments, it may be useful to look at their complements. There is no official name for the opposite of initial segments but we will call them terminal segments in this series. From this point of view, a proper initial segment corresponds to a non-empty terminal segment. A successor of an initial segment corresponds to the first element of appropriate terminal segments. So a set is well ordered if and only if all non-empty terminal segments have their first elements.
 
 :----------OmegaPlusZDecSeq-------------
-. Another interesting point of view is to ask what constraint a set from
-. being well-ordered.
-. In fact, the only obstacle is an infinite decreasing
-. sequence.
+Another interesting point of view is to ask what constraints a set from being well-ordered. In fact, the only obstacle is an infinite decreasing sequence.
 :--------------RealDecSeq---------------
-. Indeed, whenever there is an infinite decreasing sequence,
-. it divides the set into a proper initial segment and a non-empty
-. terminal segment without a first element covered by the sequence.
-. There cannot be the first element in the terminal segment because the sequence
-. goes backward and backward.
-. And conversely, any non-empty terminal segment
-. without the first element contains enough space for an infinite
-. decreasing sequence. The absence of a first element assures that
-. the sequence cannot get stuck.
+Indeed, whenever there is an infinite decreasing sequence, it divides the set into a proper initial segment and a non-empty terminal segment without a first element covered by the sequence. There cannot be the first element in the terminal segment because the sequence goes backward and backward.
+
+And conversely, any non-empty terminal segment without the first element contains enough space for an infinite decreasing sequence. The absence of a first element ensures that we cannot get stuck in building the sequence.
 
 :------------ConditionsRecap------------
-. So we have several ways how to determine whether a set is well
-. ordered, that means we can run the transfinite recursion on it.
-. One way is
-. to investigate all the proper initial segments and check whether they
-. have their successor. It is actually the same as
-. investigating all the non-empty terminal segments and check whether all of them
-. have their first elements.
-. And an other way how to determine whether a set is well-ordered is to
-. ensure that there is no infinite decreasing sequence in it.
-.
-. But if you search for the definition of well ordering by your
-. own, you will probably meet the following one: Not just every
-. non-empty terminal segment but every possible non-empty subset has its
-. first element. So, you can try to think over why the meaning is still
-. the same, it is not difficult.
+So we have several ways how to determine whether a set is well ordered, that is, we can run the transfinite recursion on it. One way is to investigate all the proper initial segments and check whether they have their successor. It is the same as investigating all the non-empty terminal segments and check whether all of them have their first elements. And a third option how to check that a set is well-ordered is to ensure that there is no infinite decreasing sequence in it.
+
+But if you look up the definition of well-ordering by yourself, you will probably find the following one: Not just every non-empty terminal segment but every possible non-empty subset has its first element. So, you can think about why the meaning is still the same, it is not difficult.
 
 :-------ordinal-test.OrdinalAsIndex---------
-. Next time, we will meet ordinal numbers and we will learn the indexing
-. meaning of well ordered sets. See you then.
+Next time, we will meet ordinal numbers and we will learn how to index elements of a well-ordered set using other well-ordered sets. See you then.

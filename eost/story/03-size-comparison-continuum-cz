@@ -7,7 +7,7 @@ Citát: Některá nekonečna jsou větši než jiná nekonečna. -- John Green
 V minulém díle jsme si ukázali několik množin mohutnosti Aleph 0,
 přirozená čisla, prvočísla, celá čísla, racionální čisla, a pak jednu
 větší množinu -- množinu všech nekonečných posloupností jedniček a
-nul. V tomto díle se budeme věnovat téhle konkrétní větši mohutnosti.
+nul. V tomhle díle se budeme věnovat téhle konkrétní větši mohutnosti.
 
 Pro začátek je dobré si uvědomit, že nekonečná posloupnost jedniček a
 nul je v jistém smyslu totéž jako podmnožina množiny všech přirozených
@@ -48,7 +48,7 @@ velikost potenční množiny bude 2 na n-tou.
 
 V konečném případě je tedy očividné, že potenční množina bude větší
 než množina původní. Dva na n-tou je mnohem víc než n, Jedna je míň
-než dva, čtyři je míň než šestnáct, dest je míň než tisíc dvacet
+než dva, čtyři je míň než šestnáct, deset je míň než tisíc dvacet
 čtyři.
 Z předchozího videa navíc víme, že potenční množina překoná i
 spočetnost, že potenční množina omega je větší než omega. Ale platí to
@@ -63,7 +63,7 @@ pohledu potenčních množin.
 Vezmeme potenční množinu nějaké množiny, třeba omega, a uvážime
 párování všech prvků omega, tedy přirozených čisel, s prvky potenční
 množiny. Chceme najít nějakou podmnožinu, kterou jsme v tomto párování
-vynachali.
+vynechali.
 
 Některá čisla jsou spárovaná z množinami, které toto číslo obsahují,
 například množina nula obsahuje nulu, množina tři obsahuje trojku,
@@ -81,7 +81,7 @@ se jí povedlo vyhnout se tomu párování.
 
 Tahle myšlenka je vlastně stejná jako, když jsme si v předchozím díle
 řekli, že "úhlopříčka blokuje všechny možné pozice", jen to říkáme
-trochu jiným jazykem. Výhoda tentokrát je, že tentokrát nepotřebujeme
+trochu jiným jazykem. Výhoda teď je, že tentokrát vůbec nepotřebujeme
 být schopni si situaci nakreslit. Rozdělili jsme si prvky na zahrnuté
 a chybějící, a vzali jsme množinu všech chybějících. Tento argument
 funguje zcela obecně.
@@ -152,7 +152,7 @@ párování mezi těmito dvěmi množinami, které pokrývá obě
 množiny. Nemáme záruku, že ať si vymyslíme jakoukoli definici menších
 a větších množin, bude se chovat podle očekávaně. Už u spočetných
 množin jsme dostávali překvapivé výsledky. Naštěstí je pravda, že
-množina nemůže být současně menší a větší, jen si to zasluhuje
+množina nemůže být menší a větší současně, jen si to zasluhuje
 obhájit.
 
 :----------------------CantorBernsteinScene------------------------
@@ -171,7 +171,7 @@ už nemůžeme použít červené spojení mezi touto množinou a číslem nula
 celá nula nula nula nula nula jedna. Takže z tohoto čísla musíme vzít
 zelené spojení. Takto projdeme nekonečnou procházku začínající na bodě
 nepokrytém červeným párováním podél kroků, které zaručeně existují,
-tedy zelené kroku z reálných čisel na množiny a červené z množin na
+tedy zelené kroky z reálných čisel na množiny a červené kroky z množin na
 reálná čisla. Na celé této procházce jsme donuceni zvolit zelené
 párování.
 
@@ -213,7 +213,7 @@ Konkrétně není stále jasné, jestli
 jsou každé dvě množiny porovnatelné, tedy jestli pro každou dvojici
 množin existuje párování, které pokrývá celou aspoň jednu z
 nich. Další přirozená otázka může být, zdali je kardinální čislo
-kontinuum měřící mohutnost reálných čísel, to nejmenší nekonečné.
+kontinuum měřící mohutnost reálných čísel, to nejmenší nesponečné.
 Odpověď na první otázku je pozitivní, chová se to tak, jak bychom
 čekali. Ospravedlnění ale vyžaduje hlubší proniknutí do teorie množin
 a ukážeme si jej proto ke konci této série v kapitole o Zornově

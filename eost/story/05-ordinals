@@ -1,193 +1,69 @@
-There is just one true well-ordering
-====================================
+Ordinal Numbers
+===============
 
-Quote: All that is actually completely trivial. What is difficult is to realize it. -- unnamed math professor
+Quote: All that is actually completely trivial. What is difficult is to realize it. -- quote from mathematical analysis lecture
 
 :-------------------SimultaneousRecursion----------------------------
-. In the last chapter, we discussed well-ordered sets. It is such a set
-. that transfinite recursion can run through all of its elements even
-. though it does not cover the full world of transfinite
-. recursion. It makes sense that some well-ordered sets are longer than
-. others, that the transfinite recursion will run on them for longer
-. time in some sense. We start this chapter by examining
-. this comparison in more detail.
-.
-. Let's take two well-ordered sets and run the transfinite recursion
-. simultaneously on both of them. That is, we proceed the zero case at
-. the same time, then the first successor step at the same time, then
-. the second, and so on. We stop at the moment when one of the set is
-. filled. Either the recursion fills the whole second set and a proper
-. initial segment of the first one,
-. or vice versa, the first set is filled and some bars of the other one remained,
-. or the transfinite recursion finishes both of them at the same time.
-.
-. But the simultaneous recursion gived us something more than just the final
-. result. For every processed element in the first set, there is a
-. corresponding element of the second set. That means that we can align
-. these sets so that they actually looks the same.
-.
-. This appearance up to alignment, which is actually the same thing as
-. the length in transfinite recursion is measured by so called ordinal
-. numbers, shortly ordinals.
-. There is another view of what this represents.
+In the last chapter, we discussed well-ordered sets. It is such a set that transfinite recursion can run through all of its elements even though it does not cover the full world of transfinite recursion. It makes sense that some well-ordered sets are longer than others, that the transfinite recursion will run on them for a longer time in some sense. We start this chapter by examining this comparison in more detail.
+
+Let's take two well-ordered sets and run the transfinite recursion simultaneously on both of them. That is, we set the zero case at the same time, then we proceed with the first successor step at the same time, then the second, and so on. We stop at the moment when one of the sets is filled. Either the recursion fills the entire second set and a proper initial segment of the first one, or vice versa, the first set is filled and some bars of the other one remained, or the transfinite recursion finishes both of them at the same time.
+
+This simultaneous recursion gives us something more than just the final result. For every processed element in the first set, there is a corresponding element of the second set. That means that we can align these sets so that they look the same.
+
+This appearance up to alignment, which is the same thing as the length in transfinite recursion is measured by so-called ordinal numbers, shortly ordinals. There is another view of what this represents.
 :---------------------OrdinalMatching---------------------------
-. If there is an order preserving matching
-. between two well-ordered sets A, B, that is without crossing, we say
-. that their order type is the same ordinal number.
-. :{type(A) = type(B)}
-. The matching is equivalent to checking that these
-. two sets can be aligned one above the other without reordering. If, on
-. the other hand, we match the set B just with a proper initial segment
-. of A, we say that the order type of A is bigger that the one of B.
-. :{type(A) > type(B)}
-.
-. You may registered the similarity between that and the cardinal
-. numbers discussed in chapters 2 and 3. So let's look at it. It is
-. similar but not the same.
-.
-. We say that two sets A and B are of the same cardinality if there is
-. a perfect matching between them. But this time, we don't care about
-. the ordering of the element, we can reorder the set A and it still
-. represents the same unordered set A with having same cardinality. In
-. fact the ordering here is just our visualisation, it does not have
-. to represent any inner structure of the set.
-.
-. On the other hand, ordinals measure ordered sets and it carries the
-. information about the ordering. So for preserving
-. the ordinal type we are just allowed to shift the bars but not
-. to swap them.
-.
+If there is an order-preserving matching between two well-ordered sets A, B, that is without crossing, we say that their order type is the same ordinal number.
+:{type(A) = type(B)}
+The existence of such a matching is equivalent to the property that we can align one above the other without reordering. If, on the other hand, we match the set B just with a proper initial segment of A, we say that the order type of A is bigger than the one of B.
+:{type(A) > type(B)}
+
+You may have registered the similarity between this and cardinal numbers discussed in chapters 2 and 3. So let's look at it. It is similar but still quite different.
+
+We say that two sets A and B are of the same cardinality if there is a perfect matching between them. Just that this time, we don't care about the ordering of the element, we can reorder the set A and it still represents the same unordered set A with having the same cardinality. The ordering here is just our visualization, it does not represent an inner structure of the set.
+
+On the other hand, ordinals measure ordered sets and it carries information about the ordering. So for preserving the ordinal type we are just allowed to shift the bars but not to swap them.
+
 :----------------FiniteOrInfinite----------------------------------
-. It does not really matter in finite case. If we shuffle elements in a
-. finite ordered set, it does not change its ordinal type. There are
-. still five bars in one line.
-. We identify finite ordinal numbers with finite cardinal numbers,
-. so we the ordinal type of that set is five.
-.
-. But in infinite case, it is easy to reorder a well ordered
-. set to obtain a well ordered set of another type. The cardinality is
-. still the same but the ordinal type has changed.
-. That is because we have to examine all possible matchings to assure
-. whether the two sets have different sizes. It is not
-. neccessary for ordinal types, there is just one possible
-. order-preserving matching with an initial segment -- the one given by
-. the transfinite recursion.
-.
+In the finite case, it is the same. If we shuffle elements in a finite ordered set, it does not change its ordinal type. There are still five bars in one line. We identify finite ordinal numbers with finite cardinal numbers, so the ordinal type of that set is five.
+
+But in the infinite case, it is easy to reorder a well ordered set to obtain a well-ordered set of another type. The cardinality is still the same but the ordinal type has changed. That's because we have to examine all possible matchings to assure whether the two sets have different sizes. It is not necessary for ordinal types, there is just one possible order-preserving matching with an initial segment -- the one given by the simultaneous transfinite recursion.
+
 :--------------------ApplicationDifference-------------------------
-. And then there are different motivations behind the abstractions of
-. set sizes or order types. We introduced cardinal numbers for
-. investigation of sizes of different sets such as natural numbers,
-. integers, rational numbers, real numbers and so on. But ordinals are not
-. primarily intended for examining different well ordered sets. They
-. rather extract the essence of well-ordered sets. They are
-. useful for focusing on what is essential on well-ordering property,
-. the ordering itself, not the underlying set.
-.
-. So from now on, we will use ordinals instead of well-ordered sets. We
-. will draw them in the same way as and the meaning is virtually the
-. same. Just keep in mind that the ordering is the only thing important
-. here and we don't change the ordinal number by adjusting the bars a
-. bit.
-.
+And then there are different motivations behind the abstractions of set sizes or order types. We introduced cardinal numbers for the investigation of sizes of different sets such as natural numbers, integers, rational numbers, real numbers, and so on. But ordinals are not primarily intended for examining different well-ordered sets. They rather extract the essence of well-ordered sets. They are useful for focusing on what is essential on the well-ordering property, the ordering itself, not the underlying set.
+
+So from now on, we will use ordinals instead of well-ordered sets. We will draw them in the same way as and the meaning is virtually the same. Just keep in mind that the ordering is the only thing important here and we don't change the ordinal number by adjusting the bars a bit.
+
 :----------------------OrdinalByRecursion-----------------------------
-. Now let's try a kind of circular idea and let's construct ordinals by
-. transfinite recursion. The base case is the empty ordinal zero. We
-. represent it as an empty brace now. It is
-. a bit weird well-ordered set but it is technically correct, there is
-. no infinite decreasing sequence in the empty set, right? The successor
-. step is so called plus one operation, adding one element new to the
-. end of the set. This produces a new ordinal longer by just one step.
-. So we get ordinals one, two, three, four, and all natural numbers.
-.
-. The limit step is the so called supremum of all preceding values. For
-. a proper definition of supremum we have to return to the idea of
-. alignment of ordinals. When
-. we have two different ordinals, then one of them actually represents
-. just an initial segment of the other. Supremum is an operation
-. alligning them in that a way and merging them afterwards.
-. So supremum of two ordinals is not actually very interesting, it
-. returns just the bigger one.
-. But the definition -- align to the left and merge -- works even for an
-. infinite number of ordinals.
-. So in our case, we take all the natural numbers,
-. align them to the left and merge them.
-. The set of natural numbers was chosen to
-. represent this ordinal, so we call it omega.
-.
-. Then, we continue by the successor steps. Add one and get omega plus
-. one. Then omega plus two, omega plus three and so on. At the limit
-. step again merge all these and get an ordinal called reasonable enough
-. omega plus omega. We should technically take even the finite ones
-. but they don't make a difference and they didn't fit into the screen.
+Now let's try a bit circular idea and let's construct ordinals by transfinite recursion. The base case is the empty ordinal zero. We represent it as an empty brace now. It is a bit weird well-ordered set but it is technically correct, there is no infinite decreasing sequence in the empty set.
+
+In the successor step, we add one new element to the end of the previous ordinal, so-called plus one operation. This produces ordinals one, two, three, four, and all the natural numbers.
+
+The limit step is something we will call the ordinal union. Let's return to the idea of the alignment of ordinals. When we have two different ordinals, then one of them represents just an initial segment of the other. The ordinal union is the operation that aligns them in such a way and merges them afterward. So the ordinal union of two ordinals is actually not very interesting, it simply returns the bigger ordinal number. But the definition -- align to the left and merge -- works even for an infinite number of ordinals. So in our case, we take all the natural numbers, align them to the left, and merge them. The set of natural numbers was chosen to represent this ordinal number, so we call it omega.
+
+Then, we continue again with the successor steps and get omega plus one, omega plus two, omega plus three, and so on. The limit step again applies the ordinal union and creates an ordinal called -- reasonably enough -- omega plus omega. Technically, we should also take the finite ordinals when taking the union but they don't make a difference and they don't fit into the screen.
 
 :----------------------OrdinalRoles---------------------------
-. We cannot boost our ordinal creation by this approach since we need
-. the underlying ordinal large enough anyway. The nice thing here is
-. that we have got labeled the elements of the underlying well-ordered
-. set by another ordinal numbers. Ordinals have two roles --
-. they either represent order types of well ordered sets, or indices of
-. their elements.
-.
-. There are several ways how to see this correspondence.
-. By the construction, the position of an ordinal, say omega plus three,
-. is the omega ... plus three successor steps from the first point. So
-. the index meaning actually represents ordered number of successor
-. steps from the first point.
-.
-. Alternatively, every such a step can be identified with its starting
-. point. They form a proper initial segment and the corresponding
-. final point is the successor of the initial segment.
-.
-. This is a bit different from usual ordinal numbers in natural languages.
-. It can be consufing. When we talk about forth element in the
-. natural language, we mean that we take four elements as an initial
-. segment and then pick the last of them. But this approach cannot work
-. for set theory. Some initial segments, like omega, does not have their
-. last elements. That is why it is better to pick the successor which is
-. guaranteed to exist by the well-ordering property, even though it may
-. seem unnatural at first.
-.
-. All right, ordinals can play two roles, either order types of a well
-. ordered sets, or indices. But indices to what exactly? It turns out
-. that it does not really matter. Every ordinal can play the index role
-. somewhere, in any larger ordinal. It does not matter on what
-. larger set exactly we run a recursion if we are interested just in the
-. result at, say four. The recursion runs four
-. successor steps to that point every time.
-.
-. So ordinals represents indices of an universal well ordering. Ordinals
-. form the world of transfinite recursion as particular points of
-. it. This world of ordinals is unlimited. For some reasons which will
-. be discussed in later videos, we are not even allowed to make a set of
-. all of them. But it does not prevent us from running a recursion on all
-. ordinals.
-.
-. At the end of the video, let's see how the index view of ordinal
+Well, we cannot really boost our ordinal construction by this approach -- we need the underlying ordinal large enough in the first place. However, the nice thing here is that we have labeled the elements of the underlying well-ordered set by other ordinal numbers. Ordinals play two roles -- they either represent order types of well-ordered sets or indices of their elements.
+
+There are several ways how to see this correspondence. By the construction, the position of an ordinal, say omega plus three, is the omega ... plus three successor steps from the first point. So the index meaning represents the ordered number of successor steps from the index zero.
+
+Alternatively, every such step can be identified with its starting point. In that case, we see the ordinal omega plus three as a proper initial segment and the point indexed by omega plus three is the successor of such an initial segment.
+
+This is a bit different from the usual ordinal numbers in natural languages. It can be confusing. When we talk about the fourth element in the natural language, we mean that we take four elements as an initial segment and then pick the last of them. But this approach cannot work for set theory. Some initial segments, like omega, do not have their last elements. That is why it is better to pick the successor which is guaranteed to exist by the well-ordering property, even though it may seem unnatural at first.
+
+All right, ordinals can play two roles, either order types of well-ordered sets, or indices. But indices of what exactly? It turns out that it does not really matter. Every ordinal can play the index role somewhere, in any larger ordinal. If we are interested just in the outcome of the transfinite recursion at, say, point four, it doesn't matter how long the underlying set is. The recursion runs four successor steps to that point every time.
+
+So ordinals represent indices of a universal well-ordering. Ordinal numbers form the world of transfinite recursion as particular points of it. This world of ordinals is unlimited. For some reasons which will be discussed in later videos, we are not even allowed to make a set of all of them. But it does not prevent us from running a recursion on all ordinals.
+
+At the end of the video, let's look at the ordinal union operation
 :-------------------SupremumRecap----------------------------
-. numbers is compatible with the supremum operation mentioned
-. recently. It is the operation which takes several ordinals, align them
-. to the left and merges them. In fact, we introduced supremum in a bit
-. non-standard way because we needed it. However the usual definition
-. of supremum goes as follows.
-.
+from the perspective of indices. It is the operation that takes several ordinals, aligns them to the left, and merges them. In indices, this corresponds to the so-called supremum. However, the usual definition of the supremum of real numbers goes as follows.
+
 :---------------------SupremumReal-------------------------
-. Take a subset of the real numbers, say the
-. closed interval from minus two and half to two and half. This set
-. has its maximum, that is the point two and half. However not every
-. set has a maximum, for instance the open interval denoted by
-. parentheses does not have any maximum because the point two and half
-. is outside the set.
-. But it is almost the maximum, just unfortunatelly outside of the set,
-. so we call it the supremum -- kinda immitation of the maximum.
-. More precisely, if there is a maximum, the supremum is that maximum. If, on
-. the other hand, the set does not contain a maximum, the supremum is
-. the first element after the whole set.
+Take a subset of the real numbers, say the closed interval from minus two and a half to two and a half. This set has its maximum, that is two and a half. However not every set has a maximum, for instance, the open interval denoted by parentheses does not have any maximum because the point two and a half is outside the set. But it is almost the maximum, just unfortunately outside of the set, so we call it the supremum -- a kinda imitation of the maximum. More precisely, if there is a maximum, the supremum is that maximum. If, on the other hand, the set does not contain a maximum, the supremum is the first element after the whole set.
 
 :-------------------SupremumIndices--------------------------
-. This definition works for ordinals as well. The supremum of a set of
-. ordinals interpreted as indices is either the maximal index here, if
-. there is one, or the index just after the set.
+This definition exactly corresponds to the ordinal union. The union of a set of ordinals interpreted as indices is either the maximal index here if there is one, or the index just after the set.
 
 :---------------Something from the next chapter-------------
-Next time, we will examine ordinal addition and multiplication and see
-whether a turtle can catch Achiles. See you then.
+Next time, we will examine ordinal addition and multiplication and see whether a turtle can catch Achilles. See you then.
