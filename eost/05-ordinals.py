@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from helpers import *
 
 from mobject.tex_mobject import *
@@ -24,13 +26,13 @@ class Chapter5OpeningTitle(OpeningTitle):
 class Chapter5OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "All that is actually completely","trivial.\\\\","What is difficult is to","realize","it.",
+            "All of this is actually completely","trivial.\\\\","It is just difficult to","comprehend","it.",
         ],
         "highlighted_quote_terms" : {
             "trivial.\\\\" : GREEN,
-            "realize" : YELLOW,
+            "comprehend" : YELLOW,
         },
-        "author" : "unnamed math professor"
+        "author" : "from Mathematical Analysis lecture"
     }
 
 class SimultaneousRecursion(Scene):
@@ -46,13 +48,14 @@ class SimultaneousRecursion(Scene):
                                      lambda **kwargs: OrdinalFinite(5, **kwargs)))
 
         self.play(FadeIn(self.ordinal1_bg))
-        self.dither()
+
+        self.wait_to(3.5)
         for i in range(2):
             for bar in self.ordinal1_fg[i][:2]:
                 self.play(ShowCreation(bar), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
             self.play(ShowCreation(VGroup(*self.ordinal1_fg[i][2:])))
-        self.dither()
 
+        self.wait_to(8)
         self.prepare_ord2(OrdinalOmega())
 
         self.play(FadeIn(self.ordinal2_bg))
@@ -60,39 +63,39 @@ class SimultaneousRecursion(Scene):
             self.play(ShowCreation(bar), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
         self.play(ShowCreation(VGroup(*self.ordinal2_fg[3:])))
 
-        self.dither()
-
+        self.wait_to(26)
         self.play(*map(FadeOut, [self.ordinal1_fg, self.ordinal2_fg]))
-        self.dither()
 
         ordinal1_fg_al = self.ordinal1_fg[0].copy()
         ordinal1_fg_al.align_data(self.ordinal2_fg)
 
-        for bar1, bar2, run_time, dither_time in\
-            zip(ordinal1_fg_al[:3], self.ordinal2_fg[:3], (1,1,0.5), (1,0,0)):
+        self.wait_to(33.2)
+        for bar1, bar2, run_time, wait_time in\
+            zip(ordinal1_fg_al[:3], self.ordinal2_fg[:3], (1,1,0.5), (36, 38.9, 39.6)):
 
             self.play(ShowCreation(bar1),
                       ShowCreation(bar2),
                       run_time = run_time*DEFAULT_ANIMATION_RUN_TIME)
-            self.dither(dither_time)
+            self.wait_to(wait_time)
 
         self.play(ShowCreation(VGroup(*ordinal1_fg_al[3:])),
                   ShowCreation(VGroup(*self.ordinal2_fg[3:])))
-        self.dither()
+
+        self.wait_to(49)
 
         self.remove(self.ordinal2_bg)
         self.play(*map(FadeOut, [ordinal1_fg_al, self.ordinal2_fg]))
 
         self.prepare_ord2(OrdinalFiniteProd(OrdinalOmega, 2))
 
-        self.play(FadeIn(self.ordinal2_bg))
+        self.play(FadeIn(self.ordinal2_bg), run_time = 0.5)
         ordinal2_fg_al = self.ordinal2_fg[0].copy()
         ordinal2_fg_al.align_data(self.ordinal1_fg[0])
         ordinal2_fg_al = VGroup(ordinal2_fg_al,
                                 VGroup(*self.ordinal2_fg[1][:5]))
         
         self.play_both(self.ordinal1_fg, ordinal2_fg_al)
-        self.dither()
+        self.wait_to(54)
 
         self.remove(self.ordinal1_bg)
         self.play(*map(FadeOut, [self.ordinal1_fg, ordinal2_fg_al]))
@@ -104,6 +107,7 @@ class SimultaneousRecursion(Scene):
         self.play_both(self.ordinal1_fg, self.ordinal2_fg)
         self.dither()
 
+        self.wait_to(60 + 3)
         #self.revert_to_original_skipping_status()
 
         self.play(Uncreate(VGroup(*self.ordinal1_fg[1][3:]), clean_up_alpha = 0),
@@ -115,12 +119,12 @@ class SimultaneousRecursion(Scene):
         self.ordinal1_fg[1][3].set_color(RED)
         self.play(*map(ShowCreation, [pointer1, self.ordinal1_fg[1][3]]))
 
-        self.dither()
+        self.wait_to(60 + 6.5)
         pointer2 = TrianglePointer(color = RED).scale(-1).next_to(self.ordinal2_fg[1][3], DOWN)
         self.ordinal2_fg[1][3].set_color(RED)
         self.play(*map(ShowCreation, [pointer2, self.ordinal2_fg[1][3]]))
 
-        self.dither()
+        self.wait_to(60 + 11)
 
         self.remove(self.ordinal1_bg, self.ordinal2_bg)
         self.add(self.ordinal1_fg, self.ordinal2_fg)
@@ -130,7 +134,7 @@ class SimultaneousRecursion(Scene):
         ordinal2_dest.shift(2.8*DOWN)
         self.play(Transform(self.ordinal2_fg, ordinal2_dest),
                   pointer2.next_to, ordinal2_dest[1][3], DOWN)
-        self.dither()
+        self.wait_to(60 + 14)
         ordinal_dest = self.ordinal1_fg.copy()
         VGroup(*ordinal_dest[1][1:]).highlight(WHITE)
         self.play(FadeOut(pointer1), FadeOut(pointer2),
@@ -139,17 +143,19 @@ class SimultaneousRecursion(Scene):
         self.remove(*self.get_mobjects_from_last_animation())
         self.add(ordinal_dest)
 
+        self.wait_to(60 + 21)
         ordinal_numbers_title = TextMobject("Ordinal numbers").to_edge(DOWN)
         self.play(Write(ordinal_numbers_title))
+        self.wait_to(60 + 27)
         self.play(FadeOut(ordinal_dest))
 
     def play_both_simple(self, o1, o2, one_range = 2):
         for bar1, bar2 in zip(o1[:one_range], o2[:one_range]):
             self.play(ShowCreation(bar1),
                       ShowCreation(bar2),
-                      run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
+                      run_time = 0.4*DEFAULT_ANIMATION_RUN_TIME)
         self.play(ShowCreation(VGroup(*o1[one_range:])),
-                  ShowCreation(VGroup(*o2[one_range:])))
+                  ShowCreation(VGroup(*o2[one_range:])), run_time = 0.7)
 
     def play_both(self, o1, o2):
         for o1_part, o2_part in zip(o1, o2):
@@ -202,13 +208,13 @@ class OrdinalMatching(Scene):
         desc2 = TexMobject("B").highlight(YELLOW).next_to(self.ordinal2, LEFT, buff = 1)
 
         self.play(*map(FadeIn, [self.ordinal1, self.ordinal2, desc1, desc2]))
-        self.dither()
-        
+        self.wait_to(3)
+
         self.ordinal1.align_data(self.ordinal2)
         self.make_matching()
         self.play(ShowCreation(self.matching[0]))
         self.play(ShowCreation(self.matching[1]))
-        self.dither()
+        self.wait_to(7)
 
         type_comparison = TexMobject("\\operatorname{type}(A)",
                                      "=",
@@ -218,7 +224,7 @@ class OrdinalMatching(Scene):
         type_comparison[2].set_color(YELLOW)
 
         self.play(Write(type_comparison))
-        self.dither()
+        self.wait_to(15.5)
 
         o_ord2 = self.ordinal2
         o_matching = self.matching
@@ -227,7 +233,7 @@ class OrdinalMatching(Scene):
         self.make_matching()
         self.play(ReplacementTransform(o_matching, self.matching),
                   ReplacementTransform(o_ord2, self.ordinal2))
-        self.dither()
+        self.wait_to(19.8)
 
         self.play(*map(FadeOut, [self.matching, self.ordinal2, type_comparison[1]]))
 
@@ -241,7 +247,7 @@ class OrdinalMatching(Scene):
 
         self.play(ShowCreation(self.matching[0]))
         self.play(ShowCreation(self.matching[1]))
-        self.dither()
+        self.wait_to(25.2)
 
         o_ord2 = self.ordinal2
         o_matching = self.matching
@@ -255,7 +261,7 @@ class OrdinalMatching(Scene):
         ineq = TexMobject('>').move_to(type_comparison[1])
         self.play(Write(ineq))
 
-        self.dither()
+        self.wait_to(34)
 
         o_matching = self.matching
         o_ord1 = self.ordinal1
@@ -331,12 +337,12 @@ class OrdinalMatching(Scene):
                   Transform(line, line_dest),
                   Transform(bottom_screen, bottom_screen_dest),
         )
-        self.dither()
+        self.wait_to(46)
 
         fruit_match = make_ordinal_matching(apples, pears)
         self.play(ShowCreation(fruit_match))
 
-        self.dither()
+        self.wait_to(53.5)
         apples_dest = LimitSubOrdinal(apples[:-1]).copy()
         apple = apples[0]
         apple_dest = apple.copy()
@@ -354,7 +360,14 @@ class OrdinalMatching(Scene):
                   Transform(apple, apple_dest, path_arc = -np.pi/5),
                   Transform(fruit_match, fruit_match_dest),
         )
-        self.dither()
+        self.wait_to(60 + 7.4)
+        self.play(
+            ordinal_numbers_title.set_fill, None, 1,
+            type_comparison.set_fill, None, 1,
+            cardinal_title.set_fill, None, 0.3,
+            cardinal_comparison.set_fill, None, 0.3,
+        )
+        self.wait_to(60 + 13)
 
         #self.revert_to_original_skipping_status()
         for f in [lambda x: x + np.sin(np.pi*3*x)/(np.pi*3.5),
@@ -372,7 +385,7 @@ class OrdinalMatching(Scene):
             matching_dest = make_ordinal_matching(ord1_dest, self.ordinal2)
             self.play(Transform(self.ordinal1, ord1_dest),
                       Transform(self.matching, matching_dest))
-        self.dither()
+        self.wait_to(60 + 20)
 
     def make_matching(self):
         self.matching = make_ordinal_matching(self.ordinal1, self.ordinal2)
@@ -398,7 +411,7 @@ class FiniteOrInfinite(Scene):
         self.add(bars)
 
         title_fin = TextMobject("Finite well-ordered sets").to_edge(UP)
-        self.play(Write(title_fin))
+        self.play(Write(title_fin), run_time = 2)
 
         bars_ori = bars
         bars = bars_ori.copy()
@@ -409,24 +422,24 @@ class FiniteOrInfinite(Scene):
             bar.shift(0.5*RIGHT*i)
         bars.center()
 
-        self.dither()
+        self.wait_to(2.3)
         self.play(ReplacementTransform(bars_ori, bars, path_arc = np.pi*2/3))
-        self.dither()
+        self.wait_to(5)
 
         bars = bars_sorted
         bars_dest = bars.copy()
         bars_dest.arrange_submobjects(buff = 0.5)
         
         self.play(Transform(bars, bars_dest))
-        self.dither()
+        self.wait_to(10)
 
         desc = TexMobject("\\operatorname{type}(X)","=","|X|", "= 5").to_edge(DOWN)
         desc[0].submobject_gradient_highlight(BLUE, YELLOW)
         desc[2].submobject_gradient_highlight(BLUE, YELLOW)
         self.play(Write(VGroup(*desc[:-1])))
-        self.dither()
+        self.wait_to(15)
         self.play(Write(desc[-1]))
-        self.dither()
+        self.wait_to(17.5)
 
         title_inf = TextMobject("Infinite well-ordered sets").to_edge(UP)
         self.play(ReplacementTransform(VMobject(VMobject(*title_fin[:2]), VMobject(*title_fin[2:])),
@@ -460,11 +473,12 @@ class FiniteOrInfinite(Scene):
         ord2_phase[2][0].shift(rearr_shift)
         ord2_phase[2][1].shift(-rearr_shift)
 
+        self.wait_to(19.5)
         for phaseA, phaseB, run_time in zip(ord2_phase[:-1], ord2_phase[1:], [0.7, 1, 0.7]):
             self.play(ReplacementTransform(phaseA, phaseB), run_time = run_time)
         ordinal2 = ord2_phase[-1]
 
-        self.dither()
+        self.wait_to(25)
 
         desc_A = TexMobject('A').next_to(ordinal1, LEFT, buff = 0.5).set_color(ordinal1.color)
         desc_B = TexMobject('B').next_to(ordinal2, LEFT, buff = 0.5).set_color(ordinal2.color)
@@ -478,11 +492,11 @@ class FiniteOrInfinite(Scene):
 
         VGroup(desc_card, desc_ord).arrange_submobjects(buff = 3).to_edge(DOWN)
 
-        self.play(Write(desc_card))
-        self.dither()
+        self.play(Write(desc_card), run_time = 1.5)
+        self.wait_to(27.5)
 
-        self.play(Write(desc_ord))
-        self.dither()
+        self.play(Write(desc_ord), run_time = 2.5)
+        self.wait_to(30)
 
         desc_ord_ori = desc_ord.copy()
         self.play(desc_ord.highlight, DARK_GREY)
@@ -505,7 +519,7 @@ class FiniteOrInfinite(Scene):
         icon_confirmed = IconYes().next_to(desc_card)
         self.play(ShowCreation(icon_confirmed))
         desc_card.add(icon_confirmed)
-        self.dither(2)
+        #self.wait_to(36.5)
 
         desc_cadr_ori = desc_card.copy()
         self.play(desc_card.highlight, DARK_GREY,
@@ -524,14 +538,18 @@ class FiniteOrInfinite(Scene):
         
         icon_confirmed = IconYes().next_to(desc_ord)
         self.play(ShowCreation(icon_confirmed))
-        self.dither()
+        self.wait_to(47)
 
     def try_matching(self, ordinal1, ordinal2, fadeout = True):
         matching = make_ordinal_matching(ordinal1, ordinal2)
-        self.play(ShowCreation(matching), submobject_mode = "all_at_once")
+        self.play(
+            ShowCreation(matching),
+            submobject_mode = "all_at_once",
+            run_time = 0.8
+        )
         if not fadeout: return matching
-        self.dither()
-        self.play(FadeOut(matching))
+        self.dither(0.7)
+        self.play(FadeOut(matching), run_time = 0.5)
 
 
 class ApplicationDifference(Scene):
@@ -546,7 +564,6 @@ class ApplicationDifference(Scene):
                     SPACE_HEIGHT*DOWN)
 
         self.play(FadeIn(line), FadeIn(title))
-        self.dither()
         card_title = TextMobject("Cardinals","measure","sets")
         ord_title = TextMobject("Ordinals\\\\","extract the essence\\\ of","well-ordered sets")
 
@@ -559,9 +576,11 @@ class ApplicationDifference(Scene):
         equations = self.make_card_equations(card_title)
 
         #self.add(card_title, ord_title, equations)
+        self.wait_to(6)
         self.play(FadeIn(card_title))
+        self.wait_to(8.2)
         self.play(FadeIn(equations, submobject_mode = "lagged_start"), run_time = 3)
-        self.dither()
+        self.wait_to(15.5)
 
         ordinal_phases = self.make_ord_phases(ord_title)
         self.play(Write(ord_title))
@@ -569,12 +588,12 @@ class ApplicationDifference(Scene):
         ordinal = ordinal_phases[0]
         for subord in ordinal:
             self.play(FadeIn(subord, submobject_mode = "lagged_start"))
-        self.dither()
+        self.wait_to(33)
         self.play(ordinal.set_color, self.tool_color)
-        self.dither()
+        self.wait_to(43)
         for ord_dest in ordinal_phases[1:]:
             self.play(Transform(ordinal, ord_dest))
-        self.dither()
+        self.wait_to(51.5)
 
     def make_card_equations(self, title):
 
@@ -642,6 +661,7 @@ class OrdinalByRecursion(Scene):
 
         zero_title = TextMobject("Zero case:","0").to_corner(UP+LEFT)
         zero_title.set_color(GREEN)
+        self.wait_to(6.7)
         self.play(Write(zero_title))
 
         descriptions = underlying_fg.add_descriptions(lambda i: TexMobject(str(i)),
@@ -656,20 +676,21 @@ class OrdinalByRecursion(Scene):
         ord_pic = VMobject()
         brace = self.prepare_brace(ord_pic, underlying_fg[0])
         self.play(GrowFromCenter(brace))
-        self.dither()
+        self.wait_to(20.4)
 
         successor_title = TextMobject("Successor step:","+1").to_corner(UP+LEFT)
         self.change_titles(zero_title, successor_title)
 
         # 1 -> 4
-        
+
+        self.wait_to(29.1)
         for bar, desc in zip(underlying_fg, descriptions)[1:5]:
             ord_pic_next = ord_pic.copy()
             ord_pic_next.set_color(BLUE)
             ord_pic_next.add(Line(ORIGIN, 1.5*DOWN).next_to(ord_pic))
             brace_next = self.prepare_brace(ord_pic_next, bar)
             self.play(ReplacementTransform(ord_pic, VMobject(*ord_pic_next[:-1])),
-                      ReplacementTransform(brace, brace_next))
+                      ReplacementTransform(brace, brace_next), run_time = 0.5)
             brace = brace_next
             ord_pic = ord_pic_next
             self.play(ShowCreation(ord_pic[-1]),
@@ -680,12 +701,12 @@ class OrdinalByRecursion(Scene):
 
         self.play(ShowCreation(VGroup(*descriptions[5:])),
                   ShowCreation(VGroup(*underlying_fg[5:])))
-        self.dither()
+        self.wait_to(36.4)
 
         # supremum
         
         self.remove(underlying_bg)
-        limit_title = TextMobject("Limit step: supremum","of all preceding values")
+        limit_title = TextMobject("Limit step: ordinal union","of all preceding values")
         limit_title.to_corner(UP+LEFT)
         limit_title[0].set_color(YELLOW)
         self.change_titles(successor_title, limit_title,
@@ -693,8 +714,8 @@ class OrdinalByRecursion(Scene):
                                FadeOut(brace), FadeOut(ord_pic),
                            ])
 
-        self.dither()
-        
+        self.wait_to(40.5)
+
         self.play_finite_supremum()
 
         shift = LEFT*underlying2[0].get_center()
@@ -711,11 +732,12 @@ class OrdinalByRecursion(Scene):
                                                      direction = UP, size = 0.9)
         descriptions2[0].set_color(YELLOW)
 
-        ord_pic, brace = self.play_infinite_supremum(bar)
+        self.wait_to(60 + 13)
+        ord_pic, brace = self.play_infinite_supremum(bar, waits = (60+16.5, 60+18))
         self.remove(bar)
         underlying2[0].set_color(YELLOW)
         #self.add(descriptions2)
-        self.dither()
+        self.wait_to(60 + 19.7)
         self.play(Write(descriptions2[0]))
 
         # w -> w + 5
@@ -728,6 +750,7 @@ class OrdinalByRecursion(Scene):
                         descriptions,
                         shown_descs2,
                         underlying3)
+        self.wait_to(60 + 30.3)
         for bar, desc in zip(underlying2, descriptions2)[1:5]:
             shift = LEFT*bar.get_center()
             ord_pic_next = ord_pic.copy()
@@ -739,7 +762,7 @@ class OrdinalByRecursion(Scene):
             brace_next = self.prepare_brace(ord_pic_next, bar_next)
             self.play(ReplacementTransform(ord_pic, VMobject(*ord_pic_next[:-1])),
                       ReplacementTransform(brace, brace_next),
-                      moving.shift, shift)
+                      moving.shift, shift, run_time = 0.5)
             hidden_descs2.shift(shift)
 
             ord_pic = ord_pic_next
@@ -747,16 +770,16 @@ class OrdinalByRecursion(Scene):
 
             self.play(ShowCreation(bar_next),
                       ShowCreation(ord_pic[-1]),
-                      Write(desc))
+                      Write(desc), run_time = 0.5)
             self.remove(bar_next)
             bar.highlight(WHITE)
             shown_descs2.add(desc)
             hidden_descs2.remove(desc)
-            self.dither()
+            #self.dither()
 
         # w+5 -> ... <w+w
 
-        self.dither()
+        self.wait_to(60 + 34.3)
 
         bar = underlying3[0]
         shift = LEFT*bar.get_center()
@@ -782,19 +805,19 @@ class OrdinalByRecursion(Scene):
         bar = underlying3[0].copy()
         bar.set_color(YELLOW)
         ord_pic = self.play_infinite_supremum2(bar, brace)
-        self.dither()
+        self.wait_to(60 + 40)
         ww_desc = TexMobject("\\omega+\\omega")
         ww_desc.set_color(YELLOW)
         ww_desc.next_to(bar, UP)
         self.play(Write(ww_desc))
         moving.add(ww_desc, bar)
-        self.dither()
+        self.wait_to(60 + 50.5)
 
         moving.remove(descriptions, underlying_fg)
         moving2 = VGroup(descriptions, underlying_fg)
         shift2 = 1 - SPACE_WIDTH - underlying_fg[0].get_center()[0]
         shift = shift2 - DEFAULT_MOBJECT_TO_MOBJECT_BUFFER
-        print(shift)
+        #print(shift)
         self.play(moving.shift, RIGHT*shift,
                   moving2.shift, RIGHT*shift2,
                   FadeOut(brace), FadeOut(ord_pic), FadeOut(limit_title))
@@ -839,22 +862,22 @@ class OrdinalByRecursion(Scene):
 
         ord2.next_to(ord1, DOWN, buff = 0.2)
         self.play(ShowCreation(VGroup(ord1, ord2)))
-        self.dither()
+        self.wait_to(47)
         shift = RIGHT*(ord2[0].get_center() - ord1[0].get_center())
         self.play(ord1.shift, shift/2,
                   ord2.shift, -shift/2,
                   run_time = 0.5)
 
-        self.dither()
+        self.wait_to(55.5)
         shift = ord2[0].get_center() - ord1[0].get_center()
         self.play(ord2.shift, -shift/2,
                   ord1.shift, shift/2,
                   run_time = 0.7)
         self.remove(ord2)
-        self.dither()
+        self.wait_to(60 + 9)
         self.play(FadeOut(ord1))
 
-    def play_infinite_supremum(self, underlying_bar = None, ord_num = 15):
+    def play_infinite_supremum(self, underlying_bar = None, ord_num = 15, waits = None):
 
         supremum = OrdinalOmega().set_color(BLUE)
         if underlying_bar is not None:
@@ -880,7 +903,7 @@ class OrdinalByRecursion(Scene):
         ordinals.to_edge(DOWN, buff = 0)
 
         self.play(ShowCreation(ordinals))
-        self.dither()
+        if waits is not None: self.wait_to(waits[0])
 
         ordinals_dest = ordinals.copy()
         for ordinal in ordinals_dest:
@@ -888,7 +911,7 @@ class OrdinalByRecursion(Scene):
                 bar.move_to(supremum[i], coor_mask = RIGHT)
 
         self.play(Transform(ordinals, ordinals_dest))
-        self.dither()
+        if waits is not None: self.wait_to(waits[1])
         last_ordinal = supremum.copy()
         last_ordinal.stretch(0,1)
         last_ordinal.shift(DOWN*SPACE_HEIGHT)
@@ -984,10 +1007,13 @@ class OrdinalRoles(Scene):
 
         #self.force_skipping()
 
+        self.wait_to(10)
         self.play(FadeIn(ordinals_title))
+
+        self.wait_to(17.5)
         for con, role in zip(connections, roles):
             self.play(ShowCreation(con), Write(role))
-            self.dither()
+            self.wait_to(20.8, assert_positive = False)
 
         pointer = TrianglePointer(color = BLUE).next_to(ord2[3], UP, buff = 0.3)
         pointer_desc = desc2[3]
@@ -995,6 +1021,7 @@ class OrdinalRoles(Scene):
         pointer_desc_target.set_color(BLUE)
         pointer_desc_target.next_to(pointer, UP)
         desc2.remove(desc2[3])
+        self.wait_to(26.5)
         self.play(
             FadeOut(desc1), FadeOut(desc2),
             Transform(pointer_desc, pointer_desc_target),
@@ -1007,13 +1034,14 @@ class OrdinalRoles(Scene):
         ord1_bg = ord1.copy()
         ord1_bg.set_color(DARK_GREY)
         self.add(ord1_bg, ord1, ord2)
+        self.wait_to(31.2)
         self.play(ReplacementTransform(
             steps1_ori, steps1,
             submobject_mode = "one_at_a_time",
-            run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
+            run_time = 1.8*DEFAULT_ANIMATION_RUN_TIME,
             rate_func = rush_into,
         ))
-        self.dither()
+        self.wait_to(33)
 
         steps2 = seq_to_jumps(ord2[:4])
         steps2_ori = Ordinal(*ord2[1:4])
@@ -1028,7 +1056,7 @@ class OrdinalRoles(Scene):
         successor.set_color(BLUE)
         self.play(ShowCreation(successor),
                   *map(FadeOut, ord2[4:]))
-        self.dither()
+        self.wait_to(44.5)
 
         steps1_dest = ord1_bg.copy().set_color(WHITE)
         steps2_dest = VGroup(*ord2_bg[:3]).copy().set_color(WHITE)
@@ -1040,6 +1068,7 @@ class OrdinalRoles(Scene):
         self.brace_desc = pointer_desc.copy()
         self.brace_desc.set_color(WHITE)
         self.brace.put_at_tip(self.brace_desc)
+        self.wait_to(50.5)
         self.play(GrowFromCenter(self.brace),
                   FadeIn(self.brace_desc))
         self.remove(ord1, ord2, steps1, steps2)
@@ -1048,12 +1077,12 @@ class OrdinalRoles(Scene):
         ord1.highlight(WHITE)
         VGroup(*ord2[:3]).highlight(WHITE)
         self.all_bars = VGroup(ord1, ord2)
-        self.dither(2)
-        return
-
+        self.wait_to(60 + 2.7)
         self.play(*map(FadeOut, [successor, pointer, pointer_desc]))
+
         self.move_brace(ord1[:4], TextMobject("four"))
-        self.dither()
+        self.wait_to(60 + 12)
+
         last_bar = ord1[3].copy().set_color(ORANGE)
         lb_pointer = TrianglePointer(color = ORANGE).next_to(last_bar, UP)
         lb_desc = TextMobject("fourth").next_to(lb_pointer, UP).set_color(ORANGE)
@@ -1063,34 +1092,33 @@ class OrdinalRoles(Scene):
             FadeIn(lb_desc)
         )
         self.add_foreground_mobjects(last_bar)
-        self.dither()
+        self.wait_to(60 + 17.3)
         self.move_brace(ord1, TexMobject("\\omega"))
-        self.dither()
+        self.wait_to(60 + 21.7)
         self.move_brace(ord1[:4], TexMobject("4"))
         successor = ord1[4].copy().highlight(BLUE)
         pointer = TrianglePointer(color = BLUE).next_to(successor, UP)
         pointer_desc = TexMobject("4").next_to(pointer, UP).set_color(BLUE)
 
-        self.dither()
+        self.wait_to(60 + 23.7)
         self.play(
             Uncreate(last_bar),
             ShowCreation(successor),
             ReplacementTransform(lb_desc, pointer_desc),
             ReplacementTransform(lb_pointer, pointer),
         )
-        self.dither()
+        self.wait_to(60 + 34.5)
 
         self.play(order_types_title.highlight, YELLOW)
-        self.dither()
+        self.wait_to(60 + 37.1)
         self.play(
             order_types_title.highlight, WHITE,
             indices_title.highlight, YELLOW,
         )
 
-        self.dither()
+        self.wait_to(2*60 + 1.5)
 
-        indices_title2 = TextMobject("indices of a","n universal ","well ordering",
-                                     arg_separator = "")
+        indices_title2 = TextMobject("indices of a","universal","well ordering")
         indices_title2.shift(indices_title[0].get_center() - indices_title2[0].get_center())
         indices_title2.set_color(YELLOW)
         indices_title2_src = VGroup(
@@ -1101,7 +1129,7 @@ class OrdinalRoles(Scene):
         indices_title2_src[1].next_to(indices_title2[0])
         indices_title2_src[1].scale(0, about_point = indices_title2_src[1].get_edge_center(LEFT))
         self.play(ReplacementTransform(indices_title2_src, indices_title2))
-        self.dither()
+        self.wait_to(2*60 + 6)
 
         arrows = VGroup(*[
             Arrow(ORIGIN, 2*UP + i*1.0*RIGHT)
@@ -1120,7 +1148,7 @@ class OrdinalRoles(Scene):
             ]) + map(ShowCreation, arrows)
         )
         #self.revert_to_original_skipping_status()
-        self.dither()
+        self.wait_to(2*60 + 11.5)
         ord_pow = make_ordinal_power(2, q=(0.8, 0.9, 0.9), x1 = 7)
         ord_pow.shift(ord1[0].get_center() - ord_pow[0][0].get_center())
         ord_pow_extra = VGroup(*ord_pow[1:3]).copy().next_to(ord_pow, buff = 0)
@@ -1134,7 +1162,7 @@ class OrdinalRoles(Scene):
             ord_pow_all_src, ord_pow_all,
             prepare_families = True,
         ))
-        self.dither()
+        self.wait_to(2*60 + 29.5)
 
     def move_brace(self, bars, desc):
         bars = VGroup(*bars)
@@ -1151,24 +1179,30 @@ class OrdinalRoles(Scene):
 
 class SupremumRecap(OrdinalByRecursion):
     def construct(self):
-        title = TextMobject("Supremum")
+        title = TextMobject("Ordinal Union", "$=$","Supremum")
         title.to_edge(UP)
-        self.add(title)
+        self.add(title[0])
         
-        supremum, _ = self.play_infinite_supremum()
-        self.dither()
-        self.play(FadeOut(supremum))
+        supremum, _ = self.play_infinite_supremum(waits = (5.5, 6.9))
+        self.wait_to(11.3)
+        self.play(Write(VGroup(title[1:])))
+        self.wait_to(17.5)
+        self.play(
+            FadeOut(supremum),
+            VGroup(title[:2]).highlight, DARK_GREY,
+        )
 
 class SupremumReal(Scene):
     def construct(self):
         #self.force_skipping()
-        title = TextMobject("Supremum")
+        title = TextMobject("Ordinal Union", "$=$","Supremum")
+        VGroup(title[:2]).highlight(DARK_GREY)
         title.to_edge(UP)
         self.add(title)
 
         numberline = NumberLine(color = DARK_BLUE)
         self.play(ShowCreation(numberline))
-        self.dither()
+        self.wait_to(2)
 
         edges = [-2.5, 2.5]
         points = [
@@ -1191,7 +1225,7 @@ class SupremumReal(Scene):
         self.play(ShowCreation(segment),
                   Write(descs),
                   Write(main_desc))
-        self.dither()
+        self.wait_to(6)
 
         maximum_desc = TextMobject("maximum").move_to(points[1]+2*DOWN)
         arrow = Arrow(maximum_desc.get_edge_center(UP), points[1])
@@ -1199,7 +1233,7 @@ class SupremumReal(Scene):
 
         self.play(FadeIn(maximum_desc),
                   ShowCreation(arrow))
-        self.dither()
+        self.wait_to(12.5)
         self.play(Uncreate(arrow))
 
         main_desc_open = TexMobject("(" + ",".join(texts) + ")")
@@ -1213,7 +1247,7 @@ class SupremumReal(Scene):
         self.play(Transform(main_desc, main_desc_open))
 
         segment.remove(*dots)
-        self.dither()
+        self.wait_to(16.3)
 
         no = TextMobject("no m")
         no.shift(maximum_desc[0].get_center() - no[-1].get_center())
@@ -1221,22 +1255,22 @@ class SupremumReal(Scene):
         maximum_desc.add_to_back(no)
         self.play(Write(no))
         
-        self.dither()
+        self.wait_to(18.7)
         dot_out = Dot(points[1], color = DARK_BLUE)
         self.play(ShowCreation(dot_out), FocusOn(points[1]))
 
         #self.revert_to_original_skipping_status()
-        self.dither()
+        self.wait_to(27)
         supremum_desc = TextMobject("supremum")
         supremum_desc.shift(maximum_desc[-1].get_center() - supremum_desc[-1].get_center())
         self.play(ReplacementTransform(maximum_desc, supremum_desc))
         arrow = arrow_backup.copy()
         self.play(ShowCreation(arrow))
-        self.dither()
+        self.wait_to(33)
         self.play(*map(FadeOut, [arrow, supremum_desc]))
         self.play(Transform(dots, dots_ori),
                   Transform(main_desc, main_desc_closed))
-        self.dither()
+        #self.wait_to(34.5)
         eq_maximum = TextMobject("$=$ maximum")
         eq_maximum.next_to(supremum_desc, DOWN)
         self.play(
@@ -1244,17 +1278,17 @@ class SupremumReal(Scene):
             FadeIn(eq_maximum),
             ShowCreation(arrow),
         )
-        self.dither()
+        self.wait_to(37)
 
         self.play(*map(FadeOut, [arrow, supremum_desc, eq_maximum]))
         self.play(Transform(dots, dots_erased),
                   Transform(main_desc, main_desc_open))
-        self.dither()
+        self.wait_to(40.5)
         self.play(
             FadeIn(supremum_desc),
             ShowCreation(arrow),
         )
-        self.dither()
+        self.wait_to(44)
 
         self.play(*map(FadeOut, [
             numberline, dot_out, segment, descs, main_desc, supremum_desc, arrow
@@ -1263,7 +1297,8 @@ class SupremumReal(Scene):
 class SupremumIndices(Scene):
     def construct(self):
         #self.force_skipping()
-        title = TextMobject("Supremum")
+        title = TextMobject("Ordinal Union", "$=$","Supremum")
+        VGroup(title[:2]).highlight(DARK_GREY)
         title.to_edge(UP)
         self.add(title)
 
@@ -1273,20 +1308,22 @@ class SupremumIndices(Scene):
         ord2 = ord1.copy()
         ord2.next_to(ord1)
 
-        self.play(FadeIn(VGroup(ord1, ord2)))
+        self.play(
+            FadeIn(VGroup(ord1, ord2)),
+            title.highlight, WHITE,
+        )
         set1 = VGroup(ord1[2], ord1[4]).copy().highlight(WHITE)
+        self.wait_to(5)
         self.play(ShowCreation(set1))
-        self.dither()
         desc = self.show_supremum(set1[-1], with_maximum = True)
 
-        self.dither()
+        self.wait_to(10.3)
         self.play(FadeOut(desc))
 
         set2 = VGroup(*ord1[6::2]).copy().highlight(WHITE)
         self.play(ShowCreation(set2))
-        self.dither()
         desc = self.show_supremum(ord2[0], with_maximum = False)
-        self.dither()
+        self.wait_to(14)
 
     def show_supremum(self, bar, with_maximum = False):
         point = bar.get_edge_center(DOWN)

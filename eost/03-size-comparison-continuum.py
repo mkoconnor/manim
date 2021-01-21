@@ -46,7 +46,7 @@ class SubsetsSeqs(Scene):
         aleph_0.scale(1.5)
         aleph_0.to_edge(UP)
         self.play(Write(aleph_0))
-        self.dither()
+        self.wait_to(4)
 
         for color, alpha, data in zip(color_gradient([GREEN, ORANGE], 4),
                                       np.linspace(0, 1, 4),
@@ -61,8 +61,8 @@ class SubsetsSeqs(Scene):
             triangle.move_to((1-alpha)*left_pos + alpha*right_pos)
 
             for mobj in triangle:
-                self.play(FadeIn(mobj), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
-            self.dither()
+                self.play(FadeIn(mobj), run_time = 0.3)
+            #self.dither()
             triangles.append(triangle)
         triangles = VGroup(*triangles)
 
@@ -83,13 +83,13 @@ class SubsetsSeqs(Scene):
         sequences[1].shift(2*RIGHT)
         sequences[2].shift(RIGHT)
 
+        self.wait_to(8)
         self.play(FadeOut(aleph_0))
         for seq in sequences:
             self.play(ShowCreation(seq))
         
-        self.dither()
+        self.wait_to(15)
         self.play(FadeOut(triangles))
-        self.dither()
 
         seq = sequences[0]
         seq_data = [x.tex_string == '1' for x in seq]
@@ -109,14 +109,13 @@ class SubsetsSeqs(Scene):
         seq_dest.shift(DOWN)
         set_complet.shift(UP)
 
-        self.revert_to_original_skipping_status()
+        #self.revert_to_original_skipping_status()
 
-        self.dither()
+        self.wait_to(18.5)
         self.play(Transform(seq, seq_dest),
                   FadeOut(VGroup(*sequences[1:])))
-        self.dither()
+        self.wait_to(22.5)
         self.play(FadeIn(set_complet))
-        self.dither()
 
         seq_ones = []
         seq_zeros = []
@@ -137,12 +136,24 @@ class SubsetsSeqs(Scene):
         ones_dest = seq_ones.copy()
         ones_dest.set_fill(GREEN, opacity = 0)
         ones_dest.shift(2*UP)
+
+        omega_label = TexMobject("\\omega")
+        omega_label.set_color(GREEN)
+        omega_label.next_to(set_complet, UP)
+        omega_label.to_edge(LEFT)
+
+        self.wait_to(27.5)
+        self.play(Write(omega_label))
+        set_complet.add(omega_label)
+        
+        self.wait_to(34)
         self.play(set_ones.highlight, GREEN,
                   ReplacementTransform(seq_ones.copy(), ones_dest))
         self.remove(ones_dest)
-        self.dither()
+
+        self.wait_to(38)
         self.play(set_zeros.highlight, BLACK)
-        self.dither(4)
+
         matching_line = Line(0.5*DOWN, 0.5*UP, color = RED, stroke_width = 0)
         seq_set = VGroup(seq, set_complet, matching_line)
 
@@ -157,11 +168,12 @@ class SubsetsSeqs(Scene):
         seq_title_part = VGroup(*seq_title[2:-1])
         both_titles_part = VGroup(set_title_part, seq_title_part)
 
+        self.wait_to(51)
         self.play(seq_set.to_corner, LEFT+DOWN,
                   FadeIn(both_titles_part))
+        self.wait_to(53.5)
         matching_line.set_stroke(width = DEFAULT_POINT_THICKNESS)
         self.play(ShowCreation(matching_line))
-        self.dither()
 
         title_matching_center = set_title_part.get_edge_center(DOWN)
         title_matching_center[1] += seq_title_part.get_edge_center(UP)[1]
@@ -173,15 +185,16 @@ class SubsetsSeqs(Scene):
         title_matching_even = VGroup(*title_matching[1::2])
         title_matching_even.scale_in_place(-1)
 
+        self.wait_to(58)
         self.play(ShowCreation(title_matching),
                   submobject_mode = "lagged_start",
                   run_time = 2*DEFAULT_ANIMATION_RUN_TIME)
-        self.dither()
+        self.wait_to(64.5)
         both_titles_rest = VGroup(set_title[0], set_title[-1],
                                   seq_title[0], seq_title[1], seq_title[-1])
         self.play(FadeOut(title_matching),
                   Write(both_titles_rest))
-        self.dither()
+        self.wait_to(60 + 27.5)
 
 def make_inequalities():
     inequalities = VGroup(
@@ -240,17 +253,16 @@ class FinitePowerSetScene(Scene):
         )
         PX.to_edge(RIGHT)
 
-        self.dither()
+        self.wait_to(7.5)
         self.play(ReplacementTransform(src0, dest0))
-        self.dither()
+        self.wait_to(8.7)
         self.play(ReplacementTransform(src1, dest1))
-        self.dither()
+        self.wait_to(11.1)
         self.play(ReplacementTransform(src2, dest2))
-        self.dither()
+        self.wait_to(13.3)
         self.play(ReplacementTransform(src3, dest3))
-        self.dither()
+        self.wait_to(14.8)
         self.play(ShowCreation(PX[1]))
-        self.dither()
 
         arrow_P = Arrow(self.X.get_edge_center(RIGHT),
                         PX.get_edge_center(LEFT))
@@ -259,11 +271,13 @@ class FinitePowerSetScene(Scene):
         desc_P[0].set_color(YELLOW)
         desc_P.next_to(arrow_P, UP)
 
+        self.wait_to(18)
         self.play(
             Write(desc_P[0]),
             ShowCreation(arrow_P),
         )
-        self.play(Write(VGroup(*desc_P[1:])))
+        self.wait_to(21.5)
+        self.play(Write(VGroup(*desc_P[1:])), run_time = 2)
 
         desc_size_PX = TexMobject("|\\mathcal P(X)|=8=2^3")
         desc_size_PX.next_to(PX, UP)
@@ -272,16 +286,15 @@ class FinitePowerSetScene(Scene):
         desc_PX[0].set_color(YELLOW)
         desc_PX[2].set_color(GREEN)
 
+        self.wait_to(23.7)
         self.play(
             ReplacementTransform(desc_P[0].copy(), desc_PX[0], path_arc = -np.pi/4),
             ReplacementTransform(desc_X.copy(), VGroup(*desc_PX[1:]), path_arc = -np.pi/3),
         )
-        self.dither()
+        self.wait_to(29.7)
         self.play(FadeIn(VGroup(*[desc_size_PX[0]]+desc_size_PX[5:8])))
-        self.dither()
+        self.wait_to(33.5)
         self.play(FadeIn(VGroup(*desc_size_PX[8:])))
-        self.dither(2)
-        return
 
         arrows_possib = VGroup()
         descs_possib = VGroup()
@@ -290,10 +303,15 @@ class FinitePowerSetScene(Scene):
             arrow_possib.next_to(elements_X[i], DOWN)
             desc_possib = TexMobject("2")
             desc_possib.next_to(arrow_possib, DOWN)
+
+            if i == 0: self.wait_to(39)
+            elif i == 1: self.wait_to(43.4)
+            elif i == 2: self.wait_to(46.2)
             self.play(ShowCreation(arrow_possib))
-            self.dither()
+
+            if i == 0: self.wait_to(42)
             self.play(FadeIn(desc_possib))
-            self.dither()
+
             arrows_possib.add(arrow_possib)
             descs_possib.add(desc_possib)
 
@@ -303,24 +321,24 @@ class FinitePowerSetScene(Scene):
             cdot.move_to((descs_possib[i].get_edge_center(RIGHT) + descs_possib[i+1].get_edge_center(LEFT))/2)
             cdots.add(cdot)
 
+        self.wait_to(48.5)
         self.play(FadeIn(cdots))
-        self.dither()
         desc_size_PX2 = TexMobject("2^3 = |\\mathcal P(X)|")
         desc_size_PX2[-3].set_color(GREEN)
         desc_size_PX2[-5].set_color(YELLOW)
 
         desc_size_PX2.shift(descs_possib.get_center() - desc_size_PX2[0].get_center() + DOWN)
+        self.wait_to(52.2)
         self.play(ReplacementTransform(VGroup(descs_possib, cdots).copy(), VGroup(*desc_size_PX2[:2])))
 
         #self.revert_to_original_skipping_status()
-        self.dither()
+        self.wait_to(54.5)
         self.play(*map(FadeOut, [PX, arrow_P, desc_P]))
         self.play(FadeOut(VGroup(*desc_size_PX[6:])),
                   FadeIn(desc_size_PX2[2]),
                   ReplacementTransform(VGroup(*desc_size_PX[:6]),
                                        VGroup(*desc_size_PX2[3:]))
                   )
-        self.dither()
 
         tmp_tex = TexMobject("1 \ldots n-1")
         tmp_tex.shift(elements_X[1].get_center() - tmp_tex[0].get_center())
@@ -347,7 +365,6 @@ class FinitePowerSetScene(Scene):
             ReplacementTransform(cdots[1], cdots3),
             Transform(desc_size_PX2[1], general_exponent),
         )
-        self.dither()
 
         inequalities = make_inequalities()
         brace = Brace(VGroup(*inequalities[1:]), LEFT)
@@ -355,14 +372,22 @@ class FinitePowerSetScene(Scene):
         brace.put_at_tip(brace_desc)
 
         for i, ineq in enumerate(inequalities):
+            if i == 0: self.wait_to(60 + 10.8)
+            elif i == 1: self.wait_to(60 + 14.7)
+            elif i == 2: self.wait_to(60 + 16)
+            elif i == 3: self.wait_to(60 + 17.2)
+            elif i == 5: self.wait_to(60 + 21)
+            elif i == 6: self.wait_to(60 + 31)
+
             if i == 0 or i >= 5: self.play(Write(ineq))
             else: self.play(FadeIn(ineq))
-            self.dither()
+
+        self.wait_to(60 + 37)
         self.play(
             GrowFromCenter(brace),
             FadeIn(brace_desc),
         )
-        self.dither()
+        self.wait_to(60 + 50.5)
 
     def X_subsets(self, element_lists):
         source = VGroup(*[self.X_subset(elements) for elements in element_lists])
@@ -444,11 +469,9 @@ class CantorRevisited(Scene):
 
         self.draw_column(column_rect, Write(column_el))
         self.play(Write(column_w_desc))
-        self.dither()
         self.play(ShowCreation(Pw_rect), Write(Pw_desc))
-        self.dither()
+        #self.wait_to(3)
         self.draw_rows(connections, rows)
-        self.dither()
 
         def highlight_diag(i):
             if missing_data[i]: color = YELLOW
@@ -462,14 +485,15 @@ class CantorRevisited(Scene):
                       run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
             self.play(ShowCreation(icons[i]), run_time = 0.5*DEFAULT_ANIMATION_RUN_TIME)
 
+        self.wait_to(18)
         highlight_diag(0)
-        self.dither()
+        self.wait_to(20.2)
         highlight_diag(3)
-        self.dither()
+
+        self.wait_to(26)
         highlight_diag(1)
-        self.dither()
+        self.wait_to(28.6)
         highlight_diag(2)
-        self.dither()
 
         animations = []
         for i,b in list(enumerate(missing_data))[4:]:
@@ -478,12 +502,14 @@ class CantorRevisited(Scene):
             else: animations.append(DARK_GREY)
             animations.append(FadeIn(icons[i]))
 
+        self.wait_to(30.7)
         self.play(*animations)
+
+        self.wait_to(33)
         self.draw_column(missing[0], ShowCreation(missing[1]))
         self.play(Write(missing_desc))
-        self.dither()
 
-        def try_connect_M(i):
+        def try_connect_M(i, end_time):
             point_r = column_el[i].get_edge_center(LEFT)
             point_l = missing.get_edge_center(RIGHT)
             point_l[1] = point_r[1]
@@ -500,28 +526,32 @@ class CantorRevisited(Scene):
                 Transform(icon, icon_shifted),
                 ShowCreation(line),
             )
-            self.dither(4)
+            self.wait_to(end_time-1)
             self.play(
                 Transform(icon, icon_ori),
                 Uncreate(line),
             )
 
-        try_connect_M(0)
-        try_connect_M(2)
+        self.wait_to(38.1)
+        try_connect_M(0, 46.5)
+        try_connect_M(2, 55)
 
         M_in_Pw = Rectangle(height = 0.15, width = 5, color = ORANGE)
         M_in_Pw.shift((rows[3].get_center()+rows[4].get_center())/2 - M_in_Pw.get_edge_center(LEFT))
 
         self.play(GrowFromCenter(M_in_Pw))
-        self.dither()
 
+        self.wait_to(60 + 16)
         self.play(*map(FadeOut, [Pw_rect, Pw_desc, rows, connections, M_in_Pw]))
 
         inequalities = make_inequalities()
         inequalities[-1][-1].remove(inequalities[-1][-1][-1])
+        self.wait_to(60 + 25)
         self.play(Write(inequalities[-1]))
-        self.dither()
+        self.wait_to(60 + 29)
         self.play(FadeIn(VGroup(*inequalities[:-1])))
+
+        self.wait_to(60 + 49.5)
 
     def draw_column(self, rect, inner_animation):
         up_left, up_right, _, down_left, _ = rect.get_anchors()
@@ -581,6 +611,7 @@ class SubsetToReal(Scene):
         desc_R.shift(2.6*UP)
         self.play(ShowCreation(numberline),
                   Write(desc_R[-2]))
+        self.wait_to(10)
         self.play(Write(VGroup(*desc_R[:-2] + [desc_R[-1]])))
 
         seq_len = 30
@@ -595,6 +626,8 @@ class SubsetToReal(Scene):
         set_rect = SurroundingRectangle(set_el, color = RED, buff = MED_SMALL_BUFF)
         set_complet = VGroup(set_rect, set_el)
         set_complet.to_corner(LEFT+DOWN)
+
+        self.wait_to(20)
         self.play(FadeIn(set_complet))
 
         zero = TexMobject('0').set_color(DARK_GREY)
@@ -608,8 +641,8 @@ class SubsetToReal(Scene):
         match_end = seq.get_edge_center(DOWN)+0.1*DOWN
         match_start[0] = match_end[0] = 0
         match_line = Line(match_start, match_end, color = RED)
+        self.wait_to(23)
         self.play(ReplacementTransform(set_el.copy(), seq), ShowCreation(match_line))
-        self.dither()
 
         num = seq_data[0]*.1 + seq_data[1]*.01 + seq_data[2]*.001 + seq_data[3]*.0001
         num_dot = Dot(numberline.number_to_point(num))
@@ -623,14 +656,15 @@ class SubsetToReal(Scene):
 
         match_line_dest = Line(match_start, num_seq.get_corner(LEFT+DOWN)+0.1*DOWN, color = RED)
 
+        self.wait_to(27.5)
         self.play(ReplacementTransform(seq, num_seq),
                   Transform(match_line, match_line_dest))
 
         zero_point.next_to(num_seq, LEFT, buff = 0.1)
-        self.dither()
+        self.wait_to(29.7)
         self.play(Write(zero_point), ShowCreation(num_dot))
-        self.dither()
 
+        self.wait_to(33)
         nats_and_arrows = []
         for i,x in enumerate([-1.7, 1.2, num]):
             arrow_end = numberline.number_to_point(x)
@@ -644,36 +678,38 @@ class SubsetToReal(Scene):
         nat_dest = nat.copy()
         nat_dest.next_to(match_end, UP)
         match_line_dest = Line(match_start, match_end, color = RED)
+        self.wait_to(40)
         self.play(Transform(match_line, match_line_dest),
                   ReplacementTransform(nat.copy(), nat_dest, path_arc = np.pi/2))
-        self.dither()
 
         uncount = TexMobject("|\\mathbb R|\\geq", "|\\mathcal P(\\omega)| > \\aleph_0")
         uncount[0][1].set_color(GREEN)
         VGroup(*uncount[1][1:5]).set_color(RED)
         uncount.to_edge(RIGHT)
+        self.wait_to(44)
         self.play(Write(uncount[1]))
-        self.dither()
+        self.wait_to(47.3)
         self.play(Write(uncount[0]))
-        self.dither()
 
         strict_q = TexMobject("|\\mathbb R|>|\\mathcal P(\\omega)|?").to_edge(LEFT)
         strict_q[1].set_color(GREEN)
         VGroup(*strict_q[5:9]).set_color(RED)
 
+        self.wait_to(52)
         self.play(Write(strict_q))
         self.play(*map(FadeOut, nats_and_arrows+[match_line, nat_dest]))
 
         brace = Brace(Line(*map(numberline.number_to_point, [0, 0.11111])), UP)
         #brace.shift(0.2*UP)
         self.play(GrowFromCenter(brace))
-        self.dither()
         simple_num_dot = Dot(numberline.number_to_point(-1.5))
         simple_num_desc = TexMobject("-1.5").next_to(simple_num_dot, DOWN)
         simple_num_desc.set_color(GREEN)
 
+        self.wait_to(60 + 13.7)
         self.play(*(map(FadeOut, [set_complet, strict_q, zero_point, num_seq, uncount, brace]) +
                     [FadeIn(simple_num_desc), Transform(num_dot, simple_num_dot)]))
+        self.wait_to(60 + 17)
 
 class RealToSubset(Scene):
     def construct(self):
@@ -711,11 +747,15 @@ class RealToSubset(Scene):
         representation.to_corner(UP+LEFT)
         repr_body = VGroup(*[repr[1] for repr in representation])
         repr_quotes = VGroup(*[VGroup(repr[0],repr[2]) for repr in representation])
+
+        self.wait_to(5)
         self.play(ReplacementTransform(num_desc.copy(), repr_body),
                   FadeIn(repr_quotes))
 
+        self.wait_to(8)
         self.play(ShowCreation(VGroup(*[enc[0] for enc in encoding])))
-        self.dither()
+
+        self.wait_to(14.5)
         self.play(ShowCreation(VGroup(*[VGroup(enc[1], enc[2]) for enc in encoding])))
 
         repr_num = VGroup(*[encoding[i][2].copy() for i in representation_data])
@@ -726,22 +766,29 @@ class RealToSubset(Scene):
 
         self.play(FadeOut(repr_quotes),
                   ReplacementTransform(repr_body, repr_num))
-        self.dither()
+
+        self.wait_to(19)
         repr_rect = SurroundingRectangle(repr_num, color = RED, buff = MED_SMALL_BUFF)
         self.play(ShowCreation(repr_rect))
 
+        self.wait_to(22)
         for _ in range(2):
             self.play(Swap(repr_num[1], repr_num[3]), Swap(num_desc[1], num_desc[3]))
-            self.dither()
+            if i == 0: self.wait_to(27)
 
         info = []
         for i in range(1,4):
             cur_info = self.index_info(repr_num[i], 100*i+representation_data[i])
+
+            if i == 1: self.wait_to(39)
+            elif i == 2: self.wait_to(43)
+            elif i == 3: self.wait_to(46.5)
             self.play(FadeIn(cur_info))
             info.append(cur_info)
 
         info = VGroup(*info)
-        self.dither()
+
+        self.wait_to(51)
         self.play(*map(FadeOut, [repr_num, numberline, desc_R, info, repr_rect, num_dot, num_desc]))
 
         pi_str = "3.14159265358979323846265338327950288"
@@ -750,20 +797,22 @@ class RealToSubset(Scene):
         pi_str_mobj.shift(1.5*UP+2*RIGHT)
         pi_str_mobj = VGroup(*[VGroup(c) for c in pi_str_mobj])
         self.play(FadeIn(pi_str_mobj))
-        self.dither()
 
         pi_num_list = [3, 111] + [200+100*i+int(c) for i,c in enumerate(pi_str[2:])]
         pi_num_list_mobj = VGroup(*[TexMobject(str(num)) for num in pi_num_list])
         pi_num_list_mobj.arrange_submobjects(buff = 0.25)
         pi_rect = SurroundingRectangle(pi_num_list_mobj, color = RED, buff = MED_SMALL_BUFF)
         VGroup(pi_num_list_mobj, pi_rect).to_corner(LEFT+UP)
+
+        self.wait_to(56)
         self.play(FadeIn(pi_rect),
                   ReplacementTransform(pi_str_mobj.copy(), pi_num_list_mobj))
-        self.dither()
         match_start = pi_str_mobj.get_edge_center(UP)+0.1*UP
         match_end = pi_rect.get_edge_center(DOWN)
         match_start[0] = match_end[0] = 0
         match_line = Line(match_start, match_end, color = GREEN)
+
+        self.wait_to(59)
         self.play(ShowCreation(match_line))
 
         question = TexMobject("|", "\\mathbb R", "| = |", "\\mathcal P(\\omega)", "|?")
@@ -774,13 +823,18 @@ class RealToSubset(Scene):
         q_point = encoding.get_corner(UP+RIGHT)
         q_point[0] = (q_point[0] + SPACE_WIDTH)/2
         question.shift(q_point - question.get_edge_center(UP))
+
+        self.wait_to(60 + 18.5)
         self.play(Write(question))
-        self.dither()
+
         arrow = Arrow(ORIGIN, UP)
         arrow.next_to(question[2][1], DOWN)
         note.next_to(arrow, DOWN)
-        #self.play(ShowCreation(arrow), FadeIn(note))
-        #self.dither()
+
+        self.wait_to(60 + 32)
+        self.play(ShowCreation(arrow), FadeIn(note))
+
+        self.wait_to(60 + 59)
 
     def index_info(self, mobj, value):
         result = TexMobject(str(value))
@@ -998,14 +1052,16 @@ class CantorBernsteinScene(Scene):
         self.add_foreground_mobjects(self.nodes_up, self.nodes_down)
 
         self.play(ShowCreation(edges_down, submobject_mode = "all_at_once"))
+        self.wait_to(3)
         self.highlight_point(missed_down, DOWN)
+        self.wait_to(4.8)
         self.play(edges_down.highlight, self.dark_down)
 
         self.play(ShowCreation(edges_up, submobject_mode = "all_at_once"))
+        self.wait_to(9)
         self.highlight_point(missed_up, UP)
         self.play(edges_up.highlight, self.dark_up)
 
-        self.dither()
         self.play(self.nodes_up.highlight, self.dark_down,
                   self.nodes_down.highlight, self.dark_up)
 
@@ -1014,73 +1070,82 @@ class CantorBernsteinScene(Scene):
             comp.comp_index = i
 
         seq = one_sided_up[-1]
-        descs_group = self.gradually_connect(seq, descs=("5", "\{5\}", "0.000001") )
-        self.dither()
+        descs_group = self.gradually_connect(
+            seq, descs=("5", "\{5\}", "0.000001"),
+            waits = (24.5, 32, 34.5, 39, 45, 49, 56)
+        )
+        self.wait_to(60 + 8.5)
         self.play(FadeOut(descs_group))
-
         self.play(self.to_side(seq))
-        self.dither()
 
         seq = one_sided_down[0]
-        self.gradually_connect(one_sided_down[0])
+        self.gradually_connect(one_sided_down[0], waits = (60 + 28,))
         self.play(self.to_side(seq))
-        self.dither()
 
+        self.wait_to(60 + 34)
         self.play(*map(FadeOut, [desc_R, desc_PX]))
 
         for seq in [one_sided_up[1], one_sided_down[1], one_sided_up[0]]:
             self.simultaneously_connect(seq)
             self.dither()
             self.play(self.to_side(seq))
-        self.dither()
 
+        self.wait_to(2*60 + 4-8)
         self.gradually_connect(cycles[0])
         self.play(self.to_side(cycles[0]))
-        self.dither()
         self.play(*map(self.to_side, both_sided))
 
         for seq in both_sided:
             self.simultaneously_connect(seq)
-#        self.dither()
-#
-#        self.play(*(self.unhighlight_seqs(one_sided_down+both_sided+cycles)))
-#        self.dither()
-#        self.play(*(self.unhighlight_seqs(one_sided_up) +
-#                    self.highlight_seqs(one_sided_down)))
-#        self.dither()
-#        self.play(*(self.unhighlight_seqs(one_sided_down) +
-#                    self.highlight_seqs(both_sided+cycles)))
-#        self.dither()
-#
-        self.play(*(self.unhighlight_seqs(both_sided+cycles) +
-                    self.highlight_seqs(one_sided_up)))
-#        self.dither()
-        self.remove_matching(one_sided_up)
-#        self.dither()
+
+        self.wait_to(2*60 + 20)
+        self.play(*(self.unhighlight_seqs(one_sided_down+both_sided+cycles)))
+        self.wait_to(2*60 + 23)
         self.play(*(self.unhighlight_seqs(one_sided_up) +
                     self.highlight_seqs(one_sided_down)))
-#        self.dither()
+        self.wait_to(2*60 + 26.5)
+        self.play(*(self.unhighlight_seqs(one_sided_down) +
+                    self.highlight_seqs(both_sided+cycles)))
+
+        self.wait_to(2*60 + 31.5)
+        self.play(*(self.unhighlight_seqs(both_sided+cycles) +
+                    self.highlight_seqs(one_sided_up)))
+        self.remove_matching(one_sided_up)
+
+        self.wait_to(2*60 + 34)
+        self.play(*(self.unhighlight_seqs(one_sided_up) +
+                    self.highlight_seqs(one_sided_down)))
         self.remove_matching(one_sided_down)
-#        self.dither()
+
+        self.wait_to(2*60 + 36.5)
         self.play(*(self.unhighlight_seqs(one_sided_up) +
                     self.highlight_seqs(both_sided+cycles)))
-#        self.dither()
+        self.wait_to(2*60 + 38)
         self.remove_matching(both_sided+cycles)
-#        self.dither()
 
+        self.wait_to(2*60 + 40)
         self.play(*self.highlight_seqs(one_sided))
         to_center_anim = []
         for seq in components:
             to_center_anim.append(self.to_center(seq))
         self.play(*to_center_anim)
-        self.dither(2)
+
+        self.wait_to(2*60 + 50.5)
+        title = TextMobject("Cantor-Bernstein Theorem")
+        title.scale(1.3)
+        title.to_edge(UP)
+        self.play(Write(title))
+        
+        self.wait_to(3*60 + 5.5)
 
         #self.revert_to_original_skipping_status()
 
-    def gradually_connect(self, seq, descs = ()):
+    def gradually_connect(self, seq, descs = (), waits = ()):
 
         self.remove(seq.mobj)
         self.add(seq.mobj)
+
+        wait_index = 0
 
         forward = True
         dir = UP
@@ -1103,6 +1168,7 @@ class CantorBernsteinScene(Scene):
 
         if not both_sided:
             dot = nodesB[0]
+            if len(waits) > 0: self.wait_to(waits[0]-1)
             self.highlight_point(dot, dir, keep_colored = True, color = colorA)
 
         else: forward = False
@@ -1113,8 +1179,10 @@ class CantorBernsteinScene(Scene):
                 descs_group.add(desc)
                 desc.next_to(dot, dir)
                 descs = descs[1:]
+                if wait_index < len(waits):
+                    self.wait_to(waits[wait_index])
+                    wait_index += 1
                 self.play(FadeIn(desc))
-                self.dither()
 
             connection_ori = matchingA[index]
             if forward: connection = connection_ori.copy()
@@ -1130,6 +1198,10 @@ class CantorBernsteinScene(Scene):
             animations = [ShowCreation(connection)]
             if not forward: animations.append(FadeOut(connection_ori))
             if dot is not None: animations += [dot.highlight, colorB]
+
+            if wait_index < len(waits):
+                self.wait_to(waits[wait_index])
+                wait_index += 1
             self.play(*animations)
 
             self.remove(connection_ori)
@@ -1272,16 +1344,18 @@ class RemainingQuestions(Scene):
         questions = VGroup(comparable, continuum)
         questions.arrange_submobjects(DOWN, aligned_edge = LEFT, buff = 1)
         self.play(Write(comparable))
+        self.wait_to(10.5)
         self.play(Write(continuum))
         icon_yes = IconYes().next_to(comparable, buff = 0.5)
+
+        self.wait_to(22.5)
         self.play(ShowCreation(icon_yes))
-        self.dither()
 
         continuum_ans = TextMobject("Forever open...")
         continuum_ans.set_color(YELLOW)
         continuum_ans.next_to(continuum, DOWN, buff = 0.5)
+        self.wait_to(35.5)
         self.play(Write(continuum_ans))
-        self.dither()
 
         stamp_text = TextMobject("Proven")
         stamp_rect = SurroundingRectangle(stamp_text, buff = 0.2)
@@ -1292,8 +1366,7 @@ class RemainingQuestions(Scene):
         stamp.next_to(continuum_ans)
         stamp.shift(1.3*LEFT + 0.25*DOWN)
 
+        self.wait_to(53)
         self.play(FadeInZoomOut(stamp, about_point = stamp.get_center()))
-        self.dither()
 
-        return
-        self.play(Write(comparable))
+        self.wait_to(60+4)

@@ -370,7 +370,7 @@ class FirstLimitStep(Scene):
 
         limit_col = YELLOW
 
-        self.force_skipping()
+        #self.force_skipping()
         #self.skip_animations = True
 
         ordinal = OrdinalOmega(x0 = -6, x1 = 4, q = (0.8, 0.9, 0.9))

@@ -452,8 +452,11 @@ class Scene(object):
 
     def wait_to(self, time, assert_positive = True):
         if self.ignore_waits: return
-        time -= self.current_scene_time
-        if assert_positive: assert(time >= 0)
-        elif time < 0: return
+        if time < self.current_scene_time:
+            if not assert_positive: return
+            raise Exception("Negative time: Cannot wait to {} from {}".format(
+                time, self.current_scene_time
+            ))
 
-        self.dither(time)
+        wait_time = time - self.current_scene_time
+        self.dither(wait_time)

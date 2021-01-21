@@ -60,7 +60,7 @@ The trouble-makers are primarily such elements that are not covered by one of th
 
 Such infinite paths are isolated from each other because every point in the path can be connected by at most one green edge and one red edge and both of them are already in the path.
 
-Similarly, if we start with a point not covered by the green matching, we find a path on which we are forced to take the green connections. For every uncovered red or green point, there is a corresponding infinite sequence of forced matching lines. Actually, there is an infinite amount of such sequences. But there is no difference in the reasoning and showing all of them would make the picture too messy.
+Similarly, if we start with a point not covered by the green matching, we find a path on which we are forced to take the red connections. For every uncovered red or green point, there is a corresponding infinite sequence of forced matching lines. Actually, there is an infinite amount of such sequences. But there is no difference in the reasoning and showing all of them would make the picture too messy.
 
 But even after isolating these sequences, the matching is not completely analyzed. Just that every remaining point is now connected by both red and green matching.
 

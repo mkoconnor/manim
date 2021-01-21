@@ -32,11 +32,10 @@ class Chapter7OpeningTitle(OpeningTitle):
 class Chapter7OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "From his","paradise","that Cantor with us unfolded, we hold our breath in awe; knowing, we shall","not be expelled."
+            "No one shall expel us from the","Paradise\\\\","that Cantor has created."
         ],
         "highlighted_quote_terms" : {
-            "paradise" : YELLOW,
-            "not be expelled" : GREEN,
+            "Paradise" : GREEN,
         },
         "author" : "David Hilbert"
     }
@@ -66,10 +65,12 @@ class CardinalsOrdinalsRecap(chapter2.NotationScene):
         ordinals_title.next_to(ordinal_bg, UP, aligned_edge = LEFT, buff = 0.5)
         ordinal = VGroup(ordinal_bg[0], VGroup(*ordinal_bg[1][:3])).copy()
         ordinal_bg.set_color(DARK_GREY)
+        self.wait_to(3.7)
         self.play(FadeIn(ordinal_bg), FadeIn(ordinals_title))
         self.play(ShowCreation(ordinal[0]))
         self.play(ShowCreation(ordinal[1]))
-        self.dither()
+
+        self.wait_to(9)
         self.play(FadeOut(self.overall_picture))
 
         card_sum = TexMobject("\\aleph_0 + \\aleph_0 = \\aleph_0")
@@ -78,6 +79,7 @@ class CardinalsOrdinalsRecap(chapter2.NotationScene):
         card_prod.next_to(card_sum, DOWN)
         card_prod.shift((card_sum[-1].get_center() - card_prod[-1].get_center()) * X_MASK)
         self.play(Write(card_sum))
+        self.wait_to(13.5)
         #self.dither()
         self.play(Write(card_prod))
         #self.dither()
@@ -87,6 +89,7 @@ class CardinalsOrdinalsRecap(chapter2.NotationScene):
         ordinals_title_dest = ordinals_title.copy()
         VGroup(ordinal_bg_dest, ordinal_dest, ordinals_title_dest).shift(0.7*UP)
         ord_type_brace = BraceDesc(ordinal_dest, "\\omega+3")
+        self.wait_to(17.5)
         self.play(
             Transform(ordinal_bg, ordinal_bg_dest),
             Transform(ordinal, ordinal_dest),
@@ -99,20 +102,22 @@ class CardinalsOrdinalsRecap(chapter2.NotationScene):
         index_label = ord_type_brace.desc.copy()
         index_label.set_color(BLUE)
         index_label.next_to(pointer, UP)
+        self.wait_to(24.5)
         self.play(
             ShowCreation(bar),
             FadeIn(pointer),
             FadeIn(index_label),
         )
+        self.wait_to(28)
 
 class SupremumRecap(chapter5.OrdinalByRecursion):
     def construct(self):
-        title = TextMobject("Supremum")
+        title = TextMobject("Ordinal Union = Supremum")
         title.to_edge(UP)
         self.add(title)
         
         supremum, _ = self.play_infinite_supremum()
-        self.dither()
+        self.wait_to(17.5)
         self.play(FadeOut(supremum))
 
 class Supremum(Scene):
@@ -134,8 +139,11 @@ class Supremum(Scene):
             self.add(ordinals, dots)
         else:
             self.play(ShowCreation(omega))
+            self.wait_to(6)
             self.play(ShowCreation(omega_plus_5))
+            self.wait_to(7.3)
             self.play(ShowCreation(omega_times_3))
+            self.wait_to(8.5)
             self.play(ShowCreation(omega_pow_3))
             self.play(FadeIn(dots))
             #self.dither()
@@ -168,7 +176,7 @@ class Supremum(Scene):
         al_omega_pow_3[0].add_to_back(*result_in_pow_3.submobjects)
 
         al_ordinals = VGroup(al_omega, al_omega_plus_5, al_omega_times_3, al_omega_pow_3)
-        if not fast_play: self.dither()
+        if not fast_play: self.wait_to(14.5)
         self.play(ReplacementTransform(ordinals, al_ordinals))
 
         al_ordinals.remove(al_omega_pow_3)
@@ -187,7 +195,7 @@ class Supremum(Scene):
             mrg_omega, mrg_omega_plus_5, mrg_omega_times_3,
             result.copy(), VGroup(result.copy()),
         )
-        if not fast_play: self.dither()
+        if not fast_play: self.wait_to(16)
         self.play(
             FadeOut(dots),
             ReplacementTransform(al_ordinals, mrg_ordinals),
@@ -198,21 +206,24 @@ class Supremum(Scene):
         if fast_play: return result
         #self.dither()
         brace = BraceDesc(result, "\\omega_1", UP)
+        self.wait_to(17.5)
         self.play(brace.creation_anim())
-        #self.dither()
+        self.wait_to(21)
 
         conversation = Conversation(self)
         conversation.add_bubble("You've said in chapter 5 that taking all ordinals is forbidden.")
-        self.dither(2)
+        self.wait_to(26.5)
         conversation.add_bubble("We are using just the countable ones.")
-        self.dither(2)
 
+        self.wait_to(35)
         self.add_foreground_mobjects(conversation.dialog)
         self.play(FadeOut(VGroup(brace, result)))
 
         omega = OrdinalOmega()
         omega.shift(2*UP)
         self.play(ShowCreation(omega))
+        self.wait_to(41.5)
+        self.play(FadeOut(conversation.dialog))
 
 class Reorderings(Scene):
     def construct(self):
@@ -230,13 +241,13 @@ class Reorderings(Scene):
         omega_plus_5.shift(shift)
         omega_src = LimitSubOrdinal(omega[5:])
         five_src = VGroup(*omega[:5])
-        #self.dither()
+        self.dither()
         self.play(
             ReplacementTransform(omega_src, omega_plus_5[0]),
             ReplacementTransform(five_src, omega_plus_5[1], path_arc = np.pi/2),
         )
         self.add_to_list(omega_plus_5)
-        #self.dither()
+        self.dither()
 
         omega_times_2 = OrdinalFiniteProd(OrdinalOmega, 2)
         omega_times_2.shift(shift)
@@ -260,7 +271,7 @@ class Reorderings(Scene):
         self.remove(*self.mobjects_from_last_animation)
         self.add(omega_times_2)
         self.add_to_list(omega_times_2)
-        #self.dither()
+        self.dither()
 
         omega = omega_ori
         self.play(
@@ -270,7 +281,7 @@ class Reorderings(Scene):
                       path_arc = np.pi/2),
         )
         self.add_to_list(omega)
-        self.dither()
+        self.wait_to(11)
 
     def add_to_list(self, ordinal):
 
@@ -292,6 +303,7 @@ class Omega1Intro(Supremum):
         #self.force_skipping()
         supremum = Supremum.construct(self, fast_play = True)
 
+        self.wait_to(2.7)
         omega1_brace = BraceDesc(supremum, "\\omega_1", UP)
         self.play(omega1_brace.creation_anim())
 
@@ -301,7 +313,7 @@ class Omega1Intro(Supremum):
         omega1_src[1].next_to(supremum, buff = 0)
         omega1_src[1].add_to_back(*supremum.submobjects)
 
-        #self.dither()
+        self.wait_to(4.6)
         self.play(
             ReplacementTransform(omega1_src, omega1),
             omega1_brace.shift_brace, omega1,
@@ -324,18 +336,18 @@ class Omega1Intro(Supremum):
         brace_label = countable_label.copy()
         brace.put_at_tip(brace_label)
 
-        #self.dither()
+        self.wait_to(7)
         self.play(
             FadeIn(countable_label),
             FadeIn(countable_point),
             ShowCreation(countable_arrow),
         )
-        #self.dither()
+        self.wait_to(8.6)
         self.play(
             GrowFromCenter(brace),
             ReplacementTransform(countable_label, brace_label),
         )
-        self.dither()
+        self.wait_to(19.8)
 
         uncountable_brace = Brace(omega1, DOWN)
         uncountable_label = TextMobject("un","countable ordinal",
@@ -361,11 +373,12 @@ class Omega1Intro(Supremum):
         uncountable_label.shift(uncountable_label.get_center()
                                 - uncountable_label[0].get_center())
 
+        self.wait_to(38.5)
         self.play(
             Transform(brace, uncountable_brace),
             Transform(brace_label, uncountable_label),
         )
-        self.dither()
+        self.wait_to(45.5)
 
         omega = OrdinalOmega()
         self.play(
@@ -382,7 +395,7 @@ class AnalogyOmega(chapter5.OrdinalByRecursion):
         omega = OrdinalOmega()
         omega_brace = BraceDesc(omega, "\\omega", UP)
         self.add(omega_brace)
-        omega, _ = self.play_infinite_supremum()
+        omega, _ = self.play_infinite_supremum(waits = (3, 4))
         fin_index = 12
         bar = omega[fin_index].copy()
         bar.highlight(YELLOW)
@@ -392,6 +405,7 @@ class AnalogyOmega(chapter5.OrdinalByRecursion):
         )
         label = TextMobject("a", "finite ordinal").next_to(arrow, DOWN)
 
+        self.wait_to(10.5)
         self.play(
             ShowCreation(bar),
             ShowCreation(arrow),
@@ -403,6 +417,7 @@ class AnalogyOmega(chapter5.OrdinalByRecursion):
         brace_label = label.copy()
         finite_brace.put_at_tip(brace_label)
 
+        self.wait_to(17)
         self.play(
             GrowFromCenter(finite_brace),
             ReplacementTransform(label, brace_label),
@@ -414,9 +429,10 @@ class AnalogyOmega(chapter5.OrdinalByRecursion):
                  omega.get_edge_center(RIGHT)),
             "infinite"
         )
+        self.wait_to(20)
         self.play(terminal_segment_brace.creation_anim())
-        self.dither()
 
+        self.wait_to(35.5)
         self.play(FadeOut(VGroup(
             finite_brace, brace_label, terminal_segment_brace,
             bar, arrow,
@@ -473,23 +489,21 @@ class LeastInfinite(Scene):
             VGroup(self.omega, self.omega_brace).shift, shift*UP,
             Transform(self.subset_fin, self.shifted_subset_fin)
         )
-        #self.dither()
+        self.wait_to(2.5)
         self.play(Transform(self.subset_fin, self.al_subset_fin))
-        #self.dither()
 
+        self.wait_to(8)
         self.play(self.brace_fin.creation_anim())
-        self.dither()
 
+        self.wait_to(12.5)
         self.play(FadeOut(VGroup(self.subset_fin, self.brace_fin)))
 
         # infinite subset
 
         self.play(Transform(self.subset_inf, self.shifted_subset_inf))
         self.play(Transform(self.subset_inf, self.al_subset_inf))
-        #self.dither()
-       
         self.play(self.brace_inf.creation_anim())
-        self.dither()
+        self.wait_to(35)
 
         self.play(FadeOut(VGroup(self.subset_inf, self.brace_inf)))
 
@@ -538,13 +552,12 @@ class LeastUncountable(Scene):
 
         # countable subset
         
-        self.dither()
         self.play(Transform(self.count_subset, self.shifted_count_subset))
-        self.dither()
+        self.wait_to(3)
         self.play(Transform(self.count_subset, self.al_count_subset))
-        #self.dither()
+        self.wait_to(7.5)
         self.play(self.count_brace.creation_anim())
-        self.dither()
+        self.wait_to(14.5)
 
         self.play(FadeOut(VGroup(self.count_brace, self.count_subset)))
 
@@ -609,8 +622,9 @@ class LeastUncountable(Scene):
         cardinality.shift(self.omega1_brace.desc.get_center()
                           - cardinality[1].get_center())
         cardinality.remove(cardinality[1])
+        self.wait_to(32)
         self.play(Write(cardinality))
-        self.dither()
+        self.wait_to(41)
 
 class ContinuumHypothesis(Scene):
     def construct(self):
@@ -638,15 +652,15 @@ class ContinuumHypothesis(Scene):
         arrow_end = (cardinalities[1].get_center() + cardinalities[4].get_center())/2
         arrow = Arrow(arrow_end+DOWN, arrow_end)
 
-        why_not_answer = TextMobject("Why anything\\\\ should be here?",
+        why_not_answer = TextMobject("Why should\\\\ anything be here?",
                                  alignment="\\raggedright")
         why_not_answer.next_to(arrow, DOWN, aligned_edge = LEFT)
         why_not_answer.shift(0.5*LEFT)
 
-        #self.dither()
+        self.wait_to(15)
         self.play(ShowCreation(arrow), FadeIn(why_not_answer))
 
-        self.dither()
+        self.wait_to(24)
         self.play(FadeOut(VGroup(arrow, why_not_answer)))
         why_answer = VGroup(cardinalities[3], cardinalities[5])
         why_answer.set_color(WHITE)
@@ -660,7 +674,7 @@ class ContinuumHypothesis(Scene):
 
         reals.to_edge(DOWN)
         omega1.next_to(reals, UP, buff = 2)
-        self.dither()
+        self.wait_to(43.5)
         self.play(FadeOut(question))
         self.play(FadeIn(reals), FadeIn(omega1))
 
@@ -680,14 +694,15 @@ class ContinuumHypothesis(Scene):
             matching,
             submobject_mode = "all_at_once",
         ))
-        self.dither()
+        self.wait_to(52)
         self.play(FadeOut(matching))
+        self.wait_to(57.5)
 
 class UnboundedOmega(LeastInfinite):
     def construct(self):
 
         VGroup(
-            self.omega, self.omega_brace, self.subset_inf
+            self.omega, self.omega_brace
         ).shift(self.shift*UP)
         
         subset_ori = self.subset_inf.copy()
@@ -696,27 +711,30 @@ class UnboundedOmega(LeastInfinite):
         self.play(Transform(subset, self.shifted_subset_inf))
         self.play(Transform(subset, self.al_subset_inf))
 
-        #self.dither()
+        self.wait_to(9)
         self.play(Transform(subset, self.shifted_subset_inf))
-        #self.dither()
 
+        unbounded = TextMobject("unbouded")
+        unbounded.next_to(subset, LEFT, buff = 0.5)
+        self.wait_to(11)
+        self.play(FadeIn(unbounded))
+
+        self.wait_to(15)
         self.subset = subset
         self.brace = None
-        self.show_terminal_brace(-2)
+        self.show_terminal_brace(-2) # 16
         self.dither()
-        self.show_terminal_brace(0)
+        self.show_terminal_brace(0) # 18
         self.dither()
-        self.show_terminal_brace(2)
-        self.dither()
+        self.show_terminal_brace(2) # 20
 
+        self.dither()
         self.play(
             FadeOut(self.brace),
-            subset.highlight, BLUE,
+            subset.highlight, BLUE, # 22
         )
-        unbounded = TextMobject("unbounded")
-        unbounded.next_to(subset, DOWN)
-        self.play(FadeIn(unbounded))
-        self.dither()
+
+        self.wait_to(23.5)
 
         self.play(
             FadeOut(VGroup(unbounded, subset)),
@@ -732,6 +750,7 @@ class UnboundedOmega(LeastInfinite):
         )
         bar = subset[-1].copy()
         bar.highlight(YELLOW)
+        self.wait_to(32)
         self.play(ShowCreation(bar))
         term_part = VGroup([
             p
@@ -742,13 +761,14 @@ class UnboundedOmega(LeastInfinite):
         label = TextMobject("unused")
         label.next_to(brace, DOWN, aligned_edge = LEFT)
         bar = bar.copy()
+        self.wait_to(33.5)
         self.play(bar.shift, 2*self.shift*UP)
         term_part.highlight(WHITE)
         self.play(
             GrowFromCenter(brace),
             FadeIn(label),
         )
-        self.dither()
+        self.wait_to(39.5)
 
     def show_terminal_brace(self, pos):
         line = Line(pos*RIGHT, 4*RIGHT)
@@ -772,21 +792,20 @@ class UnboundedOmega1(LeastUncountable):
         
         subset = self.al_count_subset
         self.play(FadeIn(subset))
-        #self.dither()
-        self.play(self.count_brace.creation_anim())
-        self.dither()
+        self.wait_to(5)
+        self.play(self.count_brace.creation_anim()) # 6
+        self.dither() # 7
         self.play(
             Transform(subset, self.shifted_count_subset),
             self.count_brace.shift_brace, self.shifted_count_subset,
-        )
-        #self.dither()
+        ) # 8
 
         supremum = Line(ORIGIN, DOWN).next_to(subset, buff = 0)
         supremum.set_color(YELLOW)
+        self.wait_to(13.5)
         self.play(ShowCreation(supremum))
 
-        #self.dither()
-
+        self.wait_to(17)
         identity = TexMobject("\\aleph_0\\cdot\\aleph_0 = \\aleph_0")
         identity.next_to(supremum, buff = 1)
         self.play(FadeIn(identity))
@@ -794,9 +813,10 @@ class UnboundedOmega1(LeastUncountable):
         supremum_in_ori = supremum.copy()
         supremum_in_ori.move_to(self.omega1, coor_mask = Y_MASK)
         #self.dither()
+        self.wait_to(27)
         self.play(ReplacementTransform(supremum.copy(), supremum_in_ori))
 
-        self.dither()
+        self.wait_to(30)
         self.play(FadeOut(identity))
         brace_base = Line(
             supremum_in_ori.get_edge_center(DOWN),
@@ -805,7 +825,7 @@ class UnboundedOmega1(LeastUncountable):
         brace_unused = BraceText(brace_base, "unused")
         self.play(brace_unused.creation_anim())
 
-        self.dither()
+        self.wait_to(45.3)
         self.play(FadeOut(VGroup(
             brace_unused, subset, supremum, supremum_in_ori, self.count_brace
         )))
@@ -817,10 +837,10 @@ class UnboundedOmega1(LeastUncountable):
         self.play(ShowCreation(seq))
 
         supremum.next_to(seq, buff = 0)
-        #self.dither()
+        self.wait_to(52.8)
         self.play(ShowCreation(supremum))
 
-        #self.dither()
+        self.wait_to(60 + 3)
         self.play(FadeOut(VGroup(seq, supremum)))
 
         seq = OrdinalOmega(x0 = -1, x1 = 4)
@@ -830,7 +850,7 @@ class UnboundedOmega1(LeastUncountable):
         self.play(ShowCreation(seq))
 
         self.revert_to_original_skipping_status()
-        self.dither()
+        self.wait_to(60 + 8)
         self.omega1.add(seq)
         stretched_omega1 = self.omega1.copy()
         stretched_omega1.stretch_about_point(
@@ -855,7 +875,7 @@ class UnboundedOmega1(LeastUncountable):
             FadeIn(brace_unc.desc),
         )
         self.play(ShowCreation(supremum))
-        self.dither()
+        self.wait_to(60 + 21.5)
 
 class SemiOpen(VMobject):
     def __init__(self, left = LEFT, right = RIGHT, color = BLUE, dot_radius = 0.1, **kwargs):
@@ -879,7 +899,7 @@ class SemiOpen(VMobject):
 class IntervalMul(Scene):
     def construct(self):
 
-        self.force_skipping()
+        #self.force_skipping()
         
         # left-closed, right-open, two intervals
         
@@ -890,7 +910,7 @@ class IntervalMul(Scene):
             FadeIn(interval1),
             FadeIn(interval2),
         )
-        self.dither()
+        self.wait_to(5.5)
 
         self.play(
             interval1.move_to, LEFT,
@@ -905,37 +925,40 @@ class IntervalMul(Scene):
         self.dither()
         interval_dest = SemiOpen(LEFT, RIGHT)
         self.play(Transform(interval, interval_dest))
-        self.dither()
-        self.play(FadeOut(interval))
+        self.wait_to(16)
+        
+        #self.play(FadeOut(interval))
+        self.play(Rotate(interval, in_place = True))
+        self.remove(interval)
+        interval = SemiOpen(RIGHT, LEFT)
+        self.add(interval)
 
-        interval1 = SemiOpen()
-        interval2 = interval1.copy()
-        VGroup(interval1, interval2).arrange_submobjects(buff = 1)
-        for interval in [interval1, interval2]:
-            interval.stretch_in_place(-1, 0)
+        #interval1 = SemiOpen()
+        #interval2 = interval1.copy()
+        #VGroup(interval1, interval2).arrange_submobjects(buff = 1)
+        #for interval in [interval1, interval2]:
+        #    interval.stretch_in_place(-1, 0)
 
         # left-open, right-closed, two intervals
 
-        self.revert_to_original_skipping_status()
-        self.play(
-            FadeIn(interval1),
-            FadeIn(interval2),
-        )
-        #self.dither()
+        #self.revert_to_original_skipping_status()
+        #self.play(
+        #    FadeIn(interval1),
+        #    FadeIn(interval2),
+        #)
 
-        self.play(
-            interval2.move_to, RIGHT,
-            interval1.move_to, LEFT,
-        )
-        self.remove(interval2.second_point)
-        self.play(interval1.first_point.scale_in_place, 0)
+        #self.play(
+        #    interval2.move_to, RIGHT,
+        #    interval1.move_to, LEFT,
+        #)
+        #self.remove(interval2.second_point)
+        #self.play(interval1.first_point.scale_in_place, 0)
 
-        interval = SemiOpen(2*RIGHT, 2*LEFT)
-        self.remove(interval1, interval2)
-        self.add(interval)
-        #self.dither()
-        interval_dest = SemiOpen(RIGHT, LEFT)
-        self.play(Transform(interval, interval_dest))
+        #interval = SemiOpen(2*RIGHT, 2*LEFT)
+        #self.remove(interval1, interval2)
+        #self.add(interval)
+        #interval_dest = SemiOpen(RIGHT, LEFT)
+        #self.play(Transform(interval, interval_dest))
         #self.dither()
 
         # left-open, right-closed, omega
@@ -981,16 +1004,16 @@ class IntervalMul(Scene):
                  interval_copies[-1].second_point)
         self.add_foreground_mobjects(final_interval.second_point)
 
-        self.dither()
+        self.wait_to(32)
 
         # left-closed, right-open, omega
 
-        self.play(Rotate(interval, in_place = True))
+        self.play(Rotate(interval, in_place = True)) # 33
 
-        self.dither()
+        self.dither() # 34
 
         self.play(
-            Transform(to_shrink, to_shrink_ori),
+            Transform(to_shrink, to_shrink_ori), # 34.5
             run_time = 0.5,
         )
 
@@ -1046,13 +1069,12 @@ class IntervalMul(Scene):
         intervals2.append(SemiOpen(RIGHT*omega_cdot_2.x0, RIGHT*omega_cdot_2[1][1].x1))
         VGroup(omega_cdot_2, intervals2).shift(UP)
 
-        self.dither()
+        #self.wait_to(37)
         self.play(
             ReplacementTransform(omega, omega_cdot_2[0]),
             Transform(interval, intervals2[0]),
         )
-        self.revert_to_original_skipping_status()
-        self.dither()
+        self.wait_to(38.3)
 
         self.remove_foreground_mobjects(interval.second_point)
         interval2_1_src = intervals2[1].copy()
@@ -1065,7 +1087,7 @@ class IntervalMul(Scene):
         self.remove(interval.second_point)
         interval.line.scale_about_point(1.1, interval.line.get_edge_center(LEFT))
         self.play(intervals2[1].first_point.scale_in_place, 0, run_time = 0.5)
-        self.dither()
+        self.wait_to(40)
 
         interval2_2_src = intervals2[2].copy()
         interval2_2_src.set_color(BLACK).shift(RIGHT)
@@ -1079,7 +1101,7 @@ class IntervalMul(Scene):
         self.add(interval)
         self.play(intervals2[2].first_point.scale_in_place, 0, run_time = 0.5)
         self.remove(intervals2[2].first_point)
-        self.dither()
+        #self.dither()
 
         self.play(
             FadeIn(VGroup(omega_cdot_2[1][2:]),
@@ -1087,16 +1109,17 @@ class IntervalMul(Scene):
             Transform(interval, intervals2[3]),
         )
         self.dither(2)
+        self.wait_to(51.5)
 
-        self.play(FadeOut(VGroup(omega_cdot_2, interval)))
+        #self.play(FadeOut(VGroup(omega_cdot_2, interval)))
 
-        #conversation = Conversation(self)
-        #conversation.add_bubble("Shouldn't the result be longer than the first factor?")
-        #self.dither()
-        #conversation.add_bubble("Interval is not well-ordered.")
-        #self.dither()
+        conversation = Conversation(self)
+        conversation.add_bubble("Shouldn't the result be longer than the first factor?")
+        self.wait_to(60+1)
+        conversation.add_bubble("Interval is not well-ordered.")
+        self.wait_to(60+17)
 
-        #self.play(FadeOut(VGroup(omega_cdot_2, interval, conversation.dialog)))
+        self.play(FadeOut(VGroup(omega_cdot_2, interval, conversation.dialog)))
 
 class LongLine(Scene):
     def construct(self):
@@ -1153,25 +1176,25 @@ class LongLine(Scene):
                             omega1_start.get_edge_center(RIGHT))
         self.add(interval)
 
-
+        self.wait_to(4.7)
         title = TextMobject("Long Line").to_edge(UP)
         self.play(Write(title))
 
-
-        self.dither()
+        self.wait_to(10)
 
         self.ordinal = omega1_start
         self.brace = None
-        self.show_initial_brace(-1.5)
+        self.show_initial_brace(-1.5) # 11
         self.dither()
-        self.show_initial_brace(2.5)
+        self.show_initial_brace(2.5) # 13
         self.dither()
-        self.show_initial_brace(4.5)
-        self.dither()
+        self.show_initial_brace(4.5) # 15
+        self.dither() # 16
 
         line = Line(-4*RIGHT, 10*RIGHT)
         next_brace = Brace(line, DOWN).highlight(BLACK)
         self.add_foreground_mobjects(interval)
+        self.wait_to(27.5)
         self.play(
             FadeOut(self.ordinal),
             Transform(self.brace, next_brace),
@@ -1188,15 +1211,16 @@ class LongLine(Scene):
         seq_g.set_color(GREEN)
         seq = seq_dest.copy().next_to(seq_start, buff = 1)
         seq.add_to_back(*seq_start)
-        for bar in seq_start:
-            self.play(ShowCreation(bar), run_time = 0.4)
-        self.dither()
+        for bar in seq_start: # 8 x
+            self.play(ShowCreation(bar), run_time = 0.4) # 30.7
+        self.wait_to(32)
         self.play(Transform(seq, seq_dest))
 
         supremum = Line(ORIGIN, DOWN, color = YELLOW).next_to(seq)
         self.play(ShowCreation(supremum))
-        self.dither()
+        self.wait_to(35)
         self.play(FadeOut(VGroup(seq, supremum)))
+        self.wait_to(49)
 
     def show_initial_brace(self, pos):
         line = Line(-4*RIGHT, pos*RIGHT)
@@ -1221,8 +1245,9 @@ class NextChapter(Scene):
         conversation.add_bubble("Sure, why shouldn't be?")
         self.dither()
         conversation.add_bubble("What about the set of all sets not containing themselves?")
-        self.dither()
+        self.dither(2)
         conversation.add_bubble("Just discard some elements of the previous one?")
         self.dither()
         conversation.add_bubble("Does such a set contain itself?")
         conversation.add_bubble("Oops...")
+        self.wait_to(12.5)

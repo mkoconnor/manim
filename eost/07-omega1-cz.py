@@ -272,7 +272,7 @@ class Reorderings(Scene):
         self.remove(*self.mobjects_from_last_animation)
         self.add(omega_times_2)
         self.add_to_list(omega_times_2)
-        self.dither()
+        self.dither(11)
 
         omega = omega_ori
         self.play(
@@ -790,11 +790,11 @@ class UnboundedOmega1(LeastUncountable):
         self.play(FadeIn(subset))
         self.wait_to(5)
         self.play(self.count_brace.creation_anim())
-        self.dither() # 6
+        self.dither() # 7
         self.play(
             Transform(subset, self.shifted_count_subset),
             self.count_brace.shift_brace, self.shifted_count_subset,
-        ) # 7
+        ) # 8
 
         supremum = Line(ORIGIN, DOWN).next_to(subset, buff = 0)
         supremum.set_color(YELLOW)

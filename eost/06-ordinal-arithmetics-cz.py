@@ -277,7 +277,7 @@ class TurtlesRace(RunnerScene):
                       self.steve_step(next_index = "3+\\omega+"+str(self.gordon_index),
                                       bar = self.ordinal[1][self.gordon_index]),
                       run_time = 0.5)
-        # 55.5
+        # 49.5
 
         steve_desc_dest = self.transformed_desc(self.steve_desc, "3+\\alpha")
         steve_desc_dest.add(

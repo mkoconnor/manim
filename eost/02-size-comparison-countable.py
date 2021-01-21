@@ -12,6 +12,24 @@ from eost.matching import get_matching, MatchingAnimations
 from eost.ordinal import *
 from topics.chat_bubbles import Conversation
 import eost.deterministic
+from topics.common_scenes import OpeningTitle, OpeningQuote
+
+class Chapter2OpeningTitle(OpeningTitle):
+    CONFIG = {
+        "chapter_str" : "Chapter 2\\\\ Set Size Comparison, \\\ Countability",
+    }
+
+class Chapter2OpeningQuote(OpeningQuote):
+    CONFIG = {
+        "quote" : [
+            "The Infinite!","No other question has ever moved so profoundly the spirit of man; no other idea has so fruitfully stimulated his intellect; yet no other concept stands in greater need of","clarification"
+        ],
+        "highlighted_quote_terms" : {
+            "The Infinite!" : YELLOW,
+            "clarification" : GREEN,
+        },
+        "author" : "David Hilbert",        
+    }
 
 def permute(l):
     ret = l[:]
@@ -81,9 +99,10 @@ class CountTransform():
         self.numbers = numbers
         self.transforms = transforms
 
-    def play(self,scene):
+    def play(self,scene, run_time):
+        run_time = float(run_time) / len(self.transforms)
         for transform in self.transforms:
-            scene.play(transform)
+            scene.play(transform, run_time = run_time)
 
     def summarize(self):
         central_number = self.numbers[-1].copy()
@@ -104,15 +123,17 @@ class FiniteFruitScene(Scene):
         # Display the two lines of apples and pears
         self.play(Succession(*map(GrowFromCenterGeneral, apples.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
         self.play(Succession(*map(GrowFromCenterGeneral, pears.submobjects), rate_func=None, run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME))
-        self.dither()
         counted_apples = [Apple(i) for i in xrange(5)]
         counted_pears = [Pear(i) for i in xrange(4)]
         counted_apple_group = Group(*counted_apples).arrange_submobjects().to_edge(UP)
         counted_pear_group = Group(*counted_pears).arrange_submobjects().to_edge(DOWN)
         apple_count = CountTransform(apples,counted_apple_group,direction=DOWN)
-        apple_count.play(self)
+        self.wait_to(15.5)
+        apple_count.play(self, run_time = 2.25)
         pear_count = CountTransform(pears,counted_pear_group,direction=UP)
-        pear_count.play(self)
+        self.wait_to(20.5)
+        pear_count.play(self, run_time = 1.8)
+        self.wait_to(23.5)
         self.play(apple_count.summarize(),pear_count.summarize())
         inequality = TexMobject(
             apple_count.numbers[-1].args[0],
@@ -130,7 +151,7 @@ class FiniteFruitScene(Scene):
                 inequality.get_part_by_tex(pear_count.numbers[-1].args[0])
             )
         )
-        self.dither()
+        self.wait_to(35)
         self.play(*map(FadeOut,[
             apple_count.numbers[-1],
             inequality,
@@ -138,13 +159,16 @@ class FiniteFruitScene(Scene):
         ]))
         # Show a matching
         matching = MatchingAnimations(Group(*apples),Group(*pears))
+        self.wait_to(42)
         for anims in matching.match_animations:
             self.play(anims)
+        self.wait_to(47.5)
         self.play(Transform(apples[-1],apples[-1].copy().center().to_edge(UP)))
         self.play(FocusOn2(apples[-1], highlight_color = WHITE))
 
         buff = matching.buff
         matching = matching.matching
+        self.wait_to(53)
         for i in range(2):
             apples.submobjects.sort(key = lambda apple: apple.get_center()[0])
             apples_target = apples.copy()
@@ -152,6 +176,7 @@ class FiniteFruitScene(Scene):
             apples_target.shift(LEFT*apples_target.get_center()[0])
             self.play(Uncreate(matching))
             self.play(Transform(apples, apples_target))
+            if i == 0: self.wait_to(55.5)
             #self.dither()
             # Permute them
             apple_permutations=permute_animations(apples,move="up")
@@ -164,10 +189,20 @@ class FiniteFruitScene(Scene):
             matching = get_matching(Group(*permuted_pears), Group(*permuted_apples))
             self.play(ShowCreation(matching))
             #self.dither()
+            if i == 0: self.wait_to(60)
             self.play(Transform(permuted_apples[-1],permuted_apples[-1].copy().center().to_edge(UP)))
             self.play(FocusOn2(permuted_apples[-1], highlight_color = WHITE))
 
-        self.dither()
+        subtraction = TexMobject("5-4=1")
+        subtraction[0].set_color(RED)
+        subtraction[2].set_color(YELLOW)
+        subtraction[4].set_color(RED)
+        subtraction.to_edge(RIGHT)
+
+        self.wait_to(73)
+        self.play(Write(subtraction))
+        self.wait_to(84)
+        self.play(FadeOut(VGroup(matching, subtraction, *permuted_apples+permuted_pears)))
 
 def number_submobjects(mobj,direction):
     zero = TexMobject("0")
@@ -202,6 +237,7 @@ class InfiniteFruitScene(Scene):
         pear_numbers = number_submobjects(pears,direction=DOWN)
 
         self.play(ShowCreation(apples),Write(apple_numbers))
+        self.wait_to(5.5)
         self.play(ShowCreation(pears),Write(pear_numbers))
         #self.dither()
         apples.submobjects.reverse()
@@ -234,6 +270,7 @@ class InfiniteFruitScene(Scene):
         self.apply_perspective(apple_numbers_persp, objectwise = False)
         self.apply_perspective(pear_numbers_persp,  objectwise = False)
 
+        self.wait_to(10)
         self.play(
             ReplacementTransform(apples, apples_persp),
             ReplacementTransform(pears,  pears_persp),
@@ -252,8 +289,8 @@ class InfiniteFruitScene(Scene):
             Ordinal(*pears[1:]),
         )
         self.darken(matching)
+        self.wait_to(13)
         self.play(ShowCreation(matching))
-        self.dither()
         matching_straight = matching.copy()
 
         # Extra apple
@@ -262,15 +299,16 @@ class InfiniteFruitScene(Scene):
 
         # Extra pear
         self.show_extra_fruit(pears, pears_ori, pear_numbers, pear_numbers_ori,
-                              matching, apples[1:], pears[:-1], matching_straight)
-        self.dither()
+                              matching, apples[1:], pears[:-1], matching_straight,
+                              brief = True)
 
-        self.play(Transform(matching, matching_straight))
+        self.play(Transform(matching, matching_straight)) # 44
 
         definition = TextMobject("Definition:","$|A| = |B|$")
         definition.to_edge(UP)
         self.play(Write(definition[0]))
 
+        self.wait_to(47)
         apple_box, apple_label = self.pack_into_box(apples, apple_numbers, UP, 'A', RED,
                                                     matching, apples, pears)
         #self.dither()
@@ -279,6 +317,7 @@ class InfiniteFruitScene(Scene):
                                                   matching, apples, pears)
         #self.dither()
 
+        self.wait_to(59)
         self.move_labels_to_definition(apple_label, pear_label, definition[1])
 
         finite_pears = VGroup(*pears_ori[-3:])
@@ -290,13 +329,14 @@ class InfiniteFruitScene(Scene):
         pears_dest.fade(0)
         pears_dest.add(*finite_pears.submobjects)
 
+        self.wait_to(60+20.5)
         self.play(
             Uncreate(matching),
             FadeOut(definition[1]),
-        )
+        ) # 1:21.5
         self.play(
             Transform(pears, pears_dest),
-        )
+        ) # 1:22.5
         self.remove(pears)
         self.add(finite_pears)
         finite_pears.submobjects.reverse()
@@ -314,6 +354,7 @@ class InfiniteFruitScene(Scene):
             if remove: self.remove(matching)
             else: return matching
 
+        self.wait_to(60 + 25.5)
         attempt(5,8,12)
         attempt(0,10,19)
         matching = attempt(7,1,0, remove = False)
@@ -321,8 +362,9 @@ class InfiniteFruitScene(Scene):
         def2 = TextMobject(":","$|A|>|B|$")
         def2.shift(definition[0][-1].get_center() - def2[0].get_center())
 
+        self.wait_to(60 + 30)
         self.move_labels_to_definition(apple_label, pear_label, def2[1])
-        self.dither()
+        self.wait_to(60 + 38.5)
 
     def perspective_ratio(self, point):
         return self.camera_distance / (self.camera_distance + point[0])
@@ -350,15 +392,24 @@ class InfiniteFruitScene(Scene):
             el.fade(darkness)
 
     def show_extra_fruit(self, fruits, fruits_ori, fruit_numbers, fruit_numbers_ori,
-                         matching, m1, m2, matching_straight):
+                         matching, m1, m2, matching_straight, brief = False):
 
         matching_shifted = make_ordinal_matching(
             Ordinal(*m1), Ordinal(*m2),
         )
         self.darken(matching_shifted)
 
+        if not brief: self.wait_to(18.7)
         self.play(Transform(matching, matching_shifted))
-        #self.dither()
+
+        if not brief:
+            self.wait_to(20.8)
+            self.play(FocusOn2(m2[-1], highlight_color = WHITE))
+            self.play(FocusOn2(m1[-1], highlight_color = WHITE))
+            self.wait_to(23.4)
+            self.play(FocusOn2(m2[-2], highlight_color = WHITE), run_time = 0.7)
+            self.play(FocusOn2(m1[-2], highlight_color = WHITE))
+
         fruits_shifted = fruits_ori.copy()
         fruit_numbers_shifted = fruit_numbers_ori.copy()
 
@@ -378,13 +429,16 @@ class InfiniteFruitScene(Scene):
 
         fruits.save_state()
         fruit_numbers.save_state()
+        if not brief: self.wait_to(27)
         self.play(
             Transform(fruits, fruits_shifted),
             Transform(fruit_numbers, fruit_numbers_shifted),
             Transform(matching, matching_straight),
-        )
+        ) # 28
         self.play(FocusOn2(fruits[-1], highlight_color = WHITE))
-        self.dither()
+
+        if not brief: self.wait_to(33.5)
+        else: self.wait_to(41)
 
         self.play(
             fruits.restore,
@@ -443,18 +497,20 @@ class NaturalsSubsets(Scene):
         self.number_text = TextMobject("Natural Numbers").to_edge(UP)
         self.play(ShowCreation(self.numbers),Write(self.number_text))
 
-        #self.show_matching(lambda n: 2*n, "Even", gradual_creation = True)
-        self.show_matching(lambda n: 2*n, "Even")
+        self.wait_to(4)
+        self.show_matching(lambda n: 2*n, "Even", gradual_creation = True)
         self.dither()
 
-        self.show_matching(lambda n: n ** 2, "Square")
-        self.dither()
+        to_remove = self.show_matching(lambda n: n ** 2, "Square", end_mode = 'keep')
+        self.wait_to(45)
+        self.remove(to_remove)
 
         small_primes = [
             2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,
             71,73,79,83,89,97,101,103,107,109,113
         ]
-        self.show_matching(small_primes, "Prime")
+        self.show_matching(small_primes, "Prime", end_mode = 'keep')
+        self.wait_to(54)
 
     def number_pos(self, number, direction = UP):
         return LEFT_SIDE + (1.3*number + 2)*RIGHT + direction
@@ -470,7 +526,7 @@ class NaturalsSubsets(Scene):
         result[-2].set_color(RED)
         return result
 
-    def show_matching(self, subset, set_description, gradual_creation = False):
+    def show_matching(self, subset, set_description, gradual_creation = False, end_mode = 'uncreate'):
         if callable(subset):
             subset = [subset(i) for i in range(len(self.numbers))]
         subset = VGroup(*[self.number_tex(i) for i in subset])
@@ -484,16 +540,18 @@ class NaturalsSubsets(Scene):
         subset_dest = subset.copy()
         subset_dest.highlight(RED)
         for i, num in enumerate(subset_dest): num.move_to(self.number_pos(i, DOWN))
+        if gradual_creation: self.wait_to(14)
         self.play(Transform(subset, subset_dest))
 
         matching = get_matching(subset, self.numbers)
         matching.stretch(-1, 1)
         number_text_dest = self.cardinality_tex(set_description)
         if gradual_creation:
+            self.wait_to(21.7)
             for i in range(3):
                 self.play(ShowCreation(matching[i]))
-                self.dither()
             self.play(ShowCreation(VGroup(*matching[i+1:])))
+            self.wait_to(28)
             self.play(ReplacementTransform(self.number_text, number_text_dest))
 
         else:
@@ -502,8 +560,12 @@ class NaturalsSubsets(Scene):
                 ReplacementTransform(self.number_text, number_text_dest),
             )
         self.number_text = number_text_dest
-        self.dither()
-        self.play(Uncreate(matching),Uncreate(subset))
+
+        if gradual_creation: self.wait_to(40)
+
+        if end_mode == 'uncreate': self.play(Uncreate(matching),Uncreate(subset))
+        elif end_mode == 'remove': self.remove(matching, subset)
+        elif end_mode == 'keep': return VGroup(matching, subset)
 
 class NotationScene(Scene):
 
@@ -519,19 +581,19 @@ class NotationScene(Scene):
                                             - aleph0_brace.get_tip())
 
 
-        #self.play(Write(self.title))
-        self.play(FadeIn(self.title), FadeIn(self.subtitle))
-        #self.dither()
+        self.play(Write(self.title))
+        self.wait_to(2.5)
         self.play(self.finite_brace.creation_anim())
+        self.wait_to(7)
         self.play(Write(self.sizes[0]))
-        #self.dither()
-        #self.play(Write(self.subtitle))
-        #self.dither()
+        self.wait_to(10.3)
+        self.play(Write(self.subtitle))
+        self.wait_to(16.5)
         self.play(self.infinite_brace.creation_anim())
+        self.wait_to(18)
         self.play(FadeIn(numbers), GrowFromCenter(aleph0_brace))
-        #self.dither()
+        self.wait_to(22.5)
         self.play(ReplacementTransform(aleph0_brace.copy(), self.sizes[1]))
-        self.dither()
 
         def number_pos(n):
             return numbers[0].get_center() + n*(numbers[1].get_center() - numbers[0].get_center())
@@ -544,14 +606,15 @@ class NotationScene(Scene):
         VGroup(subset2, subset3).shift(DOWN)
         subset3.highlight(RED)
 
+        self.wait_to(42)
         self.play(Transform(subset, subset2))
         self.play(Transform(subset, subset3))
-        self.dither()
-        #self.play(FocusOn2(self.sizes[1][1]))
-        #self.dither()
+        self.wait_to(47.5)
+        self.play(FocusOn2(self.sizes[1][1]))
+        self.wait_to(49)
         self.play(FadeOut(VGroup(subset, numbers, aleph0_brace)))
         self.play(self.countable_brace.creation_anim())
-        self.dither()
+        self.wait_to(66.5)
 
     def prepare_overall_picture(self):
         self.title = TextMobject("Notation").scale(1.3).to_edge(UP)
@@ -599,17 +662,16 @@ class InftyPlusInfty(Scene):
         self.play(Transform(even, even_spaced))
         VGroup(even_ori, even_spaced, even_arranged).highlight(RED)
         self.play(Transform(even, even_arranged))
-        self.dither()
+        self.wait_to(15)
 
         self.play(Transform(odd, odd_spaced))
         VGroup(odd_ori, odd_spaced, odd_arranged).highlight(YELLOW)
         self.play(Transform(odd, odd_arranged))
-        self.dither()
 
         brace = BraceDesc(odd, "\\aleph_0")
         self.play(brace.creation_anim())
-        self.dither()
 
+        self.wait_to(21.5)
         self.play(
             Transform(even, even_spaced),
             Transform(odd, odd_spaced),
@@ -620,7 +682,7 @@ class InftyPlusInfty(Scene):
         )
         self.remove(self.numbers)
 
-        self.dither()
+        self.wait_to(28.5)
         self.play(
             Transform(even, even_spaced),
             Transform(odd, odd_spaced),
@@ -629,15 +691,14 @@ class InftyPlusInfty(Scene):
             Transform(even, even_arranged),
             Transform(odd, odd_arranged),
         )
-        self.dither()
 
         even_abstr = VGroup(*[Dot(num.get_center(), color = RED)    for num in even])
         odd_abstr  = VGroup(*[Dot(num.get_center(), color = YELLOW) for num in odd])
+        self.wait_to(32)
         self.play(
             Transform(even, even_abstr),
             Transform(odd, odd_abstr),
         )
-        self.dither()
 
         apples_shrinked, apples, apples_spaced, apples_in_set \
             = self.make_fruit_set(Apple().scale(0.6),
@@ -645,12 +706,13 @@ class InftyPlusInfty(Scene):
         pears_shrinked, pears, pears_spaced, pears_in_set \
             = self.make_fruit_set(Pear().scale(0.6),
                                   odd_arranged, odd_spaced, odd_ori)
+        self.wait_to(47)
         self.play(
             ReplacementTransform(apples_shrinked, apples),
             ReplacementTransform(pears_shrinked, pears),
         )
         self.remove(even, odd)
-        self.dither()
+        self.wait_to(53.7)
 
         self.play(
             Transform(apples, apples_spaced),
@@ -660,14 +722,15 @@ class InftyPlusInfty(Scene):
             Transform(apples, apples_in_set),
             Transform(pears, pears_in_set),
         )
-        self.dither()
 
         sum_formula = TexMobject('\\aleph_0','+','\\aleph_0',"=\\aleph_0")
         sum_formula[0].highlight(RED)
         sum_formula[2].highlight(YELLOW)
         sum_formula.shift(BOTTOM/2)
+        self.wait_to(57.5)
         self.play(Write(sum_formula))
-        self.dither()
+        self.wait_to(70)
+        self.play(FadeOut(VGroup(sum_formula, apples, pears, brace)))
 
     def make_numbers(self, num_num = 15):
         self.numbers = VGroup(*(TexMobject(str(i)) for i in xrange(num_num)))
@@ -727,30 +790,34 @@ class IntegersScene(Scene):
         pos_brace = BraceDesc(positives, "\\aleph_0", DOWN)
 
         self.play(ShowCreation(negatives))
+        self.wait_to(6)
         self.play(neg_brace.creation_anim())
-        self.dither()
 
+        self.wait_to(12)
         self.play(ShowCreation(positives))
         self.play(pos_brace.creation_anim())
-        self.dither()
+        self.wait_to(15)
 
         self.play(
             positives.shift, UP,
             pos_brace.shift, UP,
         )
+
+        self.wait_to(17)
         self.remove(positives[0])
         self.play(
             FadeOut(pos_brace),
             neg_brace.shift_brace, VGroup(negatives, negatives[-1].copy().move_to(positives[-1])),
         )
-        self.dither()
 
-        return
+        self.wait_to(19)
         conversation = Conversation(self)
         conversation.add_bubble("Hey, what happened to the merged zero?")
-        self.dither()
+
+        self.wait_to(24.5)
         conversation.add_bubble("The size is still countable infinite.")
-        self.dither()
+
+        self.wait_to(32)
 
     def number_tex(self, n):
         return TexMobject(str(n)).move_to(n*RIGHT)
@@ -777,11 +844,11 @@ class InfiniteTable(InftyPlusInfty):
             Transform(even, even_spaced),
             Transform(odd,  odd_spaced),
         )
+        self.wait_to(7)
         self.play(
             Transform(even, even_arranged),
             Transform(odd,  odd_arranged),
         )
-        self.dither()
 
         colors = color_gradient([YELLOW, GREEN, BLUE], 6)
         ori_numbers = self.numbers
@@ -791,7 +858,11 @@ class InfiniteTable(InftyPlusInfty):
 
         table = [odd]
 
+        self.wait_to(10)
         for index, color in enumerate(colors[1:]):
+            if index <= 2: run_time = 1
+            else: run_time = 0.5
+
             subodd, _, _, subodd_arranged \
                 = self.make_subset(lambda n: 2*n+1, 0)
             table += [subodd]
@@ -801,69 +872,69 @@ class InfiniteTable(InftyPlusInfty):
             self.add(subodd, subeven)
             subodd_arranged.highlight(color)
 
-            self.play(Transform(subeven, subeven_spaced))
-            if False and index < 2:
-                self.play(Transform(subeven, subeven_arranged))
-                self.dither()
-                self.play(Transform(subodd, subodd_arranged))
-                self.dither()
-            else:
-                self.play(
-                    Transform(subeven, subeven_arranged),
-                    Transform(subodd, subodd_arranged),
-                )
+            self.play(Transform(subeven, subeven_spaced), run_time = run_time)
+            self.play(
+                Transform(subeven, subeven_arranged),
+                Transform(subodd, subodd_arranged),
+                run_time = run_time,
+            )
+            if index == 0: self.wait_to(16.5)
 
             self.number_mul *= 2
             self.numbers = subeven
 
         missing_zero = ori_numbers[0].copy().highlight(RED)
+
+        self.wait_to(30)
         self.play(Write(missing_zero))
         self.remove(ori_numbers[0])
         ori_numbers.save_state()
         ori_numbers.remove(ori_numbers[0])
+        self.wait_to(31.5)
         self.play(missing_zero.behind_edge, DOWN)
-        self.dither()
 
         h_brace = BraceDesc(odd, "\\aleph_0", UP)
         h_brace.desc.highlight(YELLOW)
         v_brace = BraceDesc(VGroup(odd, subeven), "\\aleph_0", LEFT)
         v_brace.desc.highlight(BLUE)
         v_brace.shift(0.2*LEFT)
+
+        self.wait_to(35.8)
         self.play(
             FadeOut(ori_numbers),
             h_brace.creation_anim(),
         )
-        self.dither()
+        self.wait_to(38.5)
         self.play(v_brace.creation_anim())
-
-        self.dither()
 
         prod_formula = TexMobject("\\aleph_0","\\cdot","\\aleph_0"," = \\aleph_0")
         prod_formula[0].highlight(BLUE)
         prod_formula[2].highlight(YELLOW)
         prod_formula.to_corner(LEFT+UP)
+
+        self.wait_to(48.4)
         self.play(
             ReplacementTransform(v_brace.desc[0].copy(), prod_formula[0]),
             ReplacementTransform(h_brace.desc[0].copy(), prod_formula[2]),
         )
         self.play(Write(VGroup(prod_formula[1], prod_formula[3])))
-        self.dither()
 
         table_but_first_column = VGroup(*[VGroup(*row[1:]) for row in table])
+        self.wait_to(60 + 3.5)
         self.play(
             FadeOut(VGroup(h_brace, v_brace, prod_formula)),
             table_but_first_column.set_fill, None, 0.4,
         )
 
         formula_r_ori = None
+        self.wait_to(60 + 7.3)
         for i, row in enumerate(table[:4]):
             formula_r = TexMobject("2^{"+str(i)+"}=")
             formula_r.highlight(rgb_to_color(row[0].family_members_with_points()[0].fill_rgb))
             formula_r.next_to(row[0], LEFT, buff = 0.3, aligned_edge = DOWN)
 
-            if formula_r_ori is None: self.play(Write(formula_r))
-            else: self.play(ReplacementTransform(formula_r_ori, formula_r))
-            self.dither()
+            if formula_r_ori is None: self.play(Write(formula_r), run_time = 1.4)
+            else: self.play(ReplacementTransform(formula_r_ori, formula_r), run_time = 0.5)
 
             formula_r_ori = formula_r
 
@@ -872,19 +943,22 @@ class InfiniteTable(InftyPlusInfty):
         formula_r.highlight(BLUE)
         formula_r[-1].set_fill(opacity = 0)
         formula_r.to_edge(DOWN)
+        self.wait_to(60 + 11.5)
         self.play(ReplacementTransform(formula_r_ori, formula_r))
-        self.dither()
 
+        self.wait_to(60 + 17)
         self.play(table_but_first_column.set_fill, None, 1)
         table_but_first_row = VGroup(*table[1:])
         self.play(table_but_first_row.set_fill, None, 0.4)
-        self.dither()
 
         formula_c = TexMobject("(2c+1)")
         formula_c.to_edge(UP)
         formula_c.highlight(YELLOW)
+
+        self.wait_to(60 + 22)
         self.play(Write(formula_c))
-        self.dither()
+
+        self.wait_to(60 + 28.5)
         self.play(table_but_first_row.set_fill, None, 1)
 
         show_r = 3
@@ -903,23 +977,23 @@ class InfiniteTable(InftyPlusInfty):
         show_c_circ.highlight(YELLOW)
 
         self.play(ShowCreation(show_circ))
+        self.wait_to(60 + 32.5)
         self.play(ShowCreation(show_c_circ))
         self.play(ShowCreation(show_r_circ))
-        self.dither()
 
         formula_prod = TexMobject("2^r",'\\cdot',"(2c+1)", "-1")
         formula_prod.to_corner(UP+LEFT)
         formula_prod[0].highlight(BLUE)
         formula_prod[2].highlight(YELLOW)
 
+        self.dither()
         self.play(
             FadeIn(formula_prod[1]),
             ReplacementTransform(formula_r.copy(), formula_prod[0]),
             ReplacementTransform(formula_c.copy(), formula_prod[2]),
         )
-        self.dither()
+        self.wait_to(60 + 42)
         self.play(FadeOut(VGroup(formula_r, formula_c, show_circ, show_c_circ, show_r_circ)))
-        self.dither()
 
         pairs_table = VGroup(*[
             VGroup(*[
@@ -934,11 +1008,11 @@ class InfiniteTable(InftyPlusInfty):
             for num in row:
                 num.submobjects = [VGroup(digit) for digit in num.submobjects]
 
-        self.revert_to_original_skipping_status()
-        self.dither()
+        #self.revert_to_original_skipping_status()
+        #self.wait_to(60 + 48)
         self.play(ReplacementTransform(table, pairs_table))
-        self.dither()
 
+        self.wait_to(60 + 46.7)
         h_shift = RIGHT*(table[0][1].get_center() - table[0][0].get_center())
         table = pairs_table
         table_dest = table.copy()
@@ -951,7 +1025,7 @@ class InfiniteTable(InftyPlusInfty):
         for row in table_dest:
             for num in row: num.move_to(2*DOWN, coor_mask = Y_MASK)
         self.play(Transform(table, table_dest))
-        self.dither()
+        self.wait_to(60 + 49.7)
 
         pairs_row = VGroup(*it.chain(*table))
         pairs_row.submobjects.sort(key = lambda mob: mob.get_center()[0])
@@ -968,7 +1042,6 @@ class InfiniteTable(InftyPlusInfty):
             ShowCreation(ori_numbers),
             ShowCreation(matching),
         )
-        self.dither()
 
         matching.add(matching[-1].copy())
         matching[-1].shift(h_shift)
@@ -982,13 +1055,14 @@ class InfiniteTable(InftyPlusInfty):
         general_matching = Line(general_pair.get_edge_center(UP),
                                 visible_formula_prod.get_edge_center(DOWN),
                                 buff = 0.2)
+        self.wait_to(60 + 55.5)
         self.play(FadeIn(general_pair))
         self.play(ShowCreation(general_matching))
-        self.dither()
 
+        self.wait_to(2*60 + 2)
         self.play(Write(formula_prod[-1]))
         self.play(VGroup(matching, pairs_row).shift, -h_shift)
-        self.dither()
+        self.wait_to(2*60 + 19)
 
     def number_tex(self, n):
         result = TexMobject(str(n*self.number_mul))
@@ -1020,15 +1094,26 @@ class RationalsScene(NotationScene):
         )
         brace = BraceDesc(numbers[0], "\\aleph_0", DOWN)
         brace.next_to(numbers[1], DOWN, coor_mask = Y_MASK, buff = 0.3)
+
+        self.wait_to(4.5)
         self.play(brace.creation_anim())
 
         skip = False
         denominator = 2
         parts = []
         while True:
+            if denominator < 4: run_time = 1
+            else: run_time = 0.5
+
             parts.append(numbers[0].copy())
+
+            if denominator == 2: self.wait_to(8.25)
+            elif denominator == 3: self.wait_to(12.3)
             self.add(parts[-1])
-            self.play(VGroup(numbers, brace).shift, 0.9*DOWN)
+            self.play(VGroup(numbers, brace).shift, 0.9*DOWN, run_time = run_time)
+
+            if denominator == 2: self.wait_to(9.8)
+            #elif denominator == 3: self.wait_to(13.6)
             self.remove(numbers)
             if denominator == 6: break
             numbers = self.make_numbers(denominator, numbers)
@@ -1043,10 +1128,9 @@ class RationalsScene(NotationScene):
                 for label in numbers[1][offset::2]:
                     label.set_fill(opacity = 0)
 
-            self.play(ReplacementTransform(ori_numbers, numbers))
+            self.play(ReplacementTransform(ori_numbers, numbers), run_time = run_time)
             denominator += 1
 
-        self.dither()
         self.remove(brace, numbers)
 
         while denominator < len(self.colors)+1:
@@ -1060,13 +1144,14 @@ class RationalsScene(NotationScene):
         parts = VGroup(*parts)
         parts_dest = parts.copy()
         for part in parts_dest: part.center()
+        print("CURRENT TIME", self.current_scene_time)
+        self.wait_to(17.5)
         self.play(Transform(parts, parts_dest), run_time = 2)
-        self.dither()
 
         rationals = TexMobject('|',"\\text{Rational Numbers}","| = \\aleph_0")
         rationals.shift(0.5*DOWN - rationals[1].get_edge_center(UP))
+        self.wait_to(22)
         self.play(Write(rationals[1]))
-        self.dither()
 
         dots7 = self.make_dots(7)
         dots7.shift(2*DOWN)
@@ -1074,37 +1159,41 @@ class RationalsScene(NotationScene):
         pi_dot = dots7[center+22]
         pi_label = TexMobject("\\frac{22}{7}")
         pi_label.next_to(pi_dot, DOWN)
+        self.wait_to(25.8)
         self.play(Write(pi_label))
-        self.dither()
+
+        self.wait_to(28.7)
         self.play(ShowCreation(dots7))
         self.play(FocusOn2(pi_dot, scale = 3))
         dots7.remove(pi_dot)
         self.play(FadeOut(dots7))
         self.play(VGroup(pi_dot, pi_label).shift, 2*UP)
-        self.dither()
 
+        self.wait_to(33)
         self.play(FadeOut(VGroup(pi_dot, pi_label)))
         self.play(Write(VGroup(rationals[0], rationals[2])))
 
+        self.wait_to(48.5)
         conversation1 = Conversation(self)
         conversation1.add_bubble("Are all sets countable?")
-        self.dither()
+        self.wait_to(54)
         conversation2 = Conversation(self, start_answer = True)
-        conversation2.add_bubble("Of course not.")
-        self.dither()
+        conversation2.add_bubble("Of course not ;-)")
 
         self.prepare_overall_picture()
         self.overall_picture.to_edge(UP, buff = 0.4)
         self.overall_picture.remove(self.uncountable_brace)
+        self.wait_to(60 + 1)
         self.play(FadeIn(self.overall_picture))
-        self.dither()
+        self.wait_to(60 + 3.3)
         self.play(self.uncountable_brace.creation_anim())
-        self.dither()
+
+        self.wait_to(60 + 11)
         real_size = TexMobject("|\\mathbb R|")
         real_size.set_color(GREEN)
         real_size.next_to(self.sizes, buff = 1)
         self.play(Write(real_size))
-        self.dither()
+        self.wait_to(60 + 29.5)
 
     def make_numbers(self, denominator = 1, template = None):
         if template is not None:
@@ -1181,6 +1270,7 @@ class CantorDiagonal(Scene):
 
         self.matching_l_buff = 0.2
         self.matching_r_buff = 0.7
+        self.wait_to(7.3)
         self.play(ShowCreation(column))
         matching = []
         for num in column:
@@ -1209,12 +1299,13 @@ class CantorDiagonal(Scene):
         )
         self.dither()
 
+        self.wait_to(15.5)
         missing_seq = self.apply_diag_argument()
-        self.dither()
 
         attempt_indices = [2, 6, 3]
         attempt = attempt_indices[0]
 
+        self.wait_to(28.5)
         rect_ori = None
         for attempt in attempt_indices:
             rect = SurroundingRectangle(self.sequences[attempt], color = WHITE)
@@ -1224,7 +1315,7 @@ class CantorDiagonal(Scene):
             self.dither()
             rect_ori = rect
 
-        self.play(FadeOut(rect))
+        self.play(FadeOut(rect)) # 35.5
         self.sequences.add_to_back(missing_seq)
         sequences_dest = self.sequences.copy()
         sequences_dest.highlight(WHITE)
@@ -1232,17 +1323,19 @@ class CantorDiagonal(Scene):
         for seq, line in zip(sequences_dest, matching):
             self.seq_to_match_line(seq, line)
         sequences_dest[-1].shift(DOWN)
+        self.wait_to(43)
         self.play(Transform(self.sequences, sequences_dest))
 
+        self.wait_to(45)
         missing_seq = self.apply_diag_argument(brief = True)
-        self.dither()
 
+        self.wait_to(54.5)
         self.play(FadeOut(missing_seq))
 
         title = TextMobject("Cantor's Diagonal Argument")
         title.to_edge(UP)
         self.play(Write(title))
-        self.dither()
+        self.wait_to(80.5)
 
     def seq_to_match_line(self, seq, line):
         seq.shift(line.get_end() - seq[0].get_center() + self.matching_r_buff*RIGHT)
@@ -1259,7 +1352,7 @@ class CantorDiagonal(Scene):
         for i, digit in enumerate(result): digit.move_to(i*self.h_shift)
         return result
 
-    def apply_diag_argument(self, brief = False):
+    def apply_diag_argument(self, brief = False, times = [18.5, 23.5]):
         
         diag = []
         out_of_diag = []
@@ -1281,7 +1374,7 @@ class CantorDiagonal(Scene):
         )
         if not brief:
             self.play(FadeOut(arrow))
-            self.dither()
+            self.wait_to(times[0])
 
         while len(diag) < len(self.sequences[0]):
             next_el = self.random_digit()
@@ -1304,5 +1397,6 @@ class CantorDiagonal(Scene):
             missing_seq.append(inverted)
         missing_seq = VGroup(*missing_seq)
 
+        if not brief: self.wait_to(times[1])
         self.play(ReplacementTransform(diag_extracted, missing_seq))
         return missing_seq

@@ -26,20 +26,22 @@ import eost.deterministic
 
 class Chapter1OpeningTitle(OpeningTitle):
     CONFIG = {
-        "chapter_str" : "Chapter 1\\\\ Introduction",
+        "chapter_str" : "Chapter 1\\\\ Introduction to Infinity",
+        "dither_time" : 1,
     }
 
 class Chapter1OpeningQuote(OpeningQuote):
     CONFIG = {
         "quote" : [
-            "Set theory has a dual role in mathematics. In pure mathematics, it is the place where questions about infinity are studied. Although this is a fascinating study of permanent interest, it does not account for the importance of set theory in applied areas. There the importance stems from the fact that set theory provides an incredibly versatile toolbox for building mathematical models of various phenomena."
+            "Set theory has a dual role in mathematics. In pure mathematics, \\ldots infinity are studied. \\ldots in applied areas \\ldots set theory provides incredibly versatile toolbox for building mathematical models of various phenomena."
         ],
         "author" : "Jon Barwise, Lawrence Moss",
         "fade_in_kwargs" : {
             "submobject_mode" : "lagged_start",
             "rate_func" : None,
             "lag_factor" : 4,
-            "run_time" : 9,
+            "run_time" : 7,
+            #"run_time" : 9,
         },
     }
 
@@ -53,7 +55,7 @@ class CantorScene(Scene):
         title.scale(1.3)
         title.to_edge(UP)
         self.add(title)
-        self.dither()
+        self.wait_to(13)
         cantor = ImageMobject("Georg_Cantor2")
         cantor.scale(0.5)
         cantor_desc = TextMobject("Georg Cantor")
@@ -62,13 +64,13 @@ class CantorScene(Scene):
         self.add(cantor)
         self.play(FadeIn(cantor),
                   FadeIn(cantor_desc, submobject_mode = "lagged_start"))
-        self.dither()
+        self.wait_to(17)
         studies0 = TextMobject("Study of","infinity")
         studies0[1].highlight(YELLOW)
         studies0.scale(1.3)
         studies0.shift(LEFT*cantor_desc.get_width()/2 + UP)
         self.play(FadeIn(studies0[0]), Write(studies0[1]))
-        self.dither()
+        self.wait_to(20)
 
         studies1 = TextMobject("Study of","infinite","sets")
         studies1.scale(1.3)
@@ -82,13 +84,11 @@ class CantorScene(Scene):
         sets_ori.add(s)
         studies0.add(sets_ori)
         self.play(ReplacementTransform(studies0, studies1))
-        self.dither()
+        self.wait_to(22)
 
         self.play(studies1.next_to, title, DOWN,
                   FadeOut(cantor),
                   FadeOut(cantor_desc))
-        
-        self.dither()
 
 class HotelScene(Scene):
 
@@ -130,8 +130,8 @@ class HotelScene(Scene):
         buses_src.shift(UP)
 
         self.play(ReplacementTransform(buses_src, buses), run_time = 2)
-        self.revert_to_original_skipping_status()
-        self.dither()
+        #self.revert_to_original_skipping_status()
+        self.wait_to(8)
 
         hotel = SVGMobject(file_name = "hotel",
                            initial_scale_factor = 0.007,
@@ -144,11 +144,10 @@ class HotelScene(Scene):
                 run_time = 1.5))
         self.play(FadeIn(hotel[3], submobject_mode = "lagged_start"),
                   *map(ShowCreation, hotel[2].submobjects))
-        self.dither()
+        self.wait_to(11)
 
         buses_hotel = VGroup(buses, hotel)
         self.play(buses_hotel.behind_edge, DOWN)
-        self.dither()
 
 class PrisonerScene(Scene):
 
@@ -210,7 +209,7 @@ class PrisonerScene(Scene):
         self.play(ReplacementTransform(bubbles_src, bubbles,
                   submobject_mode = "one_at_a_time",
                   run_time = 2))
-        self.dither()
+        self.wait_to(15.5)
 
         self.play(FadeOut(VGroup(title, subtitle, *prisoners)))
 
@@ -231,7 +230,7 @@ class TwoSetTheoryRoles(Scene):
 
         subbubbles = self.make_fractal(bubble[-1], [0.8*LEFT, 0.8*RIGHT])
         self.play(ShowCreation(subbubbles, submobject_mode = "all_at_once", run_time = 2))
-        self.dither()
+        self.wait_to(31.5)
 
         main_rect = Rectangle(width = 2*SPACE_WIDTH-1, height = 2*SPACE_HEIGHT-1)
         rect_template = main_rect.copy()
@@ -259,10 +258,10 @@ class TwoSetTheoryRoles(Scene):
         contradiction.add(implications[1])
         implications.remove(implications[1])
 
-        self.revert_to_original_skipping_status()
-        #self.dither()
+        #self.revert_to_original_skipping_status()
+        self.wait_to(41)
         self.play(FadeIn(contradiction, submobject_mode = "lagged_start"))
-        #self.dither()
+        self.dither()
 
         questionmarks = TextMobject("???")
         questionmarks.next_to(contradiction, buff = 0.5)
@@ -281,6 +280,7 @@ class TwoSetTheoryRoles(Scene):
         title = TextMobject("Set Theory").scale(1.3).to_edge(UP)
         division = DashedLine(title.get_edge_center(DOWN) + 0.2*DOWN, SPACE_HEIGHT*DOWN)
 
+        self.wait_to(46.5)
         self.play(
             contradiction.highlight, DARK_GREY,
             ShowCreation(cross),
@@ -288,7 +288,7 @@ class TwoSetTheoryRoles(Scene):
         axioms = TextMobject("Axioms")
         axioms.next_to(division)
         self.play(Write(axioms))
-        self.dither()
+        #self.dither()
 
         left_rect, right_rect = [], []
         for rect in subrects:
@@ -298,13 +298,14 @@ class TwoSetTheoryRoles(Scene):
         left_rect = VGroup(*left_rect)
         right_rect = VGroup(*right_rect)
 
+        self.wait_to(60.5)
         self.play(FadeOut(VGroup(right_rect, main_rect, contradiction, cross)))
         self.play(
             ShowCreation(division),
             UnapplyMethod(title.behind_edge, UP),
             left_rect.to_edge, DOWN, 0.8,
         )
-        self.dither()
+        #self.dither()
 
         theory_of_infinity = TextMobject("Theory of Infinity").highlight(BLUE)
         foundations_of_mathematics = TextMobject("Foundations of\\\\ Mathematics",
@@ -313,10 +314,11 @@ class TwoSetTheoryRoles(Scene):
         foundations_of_mathematics.next_to(division, RIGHT, aligned_edge = UP)
         VGroup(theory_of_infinity, foundations_of_mathematics).shift(0.2*DOWN)
 
+        self.wait_to(63.5)
         self.play(FadeIn(theory_of_infinity), run_time = 2, submobject_mode = "lagged_start")
-        self.dither()
+        self.wait_to(66.5)
         self.play(FadeIn(foundations_of_mathematics), run_time = 2, submobject_mode = "lagged_start")
-        self.dither()
+        self.wait_to(69.5)
 
     def make_fractal(self, base, points, layers_num = 8, ratio = (0.4, 0.4, 0.6)):
         
@@ -352,17 +354,17 @@ class ChapterList(Scene):
         brace = BraceText(series[:7], "Theory of Infinity")
         self.play(brace.creation_anim())
 
-        self.dither()
+        self.wait_to(4.8)
         self.play(brace.change_brace_desc, series[7:14], "Foundations of Mathematics")
-        self.dither()
 
         brace_dest = brace.copy()
         brace_dest.change_brace_desc(series[14:16], "Tools")
         brace_dest.desc.to_edge(RIGHT)
+        self.wait_to(13)
         self.play(ReplacementTransform(brace, brace_dest))
         brace = brace_dest
 
-        self.dither()
+        self.wait_to(17.5)
 
 class InfinityBasics(Scene):
 
@@ -376,20 +378,21 @@ class InfinityBasics(Scene):
         question1 = question.copy()
 
         self.play(Write(question))
-        self.dither()
 
         infty_symbol = TexMobject('\\infty')
         infty_symbol.scale(5)
+        self.wait_to(5.5)
         self.play(Write(infty_symbol))
-        self.dither()
+        return
 
+        self.wait_to(14)
         self.play(FadeOut(infty_symbol))
         question2 = TextMobject("What is infinite?")
         question2.scale(1.3)
         question2.to_edge(UP)
 
+        self.wait_to(18.5)
         self.play(ReplacementTransform(question, question2))
-        self.dither()
 
         answer = TextMobject("That which is not","finite").scale(1.3)
         answer.next_to(question2, DOWN, buff = 0.5)
@@ -397,12 +400,12 @@ class InfinityBasics(Scene):
         answer_ori.shift(DOWN)
         answer_ori.highlight(BLACK)
 
+        self.wait_to(23)
         self.play(ReplacementTransform(answer_ori, answer))
-        self.dither()
 
         finite_def = BraceText(answer[-1], "possible to express\\\\ by a natural number")
+        self.wait_to(30.5)
         self.play(finite_def.creation_anim())
-        self.dither(2)
 
         dots5 = VGroup(*[Dot(color = BLUE) for _ in range(5)])
         dots5.arrange_submobjects(buff = 0.5)
@@ -420,21 +423,21 @@ class InfinityBasics(Scene):
         set100.to_corner(DOWN+LEFT)
         set5.move_to(set100)
         brace5 = BraceText(set5, "5", UP)
-        self.play(FadeIn(set5), brace5.creation_anim())
-        self.dither()
-        self.play(brace5.change_desc, "finite")
-        self.dither()
-        self.play(FadeOut(brace5))
+        self.wait_to(37.3)
+        self.play(FadeIn(set5), brace5.creation_anim()) # 38.3
+        self.play(brace5.change_desc, "finite") # 39.3
+        self.dither() # 40.3
+        self.remove(brace5)
+        #self.play(FadeOut(brace5))
 
         brace100 = BraceText(set100, "100", RIGHT)
         self.play(
             ReplacementTransform(set5, set100),
             brace100.creation_anim(),
-        )
-        self.dither()
-        self.play(brace100.change_desc, "finite")
-        self.dither()
-        self.play(FadeOut(VGroup(brace100, set100)))
+        ) # 41.3
+        self.play(brace100.change_desc, "finite") # 42.3
+        self.dither() # 43.3
+        self.play(FadeOut(VGroup(brace100, set100))) # 44.3
 
         numbers = VGroup(*[
             TexMobject(str(i))
@@ -464,23 +467,23 @@ class InfinityBasics(Scene):
         self.play(FadeIn(set_inf), GrowFromCenter(brace_inf.brace))
         self.dither()
         self.play(Write(brace_inf.desc))
-        self.dither(2)
 
-        self.revert_to_original_skipping_status()
-        self.play(FadeOut(VGroup(numbers, brace_inf, rect_inf, answer, finite_def)), ReplacementTransform(question2, question1))
+        self.wait_to(52.5)
+        #self.revert_to_original_skipping_status()
+        self.play(FadeOut(VGroup(numbers, brace_inf)))
 
-        #set0 = Square(side_length = 1).move_to(set_inf)
-        #brace0 = BraceText(set0, "finite", UP)
-        #self.play(ReplacementTransform(rect_inf, set0))
-        #self.play(brace0.creation_anim())
-        #self.dither()
-        #self.play(brace0.change_desc, '0')
-        #self.dither(2)
+        set0 = Square(side_length = 1).move_to(set_inf)
+        brace0 = BraceText(set0, "finite", UP)
+        self.play(ReplacementTransform(rect_inf, set0))
+        self.play(brace0.creation_anim())
+        self.wait_to(57.5)
+        self.play(brace0.change_desc, '0')
+        self.wait_to(72)
 
-        #self.play(FadeOut(VGroup(set0, brace0, answer, finite_def)), ReplacementTransform(question2, question1))
+        self.play(FadeOut(VGroup(set0, brace0, answer, finite_def)), ReplacementTransform(question2, question1))
         self.dither()
         self.play(Write(TextMobject("Not just a number...")))
-        self.dither(3)
+        self.wait_to(91.5)
 
 class TurnSquares(Transform):
     CONFIG = {
@@ -591,12 +594,12 @@ class FinGridColoring(Scene):
         for v_arrow, square in zip(v_arrows, self.squares[-1]):
             v_arrow.next_to(square, DOWN)
 
+        self.wait_to(6.5)
         self.play(
             self.turn_indices(self.row_indices(range(self.grid_size))),
             FadeIn(h_arrows, submobject_mode = "lagged_start", rate_func = None),
             run_time = 2,
         )
-        self.dither()
 
         satisfied_columns = [
             i for i in range(self.grid_size)
@@ -613,8 +616,8 @@ class FinGridColoring(Scene):
             v_arrows[i] for i in unsatisfied_columns
         ])
 
+        self.wait_to(12)
         self.play(FadeIn(satisfied_v_arrows))
-        self.dither()
 
         for i in unsatisfied_columns:
             self.dominate(YELLOW, self.column_indices([i]))
@@ -627,6 +630,7 @@ class FinGridColoring(Scene):
             h_arrows[i] for i in reversed(broken_rows)
         ])
 
+        self.wait_to(18.3)
         self.play(
             self.turn_indices(self.column_indices(unsatisfied_columns)),
             FadeIn(unsatisfied_v_arrows),
@@ -635,7 +639,6 @@ class FinGridColoring(Scene):
             run_time = 2,
             rate_func = None,
         )
-        self.dither(2)
 
         inequality1 = VGroup(
             self.squares[0,0].copy(),
@@ -654,21 +657,22 @@ class FinGridColoring(Scene):
         inequalities.arrange_submobjects(buff = 1.5)
         inequalities.to_edge(UP)
 
+        self.wait_to(47.5)
         self.play(FadeIn(inequality1))
-        self.dither()
+        self.wait_to(51.5)
         self.play(FadeIn(inequality2))
-        self.dither()
 
         h_arrows.remove(*broken_h_arrows)
         inf_lines = make_inf_grid_lines(self.square_size)
 
-        self.revert_to_original_skipping_status()
+        #self.revert_to_original_skipping_status()
+        self.wait_to(54.5)
         self.play(
             FadeOut(VGroup(inequalities, v_arrows, h_arrows)),
             FadeOut(VGroup(*self.squares.flatten())),
             FadeIn(inf_lines),
         )
-        self.dither()
+        self.wait_to(58)
 
     def turn_indices(self, indices):
         indices = zip(*indices)
@@ -739,7 +743,6 @@ class InfGridColoring(Scene):
         inf_grid = self.make_infinite_grid()
         self.add_foreground_mobjects(inf_grid[1])
         self.squares = inf_grid[0]
-        self.dither()
 
         colors = [rgb_to_color(square.fill_rgb) for square in self.squares]
         for square in self.squares: square.set_color(BLACK)
@@ -750,27 +753,27 @@ class InfGridColoring(Scene):
         column = self.select_square_line(1)
         column_colors = self.generate_colors(column, main_blue = False)
 
+        self.wait_to(4)
         self.play(TurnSquares(row, row_colors))
-        self.dither(2)
+        self.wait_to(8)
         self.play(TurnSquares(column, column_colors))
-        self.dither(3)
 
-        #counter = Counter()
-        #counter.count_from(5, self)
-        #self.dither()
+        self.wait_to(19.5)
+        counter = Counter()
+        counter.count_from(5, self)
+        #self.wait_to(24.5)
 
         self.play(
             TurnSquares(self.squares, colors),
             run_time = 3,
             rate_func = None,
         )
-        self.dither()
-
-        self.revert_to_original_skipping_status()
+        #self.revert_to_original_skipping_status()
 
         row = self.select_square_line(0, -2)
+        self.wait_to(28.5)
         self.play(row.set_fill, None, 1)
-        self.dither()
+        self.wait_to(33.5)
         self.play(row.set_fill, None, 0.5)
 
         column_index = -4
@@ -788,7 +791,7 @@ class InfGridColoring(Scene):
         column.set_fill(opacity = 1)
 
         self.play(UnapplyMethod(inf_grid.scale, ori_size / self.square_size))
-        self.dither(5)
+        self.wait_to(54.2)
 
     def select_square_line(self, dim, pos = 0):
         squares = filter(lambda square: abs(square.get_center()[1-dim] / self.square_size

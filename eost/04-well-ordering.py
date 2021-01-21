@@ -50,7 +50,7 @@ class P_power_cardinality(TexMobject):
 
 class Chapter4OpeningTitle(OpeningTitle):
     CONFIG = {
-        "chapter_str" : "Chapter 4\\\\ Well Ordering",
+        "chapter_str" : "Chapter 4\\\\ Well Ordering Property",
     }
 
 class Chapter4OpeningQuote(OpeningQuote):
@@ -103,6 +103,7 @@ class PowerSetsScene(Scene):
 
         subsets = []
         subsets_maker = omega.copy()
+        self.wait_to(5)
         self.play(subsets_maker.shift, 4*RIGHT)
 
         # Create picture of P(omega)
@@ -124,8 +125,8 @@ class PowerSetsScene(Scene):
         big_ineq.scale(2)
         big_ineq.move_to((omega.get_edge_center(RIGHT) + p_omega.get_edge_center(LEFT))/2)
 
+        #self.wait_to(12)
         self.play(Write(big_ineq))
-        self.dither()
 
         # Various descriptions
         p_omega_desc = P_power_cardinality(1)
@@ -139,6 +140,7 @@ class PowerSetsScene(Scene):
         omega_desc.set_color(omega_col)
         p_omega_desc.set_color(p_omega_col)
 
+        self.wait_to(16)
         self.play(Write(omega_desc.set))
 
         powerset_arrow = Arrow(omega.get_edge_center(RIGHT),
@@ -149,11 +151,14 @@ class PowerSetsScene(Scene):
         powerset_desc[0].set_color(YELLOW)
         powerset_desc.next_to(powerset_arrow, UP)
 
+        self.wait_to(22)
         self.play(
             Write(powerset_desc[0]),
             ShowCreation(powerset_arrow),
         )
         self.play(Write(VGroup(*powerset_desc[1:])))
+
+        self.wait_to(26.5)
         self.play(
             ReplacementTransform(powerset_desc[0].copy(), p_omega_desc.set[0], path_arc = -np.pi/3),
             ReplacementTransform(omega_desc.set.copy(), VGroup(*p_omega_desc.set[1:])),
@@ -175,6 +180,7 @@ class PowerSetsScene(Scene):
             buff = self.ineq_seq_buff,
         )
         # self.skip_animations = False
+        self.wait_to(30)
         self.play(
             FadeOut(VGroup(
                 omega, p_omega,
@@ -215,14 +221,16 @@ class PowerSetsScene(Scene):
         #    ))
         self.dither()
 
-        for _ in range(3): self.extend_ineq_seq()
+        for i, wait_time in enumerate((38.3, 41.3, 44.3)):
+            self.wait_to(wait_time)
+            self.extend_ineq_seq(half_animated = (i == 2))
 
         # integer powers at the center of scene
         self.p_power = None
+        #self.wait_to(45)
         self.make_p_power_with_brace(2)
         for exp in range(3, 5): self.make_p_power_with_brace(exp)
         self.make_general_p_power_with_brace(exp)
-        self.dither()
 
         brace = self.p_power[1]
         desc = self.p_power[2]
@@ -242,12 +250,12 @@ class PowerSetsScene(Scene):
         brace.put_at_tip(desc_17)
         brace.put_at_tip(desc_googol)
 
+        self.wait_to(53)
         self.play(Transform(desc, desc_17))
-        self.dither()
+        self.wait_to(55)
         self.play(Transform(desc, desc_googol))
-        self.dither()
+        self.wait_to(56.5)
         self.play(Transform(desc, orig_desc))
-        self.dither()
 
         # self.skip_animations = False
         ordinal = OrdinalOmega(x0 = -6, x1 = 4, q = (0.8, 0.9, 0.9))
@@ -257,6 +265,8 @@ class PowerSetsScene(Scene):
                                             direction = UP)
         for _ in range(len(p_powers) - (len(self.ineq_seq)+1)/2):
             self.extend_ineq_seq(animated = False)
+
+        self.wait_to(60)
         self.play(*map(FadeOut, [self.p_power]+self.ineq_seq[1::2]))
         self.ineq_seq = VGroup(*self.ineq_seq[::2])
         self.play(*map(ShowCreation, [
@@ -267,7 +277,7 @@ class PowerSetsScene(Scene):
             map(FadeOut, [x.pipes for x in self.ineq_seq])
             + [Transform(VGroup(*(x.set for x in self.ineq_seq)), p_powers)]
         ))
-        self.dither()
+        self.wait_to(60 + 7.5)
 
     def make_p_power_with_brace(self, exp):
         base = make_p_power(exp)
@@ -317,7 +327,7 @@ class PowerSetsScene(Scene):
         self.p_power = next_p_power
         self.add(self.p_power)
 
-    def extend_ineq_seq(self, animated = True):
+    def extend_ineq_seq(self, animated = True, half_animated = False):
         n = (len(self.ineq_seq)+1)/2
 
         next_p_power = P_power_cardinality(n)
@@ -334,7 +344,10 @@ class PowerSetsScene(Scene):
             coor_mask = RIGHT,
             buff = self.ineq_seq_buff)
 
-        if animated:
+        if half_animated:
+            self.play(ReplacementTransform(self.ineq_seq[-1].set.copy(), VGroup(*next_p_power.set[2:-1])))
+            self.add(next_ineq, next_p_power)
+        elif animated:
             self.play(ReplacementTransform(self.ineq_seq[-1].set.copy(), VGroup(*next_p_power.set[2:-1])))
             self.play(Write(VGroup(next_p_power[0], next_p_power[1], next_p_power[2], next_p_power[-2], next_p_power[-1], next_ineq)))
         else:
@@ -359,7 +372,6 @@ class FirstLimitStep(Scene):
             p_powers[-1].next_to(ordinal[i], direction = UP, buff=0)
 
         self.add(ordinal, naturals, p_powers)
-        self.dither()
 
         next_ordinal = OrdinalOmega(q = (0.8, 0.9, 0.9))
         next_ordinal[0].set_color(limit_col)
@@ -373,7 +385,7 @@ class FirstLimitStep(Scene):
             return result
         U_powers = next_ordinal.add_descriptions(make_U_power)
 
-        explicit_union = TexMobject("\\bigcup_{n=0}^\\infty\\mathcal{P}^n(\\omega)").center()
+        explicit_union = TexMobject("\\bigcup_{i\\in\\omega}\\mathcal{P}^i(\\omega)").center()
         def left_down_justify(m,n):
             m.shift((
                 n.get_critical_point(LEFT)[0] - m.get_critical_point(LEFT)[0],
@@ -386,18 +398,32 @@ class FirstLimitStep(Scene):
             U_powers.add(Dot(radius=0))
             U_powers[-1].next_to(ordinal[i], direction = UP, buff=0)
 
+        self.wait_to(1.5)
         self.play(ReplacementTransform(p_powers.copy(), explicit_union))
-        self.dither()
+
+        self.wait_to(3.6)
+        self.play(FocusOn2(explicit_union[0])) # sjednoceni
+        #self.wait_to(4.6)
+        self.play(FocusOn2(explicit_union[4])) # potenci
+        #self.wait_to(5.6)
+        self.play(FocusOn2(explicit_union[5])) # i-krat
+        #self.wait_to(6.6)
+        self.play(FocusOn2(explicit_union[7])) # na omegu
+        #self.wait_to(7.6)
+        self.play(FocusOn2(explicit_union[1])) # i probiha
+        #self.wait_to(8.6)
+        self.play(FocusOn2(explicit_union[3])) # prirozena cisla
+
+        self.wait_to(11)
         self.play(ReplacementTransform(explicit_union, U_powers[0]))
         self.play(ShowCreation(next_ordinal[0]))
 
-        self.dither()
-        
+        self.wait_to(18)
         self.play(VGroup(*self.get_top_level_mobjects()).shift, -shift)
-        self.dither()
 
         #self.skip_animations = False
         ini_segment = 4
+        self.wait_to(19.5)
         for i in range(1, ini_segment):
             self.play(
                 ReplacementTransform(U_powers[i-1].copy(), VGroup(*U_powers[i][2:-1])),
@@ -421,24 +447,27 @@ class FirstLimitStep(Scene):
         limit_step_desc.set_color(limit_col)
         limit_step.add_description(limit_step_desc)
 
-        explicit_union2 = TexMobject("\\bigcup_{n=0}^\\infty\\mathcal P^n(U)")
-        left_down_justify(explicit_union2,limit_step_desc)
-        explicit_union2.set_color(limit_col)
+        #explicit_union2 = TexMobject("\\bigcup_{n=0}^\\infty\\mathcal P^n(U)")
+        #left_down_justify(explicit_union2,limit_step_desc)
+        #explicit_union2.set_color(limit_col)
 
-        self.play(ReplacementTransform(U_powers.copy(), explicit_union2))
-        self.dither()
+        self.play(ReplacementTransform(U_powers.copy(), limit_step_desc))
         self.play(
-            Succession(
-                ReplacementTransform(explicit_union2, limit_step_desc),
-                ShowCreation(limit_step),
-                rate_func = None),
+            ShowCreation(limit_step),
+            rate_func = None,
         )
+        #self.play(
+        #    Succession(
+        #        ReplacementTransform(explicit_union2, limit_step_desc),
+        #        ShowCreation(limit_step),
+        #        rate_func = None),
+        #)
 
-        self.dither(2)
+        self.wait_to(26.5)
         self.play(Write(TextMobject("Transfinite",  "Recursion").to_edge(DOWN)))
-        self.dither(2)
+        self.wait_to(32)
 
-class RecursionScene(Scene):
+class OrdinaryRecursion(Scene):
 
     def construct(self):
 
@@ -478,16 +507,21 @@ class RecursionScene(Scene):
         for succ_step_desc, succ_step in zip(succ_steps_desc, succ_steps):
             succ_step_desc.next_to(succ_step, UP, buff=succ_step_desc.get_width()*0.7)
 
+        self.wait_to(1.3)
         self.play(
             ShowCreation(naturals),
             ShowCreation(naturals_desc))
-        self.dither()
+        self.wait_to(3)
         self.play(Write(base_desc))
+        #self.wait_to(7.5)
         self.play(
             Write(VGroup(*base_case_title[:-1])),
-            ReplacementTransform(base_desc, base_case_title[-1]))
+            ReplacementTransform(base_desc, base_case_title[-1])
+        )
 
+        self.wait_to(8)
         self.play(Write(rec_step_title))
+        self.wait_to(11.7)
         self.play(
             ReplacementTransform(rec_step_title[-1].copy(), succ_steps_desc[0]),
             ShowCreation(succ_steps[0]),
@@ -496,11 +530,11 @@ class RecursionScene(Scene):
             ShowCreation(VGroup(*succ_steps_desc[1:])),
             ShowCreation(VGroup(*succ_steps[1:])),
         )
-        self.dither()
 
         next_ordinal = naturals.copy()
         next_ordinal[0].set_color(lim_color)
         next_ordinal.next_to(naturals)
+        self.wait_to(17)
         self.play(
             title[0].highlight, WHITE, 
             ShowCreation(next_ordinal[0]))
@@ -525,6 +559,7 @@ class RecursionScene(Scene):
         ])
 
 
+        self.wait_to(27)
         self.play(
             ShowCreation(rec_step_fork[0]),
             ReplacementTransform(
@@ -535,31 +570,31 @@ class RecursionScene(Scene):
                     rec_step_title[3]),
                 succ_step_title),
         )
-        self.dither()
+        self.wait_to(29.7)
         self.play(
             ShowCreation(rec_step_fork[1]),
             Write(lim_step_title)
         )
 
-        #self.play(
-        #    title[0].highlight, DARK_GREY,
-        #    *map(FadeOut, [
-        #        succ_steps, succ_steps_desc, next_ordinal[0],
-        #    ]))
+        self.wait_to(49)
+        self.play(
+            title[0].highlight, DARK_GREY,
+            *map(FadeOut, [
+                succ_steps, succ_steps_desc, next_ordinal[0],
+            ]))
 
-        #self.dither(3)
-        #self.play(
-        #    title[0].highlight, WHITE,
-        #    FadeOut(naturals_desc),
-        #    FadeIn(next_ordinal))
+        self.wait_to(54)
+        self.play(
+            title[0].highlight, WHITE,
+            FadeOut(naturals_desc),
+            FadeIn(next_ordinal))
 
-        self.dither()
-        self.play(FadeOut(VGroup(
-            succ_steps, succ_steps_desc, next_ordinal[0], naturals_desc,
-        )))
+        #self.play(FadeOut(VGroup(
+        #    succ_steps, succ_steps_desc, next_ordinal[0], naturals_desc,
+        #)))
         omega_pow2_src = VGroup(naturals, next_ordinal)
 
-
+        self.wait_to(59.5)
         for _ in range(2):
             next_ordinal = next_ordinal.copy()
             next_ordinal.next_to(omega_pow2_src[-1])
@@ -583,11 +618,10 @@ class RecursionScene(Scene):
         self.dither()
         #self.skip_animations = False
 
+        self.wait_to(60 + 13.5)
         self.play(*map(FadeOut, [
             mob for mob in self.get_top_level_mobjects() if mob.get_center()[1] > 0
         ]))
-        self.dither(2)
-        return
 
         series = VideoSeries()
         series.to_edge(UP)
@@ -595,8 +629,8 @@ class RecursionScene(Scene):
             series,
             submobject_mode = "lagged_start",
             run_time = 2
-        ))
-        ordinal_series = VGroup(*series[3:8])
+        )) # 1:15.5
+        ordinal_series = VGroup(*series[3:7])
         ordinal_series_target = ordinal_series.copy()
         ordinal_series_target.shift(DOWN)
         ordinal_series_target.set_color(YELLOW)
@@ -613,7 +647,7 @@ class RecursionScene(Scene):
             GrowFromCenter(series_brace),
         )
 
-        self.dither(2)
+        self.wait_to(60 + 34)
 
 class RealsProblems(Scene):
 
@@ -652,31 +686,31 @@ class RealsProblems(Scene):
         base_case_q = TextMobject("Base case?")
         base_case_q.to_corner(UP+LEFT)
         base_case_q.set_color(GREEN)
-        self.play(Write(base_case_q))
+        self.wait_to(6.7)
+        self.play(Write(base_case_q), run_time = 2)
 
+        self.wait_to(8.8)
         self.pointer = self.pointer_with_number(2.5)
         self.pointer.set_fill(opacity = 0)
         self.move_pointer(1.25)
-        self.dither()
         self.scale_numberline(2)
-        self.dither()
         self.move_pointer(0.2)
-        self.dither()
         self.scale_numberline(2)
-        self.dither()
         self.move_pointer(0.01)
 
         base_case_a = TextMobject("Minimal element needed")
         base_case_a.to_corner(UP+LEFT)
         base_case_a.set_color(GREEN)
+        self.wait_to(13.8)
         self.play(
             ReplacementTransform(base_case_q, base_case_a)
         )
-        self.dither()
 
         zero_dot = Dot(self.line_start, color = BLUE)
         zero_desc = TexMobject("0")
         zero_desc.next_to(zero_dot, LEFT)
+
+        self.wait_to(16)
         self.play(FadeOut(self.pointer))
         self.play(
             ShowCreation(zero_dot),
@@ -686,24 +720,24 @@ class RealsProblems(Scene):
         base_case = Line(self.line_start+UP, self.line_start, color = GREEN)
         base_desc = TexMobject("\\omega").set_color(GREEN)
         base_desc.next_to(base_case, UP)
-        self.dither()
+        self.wait_to(22)
         self.play(
             Write(base_desc),
             ShowCreation(base_case),
         )
 
-        self.dither()
         succ_step_q = TextMobject("Successor s","tep?", arg_separator = '')
         succ_step_q.to_corner(UP+LEFT)
         succ_step_q.set_color(WHITE)
         succ_step_q.next_to(base_case_a, DOWN, coor_mask = UP)
 
-        self.play(Write(succ_step_q))
+        self.wait_to(25)
+        self.play(Write(succ_step_q), run_time = 2)
 
         self.pointer = self.pointer_with_skipped(4)
         self.play(FadeIn(self.pointer[0]))
 
-        self.dither()
+        #self.wait_to(27.5)
         self.play(
             GrowFromCenter(self.pointer[1][0]),
             FadeIn(self.pointer[1][1]),
@@ -719,12 +753,13 @@ class RealsProblems(Scene):
         succ_step_a.next_to(base_case_a, DOWN, coor_mask = UP)
 
         #self.skip_animations = False
+        self.wait_to(41.6)
         self.play(
             ReplacementTransform(succ_step_q, succ_step_a),
             FadeOut(self.pointer[1]),
             FadeOut(self.numberline.tick_marks[0]),
         )
-        self.dither()
+        self.wait_to(45)
 
         self.remove(self.numberline)
         lines = VGroup()
@@ -743,14 +778,14 @@ class RealsProblems(Scene):
             ShowCreation(dots, submobject_mode = 'lagged_start'),
             FadeOut(real_title),
         )
-        self.dither()
+        self.wait_to(49)
 
         lim_step_q = TextMobject("Limit step?")
         lim_step_q.to_corner(UP+LEFT)
         lim_step_q.set_color(YELLOW)
         lim_step_q.next_to(succ_step_a, DOWN, coor_mask = UP)
-        self.play(Write(lim_step_q))
-        self.dither()
+        self.play(Write(lim_step_q), run_time = 2)
+        #self.wait_to(51)
 
     def pointer_with_number(self, x):
 
@@ -873,13 +908,13 @@ class OmegaPlusZScene(Scene):
         omega_plus_Z.shift(DOWN)
         omega_plus_Z.set_color(DARK_GREY)
 
+        self.wait_to(2.3)
         self.play(ShowCreation(omega))
-        self.dither()
+        self.wait_to(4.5)
         self.play(
             ShowCreation(omega2),
             ShowCreation(omega_reversed),
         )
-        self.dither()
 
         # Fill the initial segment
         omega_colorful = omega.copy()
@@ -889,12 +924,12 @@ class OmegaPlusZScene(Scene):
         base_case_desc = TexMobject("\\omega")
         base_case_desc.set_color(GREEN)
         base_case_desc.next_to(omega_colorful[0], UP)
+        self.wait_to(10)
         self.play(ShowCreation(omega_colorful[0]), ShowCreation(base_case_desc))
-        self.dither()
+        self.wait_to(14)
         self.play(ShowCreation(omega_colorful[1]))
         self.play(ShowCreation(omega_colorful[2]))
         self.play(ShowCreation(VGroup(*omega_colorful[3:])))
-        self.dither()
 
         self.remove(Z)
         Z.remove(omega2, omega_reversed)
@@ -906,6 +941,7 @@ class OmegaPlusZScene(Scene):
 
         # No place for the limit step
         self.Z = Z
+        self.wait_to(26)
         self.init_skipped(0.7)
         self.dither()
         self.move_skipped(0.3)
@@ -918,36 +954,39 @@ class OmegaPlusZScene(Scene):
         lim_step_a.to_corner(UP+LEFT)
         lim_step_a.set_color(YELLOW)
         lim_step_a.next_to(succ_step_a, DOWN, coor_mask = UP)
+
+        self.wait_to(35.5)
         self.play(
             ReplacementTransform(lim_step_q, lim_step_a),
             self.highlighted.highlight, DARK_GREY,
             FadeOut(self.pointer),
             FadeOut(self.skipped),
         )
-        self.dither()
 
         # Show initial segment
         self.omega = omega
+        self.wait_to(39)
         self.init_initial()
-        for _ in range(2):
+        for i in range(2):
             self.add_bar()
-            self.dither()
+            if i == 0: self.wait_to(49)
             self.update_ini_segment()
 
         self.add_bar()
-        self.dither()
+
+        self.wait_to(54.5)
         self.update_ini_segment(empty = True)
-        self.dither()
+        self.wait_to(60 + 1)
         self.play(ShowCreation(omega_colorful[0]))
-        self.dither()
 
         conditions = WellOrderingConditions()
+        self.wait_to(60 + 3)
         self.play(
             FadeOut(base_case_a),
             FadeOut(succ_step_a),
             lim_step_a.move_to, conditions.wrong_succ,
         )
-        self.dither(5)
+        self.wait_to(60 + 4.5)
         #self.skip_animations = False
         self.remove(omega)
         self.play(*map(FadeOut, [
@@ -1065,27 +1104,28 @@ class WellOrderingCondition(Scene):
         any_set_desc = TextMobject("Any set")
         any_set_desc.next_to(any_set, UP)
 
+        self.wait_to(6)
         self.play(
             ShowCreation(any_set),
             FadeIn(any_set_desc),
         )
-        self.dither()
+        self.wait_to(9)
 
         ini_segment = ini_segment_brace(any_set, scale = 0.9)
         self.play(
             GrowFromCenter(ini_segment[0]),
             FadeIn(ini_segment[1]),
         )
-        self.dither()
 
+        self.wait_to(17)
         self.play(*map(FadeOut, [
             ini_segment, any_set, any_set_desc
         ]))
 
-        self.dither()
+        self.wait_to(19.5)
         #self.fill_ordinal(make_ordinal_power(2, q = (0.8, 0.9, 0.9)))
-        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 4), one_range = 1)
-        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 2), one_range = 1)
+        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 4), wait_time = 24, one_range = 1)
+        self.fill_ordinal(OrdinalFiniteProd(OrdinalOmega, 2), wait_time = 30, one_range = 1)
         last_ordinal = self.fill_ordinal(OrdinalSum(OrdinalOmega, 0.8,
                                                     lambda **kwargs: OrdinalFinite(5, **kwargs)),
                                          one_range = 0,
@@ -1095,15 +1135,16 @@ class WellOrderingCondition(Scene):
 
         proper_src = conditions.succ[1].copy()
         proper_src.replace(Point(conditions.succ[1].get_edge_center(LEFT)))
+        self.wait_to(45.5)
         self.play(
             ReplacementTransform(VGroup(conditions.wrong_succ[0], proper_src, conditions.wrong_succ[-1]),
                                  conditions.succ),
         )
-        self.dither()
+        self.wait_to(51.3)
         self.play(Write(conditions.title))
-        self.dither()
+        self.wait_to(60 + 13)
 
-    def fill_ordinal(self, ordinal, remove = True, one_range = 3, omega_range = 1): # omega+k -> omega^2 supported
+    def fill_ordinal(self, ordinal, wait_time = None, remove = True, one_range = 3, omega_range = 1): # omega+k -> omega^2 supported
 
         ordinal_bg = ordinal.copy()
         ordinal_bg.shift(DOWN)
@@ -1131,7 +1172,9 @@ class WellOrderingCondition(Scene):
 
         self.remove(ordinal_bg)
         self.dither()
-        if remove: self.play(FadeOut(ordinal_col))
+        if remove:
+            self.wait_to(wait_time)
+            self.play(FadeOut(ordinal_col))
         else: return ordinal_col
 
 class OmegaSquaredScene(Scene):
@@ -1244,16 +1287,16 @@ class OmegaSquaredScene(Scene):
             ini_group.highlight(self.ini_color)
             term_group.highlight(self.term_color)
     
-    def update_split(self, subset = False):
+    def update_split(self, subset = False, run_time = 1):
         if len(self.brace_list) > 0:
             self.play(*[
                 Transform(brace, self.construct_brace(brace_type))
                 for brace_type, brace in self.brace_list
-            ])
+            ], run_time = run_time)
         self.highlight_split(subset = subset)
-        self.update_successor()
+        self.update_successor(run_time = run_time)
 
-    def add_successor(self, add_pointer = None):
+    def add_successor(self, add_pointer = None, run_time = 1):
         self.successor = self.bars[self.cur_split[1]].copy()
         self.successor.highlight(YELLOW)
         animations = [ShowCreation(self.successor)]
@@ -1267,9 +1310,9 @@ class OmegaSquaredScene(Scene):
         else:
             self.pointer = None
 
-        self.play(*animations)
+        self.play(*animations, run_time = run_time)
 
-    def update_successor(self):
+    def update_successor(self, run_time = 1):
         if self.successor is None: return
 
         self.remove(self.successor)
@@ -1283,7 +1326,7 @@ class OmegaSquaredScene(Scene):
             pointer_target.move_to(self.successor, coor_mask = RIGHT)
             animations.append(Transform(self.pointer, pointer_target))
 
-        self.play(*animations)
+        self.play(*animations, run_time = run_time)
 
 class ConditionTerminalScene(OmegaSquaredScene):
 
@@ -1306,25 +1349,28 @@ class ConditionTerminalScene(OmegaSquaredScene):
             self.update_split()
             self.dither()
 
+        self.wait_to(5)
         self.add_brace(('tight_term', UP))
-        self.dither()
 
+        self.wait_to(13.5)
         for _ in range(3):
             self.cur_split = self.random_split()
             self.update_split()
             self.dither()
 
-        self.add_successor()
-        self.dither()
+        # self.wait_to(19.5)
+        self.wait_to(20)
+        self.add_successor() # 21
 
         for _ in range(3):
 
             self.cur_split = self.random_split()
             self.update_split()
-            self.dither()
+            self.dither(0.5)
 
+        self.wait_to(28.5)
         self.play(Write(conditions.term_min))
-        self.dither(5)
+        self.wait_to(33)
 
 class OmegaPlusZDecSeq(Scene):
 
@@ -1351,13 +1397,14 @@ class OmegaPlusZDecSeq(Scene):
         dec_seq.set_color(dec_seq_color)
         dec_seq_jumps = seq_to_jumps(omega_reversed.family_members_with_points(),
                                       color = dec_seq_color)
+        self.wait_to(5.5)
         self.play(
             ShowCreation(dec_seq),
             ShowCreation(dec_seq_jumps),
             run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
         )
         self.play(Write(conditions.inf_dec),)
-        self.dither()
+        #self.wait_to(10.5)
 
 class RealDecSeq(Scene):
 
@@ -1376,7 +1423,7 @@ class RealDecSeq(Scene):
 
         self.add(conditions.title, conditions.succ, conditions.term_min, conditions.inf_dec, real_line)
         self.play(ShowCreation(jumps))
-        self.dither()
+        self.wait_to(4)
 
         ini_segment, term_segment = self.construct_segments(jumps[-1].get_center()[0])
         self.remove(real_line)
@@ -1384,17 +1431,19 @@ class RealDecSeq(Scene):
             ini_segment.shift, y_shift*UP,
             VGroup(term_segment, jumps).shift, y_shift*DOWN,
         )
-        self.dither()
+        self.wait_to(7)
 
         pointer = TrianglePointer(color = YELLOW)
         pointer.scale(-1)
 
         buff = 0.04
         pointer.next_to(jumps[0], DOWN, buff)
-        self.play(FadeIn(pointer))
-        self.play(pointer.next_to, jumps[2], DOWN, buff)
-        self.play(pointer.next_to, jumps[5], DOWN, buff)
-        self.dither()
+        self.play(FadeIn(pointer)) # 8
+        self.wait_to(12)
+        self.play(pointer.next_to, jumps[2], DOWN, buff) # 9
+        self.play(pointer.next_to, jumps[5], DOWN, buff) # 10
+        self.play(pointer.next_to, jumps[7], DOWN, buff) # 10
+        self.wait_to(19)
 
         jumps_target = jumps.copy()
         jumps_target.shift(y_shift*UP)
@@ -1420,14 +1469,16 @@ class RealDecSeq(Scene):
         jumps = self.make_jumps(3.5, 0, q = 0.9)
         jumps.shift(y_shift*DOWN)
 
+        self.wait_to(23)
         for i in range(10):
             self.play(ShowCreation(jumps[i]))
+        # self.wait_to(33)
 
         self.play(*map(FadeOut, [
             ini_segment,
             term_segment,
         ]+jumps[:i+1]
-        ))
+        )) # 34
 
     def make_jumps(self, start_x, end_x, q = 0.8):
 
@@ -1479,6 +1530,7 @@ class ConditionsRecap(OmegaSquaredScene):
         conditions = WellOrderingConditions()
         self.add(conditions.title, conditions.succ, conditions.term_min, conditions.inf_dec)
 
+        self.wait_to(7)
         self.init_ordinal()
         self.ini_color = WHITE
         self.term_color = DARK_GREY
@@ -1488,16 +1540,17 @@ class ConditionsRecap(OmegaSquaredScene):
         ini_brace = self.add_brace(('ini', DOWN))
 
         self.add_successor(add_pointer = UP)
-        self.dither()
 
-        for _ in range(3):
+        for _ in range(2):
             self.cur_split = self.random_split()
-            self.update_split()
-            self.dither()
+            self.update_split(run_time = 0.5)
+            self.dither(0.5)
 
         self.ini_color = DARK_GREY
         self.term_color = WHITE
         self.brace_list = []
+
+        self.wait_to(12.5)
         term_brace = self.add_brace(('term', DOWN), show_creation = False)
         highlight_animation = self.highlight_split(animation = True)
         self.play(*[
@@ -1507,11 +1560,11 @@ class ConditionsRecap(OmegaSquaredScene):
 
         for _ in range(2):
             self.cur_split = self.random_split()
-            self.update_split()
+            self.update_split(run_time = 0.5)
             self.dither()
 
-        self.dither()
-        
+        self.wait_to(19)
+
         self.play(
             self.ordinal.highlight, DARK_GREY,
             FadeOut(VGroup(term_brace, self.successor, self.pointer)),
@@ -1521,7 +1574,7 @@ class ConditionsRecap(OmegaSquaredScene):
         self.dither()
 
         prev = None
-        for _ in range(3):
+        for i in range(3):
             if prev is not None: self.remove(*prev)
 
             bars, jumps, _ = self.random_dec_seq()
@@ -1530,13 +1583,14 @@ class ConditionsRecap(OmegaSquaredScene):
             self.play(
                 ShowCreation(bars),
                 ShowCreation(jumps),
-                run_time = 2*DEFAULT_ANIMATION_RUN_TIME,
+                run_time = 1.5*DEFAULT_ANIMATION_RUN_TIME,
             )
-            self.dither()
+            if i < 2: self.dither()
 
-        self.dither()
-
+        #self.wait_to(28)
         self.play(*map(FadeOut, prev))
+
+        self.wait_to(32)
         self.play(Write(conditions.set_min))
 
         #self.skip_animations = False
@@ -1551,3 +1605,5 @@ class ConditionsRecap(OmegaSquaredScene):
             self.cur_split = self.split_at_point(x)
             self.update_split(subset = True)
             self.dither()
+
+        self.wait_to(46)
